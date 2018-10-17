@@ -20,8 +20,13 @@ void menuComCartao(BaseClientes *r){
 	unsigned int menu = 0;
 	datas datan;
 
+	while (true){
 	cout << "ID do seu cartao: ";
 	cin >> id;
+	if (cin.fail()){
+		cin.clear();
+		cin.ignore('\n',100);}
+	else break;}
 	r->setId(id);
 	datan = r->getDataNascimento();
 
@@ -34,6 +39,7 @@ void menuComCartao(BaseClientes *r){
 		cout << "; Profissao: " << r->getProfissao();
 		cout << "; Data de Nascimento: " << datan.dia << "-" << datan.mes << "-"<<datan.ano << endl;
 
+		while (true){
 		cout << endl << "0 - Comprar Bilhete" << endl;
 		cout << "1 - Devolver Bilhete" << endl;
 		cout << "2 - Alterar cartao subscrito" << endl;
@@ -42,8 +48,12 @@ void menuComCartao(BaseClientes *r){
 		cout << "5 - Sair" << endl;
 
 		cin >> menu;
+		if (cin.fail()){
+			cin.clear();
+			cin.ignore('\n',100);}
+		else break;}
 
-		switch (menu){
+	switch (menu){
 		case 0:
 
 			break;
@@ -78,7 +88,7 @@ void menuSemCartao(BaseClientes *r){
 
 
 	while (menu != 5){
-
+		while (true){
 		cout << endl << "---Passageiro sem Cartao---" << endl << endl;
 
 		cout << endl << "0 - Comprar Bilhete" << endl;
@@ -87,6 +97,10 @@ void menuSemCartao(BaseClientes *r){
 		cout << "5 - Sair" << endl;
 
 		cin >> menu;
+		if (cin.fail()){
+			cin.clear();
+			cin.ignore('\n',100);}
+		else break;}
 
 		switch (menu){
 		case 0:
@@ -107,9 +121,9 @@ void menuSemCartao(BaseClientes *r){
 			cin >> datanasc.dia >> datanasc.mes >> datanasc.ano;
 
 			cout << "Tipo de Cartao: " << endl << endl;
-			cout << "0 - Viagem 25, Custo: " << viagem25.getPreco() << "€/mes"<< ", Desconto: " << 100 - (viagem25.getDesconto() * 100) << "% por viagem"<< endl;
-			cout << "1 - Viagem 50, Custo: " << viagem50.getPreco() << "€/mes"<< ", Desconto: " << 100 - (viagem50.getDesconto() * 100) << "% por viagem"<< endl;
-			cout << "2 - Viagem 100, Custo: " << viagem100.getPreco() << "€/mes"<< ", Desconto: " <<100 - (viagem100.getDesconto() * 100) << "% por viagem"<< endl;
+			cout << "0 - Viagem 25, Custo: " << viagem25.getPreco() << "ï¿½/mes"<< ", Desconto: " << 100 - (viagem25.getDesconto() * 100) << "% por viagem"<< endl;
+			cout << "1 - Viagem 50, Custo: " << viagem50.getPreco() << "ï¿½/mes"<< ", Desconto: " << 100 - (viagem50.getDesconto() * 100) << "% por viagem"<< endl;
+			cout << "2 - Viagem 100, Custo: " << viagem100.getPreco() << "ï¿½/mes"<< ", Desconto: " <<100 - (viagem100.getDesconto() * 100) << "% por viagem"<< endl;
 			cin >> cart;
 
 			if (cart == 0){
@@ -147,7 +161,7 @@ int main(){
 
 
 	while (menu != 5){
-
+		while (true){
 		cout << endl << "---MENU INICIAL---" << endl << endl;
 		cout << "0 - Informacao" << endl;
 		cout << "1 - Passageiro sem cartao" << endl;
@@ -155,6 +169,10 @@ int main(){
 		cout << "5 - Sair" << endl;
 
 		cin >> menu;
+		if (cin.fail()){
+			cin.clear();
+			cin.ignore('\n',100);}
+		else break;}
 
 		switch (menu){
 		case 0:
