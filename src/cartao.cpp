@@ -56,9 +56,15 @@ string Registo::getInformacao () const{
 
 //CLASS PASSAGEIROS REGISTADOS
 
+BaseClientes::~BaseClientes(){
+
+	for (unsigned int i = 0; i < regs.size(); i++)
+		delete regs.at(i);
+}
+
 
 void BaseClientes::adicionaRegisto(Registo r1){
-	regs.push_back(r1);
+	regs.push_back(new Registo(r1));
 }
 
 int BaseClientes::getNumRegistos(){
@@ -71,20 +77,20 @@ void BaseClientes::setId(int id){
 
 
 string BaseClientes::getNome() const{
-	return regs.at(id).getNome();
+	return regs.at(id)->getNome();
 }
 
 string BaseClientes::getProfissao() const {
-	return regs.at(id).getProfissao();
+	return regs.at(id)->getProfissao();
 
 }
 
 string BaseClientes::getInformacao () const {
-	return regs.at(id).getInformacao();
+	return regs.at(id)->getInformacao();
 }
 
 datas BaseClientes::getDataNascimento() const{
-	return regs.at(id).getDatanascimento();
+	return regs.at(id)->getDatanascimento();
 }
 
 

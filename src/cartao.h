@@ -80,9 +80,19 @@ public:
 
 
 class BaseClientes {
-	std::vector<Registo> regs;
+	std::vector<Registo *> regs;
 	static int id;
 public:
+
+	/**
+	 * Construtor vazio
+	 */
+	BaseClientes(){};
+	/**
+	 * Destructor
+	 * Remove os registos da memoria
+	 */
+	~BaseClientes();
 	/**
 	 * Adiciona registos ao vector(regs) de clientes \n
 	 * r1 -> objecto temporario da class registo, registo a adicionar a base de clientes
