@@ -1,9 +1,11 @@
 #include "comboios.h"
 
-Comboio::Comboio(int horas, int minutos,int NumPasseiros) : NumMax (NumPasseiros), Horas (horas),Minutos (minutos) {
+Comboio::Comboio(int horas, int minutos,int NumPasseiros) : NumMax (NumPasseiros) {
+	hora HORAS;
+	horario.hora =horas;
+	horario.min = minutos;
 	lotacao = 0;
 	ocupado = false;
-
 }
 int Comboio::getlotacao(){
 	return lotacao;
