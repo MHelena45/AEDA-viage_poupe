@@ -11,11 +11,14 @@ int Comboio::getlotacao(){
 	return lotacao;
 }
 bool Comboio::getOcupado(){
+	return ocupado;
+}
+bool Comboio::cheio(){
 	if(NumMax == lotacao)
 		return true;
 	else return false;
 }
-bool Comboio::getMeioOcupado(){
+bool Comboio::getMeioCheio(){	
 	if(lotacao > (NumMax /2))
 		return true;
 	else return false;
