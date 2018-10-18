@@ -1,6 +1,7 @@
 /*#ifndef _COMBOIOS_H
 #define _COMBOIOS_H
 
+#include "geral.h"
 #include <string>
 #include <vector>
 using namespace std;
@@ -8,16 +9,16 @@ using namespace std;
 class Comboio {//outras caracteristicas?
 protected:
 	int lotacao;
-	int NumMax;
+	int NumMax; //capacidade do comboio
 	bool ocupado;//se ja tem uma viagem atribuida
-	int Horas;
-	int Minutos;
+	hora horario;
 public:
 	Comboio(int horas, int minutos,int NumPasseiros);
 	int getlotacao();
 	virtual string getInformacao();
 	bool getOcupado();
-	bool getMeioOcupado();
+	bool getMeioCheio();
+	bool cheio();
 	virtual ~Comboio(){};
 
 };
