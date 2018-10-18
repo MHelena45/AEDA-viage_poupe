@@ -3,29 +3,34 @@
 
 #include <string>
 #include <vector>
-
+using namespace std;
 
 class Comboio {//outras caracteristicas?
 protected:
 	int lotacao;
+	int NumMax;
 	bool ocupado;//se ja tem uma viagem atribuida
+	int Horas;
+	int Minutos;
 public:
+	Comboio(int horas, int minutos,int NumPasseiros);
 	int getlotacao();
 	virtual string getInformacao();
 	bool getOcupado();
+	bool getMeioOcupado();
 	virtual ~Comboio(){};
 
 };
 
 class AlfaPendular: public Comboio {
 public:
-	AlfaPendular(int lotacao);
+	AlfaPendular( int horas, int minutos, int NumPasseiros);
 	string getInformacao();
 };
 
 class Intercidades: public Comboio {
 public:
-	Intercidade(int lotacao);
+	Intercidades(int HORAS, int MINUTOS,int NumeroPasseiros);
 	string getInformacao();
 };
 
@@ -40,4 +45,5 @@ public:
 
 
 #endif
-*/
+
+
