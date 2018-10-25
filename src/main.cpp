@@ -1,18 +1,61 @@
 #include <iostream>
+#include <iomanip>
 #include "geral.h"
 #include "cartao.h"
-/*#include "viagens.h"
 #include "comboios.h"
-#include "bilhetes.h"*/
+//#include "viagens.h"
+//#include "bilhetes.h"
 
 using namespace std;
 
-void menuInformacao(BaseClientes *r);
+void menuInformacao(BaseClientes *r, Frota *f);
 void menuComCartao(BaseClientes *r);
 void menuSemCartao(BaseClientes *r);
 int BaseClientes::id = 0;
 
-void menuInformacao(BaseClientes *r){
+void menuInformacao(BaseClientes *r, Frota *f){
+
+	unsigned int menu = 0;
+
+	while (menu != 5){
+		while (true){
+		cout << endl << "---Informacao---" << endl << endl;
+
+		cout << endl << "0 - Lista de Comboios" << endl;
+		cout << "1 - Lista de Viagens" << endl;
+		cout << "5 - Sair" << endl;
+
+		cin >> menu;
+		if (cin.fail()){
+			cin.clear();
+			cin.ignore('\n',100);}
+		else break;}
+
+		switch (menu){
+		case 0:
+			cout << "Lista de Comboios" << endl << endl;
+			cout << "Nome" << setw(7) << "Tipo" << setw(9) << "Lotacao" << setw(12) << "Velocidade" << setw(15) << "Preco por Km" << endl;
+			for (unsigned int i = 0; i < f->Comboios.size();i++){
+				cout << f->Comboios.at(i)->getNome() << setw(7) << f->Comboios.at(i)->getTipo() << setw(9) << f->Comboios.at(i)->getLotacao() << setw(8);
+				cout <<	f->Comboios.at(i)->getVelocidade() << " km/h" << setw(12) << f->Comboios.at(i)->getPrecoKM() << "€" << endl;
+			}
+
+			break;
+		case 1:
+
+			break;
+		case 2:
+
+			return;
+		case 3:
+
+			break;
+		case 5:
+			return;
+		default:
+			return;
+		}
+	}
 
 }
 void menuComCartao(BaseClientes *r){
@@ -86,7 +129,6 @@ void menuSemCartao(BaseClientes *r){
 	Cartao viagem50 ("Viagem 50",69, 0.50);
 	Cartao viagem100 ("Viagem 100", 149, 0.0);
 
-
 	while (menu != 5){
 		while (true){
 		cout << endl << "---Passageiro sem Cartao---" << endl << endl;
@@ -158,6 +200,19 @@ int main(){
 
 	unsigned int menu = 0;
 	BaseClientes r;
+	Frota f;
+
+	//TESTING
+	Comboio *c1 = new Intercidades (20, 200, 0.5, "c1");
+	f.adicionaComboio(c1);
+	Comboio *c2 = new Intercidades (30, 120 , 0.3, "c2");
+	f.adicionaComboio(c2);
+	Comboio *c3 = new AlfaPendular (50, 300, 0.7, "c3");
+	f.adicionaComboio(c3);
+	Comboio *c4 = new AlfaPendular (100, 50, 0.2, "c4");
+	f.adicionaComboio(c4);
+	Comboio *c5 = new Intercidades (1000, 10, 0.1, "c5");
+	f.adicionaComboio(c5);
 
 
 	while (menu != 5){
@@ -176,7 +231,7 @@ int main(){
 
 		switch (menu){
 		case 0:
-			menuInformacao(&r);
+			menuInformacao(&r, &f);
 			break;
 		case 1:
 			menuSemCartao(&r);

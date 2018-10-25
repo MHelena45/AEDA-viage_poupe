@@ -1,4 +1,4 @@
-/*#ifndef _COMBOIOS_H
+#ifndef _COMBOIOS_H
 #define _COMBOIOS_H
 
 #include "geral.h"
@@ -6,41 +6,51 @@
 #include <vector>
 using namespace std;
 
-class Comboio {//outras caracteristicas?
+class Comboio {
 protected:
-	int lotacao;
-	int NumMax; //capacidade do comboio
-	bool ocupado;//se ja tem uma viagem atribuida
-	hora horario;
+	int lotacao; //capacidade do comboio
+	//bool ocupado;
+	int velocidade;
+	double precoKM;
+	string nome;
 public:
-	Comboio(int horas, int minutos,int NumPasseiros);
-	int getlotacao();
-	virtual string getInformacao();
+	Comboio(int numPasseiros, int velocidade, double precoKM, string nome);
+
+	virtual string getTipo() const;
+
+	//acessors
+	int getLotacao() const;
+	int getVelocidade() const;
+	double getPrecoKM() const;
+	string getNome() const;
+
+
+
 	bool getOcupado();
 	bool getMeioCheio();
 	bool cheio();
 	virtual ~Comboio(){};
-
 };
 
 class AlfaPendular: public Comboio {
 public:
-	AlfaPendular( int horas, int minutos, int NumPasseiros);
-	string getInformacao();
+	AlfaPendular(int numPasseiros, int velocidade, double precoKM, string nome);
+	string getTipo() const;
+	virtual ~AlfaPendular(){};
 };
 
 class Intercidades: public Comboio {
 public:
-	Intercidades(int HORAS, int MINUTOS,int NumeroPasseiros);
-	string getInformacao();
+	Intercidades(int numPasseiros, int velocidade, double precoKMs, string nome);
+	string getTipo() const;
+	virtual ~Intercidades(){};
 };
 
 class Frota{ //Esta classe vai ser usada para mostrar todos os comboios que existem
-	vector <AlfaPendular *> alfas;
-	vector <Intercidades *> inters;
+
 public:
-	void adicionaAlfa(AlfaPendular *a1);
-	void adicionaInter(Intercidades *I1);
+	vector <Comboio *> Comboios;
+	void adicionaComboio(Comboio *c1);
 	string getInformacao();
 };
 

@@ -1,19 +1,18 @@
 #include "comboios.h"
 
-Comboio::Comboio(int horas, int minutos,int NumPasseiros) : NumMax (NumPasseiros) {
-	hora HORAS;
-	horario.hora =horas;
-	horario.min = minutos;
-	lotacao = 0;
-	ocupado = false;
+Comboio::Comboio(int numPassageiros, int velocidade, double precoKM, string nome) {
+	this->lotacao = numPassageiros;
+	this->velocidade = velocidade;
+	this->precoKM = precoKM;
+	this->nome = nome;
 }
-int Comboio::getlotacao(){
-	return lotacao;
-}
-bool Comboio::getOcupado(){
+
+
+/*bool Comboio::getOcupado(){
 	return ocupado;
-}
-bool Comboio::cheio(){
+}*/
+
+/*bool Comboio::cheio(){
 	if(NumMax == lotacao)
 		return true;
 	else return false;
@@ -22,16 +21,41 @@ bool Comboio::getMeioCheio(){
 	if(lotacao > (NumMax /2))
 		return true;
 	else return false;
+}*/
+
+AlfaPendular::AlfaPendular(int numPassageiros, int velocidade, double precoKM, string nome) : Comboio(numPassageiros, velocidade, precoKM, nome){}
+
+string AlfaPendular::getTipo() const{
+	return "AP";
 }
-AlfaPendular::AlfaPendular(int horas, int minutos,int NumPasseiros) : Comboio(lotacao, horas, minutos){}
-string AlfaPendular::getInformacao(){
-	string Tipo = "AP";
-	return Tipo;
+
+Intercidades::Intercidades(int numPassageiros, int velocidade, double precoKM, string nome) : Comboio(numPassageiros, velocidade, precoKM, nome){}
+
+string Intercidades::getTipo() const{
+	return "IC";
 }
-Intercidades::Intercidades(int HORAS, int MINUTOS,int NumeroPasseiros) : Comboio(HORAS,MINUTOS, NumeroPasseiros){}
-string Intercidades::getInformacao(){
-	string Tipo = "IC";
-	return Tipo;
+/*
+ * Comboio acessors
+ */
+
+int Comboio::getLotacao() const{
+	return lotacao;
+}
+int Comboio::getVelocidade() const{
+	return velocidade;
+}
+double Comboio::getPrecoKM() const{
+	return precoKM;
+}
+string Comboio::getNome() const{
+	return nome;
+}
+string Comboio::getTipo() const{
+	return "OT";
 }
 
 
+
+void Frota::adicionaComboio(Comboio *c1) {
+	Comboios.push_back(c1);
+}
