@@ -46,6 +46,7 @@ class Registo {
 	std::string nome;
 	std::string profissao;
 	datas datanascimento;
+	bool ativo;
 	//std::vector <Viagem *> viagens;
 public:
 	/**
@@ -74,12 +75,12 @@ public:
 	 * Retorna toda a informacao do passageiro
 	 */
 	std::string getInformacao () const;
-	/**
-	 * Altera o tipo de subscricao do passageiro \n
-	 * *c -> Objeto da class Cartao, tipo de subscricao para qual alterar
-	 */
+
+	bool getEstado() const;
+
 	void alterarCartao(Cartao *c);
-	//void adicionaViagem(Viagem *v1);
+
+	void alterarEstado(bool at);
 };
 
 
@@ -106,8 +107,16 @@ public:
 
 	Cartao *getCartao(int id) const;
 
+	unsigned int getNumCartoes() const;
+
+
+
 	void alterarCartao(Cartao *c);
 
+
+	bool getEstado() const;
+
+	void alterarEstado(bool est);
 	/**
 	 * Adiciona registos ao vector(regs) de clientes \n
 	 * r1 -> objecto temporario da class registo, registo a adicionar a base de clientes
@@ -139,7 +148,7 @@ public:
 	/**
 	 * retorna o numero de clientes na base de dados
 	 */
-	int getNumRegistos() const;
+	unsigned int getNumRegistos() const;
 };
 
 

@@ -1,4 +1,4 @@
-/*#ifndef _VIAGENS_H
+#ifndef _VIAGENS_H
 #define _VIAGENS_H
 
 #include "comboios.h"

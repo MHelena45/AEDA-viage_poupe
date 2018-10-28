@@ -123,40 +123,74 @@ void menuInformacao(BaseClientes *r, Frota *f){
 }
 
 void menuComCartao(BaseClientes *r){
-	unsigned int id;
+	unsigned int numRegs = r->getNumRegistos();
+	unsigned int id= numRegs + 1;
 	unsigned int menu = 0;
+	bool skip = false;
 
-	while (true){
-	cout << "ID do seu cartao: ";
-	cin >> id;
-	if (cin.fail()){
-		cin.clear();
-		cin.ignore('\n',100);}
-	else break;}
+	if (numRegs == 0) {
+		cout << endl << "Nao existem registos" << endl;
+		return;
+	}
+
+
+
+	while (id >= numRegs){
+		cout << "ID do seu cartao: ";
+		cin >> id;
+		if (cin.fail()){
+			cin.clear();
+			cin.ignore('\n',100);
+			continue;
+		}
+		if (id >= numRegs){
+			cout << endl << "ID Invalido, tente outra vez" << endl;
+		}
+	}
 	r->setId(id);
 
 
-	while (menu != 5){
+
+	while (menu != 6){
 
 		cout << endl << "---Passageiro Com Cartao---" << endl << endl;
 
 		cout << "ID: " << id << endl << endl;
 		cout << r->getInformacao();
 
+		if (!r->getEstado()){
+			char ans;
+			cout << endl << "Subscricao desativada. Deseja re-ativar? (y/n)" << endl;
+			cin >> ans;
+			if (ans == 'y'){
+				cout << endl << "Cartao re-ativado" << endl << endl;
+				cout << "Escolha o tipo de cartao da nova subscricao" << endl;
+				r->alterarEstado(true);
+				menu = 2;
+				skip = true;
+			}
+			else return;
+		}
+
 		while (true){
-		cout << endl << "0 - Comprar Bilhete" << endl;
-		cout << "1 - Devolver Bilhete" << endl;
-		cout << "2 - Alterar cartao subscrito" << endl;
-		cout << "3 - Remover subscricao" << endl;
-		cout << "4 - Historico de Viagens" << endl;
-		cout << "5 - Sair" << endl;
+			if (!skip){
+				cout << endl << "0 - Comprar Bilhete" << endl;
+				cout << "1 - Devolver Bilhete" << endl;
+				cout << "2 - Alterar cartao subscrito" << endl;
+				cout << "3 - Remover subscricao" << endl;
+				cout << "4 - Re-ativar subscricao" << endl;
+				cout << "5 - Historico de Viagens" << endl;
+				cout << "6 - Sair" << endl;
 
-		cin >> menu;
-		if (cin.fail()){
-			cin.clear();
-			cin.ignore('\n',100);}
-		else break;}
-
+				cin >> menu;
+				if (cin.fail()){
+					cin.clear();
+					cin.ignore('\n',100);
+				}
+				else break;
+			}
+			else break;
+		}
 	switch (menu){
 		case 0:
 
@@ -171,17 +205,19 @@ void menuComCartao(BaseClientes *r){
 			cin >> cart;
 			r->alterarCartao(r->getCartao(cart));
 			cout << endl << "Cartao alterado para \"" << r->getCartao(cart)->getNome() << "\"" << endl;
+			return;
 		}
 
 			break;
 		case 3:{
 			r->removeRegisto();
-
-
-
+			cout << endl << "Registo removido" << endl;
+			return;
 		}
-			break;
 		case 4:
+
+			break;
+		case 5:
 
 			break;
 		default:
@@ -189,8 +225,7 @@ void menuComCartao(BaseClientes *r){
 		}
 
 	}
-}
-
+	}
 void menuSemCartao(BaseClientes *r){
 	unsigned int menu = 0;
 	datas datanasc;

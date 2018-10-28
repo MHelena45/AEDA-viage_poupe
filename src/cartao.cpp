@@ -34,16 +34,18 @@ Registo::Registo(Cartao *c, std::string nome, std::string profissao, datas datan
 	this->nome = nome;
 	this->profissao = profissao;
 	this->datanascimento = datanasc;
+	this->ativo = true;
 }
 
 
 
-void Registo::alterarCartao(Cartao *c){
-	c1=c;
-}
 
 Cartao* Registo::getCartao() const {
 	return c1;
+}
+
+bool Registo::getEstado() const{
+	return ativo;
 }
 
 string Registo::getNome() const{
@@ -54,6 +56,14 @@ string Registo::getProfissao() const{
 }
 datas Registo::getDatanascimento() const{
 	return datanascimento;
+}
+
+void Registo::alterarCartao(Cartao *c){
+	c1=c;
+}
+
+void Registo::alterarEstado(bool at){
+	ativo = at;
 }
 
 //CLASS PASSAGEIROS REGISTADOS
@@ -82,7 +92,18 @@ Cartao* BaseClientes::getCartao(int id) const {
 
 void BaseClientes::alterarCartao(Cartao *c){
 	regs.at(id)->alterarCartao(c);
+}
 
+bool BaseClientes::getEstado() const{
+	return regs.at(id)->getEstado();
+
+}
+
+void BaseClientes::alterarEstado(bool est){
+	regs.at(id)->alterarEstado(est);
+}
+unsigned int BaseClientes::getNumCartoes () const {
+	return cartoes.size();
 }
 
 
@@ -91,11 +112,10 @@ void BaseClientes::adicionaRegisto(Registo *r1){
 }
 
 void BaseClientes::removeRegisto (){
-	delete regs.at(id);
-	regs.erase(regs.begin(), regs.begin() + id);
+	regs.at(id)->alterarEstado(false);
 }
 
-int BaseClientes::getNumRegistos() const{
+unsigned int BaseClientes::getNumRegistos() const{
 	return this->regs.size();
 }
 
