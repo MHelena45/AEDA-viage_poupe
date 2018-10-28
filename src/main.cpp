@@ -8,10 +8,75 @@
 
 using namespace std;
 
+
+int BaseClientes::id = 0;
+
+
 void menuInformacao(BaseClientes *r, Frota *f);
 void menuComCartao(BaseClientes *r);
 void menuSemCartao(BaseClientes *r);
-int BaseClientes::id = 0;
+
+
+int main(){
+
+	unsigned int menu = 0;
+
+	BaseClientes r;
+	Frota f;
+
+	//TESTING
+
+	Comboio *c1 = new Intercidades (20, 200, 0.5, "c1");
+	f.adicionaComboio(c1);
+	Comboio *c2 = new Intercidades (30, 120 , 0.3, "c2");
+	f.adicionaComboio(c2);
+	Comboio *c3 = new AlfaPendular (50, 300, 0.7, "c3");
+	f.adicionaComboio(c3);
+	Comboio *c4 = new AlfaPendular (100, 50, 0.2, "c4");
+	f.adicionaComboio(c4);
+	Comboio *c5 = new Intercidades (1000, 10, 0.1, "c5");
+	f.adicionaComboio(c5);
+
+	Cartao viagem25 ("Viagem 25",39, 75);
+	r.adicionaCartao(&viagem25);
+	Cartao viagem50 ("Viagem 50",69, 50);
+	r.adicionaCartao(&viagem50);
+	Cartao viagem100 ("Viagem 100", 149, 0);
+	r.adicionaCartao(&viagem100);
+
+
+	while (menu != 5){
+		while (true){
+		cout << endl << "---MENU INICIAL---" << endl << endl;
+		cout << "0 - Informacao" << endl;
+		cout << "1 - Passageiro sem cartao" << endl;
+		cout << "2 - Passageiro com cartao" << endl;
+		cout << "5 - Sair" << endl;
+
+		cin >> menu;
+		if (cin.fail()){
+			cin.clear();
+			cin.ignore('\n',100);}
+		else break;}
+
+		switch (menu){
+		case 0:
+			menuInformacao(&r, &f);
+			break;
+		case 1:
+			menuSemCartao(&r);
+			break;
+		case 2:
+			menuComCartao(&r);
+			break;
+		default:
+			return 0;
+		}
+	}
+	return 0;
+}
+
+// MENUS
 
 void menuInformacao(BaseClientes *r, Frota *f){
 
@@ -39,7 +104,6 @@ void menuInformacao(BaseClientes *r, Frota *f){
 				cout << f->Comboios.at(i)->getNome() << setw(7) << f->Comboios.at(i)->getTipo() << setw(9) << f->Comboios.at(i)->getLotacao() << setw(8);
 				cout <<	f->Comboios.at(i)->getVelocidade() << " km/h" << setw(12) << f->Comboios.at(i)->getPrecoKM() << "€" << endl;
 			}
-
 			break;
 		case 1:
 
@@ -56,9 +120,8 @@ void menuInformacao(BaseClientes *r, Frota *f){
 			return;
 		}
 	}
-
-
 }
+
 void menuComCartao(BaseClientes *r){
 	unsigned int id;
 	unsigned int menu = 0;
@@ -111,9 +174,12 @@ void menuComCartao(BaseClientes *r){
 		}
 
 			break;
-		case 3:
+		case 3:{
+			r->removeRegisto();
 
 
+
+		}
 			break;
 		case 4:
 
@@ -183,66 +249,4 @@ void menuSemCartao(BaseClientes *r){
 			return;
 		}
 	}
-}
-
-
-int main(){
-
-
-
-	unsigned int menu = 0;
-
-	BaseClientes r;
-	Frota f;
-
-	//TESTING
-
-	Comboio *c1 = new Intercidades (20, 200, 0.5, "c1");
-	f.adicionaComboio(c1);
-	Comboio *c2 = new Intercidades (30, 120 , 0.3, "c2");
-	f.adicionaComboio(c2);
-	Comboio *c3 = new AlfaPendular (50, 300, 0.7, "c3");
-	f.adicionaComboio(c3);
-	Comboio *c4 = new AlfaPendular (100, 50, 0.2, "c4");
-	f.adicionaComboio(c4);
-	Comboio *c5 = new Intercidades (1000, 10, 0.1, "c5");
-	f.adicionaComboio(c5);
-
-	Cartao viagem25 ("Viagem 25",39, 75);
-	r.adicionaCartao(&viagem25);
-	Cartao viagem50 ("Viagem 50",69, 50);
-	r.adicionaCartao(&viagem50);
-	Cartao viagem100 ("Viagem 100", 149, 0);
-	r.adicionaCartao(&viagem100);
-
-
-	while (menu != 5){
-		while (true){
-		cout << endl << "---MENU INICIAL---" << endl << endl;
-		cout << "0 - Informacao" << endl;
-		cout << "1 - Passageiro sem cartao" << endl;
-		cout << "2 - Passageiro com cartao" << endl;
-		cout << "5 - Sair" << endl;
-
-		cin >> menu;
-		if (cin.fail()){
-			cin.clear();
-			cin.ignore('\n',100);}
-		else break;}
-
-		switch (menu){
-		case 0:
-			menuInformacao(&r, &f);
-			break;
-		case 1:
-			menuSemCartao(&r);
-			break;
-		case 2:
-			menuComCartao(&r);
-			break;
-		default:
-			return 0;
-		}
-	}
-	return 0;
 }

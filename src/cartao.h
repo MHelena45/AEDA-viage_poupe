@@ -114,10 +114,10 @@ public:
 	 */
 	void adicionaRegisto(Registo *r1);
 
+	void removeRegisto ();
 	/**
 	 * Retorna o nome de um passageiro especifico
 	 */
-
 	std::string getNome() const;
 	/**
 	 * Retorna a profissao de um passageiro especifico

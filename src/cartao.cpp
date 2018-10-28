@@ -90,7 +90,10 @@ void BaseClientes::adicionaRegisto(Registo *r1){
 	regs.push_back(r1);
 }
 
-
+void BaseClientes::removeRegisto (){
+	delete regs.at(id);
+	regs.erase(regs.begin(), regs.begin() + id);
+}
 
 int BaseClientes::getNumRegistos() const{
 	return this->regs.size();
