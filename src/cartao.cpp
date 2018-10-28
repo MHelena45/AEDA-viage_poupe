@@ -1,10 +1,9 @@
 #include "cartao.h"
-
 using namespace std;
 
 //CLASS CARTAO
 
-Cartao::Cartao(string nome, float prc, float desc){
+Cartao::Cartao(string nome, float prc, int desc){
 	this->precoMensal = prc;
 	this->desconto = desc;
 	this->nome = nome;
@@ -14,7 +13,7 @@ float Cartao::getPreco() const{
 	return precoMensal;
 }
 
-float Cartao::getDesconto() const {
+int Cartao::getDesconto() const {
 	return desconto;
 }
 
@@ -23,8 +22,9 @@ string Cartao::getNome() const{
 }
 
 string Cartao::getInformacao() const{
-	return this->nome + " Preço: " + to_string(this->precoMensal) + "€/mês  Desconto: " + to_string(this->desconto) + "€/mês";
+	return this->nome + " - Preço: " + to_string(this->precoMensal).substr(0, 6) + "€/mês - Desconto: " + to_string(100 - this->desconto) + "% por Viagem";
 }
+
 
 //CLASS REGISTO
 
@@ -37,8 +37,13 @@ Registo::Registo(Cartao *c, std::string nome, std::string profissao, datas datan
 }
 
 
+
 void Registo::alterarCartao(Cartao *c){
 	c1=c;
+}
+
+Cartao* Registo::getCartao() const {
+	return c1;
 }
 
 string Registo::getNome() const{
@@ -50,9 +55,6 @@ string Registo::getProfissao() const{
 datas Registo::getDatanascimento() const{
 	return datanascimento;
 }
-string Registo::getInformacao () const{
-	return "Nome: " + nome + " Cartao: " + c1->getNome() + " Profissao: " + profissao;
-}
 
 //CLASS PASSAGEIROS REGISTADOS
 
@@ -62,12 +64,35 @@ BaseClientes::~BaseClientes(){
 		delete regs.at(i);
 }
 
-
-void BaseClientes::adicionaRegisto(Registo r1){
-	regs.push_back(new Registo(r1));
+void BaseClientes::adicionaCartao(Cartao *c1){
+	this->cartoes.push_back(c1);
 }
 
-int BaseClientes::getNumRegistos(){
+string BaseClientes::getInfoCartao() const{
+	stringstream ss;
+	for (unsigned int i=0; i < cartoes.size(); i++){
+		ss << i << " - " << cartoes.at(i)->getInformacao() << "\n\n";
+	}
+	return ss.str();
+}
+
+Cartao* BaseClientes::getCartao(int id) const {
+	return cartoes.at(id);
+}
+
+void BaseClientes::alterarCartao(Cartao *c){
+	regs.at(id)->alterarCartao(c);
+
+}
+
+
+void BaseClientes::adicionaRegisto(Registo *r1){
+	regs.push_back(r1);
+}
+
+
+
+int BaseClientes::getNumRegistos() const{
 	return this->regs.size();
 }
 
@@ -86,7 +111,8 @@ string BaseClientes::getProfissao() const {
 }
 
 string BaseClientes::getInformacao () const {
-	return regs.at(id)->getInformacao();
+	datas datan = regs.at(id)->getDatanascimento();
+	return  "Nome: " + regs.at(id)->getNome() + " -- Cartao: " + "\""+  regs.at(id)->getCartao()->getNome() + "\"" + " -- Profissao: " + regs.at(id)->getProfissao() + " -- Data de Nascimento: " + to_string(datan.dia) + "-" + to_string(datan.mes) + "-" + to_string(datan.ano) + "\n";
 }
 
 datas BaseClientes::getDataNascimento() const{

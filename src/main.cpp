@@ -1,10 +1,10 @@
 #include <iostream>
-#include <iomanip>
 #include "geral.h"
 #include "cartao.h"
-#include "comboios.h"
 //#include "viagens.h"
+#include "comboios.h"
 //#include "bilhetes.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -57,11 +57,11 @@ void menuInformacao(BaseClientes *r, Frota *f){
 		}
 	}
 
+
 }
 void menuComCartao(BaseClientes *r){
 	unsigned int id;
 	unsigned int menu = 0;
-	datas datan;
 
 	while (true){
 	cout << "ID do seu cartao: ";
@@ -71,16 +71,14 @@ void menuComCartao(BaseClientes *r){
 		cin.ignore('\n',100);}
 	else break;}
 	r->setId(id);
-	datan = r->getDataNascimento();
+
 
 	while (menu != 5){
 
 		cout << endl << "---Passageiro Com Cartao---" << endl << endl;
 
-		cout << "ID: " << id << endl;
-		cout << "Nome: " << r->getNome();
-		cout << "; Profissao: " << r->getProfissao();
-		cout << "; Data de Nascimento: " << datan.dia << "-" << datan.mes << "-"<<datan.ano << endl;
+		cout << "ID: " << id << endl << endl;
+		cout << r->getInformacao();
 
 		while (true){
 		cout << endl << "0 - Comprar Bilhete" << endl;
@@ -103,10 +101,18 @@ void menuComCartao(BaseClientes *r){
 		case 1:
 
 			break;
-		case 2:
+		case 2:{
+			int cart;
+			cout << "Tipo de Cartao: " << endl << endl;
+			cout << r->getInfoCartao() << endl;;
+			cin >> cart;
+			r->alterarCartao(r->getCartao(cart));
+			cout << endl << "Cartao alterado para \"" << r->getCartao(cart)->getNome() << "\"" << endl;
+		}
 
 			break;
 		case 3:
+
 
 			break;
 		case 4:
@@ -125,9 +131,8 @@ void menuSemCartao(BaseClientes *r){
 	int cart;
 	string nome;
 	string profissao;
-	Cartao viagem25 ("Viagem 25",39, 0.75);
-	Cartao viagem50 ("Viagem 50",69, 0.50);
-	Cartao viagem100 ("Viagem 100", 149, 0.0);
+
+
 
 	while (menu != 5){
 		while (true){
@@ -151,7 +156,7 @@ void menuSemCartao(BaseClientes *r){
 		case 1:
 
 			break;
-		case 2:
+		case 2:{
 			cin.ignore();
 			cin.clear();
 			cout << endl << "---Subscricao de cartao---" << endl << endl;
@@ -163,29 +168,14 @@ void menuSemCartao(BaseClientes *r){
 			cin >> datanasc.dia >> datanasc.mes >> datanasc.ano;
 
 			cout << "Tipo de Cartao: " << endl << endl;
-			cout << "0 - Viagem 25, Custo: " << viagem25.getPreco() << "�/mes"<< ", Desconto: " << 100 - (viagem25.getDesconto() * 100) << "% por viagem"<< endl;
-			cout << "1 - Viagem 50, Custo: " << viagem50.getPreco() << "�/mes"<< ", Desconto: " << 100 - (viagem50.getDesconto() * 100) << "% por viagem"<< endl;
-			cout << "2 - Viagem 100, Custo: " << viagem100.getPreco() << "�/mes"<< ", Desconto: " <<100 - (viagem100.getDesconto() * 100) << "% por viagem"<< endl;
+			cout << r->getInfoCartao() << endl;;
 			cin >> cart;
-
-			if (cart == 0){
-				Registo temp(&viagem25, nome, profissao, datanasc);
-				r->adicionaRegisto(temp);
-			}
-			else if (cart == 1){
-				Registo temp(&viagem50, nome, profissao, datanasc);
-				r->adicionaRegisto(temp);
-
-			}
-			else {
-				Registo temp(&viagem25, nome, profissao, datanasc);
-				r->adicionaRegisto(temp);
-			}
-
+			Registo *temp = new Registo(r->getCartao(cart), nome, profissao, datanasc);
+			r->adicionaRegisto(temp);
 			cout << endl << "Cartao registado, o seu ID e: " << r->getNumRegistos() -1 << endl;
 			return;
+		}
 		case 3:
-
 			break;
 		case 5:
 			return;
@@ -198,11 +188,15 @@ void menuSemCartao(BaseClientes *r){
 
 int main(){
 
+
+
 	unsigned int menu = 0;
+
 	BaseClientes r;
 	Frota f;
 
 	//TESTING
+
 	Comboio *c1 = new Intercidades (20, 200, 0.5, "c1");
 	f.adicionaComboio(c1);
 	Comboio *c2 = new Intercidades (30, 120 , 0.3, "c2");
@@ -213,6 +207,13 @@ int main(){
 	f.adicionaComboio(c4);
 	Comboio *c5 = new Intercidades (1000, 10, 0.1, "c5");
 	f.adicionaComboio(c5);
+
+	Cartao viagem25 ("Viagem 25",39, 75);
+	r.adicionaCartao(&viagem25);
+	Cartao viagem50 ("Viagem 50",69, 50);
+	r.adicionaCartao(&viagem50);
+	Cartao viagem100 ("Viagem 100", 149, 0);
+	r.adicionaCartao(&viagem100);
 
 
 	while (menu != 5){

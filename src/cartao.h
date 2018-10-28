@@ -5,12 +5,14 @@
 #include <string>
 //#include "viagens.h"
 #include <vector>
+#include <sstream>
+#include <stdlib.h>
 #include "geral.h"
 
 
 class Cartao {
 	float precoMensal;
-	float desconto;
+	int desconto;
 	std::string nome;
 public:
 	/**
@@ -19,7 +21,7 @@ public:
 	 * prc  -> Preco mensal da subscricao do cartao \n
 	 * desc -> Discount dado pelo cartao em todas as viagens \n
 	 */
-	Cartao(std::string nome, float prc, float desc);
+	Cartao(std::string nome, float prc, int desc);
 	/**
 	 * Retorna o preco mensal do cartao
 	 */
@@ -27,7 +29,7 @@ public:
 	/**
 	 * Retorna o desconto em todas as viagens dado pelo cartao
 	 */
-	float getDesconto() const;
+	int getDesconto() const;
 	/**
 	 * Retorna o nome do cartao usado
 	 */
@@ -39,7 +41,7 @@ public:
 };
 
 
-class Registo{
+class Registo {
 	Cartao *c1;
 	std::string nome;
 	std::string profissao;
@@ -58,6 +60,8 @@ public:
 	 * Retorna o nome do passageiro
 	 */
 	std::string getNome() const;
+
+	Cartao* getCartao() const;
 	/**
 	 * Retorna a profissao do passageiro
 	 */
@@ -80,6 +84,7 @@ public:
 
 
 class BaseClientes {
+	std::vector <Cartao *> cartoes;
 	std::vector<Registo *> regs;
 	static int id;
 public:
@@ -93,14 +98,26 @@ public:
 	 * Remove os registos da memoria
 	 */
 	~BaseClientes();
+
+
+	void adicionaCartao(Cartao *c1);
+
+	std::string getInfoCartao() const;
+
+	Cartao *getCartao(int id) const;
+
+	void alterarCartao(Cartao *c);
+
 	/**
 	 * Adiciona registos ao vector(regs) de clientes \n
 	 * r1 -> objecto temporario da class registo, registo a adicionar a base de clientes
 	 */
-	void adicionaRegisto(Registo r1);
+	void adicionaRegisto(Registo *r1);
+
 	/**
 	 * Retorna o nome de um passageiro especifico
 	 */
+
 	std::string getNome() const;
 	/**
 	 * Retorna a profissao de um passageiro especifico
@@ -122,7 +139,7 @@ public:
 	/**
 	 * retorna o numero de clientes na base de dados
 	 */
-	int getNumRegistos();
+	int getNumRegistos() const;
 };
 
 
