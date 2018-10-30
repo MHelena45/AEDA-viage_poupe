@@ -2,9 +2,6 @@
 #define _COMBOIOS_H
 
 #include "geral.h"
-#include <string>
-#include <vector>
-using namespace std;
 
 class Comboio {
 protected:
@@ -12,46 +9,47 @@ protected:
 	//bool ocupado;
 	int velocidade;
 	double precoKM;
-	string nome;
+	std::string nome;
 public:
-	Comboio(int numPasseiros, int velocidade, double precoKM, string nome);
+	Comboio(int numPasseiros, int velocidade, double precoKM, std::string nome);
 
-	virtual string getTipo() const;
+	virtual std::string getTipo() const;
 
 	//acessors
 	int getLotacao() const;
 	int getVelocidade() const;
 	double getPrecoKM() const;
-	string getNome() const;
-
-
-
-	bool getOcupado();
-	bool getMeioCheio();
-	bool cheio();
+	std::string getNome() const;
 	virtual ~Comboio(){};
+
+	friend std::ostream& operator << (std::ostream &os, const Comboio &c1){
+		os << c1.getNome() << "-" << c1.getTipo();
+		return os;
+	}
+
 };
 
 class AlfaPendular: public Comboio {
 public:
-	AlfaPendular(int numPasseiros, int velocidade, double precoKM, string nome);
-	string getTipo() const;
+	AlfaPendular(int numPasseiros, int velocidade, double precoKM, std::string nome);
+	std::string getTipo() const;
 	virtual ~AlfaPendular(){};
 };
 
 class Intercidades: public Comboio {
 public:
-	Intercidades(int numPasseiros, int velocidade, double precoKMs, string nome);
-	string getTipo() const;
+	Intercidades(int numPasseiros, int velocidade, double precoKMs, std::string nome);
+	std::string getTipo() const;
 	virtual ~Intercidades(){};
 };
 
-class Frota{ //Esta classe vai ser usada para mostrar todos os comboios que existem
+class Frota{
 
 public:
-	vector <Comboio *> Comboios;
+
+	std::vector <Comboio *> comboios;
 	void adicionaComboio(Comboio *c1);
-	string getInformacao();
+	std::string getInformacao() const;
 };
 
 

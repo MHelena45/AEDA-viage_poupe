@@ -1,14 +1,14 @@
 #ifndef _CARTAO_H
 #define _CARTAO_H
 
-#include <iostream>
-#include <string>
-//#include "viagens.h"
-#include <vector>
-#include <sstream>
-#include <stdlib.h>
+
 #include "geral.h"
 
+	/*
+	 * CLASS CARTAO
+	 * Esta Class e usada para criar cartoes com modalidades de desconto diferentes
+	 *
+	 */
 
 class Cartao {
 	float precoMensal;
@@ -41,13 +41,20 @@ public:
 };
 
 
+/*
+ * CLASS REGISTO
+ * Esta Class e usada para criar cartoes com modalidades de desconto diferentes
+ *
+ */
+
+
 class Registo {
 	Cartao *c1;
 	std::string nome;
 	std::string profissao;
-	datas datanascimento;
+	Datas *datanascimento;
 	bool ativo;
-	//std::vector <Viagem *> viagens;
+	std::vector <Compra *> historico;
 public:
 	/**
 	 * Construtor: \n
@@ -56,12 +63,14 @@ public:
 	 * profissao -> Profissao do passageiro \n
 	 * datanasc -> struct (int dia, int mes, int ano), recebe a data de nascimento \n
 	 */
-	Registo(Cartao *c, std::string nome, std::string profissao, datas datanasc);
+	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc);
 	/**
 	 * Retorna o nome do passageiro
 	 */
 	std::string getNome() const;
-
+	/*
+	 * Retorna o cartao que estar a ser usado por este passageiro
+	 */
 	Cartao* getCartao() const;
 	/**
 	 * Retorna a profissao do passageiro
@@ -70,18 +79,36 @@ public:
 	/**
 	 * Retorna a data de nascimento do passageiro
 	 */
-	datas getDatanascimento() const;
+	std::string getDatanascimento() const;
 	/**
 	 * Retorna toda a informacao do passageiro
 	 */
 	std::string getInformacao () const;
-
+	/*
+	 * Retorna se o cartao esta activo ou nao
+	 */
 	bool getEstado() const;
-
-	void alterarCartao(Cartao *c);
-
+	/*
+	 * Activa ou desactiva a subscricao
+	 */
 	void alterarEstado(bool at);
+	/*
+	 * Altera o cartao do passageiro
+	 */
+	void alterarCartao(Cartao *c);
+	/*
+	 * Adiciona uma compra ao historico do passageiro
+	 */
+	void adicionaCompra(Compra *c1);
+
+
 };
+
+/*
+ * CLASS BaseClientes
+ * Esta Class guarda os apontadores para todos os cartoes e passageiros
+ *
+ */
 
 
 class BaseClientes {
@@ -99,31 +126,6 @@ public:
 	 * Remove os registos da memoria
 	 */
 	~BaseClientes();
-
-
-	void adicionaCartao(Cartao *c1);
-
-	std::string getInfoCartao() const;
-
-	Cartao *getCartao(int id) const;
-
-	unsigned int getNumCartoes() const;
-
-
-
-	void alterarCartao(Cartao *c);
-
-
-	bool getEstado() const;
-
-	void alterarEstado(bool est);
-	/**
-	 * Adiciona registos ao vector(regs) de clientes \n
-	 * r1 -> objecto temporario da class registo, registo a adicionar a base de clientes
-	 */
-	void adicionaRegisto(Registo *r1);
-
-	void removeRegisto ();
 	/**
 	 * Retorna o nome de um passageiro especifico
 	 */
@@ -139,16 +141,54 @@ public:
 	/**
 	 * Retorna a data de nascimento de um passageiro especifico
 	 */
-	datas getDataNascimento() const;
+	std::string getDataNascimento() const;
+	/*
+	 * Retorna a informaçao de um cartao
+	 */
+	std::string getInfoCartao() const;
+	/*
+	 * retorna um cartao do vector
+	 */
+	Cartao *getCartao(int id) const;
+	/*
+	 * retorna o numero de cartoes
+	 */
+	unsigned int getNumCartoes() const;
+	/**
+	 * retorna o numero de clientes na base de dados
+	 */
+	unsigned int getNumRegistos() const;
+	/*
+	 * Retorna se um registo esta activo ou nao
+	 */
+	bool getEstado() const;
+	/*
+	 * Adiciona um cartao ao vector de cartoes
+	 */
+	void adicionaCartao(Cartao *c1);
+	/*
+	 * Altera o cartao de um passageiro
+	 */
+	void alterarCartao(Cartao *c);
+	/*
+	 * Activa ou desactiva a subscricao de um passageiro
+	 */
+	void alterarEstado(bool est);
+	/**
+	 * Adiciona registos ao vector(regs) de clientes \n
+	 * r1 -> objecto temporario da class registo, registo a adicionar a base de clientes
+	 */
+	void adicionaRegisto(Registo *r1);
+	/*
+	 *Remove registos do vector(regs) de clientes
+	 */
+	void removeRegisto ();
 	/**
 	 * Altera o valor da int estatica "id", esta variavel seleciona um registo do vector(regs) de clientes para utilizar \n
 	 * id -> ID do passageiro
 	 */
 	void setId(int id);
-	/**
-	 * retorna o numero de clientes na base de dados
-	 */
-	unsigned int getNumRegistos() const;
+
 };
 
 

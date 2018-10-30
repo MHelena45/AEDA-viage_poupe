@@ -1,10 +1,9 @@
-#include <iostream>
 #include "geral.h"
 #include "cartao.h"
-//#include "viagens.h"
+#include "viagens.h"
 #include "comboios.h"
 //#include "bilhetes.h"
-#include <iomanip>
+
 
 using namespace std;
 
@@ -12,7 +11,7 @@ using namespace std;
 int BaseClientes::id = 0;
 
 
-void menuInformacao(BaseClientes *r, Frota *f);
+void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b);
 void menuComCartao(BaseClientes *r);
 void menuSemCartao(BaseClientes *r);
 
@@ -23,8 +22,13 @@ int main(){
 
 	BaseClientes r;
 	Frota f;
+	Bilheteira b;
 
-	//TESTING
+	/*
+	 * TESTING
+	 *
+	 *
+	 */
 
 	Comboio *c1 = new Intercidades (20, 200, 0.5, "c1");
 	f.adicionaComboio(c1);
@@ -44,6 +48,34 @@ int main(){
 	Cartao viagem100 ("Viagem 100", 149, 0);
 	r.adicionaCartao(&viagem100);
 
+	Datas datan(2222, 10, 5);
+	Registo nn (&viagem25, "Nuno", "Estudante", &datan);
+	r.adicionaRegisto(&nn);
+
+	Datas *dviagem = new Datas (2018, 10, 4);
+	Horas *hviagem = new Horas (10,30);
+
+	Viagem *teste = new Viagem ("Porto", "Lisboa", 300.0, c1, dviagem, hviagem );
+	Viagem *teste1 = new Viagem ("asdasd", "dddd", 300.5, c2, dviagem, hviagem );
+	Viagem *teste2 = new Viagem ("Paaaa", "sssss", 20.0, c3, dviagem, hviagem );
+	Viagem *teste3 = new Viagem ("dasda", "weawe", 50.7, c2, dviagem, hviagem );
+	Viagem *teste4 = new Viagem ("Pfds", "ffads", 150.0, c4, dviagem, hviagem );
+	Viagem *teste5 = new Viagem ("Pdfs", "asd", 1000.0, c5, dviagem, hviagem );
+	Viagem *teste6 = new Viagem ("Porto", "dsf", 320.0, c1, dviagem, hviagem );
+	b.adicionaViagem(teste);
+	b.adicionaViagem(teste1);
+	b.adicionaViagem(teste2);
+	b.adicionaViagem(teste3);
+	b.adicionaViagem(teste4);
+	b.adicionaViagem(teste5);
+	b.adicionaViagem(teste6);
+
+	/*
+	 * TESTING
+	 *
+	 *
+	 */
+
 
 	while (menu != 5){
 		while (true){
@@ -61,7 +93,7 @@ int main(){
 
 		switch (menu){
 		case 0:
-			menuInformacao(&r, &f);
+			menuInformacao(&r, &f, &b);
 			break;
 		case 1:
 			menuSemCartao(&r);
@@ -76,9 +108,13 @@ int main(){
 	return 0;
 }
 
-// MENUS
+/*
+ * Menus
+ *
+ *
+ */
 
-void menuInformacao(BaseClientes *r, Frota *f){
+void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 
 	unsigned int menu = 0;
 
@@ -99,15 +135,11 @@ void menuInformacao(BaseClientes *r, Frota *f){
 		switch (menu){
 		case 0:
 			cout << "Lista de Comboios" << endl << endl;
-			cout << "Nome" << setw(7) << "Tipo" << setw(9) << "Lotacao" << setw(12) << "Velocidade" << setw(15) << "Preco por Km" << endl;
-			for (unsigned int i = 0; i < f->Comboios.size();i++){
-				cout << f->Comboios.at(i)->getNome() << setw(7) << f->Comboios.at(i)->getTipo() << setw(9) << f->Comboios.at(i)->getLotacao() << setw(8);
-				cout <<	f->Comboios.at(i)->getVelocidade() << " km/h" << setw(12) << f->Comboios.at(i)->getPrecoKM() << "€" << endl;
-			}
+			cout << f->getInformacao();
 			break;
 		case 1:
-
-			break;
+			cout << endl << b->getInfo();
+			return;
 		case 2:
 
 			return;
@@ -225,15 +257,14 @@ void menuComCartao(BaseClientes *r){
 		}
 
 	}
-	}
+}
+
 void menuSemCartao(BaseClientes *r){
 	unsigned int menu = 0;
-	datas datanasc;
+	int ano, mes, dia;
 	int cart;
 	string nome;
 	string profissao;
-
-
 
 	while (menu != 5){
 		while (true){
@@ -266,7 +297,8 @@ void menuSemCartao(BaseClientes *r){
 			cout << endl << "Profissao: ";
 			getline(cin,profissao);
 			cout << endl << "Data de Nascimento(DD MM AAAA): ";
-			cin >> datanasc.dia >> datanasc.mes >> datanasc.ano;
+			cin >> dia >> mes >> ano;
+			Datas *datanasc = new Datas(ano, mes, dia);
 
 			cout << "Tipo de Cartao: " << endl << endl;
 			cout << r->getInfoCartao() << endl;;

@@ -1,5 +1,7 @@
 #include "comboios.h"
 
+using namespace std;
+
 Comboio::Comboio(int numPassageiros, int velocidade, double precoKM, string nome) {
 	this->lotacao = numPassageiros;
 	this->velocidade = velocidade;
@@ -7,21 +9,6 @@ Comboio::Comboio(int numPassageiros, int velocidade, double precoKM, string nome
 	this->nome = nome;
 }
 
-
-/*bool Comboio::getOcupado(){
-	return ocupado;
-}*/
-
-/*bool Comboio::cheio(){
-	if(NumMax == lotacao)
-		return true;
-	else return false;
-}
-bool Comboio::getMeioCheio(){	
-	if(lotacao > (NumMax /2))
-		return true;
-	else return false;
-}*/
 
 AlfaPendular::AlfaPendular(int numPassageiros, int velocidade, double precoKM, string nome) : Comboio(numPassageiros, velocidade, precoKM, nome){}
 
@@ -56,6 +43,22 @@ string Comboio::getTipo() const{
 
 
 
+
 void Frota::adicionaComboio(Comboio *c1) {
-	Comboios.push_back(c1);
+	comboios.push_back(c1);
+}
+
+string Frota::getInformacao() const{
+	stringstream ss;
+	ss << "Nome" << setw(7) << "Tipo" << setw(9) << "Lotacao" << setw(12) << "Velocidade"
+			<< setw(15) << "Preco por Km" << "\n";
+				for (unsigned int i = 0; i < comboios.size();i++){
+					ss << comboios.at(i)->getNome() << setw(7) << comboios.at(i)->getTipo()
+							<< setw(9) << comboios.at(i)->getLotacao() << setw(8);
+					ss << comboios.at(i)->getVelocidade() << " km/h" << setw(12)
+							<< comboios.at(i)->getPrecoKM() << "€" << "\n";
+				}
+
+	return ss.str();
+
 }

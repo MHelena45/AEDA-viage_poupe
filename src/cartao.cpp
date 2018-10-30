@@ -1,13 +1,22 @@
 #include "cartao.h"
+#include "geral.h"
 using namespace std;
 
-//CLASS CARTAO
+/*
+ * Metodos class Cartao
+ *
+ *
+ */
+
+// Construtor
 
 Cartao::Cartao(string nome, float prc, int desc){
 	this->precoMensal = prc;
 	this->desconto = desc;
 	this->nome = nome;
 }
+
+// Acessors
 
 float Cartao::getPreco() const{
 	return precoMensal;
@@ -26,10 +35,15 @@ string Cartao::getInformacao() const{
 }
 
 
-//CLASS REGISTO
+/*
+ * Metodos class Registo
+ *
+ *
+ */
 
-//PIN?
-Registo::Registo(Cartao *c, std::string nome, std::string profissao, datas datanasc){
+// Construtor
+
+Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc){
 	c1 = c;
 	this->nome = nome;
 	this->profissao = profissao;
@@ -37,46 +51,44 @@ Registo::Registo(Cartao *c, std::string nome, std::string profissao, datas datan
 	this->ativo = true;
 }
 
+// Acessors
 
+Cartao* Registo::getCartao() const {return c1;}
 
+bool Registo::getEstado() const{return ativo;}
 
-Cartao* Registo::getCartao() const {
-	return c1;
+string Registo::getNome() const{return nome;}
+
+string Registo::getProfissao() const{return profissao;}
+
+string Registo::getDatanascimento() const{
+	stringstream ss;
+	ss << *datanascimento;
+
+	return ss.str();
 }
 
-bool Registo::getEstado() const{
-	return ativo;
-}
+// Mutators
 
-string Registo::getNome() const{
-	return nome;
-}
-string Registo::getProfissao() const{
-	return profissao;
-}
-datas Registo::getDatanascimento() const{
-	return datanascimento;
-}
+void Registo::alterarCartao(Cartao *c){c1=c;}
 
-void Registo::alterarCartao(Cartao *c){
-	c1=c;
-}
+void Registo::alterarEstado(bool at){ativo = at;}
 
-void Registo::alterarEstado(bool at){
-	ativo = at;
-}
+void Registo::adicionaCompra(Compra *c1){historico.push_back(c1);}
 
-//CLASS PASSAGEIROS REGISTADOS
+/*
+ * Metodos class BaseClientes
+ *
+ *
+ */
 
+// Destructor
 BaseClientes::~BaseClientes(){
-
 	for (unsigned int i = 0; i < regs.size(); i++)
 		delete regs.at(i);
 }
 
-void BaseClientes::adicionaCartao(Cartao *c1){
-	this->cartoes.push_back(c1);
-}
+// Acessors
 
 string BaseClientes::getInfoCartao() const{
 	stringstream ss;
@@ -86,43 +98,15 @@ string BaseClientes::getInfoCartao() const{
 	return ss.str();
 }
 
-Cartao* BaseClientes::getCartao(int id) const {
-	return cartoes.at(id);
-}
+Cartao* BaseClientes::getCartao(int id) const {return cartoes.at(id);}
 
-void BaseClientes::alterarCartao(Cartao *c){
-	regs.at(id)->alterarCartao(c);
-}
+unsigned int BaseClientes::getNumCartoes () const {return cartoes.size();}
 
-bool BaseClientes::getEstado() const{
-	return regs.at(id)->getEstado();
+bool BaseClientes::getEstado() const{return regs.at(id)->getEstado();}
 
-}
+unsigned int BaseClientes::getNumRegistos() const{return this->regs.size();}
 
-void BaseClientes::alterarEstado(bool est){
-	regs.at(id)->alterarEstado(est);
-}
-unsigned int BaseClientes::getNumCartoes () const {
-	return cartoes.size();
-}
-
-
-void BaseClientes::adicionaRegisto(Registo *r1){
-	regs.push_back(r1);
-}
-
-void BaseClientes::removeRegisto (){
-	regs.at(id)->alterarEstado(false);
-}
-
-unsigned int BaseClientes::getNumRegistos() const{
-	return this->regs.size();
-}
-
-void BaseClientes::setId(int id){
-	this->id = id;
-}
-
+void BaseClientes::adicionaCartao(Cartao *c1){this->cartoes.push_back(c1);}
 
 string BaseClientes::getNome() const{
 	return regs.at(id)->getNome();
@@ -134,13 +118,28 @@ string BaseClientes::getProfissao() const {
 }
 
 string BaseClientes::getInformacao () const {
-	datas datan = regs.at(id)->getDatanascimento();
-	return  "Nome: " + regs.at(id)->getNome() + " -- Cartao: " + "\""+  regs.at(id)->getCartao()->getNome() + "\"" + " -- Profissao: " + regs.at(id)->getProfissao() + " -- Data de Nascimento: " + to_string(datan.dia) + "-" + to_string(datan.mes) + "-" + to_string(datan.ano) + "\n";
+	stringstream ss;
+	ss << "Nome: " << regs.at(id)->getNome() << " -- Cartao: " << "\"" <<  regs.at(id)->getCartao()->getNome()
+			<< "\"" << " -- Profissao: " << regs.at(id)->getProfissao() << " -- Data de Nascimento: "
+			<< regs.at(id)->getDatanascimento();
+
+	return ss.str();
 }
 
-datas BaseClientes::getDataNascimento() const{
-	return regs.at(id)->getDatanascimento();
-}
+string BaseClientes::getDataNascimento() const{return regs.at(id)->getDatanascimento();}
+
+// Mutators
+
+void BaseClientes::alterarCartao(Cartao *c){regs.at(id)->alterarCartao(c);}
+
+void BaseClientes::alterarEstado(bool est){regs.at(id)->alterarEstado(est);}
+
+void BaseClientes::adicionaRegisto(Registo *r1){regs.push_back(r1);}
+
+void BaseClientes::removeRegisto (){regs.at(id)->alterarEstado(false);}
+
+void BaseClientes::setId(int id){this->id = id;}
+
 
 
 
