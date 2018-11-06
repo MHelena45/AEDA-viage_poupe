@@ -12,8 +12,8 @@ int BaseClientes::id = 0;
 
 
 void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b);
-void menuComCartao(BaseClientes *r);
-void menuSemCartao(BaseClientes *r);
+void menuComCartao(BaseClientes *r, Bilheteira *b);
+void menuSemCartao(BaseClientes *r, Bilheteira *b);
 
 
 int main(){
@@ -96,10 +96,10 @@ int main(){
 			menuInformacao(&r, &f, &b);
 			break;
 		case 1:
-			menuSemCartao(&r);
+			menuSemCartao(&r, &b);
 			break;
 		case 2:
-			menuComCartao(&r);
+			menuComCartao(&r, &b);
 			break;
 		default:
 			return 0;
@@ -138,6 +138,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 			cout << f->getInformacao();
 			break;
 		case 1:
+			cout << "Lista de Viagens" << endl << endl;
 			cout << endl << b->getInfo();
 			return;
 		case 2:
@@ -154,7 +155,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 	}
 }
 
-void menuComCartao(BaseClientes *r){
+void menuComCartao(BaseClientes *r, Bilheteira *b){
 	unsigned int numRegs = r->getNumRegistos();
 	unsigned int id= numRegs + 1;
 	unsigned int menu = 0;
@@ -259,7 +260,7 @@ void menuComCartao(BaseClientes *r){
 	}
 }
 
-void menuSemCartao(BaseClientes *r){
+void menuSemCartao(BaseClientes *r, Bilheteira *b){
 	unsigned int menu = 0;
 	int ano, mes, dia;
 	int cart;
@@ -283,9 +284,23 @@ void menuSemCartao(BaseClientes *r){
 
 		switch (menu){
 		case 0:
+			int viagemId;
+			Viagem *temp;
+			cout << "Lista de Viagens" << endl << endl;
+			cout << endl << b->getInfo();
+			cout << endl << "Escolha a viagem:";
+			cin >> viagemId;
+			cout << endl;
+			temp = b->getViagem(viagemId);
+			if (temp->reservaBilhete() == -1){
+				cout << endl << "Este comboio já está cheio" << endl;
+				break;
+			}
+
 
 			break;
 		case 1:
+
 
 			break;
 		case 2:{
@@ -316,4 +331,18 @@ void menuSemCartao(BaseClientes *r){
 			return;
 		}
 	}
+}
+
+Datas* getDataActual(){
+	std::time_t t = std::time(0);
+	std::tm* now = std::localtime(&t);
+	Datas *temp = new Datas(now->tm_year+ 1900, now->tm_mon+1, now->tm_mday);
+	return temp;
+}
+
+Horas* getHoraActual(){
+	std::time_t t = std::time(0);
+	std::tm* now = std::localtime(&t);
+	Horas *temp = new Horas(now->tm_hour, now->tm_min);
+	return temp;
 }

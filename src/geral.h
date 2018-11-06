@@ -6,9 +6,15 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <ctime>
 
 class Registo;
 class Compra;
+class Datas;
+class Horas;
+
+Datas* getDataActual();
+Horas* getHoraActual();
 
 class Datas {
 	unsigned int ano;
@@ -19,6 +25,12 @@ public:
 	Datas(unsigned int a, unsigned int m, unsigned int d){
 		ano= a; mes = m; dia = d;
 	}
+
+	unsigned int getAno(){return ano;}
+
+	unsigned int getMes() {return mes;}
+
+	unsigned int getDia() {return dia;}
 
 	friend std::ostream& operator << (std::ostream &os, const Datas &d1){
 		os << std::setw(2) << std::setfill('0') << d1.dia << "-"
@@ -74,6 +86,10 @@ public:
 		hora = h; min = m;
 	}
 
+	unsigned int getHora(){return hora;}
+
+	unsigned int getMin() {return min;}
+
 	friend std::ostream& operator << (std::ostream &os, const Horas &h1){
 		os << h1.hora << ":" << h1.min;
 		return os;
@@ -107,7 +123,6 @@ public:
 	}
 
 };
-
 
 
 #endif

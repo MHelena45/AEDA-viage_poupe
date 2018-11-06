@@ -23,8 +23,14 @@ class Viagem{
 	unsigned int vagas;
 public:
 	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp);
-	std::string getInfo();
-	std::string getHistorico();
+	Datas* getDataPartida() const;
+	Horas* getHorasPartida() const;
+	std::string getInfo() const;
+	std::string getHistorico() const;
+	int reservaBilhete();
+	int devolveBilhete();
+	double getPrecoFinal();
+	double getPrecoFinal(Cartao *c);
 
 };
 
@@ -54,8 +60,8 @@ class Bilheteira {
 	std::vector<Viagem *> viagens;
 public:
 	void adicionaViagem(Viagem *v1);
+	Viagem* getViagem(int id);
 	std::string getInfo() const;
-
 };
 
 
