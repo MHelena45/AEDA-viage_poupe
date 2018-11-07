@@ -32,6 +32,52 @@ public:
 
 	unsigned int getDia() {return dia;}
 
+	double getHoursFormat(){
+
+		double hours = (ano - 2000) * 365.2425;
+
+		switch(mes){
+		case 2:
+			hours += 31;
+			break;
+		case 3:
+			hours += 59;
+			break;
+		case 4:
+			hours += 90;
+			break;
+		case 5:
+			hours += 120;
+			break;
+		case 6:
+			hours += 151;
+			break;
+		case 7:
+			hours += 181;
+			break;
+		case 8:
+			hours += 212;
+			break;
+		case 9:
+			hours += 243;
+			break;
+		case 10:
+			hours += 273;
+			break;
+		case 11:
+			hours+= 304;
+			break;
+		case 12:
+			hours += 334;
+			break;
+		}
+
+		hours += dia;
+
+
+		return hours * 24;
+	}
+
 	friend std::ostream& operator << (std::ostream &os, const Datas &d1){
 		os << std::setw(2) << std::setfill('0') << d1.dia << "-"
 				<< std::setw(2) << std::setfill('0') << d1.mes << "-" << d1.ano;
@@ -89,6 +135,11 @@ public:
 	unsigned int getHora(){return hora;}
 
 	unsigned int getMin() {return min;}
+
+	double getHoursFormat(){
+		double hmin = (double)min/60;
+		return (double)hora + hmin;
+	}
 
 	friend std::ostream& operator << (std::ostream &os, const Horas &h1){
 		os << h1.hora << ":" << h1.min;

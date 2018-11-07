@@ -25,6 +25,7 @@ public:
 	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp);
 	Datas* getDataPartida() const;
 	Horas* getHorasPartida() const;
+	double getPrecoBase () const;
 	std::string getInfo() const;
 	std::string getHistorico() const;
 	int reservaBilhete();

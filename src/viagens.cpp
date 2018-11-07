@@ -16,7 +16,7 @@ Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas
 
 }
 
-std::string Viagem::getInfo(){
+std::string Viagem::getInfo() const{
 	stringstream ss;
 	ss << origem << setw(16 - origem.length()) << destino << setw(8) << distancia <<" km" << setw(7)
 			<< *c1 << setw(3) << " " << *dPartida << "    " << *hPartida << "       " << setfill(' ') << setw(5) << precoBase
@@ -38,20 +38,25 @@ int Viagem::devolveBilhete(){
 	return 0;
 }
 
-Datas* Viagem::getDataPartida() const{
-	return dPartida;
-}
-Horas* Viagem::getHorasPartida() const{
-	return hPartida;
-}
+Datas* Viagem::getDataPartida() const{ return dPartida;}
+
+Horas* Viagem::getHorasPartida() const{return hPartida;}
+
+double Viagem::getPrecoBase () const{return precoBase;}
 
 double Viagem::getPrecoFinal(){
-	bool desc = true;
+
 	Horas *tempHora = getHoraActual();
 	Datas *tempData = getDataActual();
 
-	//Fazer comparaçao de horas
-	return 0.1;
+	float horasActual = tempData->getHoursFormat() + tempHora->getHoursFormat();
+	float horasViagem = getDataPartida()->getHoursFormat() + getHorasPartida()->getHoursFormat();
+
+	if ( ( horasViagem - horasActual ) <= 48 && ( horasViagem - horasActual ) > 0
+			&& vagas > (c1->getLotacao() / 2))
+		return precoBase * 0.30;
+
+	return precoBase;
 }
 
 

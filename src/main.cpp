@@ -30,7 +30,7 @@ int main(){
 	 *
 	 */
 
-	Comboio *c1 = new Intercidades (20, 200, 0.5, "c1");
+	Comboio *c1 = new Intercidades (1, 200, 0.5, "c1");
 	f.adicionaComboio(c1);
 	Comboio *c2 = new Intercidades (30, 120 , 0.3, "c2");
 	f.adicionaComboio(c2);
@@ -52,8 +52,8 @@ int main(){
 	Registo nn (&viagem25, "Nuno", "Estudante", &datan);
 	r.adicionaRegisto(&nn);
 
-	Datas *dviagem = new Datas (2018, 10, 4);
-	Horas *hviagem = new Horas (10,30);
+	Datas *dviagem = new Datas (2018, 11, 9);
+	Horas *hviagem = new Horas (00,25);
 
 	Viagem *teste = new Viagem ("Porto", "Lisboa", 300.0, c1, dviagem, hviagem );
 	Viagem *teste1 = new Viagem ("asdasd", "dddd", 300.5, c2, dviagem, hviagem );
@@ -69,6 +69,8 @@ int main(){
 	b.adicionaViagem(teste4);
 	b.adicionaViagem(teste5);
 	b.adicionaViagem(teste6);
+
+
 
 	/*
 	 * TESTING
@@ -283,12 +285,13 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 		else break;}
 
 		switch (menu){
-		case 0:
+		case 0:{
 			int viagemId;
+			double precoFinal;
 			Viagem *temp;
 			cout << "Lista de Viagens" << endl << endl;
 			cout << endl << b->getInfo();
-			cout << endl << "Escolha a viagem:";
+			cout << endl << "Escolha o id da viagem a reservar:";
 			cin >> viagemId;
 			cout << endl;
 			temp = b->getViagem(viagemId);
@@ -296,9 +299,16 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 				cout << endl << "Este comboio já está cheio" << endl;
 				break;
 			}
+			precoFinal = temp->getPrecoFinal();
+			cout << "Compra efectuada" << endl << endl;
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
+					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl;
 
 
-			break;
+			return;
+		}
 		case 1:
 
 
