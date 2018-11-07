@@ -26,8 +26,9 @@ public:
 	Datas* getDataPartida() const;
 	Horas* getHorasPartida() const;
 	double getPrecoBase () const;
+	std::string getOrigem() const;
+	std::string getDestino() const;
 	std::string getInfo() const;
-	std::string getHistorico() const;
 	int reservaBilhete();
 	int devolveBilhete();
 	double getPrecoFinal();
@@ -49,6 +50,7 @@ class Compra {
 	Horas *hCompra;
 public:
 	Compra(Viagem *v, Cartao *c, double pf, Datas *dc, Horas *hc);
+	std::string getInfo() const;
 };
 
 /*

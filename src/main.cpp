@@ -26,8 +26,9 @@ int main(){
 
 	/*
 	 * TESTING
-	 *
-	 *
+	 *	TO-DO:  escrever e ler ficheiro, documentaçao doxygen
+	 *			administraçao(adicionar comboios etc), validaçao inputs, devolver bilhetes,
+	 *			ordenar vectores
 	 */
 
 	Comboio *c1 = new Intercidades (1, 200, 0.5, "c1");
@@ -70,6 +71,13 @@ int main(){
 	b.adicionaViagem(teste5);
 	b.adicionaViagem(teste6);
 
+	r.setId(0);
+	Viagem *temp;
+	temp = b.getViagem(0);
+	temp->reservaBilhete();
+	double precoFinal = temp->getPrecoFinal(r.getRegisto()->getCartao());
+	Compra *tempC = new Compra( temp, r.getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
+	r.getRegisto()->adicionaCompra(tempC);
 
 
 	/*
@@ -193,14 +201,14 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 		cout << "ID: " << id << endl << endl;
 		cout << r->getInformacao();
 
-		if (!r->getEstado()){
+		if (!r->getRegisto()->getEstado()){
 			char ans;
 			cout << endl << "Subscricao desativada. Deseja re-ativar? (y/n)" << endl;
 			cin >> ans;
 			if (ans == 'y'){
 				cout << endl << "Cartao re-ativado" << endl << endl;
 				cout << "Escolha o tipo de cartao da nova subscricao" << endl;
-				r->alterarEstado(true);
+				r->getRegisto()->alterarEstado(true);
 				menu = 2;
 				skip = true;
 			}
@@ -227,8 +235,31 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			else break;
 		}
 	switch (menu){
-		case 0:
+		case 0:{
+			int viagemId;
+			double precoFinal;
+			Viagem *temp;
+			cout << "Lista de Viagens" << endl << endl;
+			cout << endl << b->getInfo();
+			cout << endl << "Escolha o id da viagem a reservar:";
+			cin >> viagemId;
+			cout << endl;
+			temp = b->getViagem(viagemId);
+			if (temp->reservaBilhete() == -1){
+				cout << endl << "Este comboio já está cheio" << endl;
+				break;
+			}
+			precoFinal = temp->getPrecoFinal(r->getRegisto()->getCartao());
+			Compra *tempC = new Compra( temp, r->getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
+			r->getRegisto()->adicionaCompra(tempC);
+			cout << "Compra efectuada" << endl << endl;
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
+					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl << endl;
 
+			break;
+		}
 			break;
 		case 1:
 
@@ -236,9 +267,9 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 		case 2:{
 			int cart;
 			cout << "Tipo de Cartao: " << endl << endl;
-			cout << r->getInfoCartao() << endl;;
+			cout << r->getInfoCartao() << endl;
 			cin >> cart;
-			r->alterarCartao(r->getCartao(cart));
+			r->getRegisto()->alterarCartao(r->getCartao(cart));
 			cout << endl << "Cartao alterado para \"" << r->getCartao(cart)->getNome() << "\"" << endl;
 			return;
 		}
@@ -253,7 +284,8 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 
 			break;
 		case 5:
-
+			cout << endl <<"Historico de Viagens" << endl << endl;
+			cout << r->getRegisto()->getHistorico() << endl;
 			break;
 		default:
 			return;

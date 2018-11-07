@@ -25,7 +25,7 @@ string Intercidades::getTipo() const{
  * Comboio acessors
  */
 
-int Comboio::getLotacao() const{
+unsigned int Comboio::getLotacao() const{
 	return lotacao;
 }
 int Comboio::getVelocidade() const{

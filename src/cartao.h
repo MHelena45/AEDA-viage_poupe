@@ -101,7 +101,7 @@ public:
 	 */
 	void adicionaCompra(Compra *c1);
 
-
+	std::string getHistorico() const;
 };
 
 /*
@@ -126,14 +126,10 @@ public:
 	 * Remove os registos da memoria
 	 */
 	~BaseClientes();
-	/**
-	 * Retorna o nome de um passageiro especifico
-	 */
-	std::string getNome() const;
-	/**
-	 * Retorna a profissao de um passageiro especifico
-	 */
-	std::string getProfissao() const;
+
+
+	Registo* getRegisto() const;
+
 	/**
 	 * Retorna toda a informacao de um passageiro especifico
 	 */
@@ -141,15 +137,13 @@ public:
 	/**
 	 * Retorna a data de nascimento de um passageiro especifico
 	 */
-	std::string getDataNascimento() const;
-	/*
-	 * Retorna a informaçao de um cartao
-	 */
+
 	std::string getInfoCartao() const;
 	/*
-	 * retorna um cartao do vector
+	 * retorna um cartao do vector cartoes
 	 */
-	Cartao *getCartao(int id) const;
+	Cartao* getCartao(int id) const;
+
 	/*
 	 * retorna o numero de cartoes
 	 */
@@ -159,21 +153,9 @@ public:
 	 */
 	unsigned int getNumRegistos() const;
 	/*
-	 * Retorna se um registo esta activo ou nao
-	 */
-	bool getEstado() const;
-	/*
 	 * Adiciona um cartao ao vector de cartoes
 	 */
 	void adicionaCartao(Cartao *c1);
-	/*
-	 * Altera o cartao de um passageiro
-	 */
-	void alterarCartao(Cartao *c);
-	/*
-	 * Activa ou desactiva a subscricao de um passageiro
-	 */
-	void alterarEstado(bool est);
 	/**
 	 * Adiciona registos ao vector(regs) de clientes \n
 	 * r1 -> objecto temporario da class registo, registo a adicionar a base de clientes

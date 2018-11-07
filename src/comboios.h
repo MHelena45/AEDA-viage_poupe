@@ -5,7 +5,7 @@
 
 class Comboio {
 protected:
-	int lotacao; //capacidade do comboio
+	unsigned int lotacao; //capacidade do comboio
 	//bool ocupado;
 	int velocidade;
 	double precoKM;
@@ -16,7 +16,7 @@ public:
 	virtual std::string getTipo() const;
 
 	//acessors
-	int getLotacao() const;
+	unsigned int getLotacao() const;
 	int getVelocidade() const;
 	double getPrecoKM() const;
 	std::string getNome() const;

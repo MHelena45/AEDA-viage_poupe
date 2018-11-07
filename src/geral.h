@@ -79,7 +79,7 @@ public:
 	}
 
 	friend std::ostream& operator << (std::ostream &os, const Datas &d1){
-		os << std::setw(2) << std::setfill('0') << d1.dia << "-"
+		os << std::right << std::setw(2) << std::setfill('0') << d1.dia << "-"
 				<< std::setw(2) << std::setfill('0') << d1.mes << "-" << d1.ano;
 		return os;
 	}
@@ -142,7 +142,8 @@ public:
 	}
 
 	friend std::ostream& operator << (std::ostream &os, const Horas &h1){
-		os << h1.hora << ":" << h1.min;
+		os << std::right << std::setfill('0') << std::setw(2) << h1.hora << ":"
+				<< std::setfill('0') << std::setw(2) <<h1.min;
 		return os;
 	}
 

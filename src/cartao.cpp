@@ -1,4 +1,5 @@
 #include "cartao.h"
+#include "viagens.h"
 #include "geral.h"
 using namespace std;
 
@@ -68,6 +69,23 @@ string Registo::getDatanascimento() const{
 	return ss.str();
 }
 
+std::string Registo::getHistorico() const{
+	stringstream ss;
+
+	ss << left << setw(16) <<"Data da compra" << setw(16)  <<"Hora da Compra"
+			<< setw(9) << "Origem" << setw(9) << "Destino" << setw(16)
+			<< "Data da viagem" << setw(16) <<"Hora da viagem" << setw(16)
+			<< "Preco Base(€)" << setw(10) <<"Total(€)" << endl;
+
+	for (unsigned int i = 0; i < historico.size(); i++){
+		ss << historico.at(i)->getInfo();
+	}
+
+
+	return ss.str();
+}
+
+
 // Mutators
 
 void Registo::alterarCartao(Cartao *c){c1=c;}
@@ -90,6 +108,11 @@ BaseClientes::~BaseClientes(){
 
 // Acessors
 
+Registo* BaseClientes::getRegisto() const{
+	return regs.at(id);
+}
+
+
 string BaseClientes::getInfoCartao() const{
 	stringstream ss;
 	for (unsigned int i=0; i < cartoes.size(); i++){
@@ -100,22 +123,15 @@ string BaseClientes::getInfoCartao() const{
 
 Cartao* BaseClientes::getCartao(int id) const {return cartoes.at(id);}
 
-unsigned int BaseClientes::getNumCartoes () const {return cartoes.size();}
 
-bool BaseClientes::getEstado() const{return regs.at(id)->getEstado();}
+unsigned int BaseClientes::getNumCartoes () const {return cartoes.size();}
 
 unsigned int BaseClientes::getNumRegistos() const{return this->regs.size();}
 
 void BaseClientes::adicionaCartao(Cartao *c1){this->cartoes.push_back(c1);}
 
-string BaseClientes::getNome() const{
-	return regs.at(id)->getNome();
-}
 
-string BaseClientes::getProfissao() const {
-	return regs.at(id)->getProfissao();
 
-}
 
 string BaseClientes::getInformacao () const {
 	stringstream ss;
@@ -126,13 +142,9 @@ string BaseClientes::getInformacao () const {
 	return ss.str();
 }
 
-string BaseClientes::getDataNascimento() const{return regs.at(id)->getDatanascimento();}
 
 // Mutators
 
-void BaseClientes::alterarCartao(Cartao *c){regs.at(id)->alterarCartao(c);}
-
-void BaseClientes::alterarEstado(bool est){regs.at(id)->alterarEstado(est);}
 
 void BaseClientes::adicionaRegisto(Registo *r1){regs.push_back(r1);}
 
