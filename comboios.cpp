@@ -62,3 +62,56 @@ string Frota::getInformacao() const{
 	return ss.str();
 
 }
+
+unsigned int Frota::getNumComboios() const{return comboios.size();}
+
+Comboio* Frota::getComboio(int id) const{return comboios.at(id);}
+
+void Frota::saveComboios() const{
+	ofstream mfile;
+
+	mfile.open ("comboios.txt");
+
+	for (unsigned int i= 0; i < comboios.size(); i++){
+		mfile << comboios.at(i)->getNome() << " " << comboios.at(i)->getLotacao() <<" " << comboios.at(i)->getTipo();
+		mfile << " " << comboios.at(i)->getVelocidade() << " " << comboios.at(i)->getPrecoKM() << endl;
+	}
+
+	mfile.close();
+}
+
+void Frota::loadComboios(){
+
+
+	ifstream mfile;
+
+	mfile.open ("comboios.txt");
+
+	while (!mfile.eof()) {
+		string nome;
+		unsigned int lotacao;
+		string tipo;
+		int velocidade;
+		double precoKM;
+		Comboio *c1;
+
+		mfile >> nome;
+		if (nome == "")
+			break;
+		mfile.ignore(1);
+		mfile >> lotacao;
+		mfile.ignore(1);
+		mfile >> tipo;
+		mfile.ignore(1);
+		mfile >> velocidade;
+		mfile.ignore(1);
+		mfile >> precoKM;
+
+		if (tipo == "IC")
+			c1 = new Intercidades (lotacao, velocidade, precoKM, nome);
+		else c1 = new AlfaPendular (lotacao, velocidade, precoKM, nome);
+
+		adicionaComboio(c1);
+	}
+	mfile.close();
+}

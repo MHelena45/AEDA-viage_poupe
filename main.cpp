@@ -14,7 +14,7 @@ int BaseClientes::id = 0;
 void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b);
 void menuComCartao(BaseClientes *r, Bilheteira *b);
 void menuSemCartao(BaseClientes *r, Bilheteira *b);
-
+void menuAdministracao(BaseClientes *r, Frota *f, Bilheteira *b);
 
 int main(){
 
@@ -30,25 +30,15 @@ int main(){
 	 *			administraçao(adicionar comboios etc), validaçao inputs, ordenar vectores
 	 */
 
-	Comboio *c1 = new Intercidades (1, 200, 0.5, "c1");
-	f.adicionaComboio(c1);
-	Comboio *c2 = new Intercidades (30, 120 , 0.3, "c2");
-	f.adicionaComboio(c2);
-	Comboio *c3 = new AlfaPendular (50, 300, 0.7, "c3");
-	f.adicionaComboio(c3);
-	Comboio *c4 = new AlfaPendular (100, 50, 0.2, "c4");
-	f.adicionaComboio(c4);
-	Comboio *c5 = new Intercidades (1000, 10, 0.1, "c5");
-	f.adicionaComboio(c5);
 
-	Cartao viagem25 ("Viagem 25",39, 75);
+	/*Cartao viagem25 ("Viagem 25",39, 75);
 	r.adicionaCartao(&viagem25);
 	Cartao viagem50 ("Viagem 50",69, 50);
 	r.adicionaCartao(&viagem50);
 	Cartao viagem100 ("Viagem 100", 149, 0);
-	r.adicionaCartao(&viagem100);
+	r.adicionaCartao(&viagem100);*/
 
-	Datas datan(2222, 10, 5);
+	/*Datas datan(2222, 10, 5);
 	Registo nn (&viagem25, "Nuno", "Estudante", &datan);
 	r.adicionaRegisto(&nn);
 
@@ -80,7 +70,7 @@ int main(){
 	temp->reservaBilhete(true);
 	double precoFinal = temp->getPrecoFinal(r.getRegisto()->getCartao());
 	Compra *tempC = new Compra( temp, r.getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
-	r.getRegisto()->adicionaCompra(tempC);
+	r.getRegisto()->adicionaCompra(tempC);*/
 
 
 	/*
@@ -96,6 +86,7 @@ int main(){
 		cout << "0 - Informacao" << endl;
 		cout << "1 - Passageiro sem cartao" << endl;
 		cout << "2 - Passageiro com cartao" << endl;
+		cout << "3 - Administracao" << endl;
 		cout << "5 - Sair" << endl;
 
 		cin >> menu;
@@ -114,12 +105,65 @@ int main(){
 		case 2:
 			menuComCartao(&r, &b);
 			break;
+		case 3:
+			menuAdministracao(&r, &f, &b);
+			break;
 		default:
 			return 0;
 		}
 	}
 	return 0;
 }
+
+
+void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
+
+	unsigned int menu = 0;
+
+		while (menu != 5){
+			while (true){
+			cout << endl << "---Administracao---" << endl << endl;
+
+			cout << endl << "0 - Guardar Dados" << endl;
+			cout << endl << "1 - Carregar Dados" << endl;
+			cout << "5 - Sair" << endl;
+
+			cin >> menu;
+			if (cin.fail()){
+				cin.clear();
+				cin.ignore('\n',100);}
+			else break;}
+
+			switch (menu){
+			case 0:{
+
+				f->saveComboios();
+				r->saveCartoes();
+
+				break;
+			}
+			case 1:{
+				f->loadComboios();
+				r->loadCartoes();
+				break;
+
+				}
+			case 5:
+				return;
+
+			default:
+				return;
+			}
+		}
+
+
+}
+
+
+
+
+
+
 
 /*
  * Menus

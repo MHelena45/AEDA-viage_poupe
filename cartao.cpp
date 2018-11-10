@@ -202,6 +202,46 @@ void BaseClientes::removeRegisto (){regs.at(id)->alterarEstado(false);}
 
 void BaseClientes::setId(int id){this->id = id;}
 
+void BaseClientes::loadCartoes(){
 
+	ifstream mfile;
+
+	mfile.open ("cartoes.txt");
+
+	while (!mfile.eof()) {
+		float precoMensal;
+		int desconto;
+		string nome;
+
+		getline(mfile, nome);
+		if (nome == "")
+			break;
+
+		mfile >> precoMensal;
+		mfile.ignore(1);
+		mfile >> desconto;
+		mfile.ignore(1);
+		Cartao *c1 = new Cartao(nome, precoMensal, desconto);
+		adicionaCartao(c1);
+	}
+	mfile.close();
+
+
+}
+void BaseClientes::saveCartoes()const{
+
+	ofstream mfile;
+
+	mfile.open ("cartoes.txt");
+
+	for (unsigned int i= 0; i < cartoes.size(); i++){
+		mfile << cartoes.at(i)->getNome() << endl << cartoes.at(i)->getPreco() << " " << cartoes.at(i)->getDesconto() << endl;
+	}
+
+	mfile.close();
+
+
+
+}
 
 

@@ -7,6 +7,7 @@
 #include <string>
 #include <iomanip>
 #include <ctime>
+#include <fstream>
 
 class Registo;
 class Compra;

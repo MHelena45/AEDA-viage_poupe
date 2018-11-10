@@ -177,6 +177,8 @@ public:
 	 */
 	void setId(int id);
 
+	void loadCartoes();
+	void saveCartoes()const;
 };
 
 

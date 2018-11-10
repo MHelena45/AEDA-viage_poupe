@@ -6,7 +6,6 @@
 class Comboio {
 protected:
 	unsigned int lotacao; //capacidade do comboio
-	//bool ocupado;
 	int velocidade;
 	double precoKM;
 	std::string nome;
@@ -50,6 +49,10 @@ public:
 	std::vector <Comboio *> comboios;
 	void adicionaComboio(Comboio *c1);
 	std::string getInformacao() const;
+	Comboio* getComboio(int id) const;
+	unsigned int getNumComboios() const;
+	void saveComboios() const;
+	void loadComboios();
 };
 
 
