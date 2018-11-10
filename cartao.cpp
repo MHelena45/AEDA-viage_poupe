@@ -85,6 +85,45 @@ std::string Registo::getHistorico() const{
 	return ss.str();
 }
 
+string Registo::listCompraActiva(){
+
+	vector <Compra *> c = getCompraAtiva();
+
+	stringstream ss;
+
+	ss <<"ID  " <<left << setw(16) <<"Data da compra" << setw(16)  <<"Hora da Compra"
+			<< setw(9) << "Origem" << setw(9) << "Destino" << setw(16)
+			<< "Data da viagem" << setw(16) <<"Hora da viagem" << setw(16)
+			<< "Preco Base(€)" << setw(10) <<"Total(€)" << endl;
+
+	for (unsigned int i = 0; i < c.size(); i++){
+		ss << i << "   " << c.at(i)->getInfo();
+	}
+
+
+	return ss.str();
+
+}
+
+vector <Compra *> Registo::getCompraAtiva(){
+	vector <Compra *> temp;
+
+	Horas *tempHora = getHoraActual();
+	Datas *tempData = getDataActual();
+	float horasActual = tempData->getHoursFormat() + tempHora->getHoursFormat();
+
+
+	for (unsigned int i = 0; i < historico.size(); i++){
+		Viagem *v =	historico.at(i)->getViagem();
+		float horasViagem = v->getDataPartida()->getHoursFormat() + v->getHorasPartida()->getHoursFormat();
+		if (horasViagem > horasActual)
+			temp.push_back(historico.at(i));
+	}
+
+
+	return temp;
+
+}
 
 // Mutators
 
@@ -93,6 +132,17 @@ void Registo::alterarCartao(Cartao *c){c1=c;}
 void Registo::alterarEstado(bool at){ativo = at;}
 
 void Registo::adicionaCompra(Compra *c1){historico.push_back(c1);}
+
+void Registo::eliminaCompra(Compra *c1){
+
+	for (unsigned int i = 0; i < historico.size();i++){
+		if (*historico.at(i) == *c1){
+			historico.erase(historico.begin()+i);
+			delete c1;
+			break;
+		}
+	}
+}
 
 /*
  * Metodos class BaseClientes

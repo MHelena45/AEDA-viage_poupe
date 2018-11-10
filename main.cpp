@@ -27,8 +27,7 @@ int main(){
 	/*
 	 * TESTING
 	 *	TO-DO:  escrever e ler ficheiro, documentaçao doxygen
-	 *			administraçao(adicionar comboios etc), validaçao inputs, devolver bilhetes,
-	 *			ordenar vectores
+	 *			administraçao(adicionar comboios etc), validaçao inputs, ordenar vectores
 	 */
 
 	Comboio *c1 = new Intercidades (1, 200, 0.5, "c1");
@@ -53,12 +52,16 @@ int main(){
 	Registo nn (&viagem25, "Nuno", "Estudante", &datan);
 	r.adicionaRegisto(&nn);
 
-	Datas *dviagem = new Datas (2018, 11, 9);
+	Datas *dviagem = new Datas (2018, 11, 20);
 	Horas *hviagem = new Horas (00,25);
+
+	Datas *dviagem2 = new Datas (2015, 11, 9);
+	Horas *hviagem2 = new Horas (00,25);
+
 
 	Viagem *teste = new Viagem ("Porto", "Lisboa", 300.0, c1, dviagem, hviagem );
 	Viagem *teste1 = new Viagem ("asdasd", "dddd", 300.5, c2, dviagem, hviagem );
-	Viagem *teste2 = new Viagem ("Paaaa", "sssss", 20.0, c3, dviagem, hviagem );
+	Viagem *teste2 = new Viagem ("Paaaa", "sssss", 20.0, c3, dviagem2, hviagem2);
 	Viagem *teste3 = new Viagem ("dasda", "weawe", 50.7, c2, dviagem, hviagem );
 	Viagem *teste4 = new Viagem ("Pfds", "ffads", 150.0, c4, dviagem, hviagem );
 	Viagem *teste5 = new Viagem ("Pdfs", "asd", 1000.0, c5, dviagem, hviagem );
@@ -74,7 +77,7 @@ int main(){
 	r.setId(0);
 	Viagem *temp;
 	temp = b.getViagem(0);
-	temp->reservaBilhete();
+	temp->reservaBilhete(true);
 	double precoFinal = temp->getPrecoFinal(r.getRegisto()->getCartao());
 	Compra *tempC = new Compra( temp, r.getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
 	r.getRegisto()->adicionaCompra(tempC);
@@ -245,7 +248,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			cin >> viagemId;
 			cout << endl;
 			temp = b->getViagem(viagemId);
-			if (temp->reservaBilhete() == -1){
+			if (temp->reservaBilhete(true) == -1){
 				cout << endl << "Este comboio já está cheio" << endl;
 				break;
 			}
@@ -261,9 +264,23 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			break;
 		}
 			break;
-		case 1:
+		case 1:{
+			int compraId;
+			vector <Compra *> cmps = r->getRegisto()->getCompraAtiva();
+			cout << "Bilhetes nao usados" << endl << endl;
+			cout << r->getRegisto()->listCompraActiva() << endl;
+
+			cout << "Escolha o bilhete a devolver:";
+			cin >> compraId;
+			cout << endl;
+
+			cmps.at(compraId)->getViagem()->devolveBilhete(true);
+			r->getRegisto()->eliminaCompra(cmps.at(compraId));
+
+			cout << "Bilhete devolvido" << endl << endl;
 
 			break;
+		}
 		case 2:{
 			int cart;
 			cout << "Tipo de Cartao: " << endl << endl;
@@ -327,7 +344,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 			cin >> viagemId;
 			cout << endl;
 			temp = b->getViagem(viagemId);
-			if (temp->reservaBilhete() == -1){
+			if (temp->reservaBilhete(false) == -1){
 				cout << endl << "Este comboio já está cheio" << endl;
 				break;
 			}
@@ -342,6 +359,21 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 			return;
 		}
 		case 1:
+			int viagemId;
+			Viagem *temp;
+			cout << "Lista de Viagens" << endl << endl;
+			cout << endl << b->getInfo();
+			cout << endl << "Escolha o id da viagem a cancelar:";
+			cin >> viagemId;
+			cout << endl;
+			temp = b->getViagem(viagemId);
+			if (temp->devolveBilhete(false) == -1){
+				cout << "Nao existem bilhetes sem registo para esta viagem" << endl;
+				break;
+			}
+			cout << endl << "Bilhete devolvido" << endl;
+
+
 
 
 			break;

@@ -21,6 +21,7 @@ class Viagem{
 	Horas *hPartida;
 	double precoBase;
 	unsigned int vagas;
+	unsigned int comprasAnonimas;
 public:
 	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp);
 	Datas* getDataPartida() const;
@@ -29,10 +30,12 @@ public:
 	std::string getOrigem() const;
 	std::string getDestino() const;
 	std::string getInfo() const;
-	int reservaBilhete();
-	int devolveBilhete();
+	int reservaBilhete(bool reg);
+	int devolveBilhete(bool reg);
 	double getPrecoFinal();
 	double getPrecoFinal(Cartao *c);
+	bool operator == (const Viagem &v2);
+	bool compraRegisto() const;
 
 };
 
@@ -51,6 +54,8 @@ class Compra {
 public:
 	Compra(Viagem *v, Cartao *c, double pf, Datas *dc, Horas *hc);
 	std::string getInfo() const;
+	Viagem* getViagem() const;
+	bool operator == (const Compra &c2);
 };
 
 /*
@@ -64,7 +69,8 @@ class Bilheteira {
 public:
 	void adicionaViagem(Viagem *v1);
 	Viagem* getViagem(int id);
-	std::string getInfo() const;
+	void updateViagens();
+	std::string getInfo();
 };
 
 

@@ -102,6 +102,12 @@ public:
 	void adicionaCompra(Compra *c1);
 
 	std::string getHistorico() const;
+
+	std::vector <Compra *> getCompraAtiva();
+
+	std::string listCompraActiva ();
+
+	void eliminaCompra(Compra *c1);
 };
 
 /*

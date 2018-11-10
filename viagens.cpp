@@ -13,7 +13,7 @@ Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas
 	hPartida = hp;
 	vagas = c->getLotacao();
 	precoBase = c1->getPrecoKM() * distancia;
-
+	comprasAnonimas = 0;
 }
 
 std::string Viagem::getInfo() const{
@@ -24,16 +24,23 @@ std::string Viagem::getInfo() const{
 	return ss.str();
 }
 
-int Viagem::reservaBilhete(){
+int Viagem::reservaBilhete(bool reg){
 	if (vagas <= 0)
 		return -1;
 	vagas--;
+	if (!reg)
+		comprasAnonimas++;
 	return 0;
 }
 
-int Viagem::devolveBilhete(){
-	if (vagas < c1->getLotacao())
+int Viagem::devolveBilhete(bool reg){
+	if (vagas >= c1->getLotacao())
 		return -1;
+	if (!reg){
+		if (comprasAnonimas == 0)
+			return -1;
+		else comprasAnonimas--;
+	}
 	vagas++;
 	return 0;
 }
@@ -47,6 +54,7 @@ double Viagem::getPrecoBase () const{return precoBase;}
 std::string Viagem::getOrigem() const {return origem;}
 
 std::string Viagem::getDestino() const{return destino;}
+
 
 double Viagem::getPrecoFinal(){
 
@@ -72,11 +80,26 @@ double Viagem::getPrecoFinal(Cartao *c){
 
 	if ( ( horasViagem - horasActual ) <= 48 && ( horasViagem - horasActual ) > 0
 			&& vagas > (c1->getLotacao() / 2))
-		return precoBase * 0.30 * ((double)c->getDesconto() / 100);
+		if (c->getDesconto() < 70)
+			return precoBase * 0.30;
 
 	return precoBase * ((double)c->getDesconto() / 100);
+}
 
+bool Viagem::operator == (const Viagem &v2){
+	float v1hf = this->dPartida->getHoursFormat()+this->hPartida->getHoursFormat();
+	float v2hf = v2.dPartida->getHoursFormat() + v2.hPartida->getHoursFormat();
+	if ( (v1hf == v2hf) && (this->destino == v2.destino) && (this->origem == v2.origem) && (this->distancia == v2.distancia)
+			&& this->precoBase == v2.precoBase)
+		return true;
+	return false;
 
+}
+
+bool Viagem::compraRegisto() const{
+	if ( (vagas + comprasAnonimas) == c1->getLotacao())
+		return false;
+	return true;
 }
 
 
@@ -88,10 +111,20 @@ Compra::Compra(Viagem *v, Cartao *c, double pf, Datas *dc, Horas *hc){
 	hCompra = hc;
 }
 
+bool Compra::operator == (const Compra &c2){
+	float c1hf = this->dCompra->getHoursFormat() + this->hCompra->getHoursFormat();
+	float c2hf = c2.dCompra->getHoursFormat() + c2.hCompra->getHoursFormat();
+
+	if ( (c1hf == c2hf) && (*this->v1 == *c2.v1) && (this->precoFinal == c2.precoFinal))
+		return true;
+
+	return false;
+}
+
+Viagem* Compra::getViagem() const {return v1;}
+
 std::string Compra::getInfo() const{
 	stringstream ss;
-
-
 
 	ss << *dCompra << "      " << *hCompra << "           " << left <<setfill(' ') <<setw(9)
 		<< v1->getOrigem() << setw(9) << v1->getDestino() << *v1->getDataPartida() << "      "
@@ -106,7 +139,8 @@ void Bilheteira::adicionaViagem(Viagem *v1){
 	viagens.push_back(v1);
 }
 
-string Bilheteira::getInfo() const{
+string Bilheteira::getInfo(){
+	updateViagens();
 	stringstream ss;
 
 	ss << left <<"id  " << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
@@ -122,4 +156,26 @@ string Bilheteira::getInfo() const{
 
 Viagem* Bilheteira::getViagem(int id) {
 	return viagens.at(id);
+}
+
+void Bilheteira::updateViagens(){
+	Horas *tempHora = getHoraActual();
+	Datas *tempData = getDataActual();
+	float horasActual = tempData->getHoursFormat() + tempHora->getHoursFormat();
+	for (unsigned int i = 0; i < viagens.size(); i++){
+		float horasViagem = viagens.at(i)->getDataPartida()->getHoursFormat() + viagens.at(i)->getHorasPartida()->getHoursFormat();
+		if (horasActual > horasViagem){
+			if ( !(viagens.at(i)->compraRegisto()) ){
+				delete viagens.at(i);
+				viagens.erase(viagens.begin()+i);
+
+
+			}
+			else{
+				viagens.erase(viagens.begin()+i);
+			}
+
+		}
+
+	}
 }
