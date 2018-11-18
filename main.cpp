@@ -14,7 +14,7 @@ void menuAdministracao(BaseClientes *r, Frota *f, Bilheteira *b);
 
 
 /*
- * TO-DO: Relatorio, Doxygen, adicionar comboios/cartoes/viagens, excepçoes/validar inputs
+ * TO-DO: Relatorio, Doxygen, adicionar comboios/cartoes/viagens, excepï¿½oes/validar inputs
  * 			verificar se existem viagens ao comprar bilhete
  *
  *
@@ -113,9 +113,27 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 
 				}
 
-			case 2: {
+			case 2: {//falta verificar se o comboio ja existe
+				int lotacao, velocidade;
+				double precoKM;
+				string nome, tipo;
+				Comboio *c;
+				while (true){
+					cout<<endl<<"Introduza a informaÃ§Ã£o do comboio (lotacao, velocidade, precoKM, nome, tipo)"<<endl;
+					cin>>lotacao>> velocidade>> precoKM>> nome>> tipo;
+					if (cin.fail()){
+						cin.clear();
+						cin.ignore('\n',100);
+						cout<<"Invalid input."<<endl;}
+					else if (lotacao>0 && velocidade>0 && precoKM>0 && (tipo=="IC" || tipo== "AP"))
+						break;
+					else cout<<"Invalid input."<<endl;
+				}
+				if (tipo == "IC")
+					c = new Intercidades (lotacao, velocidade, precoKM, nome);
+				else c = new AlfaPendular (lotacao, velocidade, precoKM, nome);
+					f->adicionaComboio(c);
 
-				//Adicionar Comboios
 
 			break;
 			}
@@ -269,17 +287,17 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			cout << endl;
 			temp = b->getViagem(viagemId);
 			if (temp->reservaBilhete(true) == -1){
-				cout << endl << "Este comboio já está cheio" << endl;
+				cout << endl << "Este comboio jï¿½ estï¿½ cheio" << endl;
 				break;
 			}
 			precoFinal = temp->getPrecoFinal(r->getRegisto()->getCartao());
 			Compra *tempC = new Compra( temp, r->getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
 			r->getRegisto()->adicionaCompra(tempC);
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
+			cout << "Preco Base = " << temp->getPrecoBase() << "ï¿½" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "ï¿½"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "€" << endl << endl;
+			cout << "Preco Final = " << precoFinal << "ï¿½" << endl << endl;
 
 			break;
 		}
@@ -367,15 +385,15 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 			cout << endl;
 			temp = b->getViagem(viagemId);
 			if (temp->reservaBilhete(false) == -1){
-				cout << endl << "Este comboio já está cheio" << endl;
+				cout << endl << "Este comboio jï¿½ estï¿½ cheio" << endl;
 				break;
 			}
 			precoFinal = temp->getPrecoFinal();
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
+			cout << "Preco Base = " << temp->getPrecoBase() << "ï¿½" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "ï¿½"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "€" << endl;
+			cout << "Preco Final = " << precoFinal << "ï¿½" << endl;
 
 
 			return;
