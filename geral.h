@@ -27,6 +27,40 @@ public:
 		ano= a; mes = m; dia = d;
 	}
 
+	Datas(std::string d){
+
+
+
+		std::string tempDia = "";
+		std::string tempMes = "";
+		std::string tempAno = "";
+		for (unsigned int i = 0; i < d.length(); i++){
+
+			if (d.at(i) == '-'){
+				continue;
+			}
+
+			if (tempDia.length() < 2){
+				tempDia += d.at(i);
+				continue;
+			}
+			if (tempMes.length() < 2) {
+				tempMes += d.at(i);
+				continue;
+			}
+			if (tempAno.length() < 4){
+				tempAno += d.at(i);
+				continue;
+			}
+			else break;
+		}
+
+		dia = std::stoi(tempDia);
+		mes = std::stoi(tempMes);
+		ano = std::stoi(tempAno);
+
+	}
+
 	unsigned int getAno(){return ano;}
 
 	unsigned int getMes() {return mes;}
@@ -131,6 +165,30 @@ class Horas {
 public:
 	Horas(unsigned int h, unsigned int m){
 		hora = h; min = m;
+	}
+
+	Horas (std::string h){
+		std::string tempHora = "";
+		std::string tempMin = "";
+
+		for (unsigned int i = 0; i < h.length(); i++){
+
+			if (h.at(i) == ':'){
+				continue;
+			}
+
+			if (tempHora.length() < 2){
+				tempHora += h.at(i);
+				continue;
+			}
+			if (tempMin.length() < 2) {
+				tempMin += h.at(i);
+				continue;
+			}
+		}
+
+		hora = std::stoi(tempHora);
+		min = std::stoi(tempMin);
 	}
 
 	unsigned int getHora(){return hora;}

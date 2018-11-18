@@ -1,14 +1,10 @@
 #include "geral.h"
+#include "bilheteira.h"
 #include "cartao.h"
 #include "viagens.h"
 #include "comboios.h"
-//#include "bilhetes.h"
-
 
 using namespace std;
-
-
-int BaseClientes::id = 0;
 
 
 void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b);
@@ -16,69 +12,22 @@ void menuComCartao(BaseClientes *r, Bilheteira *b);
 void menuSemCartao(BaseClientes *r, Bilheteira *b);
 void menuAdministracao(BaseClientes *r, Frota *f, Bilheteira *b);
 
+
+/*
+ * TO-DO: Relatorio, Doxygen, adicionar comboios/cartoes/viagens, excepçoes/validar inputs
+ * 			verificar se existem viagens ao comprar bilhete
+ *
+ *
+ */
+
+
 int main(){
 
 	unsigned int menu = 0;
 
 	BaseClientes r;
 	Frota f;
-	Bilheteira b;
-
-	/*
-	 * TESTING
-	 *	TO-DO:  escrever e ler ficheiro, documentaçao doxygen
-	 *			administraçao(adicionar comboios etc), validaçao inputs, ordenar vectores
-	 */
-
-
-	/*Cartao viagem25 ("Viagem 25",39, 75);
-	r.adicionaCartao(&viagem25);
-	Cartao viagem50 ("Viagem 50",69, 50);
-	r.adicionaCartao(&viagem50);
-	Cartao viagem100 ("Viagem 100", 149, 0);
-	r.adicionaCartao(&viagem100);*/
-
-	/*Datas datan(2222, 10, 5);
-	Registo nn (&viagem25, "Nuno", "Estudante", &datan);
-	r.adicionaRegisto(&nn);
-
-	Datas *dviagem = new Datas (2018, 11, 20);
-	Horas *hviagem = new Horas (00,25);
-
-	Datas *dviagem2 = new Datas (2015, 11, 9);
-	Horas *hviagem2 = new Horas (00,25);
-
-
-	Viagem *teste = new Viagem ("Porto", "Lisboa", 300.0, c1, dviagem, hviagem );
-	Viagem *teste1 = new Viagem ("asdasd", "dddd", 300.5, c2, dviagem, hviagem );
-	Viagem *teste2 = new Viagem ("Paaaa", "sssss", 20.0, c3, dviagem2, hviagem2);
-	Viagem *teste3 = new Viagem ("dasda", "weawe", 50.7, c2, dviagem, hviagem );
-	Viagem *teste4 = new Viagem ("Pfds", "ffads", 150.0, c4, dviagem, hviagem );
-	Viagem *teste5 = new Viagem ("Pdfs", "asd", 1000.0, c5, dviagem, hviagem );
-	Viagem *teste6 = new Viagem ("Porto", "dsf", 320.0, c1, dviagem, hviagem );
-	b.adicionaViagem(teste);
-	b.adicionaViagem(teste1);
-	b.adicionaViagem(teste2);
-	b.adicionaViagem(teste3);
-	b.adicionaViagem(teste4);
-	b.adicionaViagem(teste5);
-	b.adicionaViagem(teste6);
-
-	r.setId(0);
-	Viagem *temp;
-	temp = b.getViagem(0);
-	temp->reservaBilhete(true);
-	double precoFinal = temp->getPrecoFinal(r.getRegisto()->getCartao());
-	Compra *tempC = new Compra( temp, r.getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
-	r.getRegisto()->adicionaCompra(tempC);*/
-
-
-	/*
-	 * TESTING
-	 *
-	 *
-	 */
-
+	Bilheteira b(&f);
 
 	while (menu != 5){
 		while (true){
@@ -115,6 +64,13 @@ int main(){
 	return 0;
 }
 
+/*
+ * Menus
+ *
+ *
+ */
+
+//				ADMINISTRACAO
 
 void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 
@@ -125,7 +81,11 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 			cout << endl << "---Administracao---" << endl << endl;
 
 			cout << endl << "0 - Guardar Dados" << endl;
-			cout << endl << "1 - Carregar Dados" << endl;
+			cout << "1 - Carregar Dados" << endl;
+			cout << "2 - Adicionar Comboios" << endl;
+			cout << "3 - Adicionar Cartoes" << endl;
+			cout << "4 - Adicionar Viagens" << endl;
+
 			cout << "5 - Sair" << endl;
 
 			cin >> menu;
@@ -139,15 +99,41 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 
 				f->saveComboios();
 				r->saveCartoes();
+				r->saveRegistos();
+				b->saveViagens();
 
 				break;
 			}
 			case 1:{
 				f->loadComboios();
 				r->loadCartoes();
+				r->loadRegistos();
+				b->loadViagens();
 				break;
 
 				}
+
+			case 2: {
+
+				//Adicionar Comboios
+
+			break;
+			}
+			case 3: {
+
+
+				//Adicionar Cartoes
+
+				break;
+			}
+
+			case 4:{
+
+				//Adicionar Viagens (Listar Comboios, para escoher o comboio)
+
+				break;
+			}
+
 			case 5:
 				return;
 
@@ -155,21 +141,9 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				return;
 			}
 		}
-
-
 }
 
-
-
-
-
-
-
-/*
- * Menus
- *
- *
- */
+//			INFORMACAO
 
 void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 
@@ -197,7 +171,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 		case 1:
 			cout << "Lista de Viagens" << endl << endl;
 			cout << endl << b->getInfo();
-			return;
+			break;
 		case 2:
 
 			return;
@@ -211,6 +185,8 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 		}
 	}
 }
+
+//				MENU UTILIZADORES REGISTADOS
 
 void menuComCartao(BaseClientes *r, Bilheteira *b){
 	unsigned int numRegs = r->getNumRegistos();
@@ -355,6 +331,8 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 	}
 }
 
+//					MENU UTILIZADORES ANONIMOS
+
 void menuSemCartao(BaseClientes *r, Bilheteira *b){
 	unsigned int menu = 0;
 	int ano, mes, dia;
@@ -369,7 +347,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 		cout << endl << "0 - Comprar Bilhete" << endl;
 		cout << "1 - Devolver Bilhete" << endl;
 		cout << "2 - Subscrever a um cartao" << endl;
-		cout << "5 - Sair" << endl;
+		cout << "3 - Sair" << endl;
 
 		cin >> menu;
 		if (cin.fail()){
@@ -442,8 +420,6 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 			return;
 		}
 		case 3:
-			break;
-		case 5:
 			return;
 		default:
 			return;

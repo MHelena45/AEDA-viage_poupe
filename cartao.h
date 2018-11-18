@@ -38,6 +38,7 @@ public:
 	 * Retorna toda a informacao relacionada com o cartao
 	 */
 	std::string getInformacao() const;
+	bool operator == (const Cartao &ct1);
 };
 
 
@@ -64,6 +65,8 @@ public:
 	 * datanasc -> struct (int dia, int mes, int ano), recebe a data de nascimento \n
 	 */
 	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc);
+
+	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc, bool ativo);
 	/**
 	 * Retorna o nome do passageiro
 	 */
@@ -80,14 +83,17 @@ public:
 	 * Retorna a data de nascimento do passageiro
 	 */
 	std::string getDatanascimento() const;
-	/**
-	 * Retorna toda a informacao do passageiro
-	 */
-	std::string getInformacao () const;
 	/*
 	 * Retorna se o cartao esta activo ou nao
 	 */
 	bool getEstado() const;
+
+	int getNumCompras() const;
+
+	Compra* getCompra (int id) const;
+
+	std::string getHistorico() const;
+
 	/*
 	 * Activa ou desactiva a subscricao
 	 */
@@ -101,13 +107,13 @@ public:
 	 */
 	void adicionaCompra(Compra *c1);
 
-	std::string getHistorico() const;
+	void eliminaCompra(Compra *c1);
 
 	std::vector <Compra *> getCompraAtiva();
 
 	std::string listCompraActiva ();
 
-	void eliminaCompra(Compra *c1);
+
 };
 
 /*
@@ -120,13 +126,13 @@ public:
 class BaseClientes {
 	std::vector <Cartao *> cartoes;
 	std::vector<Registo *> regs;
-	static int id;
+	int id;
 public:
 
 	/**
-	 * Construtor vazio
+	 * Construtor, inicializa id
 	 */
-	BaseClientes(){};
+	BaseClientes(){id = 0;};
 	/**
 	 * Destructor
 	 * Remove os registos da memoria
@@ -135,7 +141,6 @@ public:
 
 
 	Registo* getRegisto() const;
-
 	/**
 	 * Retorna toda a informacao de um passageiro especifico
 	 */
@@ -143,13 +148,11 @@ public:
 	/**
 	 * Retorna a data de nascimento de um passageiro especifico
 	 */
-
 	std::string getInfoCartao() const;
-	/*
+	/**
 	 * retorna um cartao do vector cartoes
 	 */
 	Cartao* getCartao(int id) const;
-
 	/*
 	 * retorna o numero de cartoes
 	 */
@@ -158,7 +161,9 @@ public:
 	 * retorna o numero de clientes na base de dados
 	 */
 	unsigned int getNumRegistos() const;
-	/*
+
+	int getCartaoIndex (Cartao *ct1) const;
+	/**
 	 * Adiciona um cartao ao vector de cartoes
 	 */
 	void adicionaCartao(Cartao *c1);
@@ -171,14 +176,16 @@ public:
 	 *Remove registos do vector(regs) de clientes
 	 */
 	void removeRegisto ();
-	/**
-	 * Altera o valor da int estatica "id", esta variavel seleciona um registo do vector(regs) de clientes para utilizar \n
-	 * id -> ID do passageiro
-	 */
+
 	void setId(int id);
 
 	void loadCartoes();
+
 	void saveCartoes()const;
+
+	void loadRegistos();
+
+	void saveRegistos();
 };
 
 

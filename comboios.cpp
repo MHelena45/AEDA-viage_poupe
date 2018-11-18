@@ -2,51 +2,74 @@
 
 using namespace std;
 
+/*
+ * Metodos da class Comboio
+ *
+ */
+
+// Construtor
+
 Comboio::Comboio(int numPassageiros, int velocidade, double precoKM, string nome) {
 	this->lotacao = numPassageiros;
 	this->velocidade = velocidade;
 	this->precoKM = precoKM;
 	this->nome = nome;
+	id = 0;
 }
 
+ // Acessors
 
-AlfaPendular::AlfaPendular(int numPassageiros, int velocidade, double precoKM, string nome) : Comboio(numPassageiros, velocidade, precoKM, nome){}
+string Comboio::getTipo() const{return "OT";}
 
-string AlfaPendular::getTipo() const{
-	return "AP";
-}
+unsigned int Comboio::getLotacao() const{return lotacao;}
 
-Intercidades::Intercidades(int numPassageiros, int velocidade, double precoKM, string nome) : Comboio(numPassageiros, velocidade, precoKM, nome){}
+int Comboio::getVelocidade() const{return velocidade;}
 
-string Intercidades::getTipo() const{
-	return "IC";
-}
+double Comboio::getPrecoKM() const{return precoKM;}
+
+string Comboio::getNome() const{return nome;}
+
+unsigned int Comboio::getId() const{return id;}
+
+//Outros
+
+void Comboio::setId(int id){this->id = id;}
+
+
 /*
- * Comboio acessors
+ * Metodos da class AlfaPendular
+ *
  */
 
-unsigned int Comboio::getLotacao() const{
-	return lotacao;
-}
-int Comboio::getVelocidade() const{
-	return velocidade;
-}
-double Comboio::getPrecoKM() const{
-	return precoKM;
-}
-string Comboio::getNome() const{
-	return nome;
-}
-string Comboio::getTipo() const{
-	return "OT";
-}
+//Construtor
 
+AlfaPendular::AlfaPendular(int numPassageiros, int velocidade, double precoKM, string nome)
+: Comboio(numPassageiros, velocidade, precoKM, nome){}
 
+//Outros
 
+string AlfaPendular::getTipo() const{return "AP";}
 
-void Frota::adicionaComboio(Comboio *c1) {
-	comboios.push_back(c1);
-}
+/*
+ * Metodos da class Intercidades
+ *
+ */
+
+// Construtor
+
+Intercidades::Intercidades(int numPassageiros, int velocidade, double precoKM, string nome)
+: Comboio(numPassageiros, velocidade, precoKM, nome){}
+
+// Outros
+
+string Intercidades::getTipo() const{return "IC";}
+
+/*
+ * Metodos da class Frota
+ *
+ */
+
+//Acessors
 
 string Frota::getInformacao() const{
 	stringstream ss;
@@ -63,21 +86,16 @@ string Frota::getInformacao() const{
 
 }
 
-unsigned int Frota::getNumComboios() const{return comboios.size();}
-
 Comboio* Frota::getComboio(int id) const{return comboios.at(id);}
 
-void Frota::saveComboios() const{
-	ofstream mfile;
+unsigned int Frota::getNumComboios() const{return comboios.size();}
 
-	mfile.open ("comboios.txt");
+//Outros
 
-	for (unsigned int i= 0; i < comboios.size(); i++){
-		mfile << comboios.at(i)->getNome() << " " << comboios.at(i)->getLotacao() <<" " << comboios.at(i)->getTipo();
-		mfile << " " << comboios.at(i)->getVelocidade() << " " << comboios.at(i)->getPrecoKM() << endl;
-	}
 
-	mfile.close();
+void Frota::adicionaComboio(Comboio *c1) {
+	comboios.push_back(c1);
+	c1->setId(comboios.size());
 }
 
 void Frota::loadComboios(){
@@ -115,3 +133,18 @@ void Frota::loadComboios(){
 	}
 	mfile.close();
 }
+
+void Frota::saveComboios() const{
+	ofstream mfile;
+
+	mfile.open ("comboios.txt");
+
+	for (unsigned int i= 0; i < comboios.size(); i++){
+		mfile << comboios.at(i)->getNome() << " " << comboios.at(i)->getLotacao() <<" " << comboios.at(i)->getTipo();
+		mfile << " " << comboios.at(i)->getVelocidade() << " " << comboios.at(i)->getPrecoKM() << endl;
+	}
+
+	mfile.close();
+}
+
+
