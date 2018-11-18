@@ -119,29 +119,41 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				string nome, tipo;
 				Comboio *c;
 				while (true){
-					cout<<endl<<"Introduza a informação do comboio (lotacao, velocidade, precoKM, nome, tipo)"<<endl;
+					cout<<endl<<"Introduza a informação do comboio (lotacao, velocidade, precoKM, nome, tipo):"<<endl;
 					cin>>lotacao>> velocidade>> precoKM>> nome>> tipo;
 					if (cin.fail()){
 						cin.clear();
 						cin.ignore('\n',100);
 						cout<<"Invalid input."<<endl;}
-					else if (lotacao>0 && velocidade>0 && precoKM>0 && (tipo=="IC" || tipo== "AP"))
-						break;
-					else cout<<"Invalid input."<<endl;
+					else if (lotacao<0 || velocidade<0 || precoKM<0 || (tipo!="IC" && tipo!= "AP"))
+						cout<<"Invalid input."<<endl;
+					else break;
 				}
 				if (tipo == "IC")
 					c = new Intercidades (lotacao, velocidade, precoKM, nome);
 				else c = new AlfaPendular (lotacao, velocidade, precoKM, nome);
-					f->adicionaComboio(c);
+				f->adicionaComboio(c);
 
 
 			break;
 			}
-			case 3: {
-
-
-				//Adicionar Cartoes
-
+			case 3: {//verificacao de erros nao funciona bem quando tentas por string para preço ou desconto
+				float precoMensal;
+				int desconto;
+				string nome;
+				while (true){
+					cout <<endl<< "Introduza a informaçao do cartao(nome, preco mensal, desconto):"<<endl;
+					cin>>nome>>precoMensal>>desconto;
+					if (cin.fail()){
+						cin.clear();
+						cin.ignore('\n',100);
+						cout<<"Invalid input."<<endl;}
+					else if (precoMensal<0||desconto<0)
+						cout<<"Invalid input."<<endl;
+					else break;
+				}
+				Cartao *c1 = new Cartao(nome, precoMensal, desconto);
+				r->adicionaCartao(c1);
 				break;
 			}
 
