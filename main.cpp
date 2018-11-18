@@ -113,7 +113,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 
 				}
 
-			case 2: {//falta verificar se o comboio ja existe
+			case 2: {//falta verificar se o comboio ja existe//verificacao de erros nao funciona muito bem quando tentas por string
 				int lotacao, velocidade;
 				double precoKM;
 				string nome, tipo;
@@ -137,7 +137,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 
 			break;
 			}
-			case 3: {//verificacao de erros nao funciona bem quando tentas por string para preço ou desconto
+			case 3: {//verificacao de erros nao funciona muito bem quando tentas por string para preço ou desconto
 				float precoMensal;
 				int desconto;
 				string nome;
@@ -157,9 +157,27 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				break;
 			}
 
-			case 4:{
-
-				//Adicionar Viagens (Listar Comboios, para escoher o comboio)
+			case 4:{//verificacao de erros nao funciona muito bem quando tentas por string
+				string origem,destino;
+				double distancia;
+				int ano, mes, dia, horas, minutos, id_comboio;
+				while (true){
+					cout<<endl<<f->getInformacao()<<endl;
+					cout<<endl<<"Introduza a informaçao da viagem(origem, destino, distancia, id comboio, ano, mes, dia, horas, minutos):"<<endl;
+					cin>>origem>>destino>>distancia>>id_comboio>>ano>>mes>>dia>>horas>>minutos;
+					if (cin.fail()){
+						cin.clear();
+						cin.ignore('\n',100);
+						cout<<"Invalid input."<<endl;}
+					else if (id_comboio<0||id_comboio>=f->getNumComboios()||distancia<0||ano<0||mes<0||dia<0||horas<0||minutos<0)
+						cout<<"Invalid input."<<endl;
+					else break;
+				}
+				Comboio *c = f->getComboio(id_comboio);
+				Datas *dp=new Datas(ano,mes,dia);
+				Horas *hp=new Horas(horas, minutos);
+				Viagem *v=new Viagem(origem, destino, distancia, c,dp,hp);
+				b->adicionaViagem(v);
 
 				break;
 			}
