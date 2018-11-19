@@ -3,6 +3,7 @@
 #include "cartao.h"
 #include "viagens.h"
 #include "comboios.h"
+#include <limits>
 
 using namespace std;
 
@@ -34,7 +35,7 @@ int main(){
 
 			if (cin.fail()){
 				cin.clear();
-				cin.ignore('\n',100);
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "Input Invalido tente outra vez" << endl;
 			}
 			cout << endl << "---MENU INICIAL---" << endl << endl;
@@ -91,7 +92,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 			while (cin.fail() || menu > 5){
 				if (cin.fail()){
 					cin.clear();
-					cin.ignore('\n',100);
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << "Input Invalido tente outra vez" << endl;
 				}
 			cout << endl << "---Administracao---" << endl << endl;
@@ -226,7 +227,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 
 			if (cin.fail()){
 				cin.clear();
-				cin.ignore('\n',100);
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "Input Invalido tente outra vez" << endl;
 			}
 
@@ -278,6 +279,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 		while (cin.fail() || id >= numRegs ){
 			if (cin.fail()){
 				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "ID Invalido, tente outra vez" << endl;
 			}
 			cout << "ID do seu cartao: ";
@@ -325,9 +327,16 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 				cin >> menu;
 				if (cin.fail()){
 					cin.clear();
-					cin.ignore('\n',100);
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					cout << "Input invalido, tente outra vez" << endl;
+					continue;
 				}
-				else break;
+
+				if (menu > 6){
+					cout << "Menu nao existe, tente outra vez" << endl;
+					continue;
+				}
+				break;
 			}
 			else break;
 		}
@@ -435,14 +444,19 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 //					MENU UTILIZADORES ANONIMOS
 
 void menuSemCartao(BaseClientes *r, Bilheteira *b){//TODO: PROPER INPUT VAL
-	unsigned int menu = 0;
+	unsigned int menu = 4;
 	int ano, mes, dia;
 	unsigned int cart;
 	string nome;
 	string profissao;
 
-	while (menu != 5){
-		while (true){
+	while (menu != 3){
+		while (cin.fail() || menu > 3){
+			if (cin.fail()){
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "Input invalido, tente outra vez" << endl;
+			}
 		cout << endl << "---Passageiro sem Cartao---" << endl << endl;
 
 		cout << endl << "0 - Comprar Bilhete" << endl;
@@ -451,10 +465,10 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){//TODO: PROPER INPUT VAL
 		cout << "3 - Sair" << endl;
 
 		cin >> menu;
-		if (cin.fail()){
-			cin.clear();
-			cin.ignore('\n',100);}
-		else break;}
+
+		if (menu > 3)
+			cout << "Menu nao existe, tente outra vez" << endl;
+		}
 
 		switch (menu){
 		case 0:{

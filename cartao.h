@@ -145,9 +145,7 @@ public:
 	 * Retorna toda a informacao de um passageiro especifico
 	 */
 	std::string getInformacao () const;
-	/**
-	 * Retorna a data de nascimento de um passageiro especifico
-	 */
+
 	std::string getInfoCartao() const;
 	/**
 	 * retorna um cartao do vector cartoes
