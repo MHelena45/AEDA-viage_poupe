@@ -71,6 +71,8 @@ Bilheteira::Bilheteira(Frota *frt){
 
 //Acessors
 
+int Bilheteira::getNumViagens() const {return viagens.size();}
+
 Viagem* Bilheteira::getViagem(int id) {return viagens.at(id);}
 
 string Bilheteira::getInfo(){
@@ -153,7 +155,6 @@ void Bilheteira::loadViagens(){
 		adicionaViagem(temp);
 		mfile.ignore(1);
 		getline(mfile, statline);
-		cout << statline << endl;
 	}
 
 	mfile.close();

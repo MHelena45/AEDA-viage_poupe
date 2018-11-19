@@ -46,6 +46,7 @@ class Bilheteira {
 public:
 	Bilheteira(Frota *frt);
 
+	int getNumViagens() const;
 	Viagem* getViagem(int id);
 	std::string getInfo();
 

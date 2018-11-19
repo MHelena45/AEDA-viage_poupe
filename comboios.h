@@ -68,7 +68,7 @@ public:
 
 	Comboio* getComboio(int id) const;
 
-	unsigned int getNumComboios() const;
+	int getNumComboios() const;
 
 	void adicionaComboio(Comboio *c1);
 

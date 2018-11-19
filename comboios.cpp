@@ -88,7 +88,7 @@ string Frota::getInformacao() const{
 
 Comboio* Frota::getComboio(int id) const{return comboios.at(id);}
 
-unsigned int Frota::getNumComboios() const{return comboios.size();}
+int Frota::getNumComboios() const{return comboios.size();}
 
 //Outros
 

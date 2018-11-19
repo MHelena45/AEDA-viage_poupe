@@ -14,7 +14,7 @@ void menuAdministracao(BaseClientes *r, Frota *f, Bilheteira *b);
 
 
 /*
- * TO-DO: Relatorio, Doxygen, adicionar comboios/cartoes/viagens, excepï¿½oes/validar inputs
+ * TODO: Relatorio, Doxygen, adicionar comboios/cartoes/viagens, excepcoes/validar inputs
  * 			verificar se existem viagens ao comprar bilhete
  *
  *
@@ -23,40 +23,51 @@ void menuAdministracao(BaseClientes *r, Frota *f, Bilheteira *b);
 
 int main(){
 
-	unsigned int menu = 0;
+	unsigned int menu = 5;
 
 	BaseClientes r;
 	Frota f;
 	Bilheteira b(&f);
 
-	while (menu != 5){
-		while (true){
-		cout << endl << "---MENU INICIAL---" << endl << endl;
-		cout << "0 - Informacao" << endl;
-		cout << "1 - Passageiro sem cartao" << endl;
-		cout << "2 - Passageiro com cartao" << endl;
-		cout << "3 - Administracao" << endl;
-		cout << "5 - Sair" << endl;
+	while (menu != 4){
+		while (cin.fail() || menu > 4){
+
+			if (cin.fail()){
+				cin.clear();
+				cin.ignore('\n',100);
+				cout << "Input Invalido tente outra vez" << endl;
+			}
+			cout << endl << "---MENU INICIAL---" << endl << endl;
+			cout << "0 - Informacao" << endl;
+			cout << "1 - Passageiro sem cartao" << endl;
+			cout << "2 - Passageiro com cartao" << endl;
+			cout << "3 - Administracao" << endl;
+			cout << "4 - Sair" << endl;
 
 		cin >> menu;
-		if (cin.fail()){
-			cin.clear();
-			cin.ignore('\n',100);}
-		else break;}
+		if (menu > 4)
+			cout << "Menu nao existe, tente outra vez" << endl;
+		}
 
 		switch (menu){
 		case 0:
 			menuInformacao(&r, &f, &b);
+			menu = 5;
 			break;
 		case 1:
 			menuSemCartao(&r, &b);
+			menu = 5;
 			break;
 		case 2:
 			menuComCartao(&r, &b);
+			menu = 5;
 			break;
 		case 3:
 			menuAdministracao(&r, &f, &b);
+			menu = 5;
 			break;
+		case 4:
+			return 0;
 		default:
 			return 0;
 		}
@@ -74,10 +85,15 @@ int main(){
 
 void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 
-	unsigned int menu = 0;
+	unsigned int menu = 6;
 
 		while (menu != 5){
-			while (true){
+			while (cin.fail() || menu > 5){
+				if (cin.fail()){
+					cin.clear();
+					cin.ignore('\n',100);
+					cout << "Input Invalido tente outra vez" << endl;
+				}
 			cout << endl << "---Administracao---" << endl << endl;
 
 			cout << endl << "0 - Guardar Dados" << endl;
@@ -89,10 +105,9 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 			cout << "5 - Sair" << endl;
 
 			cin >> menu;
-			if (cin.fail()){
-				cin.clear();
-				cin.ignore('\n',100);}
-			else break;}
+			if (menu > 5)
+				cout << "Menu nao existe, tente outra vez" << endl;
+			}
 
 			switch (menu){
 			case 0:{
@@ -101,15 +116,16 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				r->saveCartoes();
 				r->saveRegistos();
 				b->saveViagens();
-
-				break;
+				cout << endl <<"Dados Gravados" << endl;
+				return;
 			}
 			case 1:{
 				f->loadComboios();
 				r->loadCartoes();
 				r->loadRegistos();
 				b->loadViagens();
-				break;
+				cout << endl <<"Dados Carregados" << endl;
+				return;
 
 				}
 
@@ -121,7 +137,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				Comboio *c;
 				while (true){
 					existe=false;
-					cout<<endl<<"Introduza a informaÃ§Ã£o do comboio (lotacao, velocidade, precoKM, nome, tipo):"<<endl;
+					cout<<endl<<"Introduza a informacao do comboio (lotacao, velocidade, precoKM, nome, tipo):"<<endl;
 					cin>>lotacao>> velocidade>> precoKM>> nome>> tipo;
 					if (cin.fail()){
 						cin.clear();
@@ -130,7 +146,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 					else if (lotacao<0 || velocidade<0 || precoKM<0 || (tipo!="IC" && tipo!= "AP"))
 						cout<<"Invalid input."<<endl;
 					else {
-						for (unsigned int i=0;i<f->getNumComboios();i++)
+						for (int i=0;i<f->getNumComboios();i++)
 							if (f->getComboio(i)->getNome()==nome)
 								existe=true;
 					
@@ -150,7 +166,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				int desconto;
 				string nome;
 				while (true){
-					cout <<endl<< "Introduza a informaÃ§ao do cartao(nome, preco mensal, desconto):"<<endl;
+					cout <<endl<< "Introduza a informacao do cartao(nome, preco mensal, desconto):"<<endl;
 					cin>>nome>>precoMensal>>desconto;
 					if (cin.fail()){
 						cin.clear();
@@ -171,13 +187,13 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				int ano, mes, dia, horas, minutos, id_comboio;
 				while (true){
 					cout<<endl<<f->getInformacao()<<endl;
-					cout<<endl<<"Introduza a informaÃ§ao da viagem(origem, destino, distancia, id comboio, ano, mes, dia, horas, minutos):"<<endl;
+					cout<<endl<<"Introduza a informacao da viagem(origem, destino, distancia, id comboio, ano, mes, dia, horas, minutos):"<<endl;
 					cin>>origem>>destino>>distancia>>id_comboio>>ano>>mes>>dia>>horas>>minutos;
 					if (cin.fail()){
 						cin.clear();
 						cin.ignore('\n',100);
 						cout<<"Invalid input."<<endl;}
-					else if (id_comboio<0||id_comboio>=f->getNumComboios()||distancia<0||ano<0||mes<0||dia<0||horas<0||minutos<0)
+					else if (id_comboio < 0 || id_comboio >= f->getNumComboios()||distancia<0||ano<0||mes<0||dia<0||horas<0||minutos<0)
 						cout<<"Invalid input."<<endl;
 					else break;
 				}
@@ -203,38 +219,40 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 
 void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 
-	unsigned int menu = 0;
+	unsigned int menu = 3;
 
-	while (menu != 5){
-		while (true){
-		cout << endl << "---Informacao---" << endl << endl;
+	while (menu != 2){
+		while (cin.fail() || menu > 2){
 
-		cout << endl << "0 - Lista de Comboios" << endl;
-		cout << "1 - Lista de Viagens" << endl;
-		cout << "5 - Sair" << endl;
+			if (cin.fail()){
+				cin.clear();
+				cin.ignore('\n',100);
+				cout << "Input Invalido tente outra vez" << endl;
+			}
 
-		cin >> menu;
-		if (cin.fail()){
-			cin.clear();
-			cin.ignore('\n',100);}
-		else break;}
+			cout << endl << "---Informacao---" << endl << endl;
+
+			cout << endl << "0 - Lista de Comboios" << endl;
+			cout << "1 - Lista de Viagens" << endl;
+			cout << "2 - Sair" << endl;
+
+			cin >> menu;
+			if (menu > 2)
+				cout << "Menu nao existe, tente outra vez" << endl;
+		}
 
 		switch (menu){
-		case 0:
+		case 0: //TODO:Excepçao quando nao existem comboios
 			cout << endl << "Lista de Comboios" << endl << endl;
 			cout << f->getInformacao();
+			menu = 3;
 			break;
-		case 1:
+		case 1://TODO:Excepçao quando nao existem viagens
 			cout << endl << "Lista de Viagens" << endl << endl;
 			cout << b->getInfo();
+			menu = 3;
 			break;
-		/*case 2:
-
-			return;
-		case 3:
-
-			break;*/
-		case 5:
+		case 2:
 			return;
 		default:
 			return;
@@ -246,7 +264,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 
 void menuComCartao(BaseClientes *r, Bilheteira *b){
 	unsigned int numRegs = r->getNumRegistos();
-	unsigned int id= numRegs + 1;
+	unsigned int id = numRegs + 1;
 	unsigned int menu = 0;
 	bool skip = false;
 
@@ -255,23 +273,25 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 		return;
 	}
 
-	while (id >= numRegs){
-		cout << "ID do seu cartao: ";
-		cin >> id;
-		if (cin.fail()){
-			cin.clear();
-			cin.ignore('\n',100);
-			continue;
+
+
+		while (cin.fail() || id >= numRegs ){
+			if (cin.fail()){
+				cin.clear();
+				cout << "ID Invalido, tente outra vez" << endl;
+			}
+			cout << "ID do seu cartao: ";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin >> id;
+			if (id >= numRegs)
+				cout << "ID nao existe, tente outra vez" << endl;
 		}
-		if (id >= numRegs){
-			cout << endl << "ID Invalido, tente outra vez" << endl;
-		}
-	}
+
 	r->setId(id);
 
 
 
-	while (menu != 6){
+	while (menu != 6){ //TODO: INPUT VAL ON MENU
 
 		cout << endl << "---Passageiro Com Cartao---" << endl << endl;
 
@@ -327,29 +347,29 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 				cin.clear();
 				cin.ignore('\n',100);
 				cout<<"Invalid input."<<endl;}
-			else if (viagemId>=b->numViagens()||viagemId<0)
+			else if (viagemId >= b->getNumViagens() || viagemId < 0)
 				cout<<"Essa viagem nao existe."<<endl<<endl;
 			else break;
 			}
 			temp = b->getViagem(viagemId);
 			if (temp->reservaBilhete(true) == -1){
-				cout << endl << "Este comboio jï¿½ estï¿½ cheio" << endl;
+				cout << endl << "Este comboio ja esta cheio" << endl;
 				break;
 			}
 			precoFinal = temp->getPrecoFinal(r->getRegisto()->getCartao());
 			Compra *tempC = new Compra( temp, r->getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
 			r->getRegisto()->adicionaCompra(tempC);
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "ï¿½" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "ï¿½"
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "ï¿½" << endl << endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl << endl;
 
 			break;
 		}
 			break;
 		case 1:{
-			int compraId;
+			unsigned int compraId;
 			vector <Compra *> cmps = r->getRegisto()->getCompraAtiva();
 			while (true){
 			cout << "Bilhetes nao usados" << endl << endl;
@@ -362,7 +382,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 				cin.clear();
 				cin.ignore('\n',100);
 				cout<<"Invalid input."<<endl;}
-			else if (compraId>cmps.size()||compraId<0)
+			else if (compraId > cmps.size())
 				cout<<"Esse bilhete nao existe."<<endl<<endl;
 			else break;
 			}
@@ -374,7 +394,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			break;
 		}
 		case 2:{
-			int cart;
+			unsigned int cart;
 			while (true){
 			cout << "Tipo de Cartao: " << endl << endl;
 			cout << r->getInfoCartao() << endl;
@@ -383,7 +403,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 				cin.clear();
 				cin.ignore('\n',100);
 				cout<<"Invalid input."<<endl;}
-			else if (cart>=r->getNumCartoes()||cart<0)
+			else if (cart>=r->getNumCartoes())
 				cout<<"Esse cartao nao existe."<<endl<<endl;
 			else break;
 			}
@@ -414,10 +434,10 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 
 //					MENU UTILIZADORES ANONIMOS
 
-void menuSemCartao(BaseClientes *r, Bilheteira *b){
+void menuSemCartao(BaseClientes *r, Bilheteira *b){//TODO: PROPER INPUT VAL
 	unsigned int menu = 0;
 	int ano, mes, dia;
-	int cart;
+	unsigned int cart;
 	string nome;
 	string profissao;
 
@@ -451,21 +471,23 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 				cin.clear();
 				cin.ignore('\n',100);
 				cout<<"Invalid input."<<endl;}
-			else if (viagemId>=b->numViagens()||viagemId<0)
+			else if (viagemId >= b->getNumViagens() || viagemId < 0){
 				cout<<"Essa viagem nao existe."<<endl<<endl;
+				break;
+			}
 			else break;
 			}
 			temp = b->getViagem(viagemId);
 			if (temp->reservaBilhete(false) == -1){
-				cout << endl << "Este comboio jï¿½ estï¿½ cheio" << endl;
+				cout << endl << "Este comboio ja esta cheio" << endl;
 				break;
 			}
 			precoFinal = temp->getPrecoFinal();
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "ï¿½" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "ï¿½"
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "ï¿½" << endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl;
 
 
 			return;
@@ -483,7 +505,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 				cin.clear();
 				cin.ignore('\n',100);
 				cout<<"Invalid input."<<endl;}
-			else if (viagemId>=b->numViagens()||viagemId<0)
+			else if (viagemId >= b->getNumViagens() || viagemId < 0)
 				cout<<"Essa viagem nao existe."<<endl<<endl;
 			else break;
 			}
@@ -522,7 +544,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 				cin.clear();
 				cin.ignore('\n',100);
 				cout<<"Invalid input."<<endl;}
-			else if (cart>=r->getNumCartoes()||cart<0)
+			else if (cart >= r->getNumCartoes())
 				cout<<"Esse cartao nao existe."<<endl<<endl;
 			else break;
 			}
