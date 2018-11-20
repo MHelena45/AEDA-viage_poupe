@@ -22,6 +22,14 @@ Compra::Compra(Viagem *v, Cartao *c, double pf, Datas *dc, Horas *hc){
 	hCompra = hc;
 }
 
+//Destrutor
+Compra::~Compra(){
+	delete v1;
+	delete dCompra;
+	delete hCompra;
+
+}
+
 //Acessors
 
 std::string Compra::getInfo() const{
@@ -69,6 +77,13 @@ Bilheteira::Bilheteira(Frota *frt){
 	f = frt;
 }
 
+//Destructor
+
+Bilheteira::~Bilheteira(){
+	for (unsigned int i = 0; i < viagens.size(); i++)
+		delete viagens.at(i);
+}
+
 //Acessors
 
 int Bilheteira::getNumViagens() const {return viagens.size();}
@@ -95,6 +110,9 @@ string Bilheteira::getInfo(){
 void Bilheteira::adicionaViagem(Viagem *v1){viagens.push_back(v1);}
 
 void Bilheteira::updateViagens(){
+
+	//Remove viagens ja inciadas do vector
+
 	Horas *tempHora = getHoraActual();
 	Datas *tempData = getDataActual();
 	float horasActual = tempData->getHoursFormat() + tempHora->getHoursFormat();
@@ -109,6 +127,21 @@ void Bilheteira::updateViagens(){
 			}
 			else{
 				viagens.erase(viagens.begin()+i);
+			}
+		}
+	}
+
+	//Selection Sort, organizado por viagens que saiam primeiro para viagens que saiam mais tarde
+
+	for (unsigned int i = 0; i < viagens.size(); i++){
+		double horasi = viagens.at(i)->getDataPartida()->getHoursFormat() + viagens.at(i)->getHorasPartida()->getHoursFormat();
+		for (unsigned int j = i + 1; j < viagens.size(); j++){
+			double horasj = viagens.at(j)->getDataPartida()->getHoursFormat() + viagens.at(j)->getHorasPartida()->getHoursFormat();
+
+			if (horasi > horasj){
+				Viagem *temp = viagens.at(i);
+				viagens.at(i) = viagens.at(j);
+				viagens.at(j) = temp;
 			}
 		}
 	}
@@ -137,10 +170,41 @@ void Bilheteira::loadViagens(){
 		mfile >> comboioId;
 		mfile.ignore(1);
 
-		getline(mfile, datavgm);
-		Datas *dvgm = new Datas (datavgm);
-		getline(mfile, horavgm);
-		Horas *hvgm = new Horas (horavgm);
+		// DATA DA VIAGEM
+
+		Datas *dvgm;
+		try{
+			getline(mfile, datavgm);
+			dvgm = new Datas (datavgm);
+		}
+		catch (Datas::DataInvalida){
+			cout << "Data Invalida - Dia(1-31), Mes (1-12)" << endl;
+			cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+			return;
+		}
+		catch (Datas::FormatoStringInvalido){
+			cout << "Formato invalido - (DD-MM-AAAA)" << endl;
+			cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+			return;
+		}
+
+		// HORA DA VIAGEM
+
+		Horas *hvgm;
+		try {
+			getline (mfile, horavgm);
+			hvgm = new Horas (horavgm);
+		}
+		catch (Horas::HoraInvalida){
+			cout << "Hora Invalida - Hora(0-23), Min (0-59)" << endl;
+			cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+			return;
+		}
+		catch (Horas::FormatoStringInvalido){
+			cout << "Formato invalido - (HH-MM)" << endl;
+			cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+			return;
+		}
 
 
 		mfile >> vagas;

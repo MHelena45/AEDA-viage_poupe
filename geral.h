@@ -24,17 +24,26 @@ class Datas {
 public:
 
 	Datas(unsigned int a, unsigned int m, unsigned int d){
+		if (d > 31 || d < 1 || m > 12 || m < 1)
+			throw DataInvalida();
+
+
 		ano= a; mes = m; dia = d;
 	}
 
 	Datas(std::string d){
 
-
-
 		std::string tempDia = "";
 		std::string tempMes = "";
 		std::string tempAno = "";
+
+		if (d.length() != 10)
+			throw FormatoStringInvalido();
+
 		for (unsigned int i = 0; i < d.length(); i++){
+
+			if (d.at(i) < '0' && d.at(i) > '9' && d.at(i) != '-')
+				throw FormatoStringInvalido();
 
 			if (d.at(i) == '-'){
 				continue;
@@ -55,19 +64,36 @@ public:
 			else break;
 		}
 
-		dia = std::stoi(tempDia);
-		mes = std::stoi(tempMes);
-		ano = std::stoi(tempAno);
+		if (tempDia.length() < 2)
+			throw FormatoStringInvalido();
+
+		if (tempMes.length() < 2)
+			throw FormatoStringInvalido();
+
+		if (tempAno.length() < 4	)
+			throw FormatoStringInvalido();
+
+
+		int tDia = std::stoi(tempDia);
+		int tMes = std::stoi(tempMes);
+		int tAno = std::stoi(tempAno);
+
+		if (tDia > 31 || tDia < 1 || tMes > 12 || tMes < 1)
+			throw DataInvalida();
+
+		dia = tDia;
+		mes = tMes;
+		ano = tAno;
 
 	}
 
-	unsigned int getAno(){return ano;}
+	unsigned int getAno() const {return ano;}
 
-	unsigned int getMes() {return mes;}
+	unsigned int getMes() const {return mes;}
 
-	unsigned int getDia() {return dia;}
+	unsigned int getDia() const {return dia;}
 
-	double getHoursFormat(){
+	double getHoursFormat() const{
 
 		double hours = (ano - 2000) * 365.2425;
 
@@ -112,6 +138,9 @@ public:
 
 		return hours * 24;
 	}
+
+	class DataInvalida {};
+	class FormatoStringInvalido{};
 
 	friend std::ostream& operator << (std::ostream &os, const Datas &d1){
 		os << std::right << std::setw(2) << std::setfill('0') << d1.dia << "-"
@@ -168,10 +197,15 @@ public:
 	}
 
 	Horas (std::string h){
+		if (h.length() != 5)
+			throw FormatoStringInvalido();
+
 		std::string tempHora = "";
 		std::string tempMin = "";
 
 		for (unsigned int i = 0; i < h.length(); i++){
+			if (h.at(i) < '0' && h.at(i) > '9' && h.at(i) != ':')
+				throw FormatoStringInvalido();
 
 			if (h.at(i) == ':'){
 				continue;
@@ -187,18 +221,30 @@ public:
 			}
 		}
 
-		hora = std::stoi(tempHora);
-		min = std::stoi(tempMin);
+		if (tempHora.length() < 2 || tempMin.length() < 2)
+			throw FormatoStringInvalido();
+
+		int tHora = std::stoi(tempHora);
+		int tMin = std::stoi(tempMin);
+
+		if (tHora > 23 || tHora < 0 || tMin > 59 || tMin < 0 )
+			throw HoraInvalida();
+
+		hora = tHora;
+		min = tMin;
 	}
 
-	unsigned int getHora(){return hora;}
+	unsigned int getHora() const {return hora;}
 
-	unsigned int getMin() {return min;}
+	unsigned int getMin() const {return min;}
 
-	double getHoursFormat(){
+	double getHoursFormat() const {
 		double hmin = (double)min/60;
 		return (double)hora + hmin;
 	}
+
+	class HoraInvalida{};
+	class FormatoStringInvalido{};
 
 	friend std::ostream& operator << (std::ostream &os, const Horas &h1){
 		os << std::right << std::setfill('0') << std::setw(2) << h1.hora << ":"

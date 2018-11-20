@@ -21,8 +21,7 @@ class Compra {
 	Horas *hCompra;
 public:
 	Compra(Viagem *v, Cartao *c, double pf, Datas *dc, Horas *hc);
-
-
+	~Compra();
 	std::string getInfo() const;
 	Viagem* getViagem() const;
 	Cartao* getCartao() const;
@@ -45,7 +44,7 @@ class Bilheteira {
 	Frota *f;
 public:
 	Bilheteira(Frota *frt);
-
+	~Bilheteira();
 	int getNumViagens() const;
 	Viagem* getViagem(int id);
 	std::string getInfo();

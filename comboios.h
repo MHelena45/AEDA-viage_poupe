@@ -62,6 +62,8 @@ class Frota{
 
 public:
 
+	~Frota();
+
 	std::vector <Comboio *> comboios;
 
 	std::string getInformacao() const;

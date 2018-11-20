@@ -67,6 +67,8 @@ public:
 	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc);
 
 	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc, bool ativo);
+
+	~Registo();
 	/**
 	 * Retorna o nome do passageiro
 	 */
@@ -154,11 +156,11 @@ public:
 	/*
 	 * retorna o numero de cartoes
 	 */
-	unsigned int getNumCartoes() const;
+	int getNumCartoes() const;
 	/**
 	 * retorna o numero de clientes na base de dados
 	 */
-	unsigned int getNumRegistos() const;
+	int getNumRegistos() const;
 
 	int getCartaoIndex (Cartao *ct1) const;
 	/**

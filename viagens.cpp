@@ -50,6 +50,13 @@ Viagem::Viagem(std::string ori, std::string dest, Datas *dp, Horas *hp, double p
 	c1 = temp;
 }
 
+//Destructor
+
+Viagem::~Viagem(){
+	delete hPartida;
+	delete dPartida;
+}
+
 // Acessors
 
 Datas* Viagem::getDataPartida() const{ return dPartida;}

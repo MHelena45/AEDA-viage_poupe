@@ -69,6 +69,13 @@ string Intercidades::getTipo() const{return "IC";}
  *
  */
 
+//Destructor
+
+Frota::~Frota(){
+	for (unsigned int i = 0; i < comboios.size(); i++)
+		delete comboios.at(i);
+}
+
 //Acessors
 
 string Frota::getInformacao() const{

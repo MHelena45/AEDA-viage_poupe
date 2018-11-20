@@ -69,6 +69,14 @@ Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas *data
 
 }
 
+//Destructor
+
+Registo::~Registo(){
+	for (unsigned int i = 0; i < historico.size(); i++)
+		delete historico.at(i);
+	delete datanascimento;
+}
+
 // Acessors
 
 string Registo::getNome() const{return nome;}
@@ -175,6 +183,9 @@ string Registo::listCompraActiva(){
 BaseClientes::~BaseClientes(){
 	for (unsigned int i = 0; i < regs.size(); i++)
 		delete regs.at(i);
+
+	for (unsigned int i = 0; i < cartoes.size(); i++)
+		delete cartoes.at(i);
 }
 
 // Acessors
@@ -202,9 +213,9 @@ string BaseClientes::getInfoCartao() const{
 
 Cartao* BaseClientes::getCartao(int id) const {return cartoes.at(id);}
 
-unsigned int BaseClientes::getNumCartoes () const {return cartoes.size();}
+int BaseClientes::getNumCartoes () const {return cartoes.size();}
 
-unsigned int BaseClientes::getNumRegistos() const{return this->regs.size();}
+int BaseClientes::getNumRegistos() const{return this->regs.size();}
 
 int BaseClientes::getCartaoIndex (Cartao *ct1) const{
 	for (unsigned int i = 0; i < cartoes.size(); i++){
@@ -294,8 +305,23 @@ void BaseClientes::loadRegistos(){
 			mfile >> profissao;
 			mfile.ignore(1);
 
-			getline(mfile, datanasc);
-			Datas *nasc = new Datas (datanasc);
+			Datas *nasc;
+			try {
+				getline(mfile, datanasc);
+				nasc = new Datas (datanasc);
+			}
+			catch (Datas::DataInvalida){
+				cout << "Data Invalida - Dia(1-31), Mes (1-12)" << endl;
+				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+				return;
+			}
+			catch (Datas::FormatoStringInvalido){
+				cout << "Formato invalido - (DD-MM-AAAA)" << endl;
+				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+				return;
+			}
+
+
 			getline (mfile, at);
 			if (at == "Ativo")
 				ativo = true;
@@ -313,22 +339,89 @@ void BaseClientes::loadRegistos(){
 			//Carregar Historico
 			while (statline != "Cliente:" && !statline.empty()){
 
+				//CARTAO USADO PARA COMPRA
+
 				mfile >> cIndex;
 				Cartao *tempH = getCartao(cIndex);
 				mfile.ignore(1);
 
-				getline(mfile, datacomp);
-				Datas *dcmp = new Datas (datacomp);
-				getline (mfile, horacomp);
-				Horas *hcomp = new Horas (horacomp);
+				// DATA COMPRA
+
+				Datas *dcmp;
+				try {
+					getline(mfile, datacomp);
+					dcmp = new Datas (datacomp);
+				}
+				catch (Datas::DataInvalida){
+					cout << "Data Invalida - Dia(1-31), Mes (1-12), tente outra vez" << endl;
+					cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+					return;
+				}
+				catch (Datas::FormatoStringInvalido){
+					cout << "Formato invalido - (DD-MM-AAAA), tente outra vez" << endl;
+					cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+					return;
+				}
+
+				// HORA COMPRA
+
+				Horas *hcomp;
+				try {
+					getline (mfile, horacomp);
+					hcomp = new Horas (horacomp);
+				}
+				catch (Horas::HoraInvalida){
+					cout << "Hora Invalida - Hora(0-23), Min (0-59), tente outra vez" << endl;
+					cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+					return;
+				}
+				catch (Horas::FormatoStringInvalido){
+					cout << "Formato invalido - (HH-MM), tente outra vez" << endl;
+					cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+					return;
+				}
+
+				// ORIGEM E DESTINO
 
 				getline(mfile, origem);
 				getline(mfile, destino);
 
-				getline(mfile, datavgm);
-				Datas *vgm = new Datas (datavgm);
+				// DATA DA VIAGEM
+
+				Datas *vgm;
+				try{
+					getline(mfile, datavgm);
+					vgm = new Datas (datavgm);
+				}
+				catch (Datas::DataInvalida){
+					cout << "Data Invalida - Dia(1-31), Mes (1-12)" << endl;
+					cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+					return;
+				}
+				catch (Datas::FormatoStringInvalido){
+					cout << "Formato invalido - (DD-MM-AAAA)" << endl;
+					cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+					return;
+				}
+
+				// HORA DA VIAGEM
+
+				Horas *hvgm;
+				try {
 				getline (mfile, horavgm);
-				Horas *hvgm = new Horas (horavgm);
+				hvgm = new Horas (horavgm);
+				}
+				catch (Horas::HoraInvalida){
+					cout << "Hora Invalida - Hora(0-23), Min (0-59)" << endl;
+					cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+					return;
+				}
+				catch (Horas::FormatoStringInvalido){
+					cout << "Formato invalido - (HH-MM)" << endl;
+					cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+					return;
+				}
+
 
 				mfile >> precoBase;
 				mfile >> precoFinal;

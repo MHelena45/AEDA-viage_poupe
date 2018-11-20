@@ -28,6 +28,8 @@ public:
 
 	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp, int vagas, int comprasAnon);
 
+	~Viagem();
+
 	/* retorna o apontador para a data de partida */
 	Datas* getDataPartida() const;
 	
