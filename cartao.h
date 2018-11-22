@@ -1,8 +1,7 @@
 #ifndef _CARTAO_H
 #define _CARTAO_H
 
-
-#include "geral.h"
+#include "datashoras.h"
 
 	/*
 	 * CLASS CARTAO
@@ -11,7 +10,7 @@
 	 */
 
 class Cartao {
-	float precoMensal;
+	double precoMensal;
 	int desconto;
 	std::string nome;
 public:
@@ -21,7 +20,7 @@ public:
 	 * prc  -> Preco mensal da subscricao do cartao \n
 	 * desc -> Discount dado pelo cartao em todas as viagens \n
 	 */
-	Cartao(std::string nome, float prc, int desc);
+	Cartao(std::string nome, double prc, int desc);
 	/**
 	 * Retorna o preco mensal do cartao
 	 */

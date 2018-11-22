@@ -80,10 +80,10 @@ Frota::~Frota(){
 
 string Frota::getInformacao() const{
 	stringstream ss;
-	ss << "Nome" << setw(7) << "Tipo" << setw(9) << "Lotacao" << setw(12) << "Velocidade"
-			<< setw(15) << "Preco por Km" << "\n";
+	ss << "ID" << setw(7) << "Nome" << setw(7) << "Tipo" << setw(9) << "Lotacao"
+			<< setw(12) << "Velocidade"	<< setw(15) << "Preco por Km" << "\n";
 				for (unsigned int i = 0; i < comboios.size();i++){
-					ss << comboios.at(i)->getNome() << setw(7) << comboios.at(i)->getTipo()
+					ss << i << setw(6) << comboios.at(i)->getNome() << setw(7) << comboios.at(i)->getTipo()
 							<< setw(9) << comboios.at(i)->getLotacao() << setw(8);
 					ss << comboios.at(i)->getVelocidade() << " km/h" << setw(12)
 							<< comboios.at(i)->getPrecoKM() << "€" << "\n";

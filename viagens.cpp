@@ -1,4 +1,5 @@
 #include "viagens.h"
+#include "geral.h"
 using namespace std;
 
 /*
@@ -113,8 +114,8 @@ double Viagem::getPrecoFinal(){
 	Horas *tempHora = getHoraActual();
 	Datas *tempData = getDataActual();
 
-	float horasActual = tempData->getHoursFormat() + tempHora->getHoursFormat();
-	float horasViagem = getDataPartida()->getHoursFormat() + getHorasPartida()->getHoursFormat();
+	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
+	float horasViagem = getDataPartida()->getTotalHours() + getHorasPartida()->getTotalHours();
 
 	if ( ( horasViagem - horasActual ) <= 48 && ( horasViagem - horasActual ) > 0
 			&& vagas > (c1->getLotacao() / 2))
@@ -127,8 +128,8 @@ double Viagem::getPrecoFinal(Cartao *c){
 	Horas *tempHora = getHoraActual();
 	Datas *tempData = getDataActual();
 
-	float horasActual = tempData->getHoursFormat() + tempHora->getHoursFormat();
-	float horasViagem = getDataPartida()->getHoursFormat() + getHorasPartida()->getHoursFormat();
+	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
+	float horasViagem = getDataPartida()->getTotalHours() + getHorasPartida()->getTotalHours();
 
 	if ( ( horasViagem - horasActual ) <= 48 && ( horasViagem - horasActual ) > 0
 			&& vagas > (c1->getLotacao() / 2))
@@ -139,8 +140,8 @@ double Viagem::getPrecoFinal(Cartao *c){
 }
 
 bool Viagem::operator == (const Viagem &v2){
-	float v1hf = this->dPartida->getHoursFormat()+this->hPartida->getHoursFormat();
-	float v2hf = v2.dPartida->getHoursFormat() + v2.hPartida->getHoursFormat();
+	float v1hf = this->dPartida->getTotalHours()+this->hPartida->getTotalHours();
+	float v2hf = v2.dPartida->getTotalHours() + v2.hPartida->getTotalHours();
 	if ( (v1hf == v2hf) && (this->destino == v2.destino) && (this->origem == v2.origem) && (this->distancia == v2.distancia)
 			&& this->precoBase == v2.precoBase)
 		return true;

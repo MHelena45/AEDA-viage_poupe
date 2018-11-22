@@ -1,5 +1,6 @@
 #include "cartao.h"
 #include "bilheteira.h"
+#include "geral.h"
 
 using namespace std;
 
@@ -11,7 +12,7 @@ using namespace std;
 
 // Construtor
 
-Cartao::Cartao(string nome, float prc, int desc){
+Cartao::Cartao(string nome, double prc, int desc){
 	this->precoMensal = prc;
 	this->desconto = desc;
 	this->nome = nome;
@@ -138,12 +139,12 @@ vector <Compra *> Registo::getCompraAtiva(){
 
 	Horas *tempHora = getHoraActual();
 	Datas *tempData = getDataActual();
-	float horasActual = tempData->getHoursFormat() + tempHora->getHoursFormat();
+	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
 
 
 	for (unsigned int i = 0; i < historico.size(); i++){
 		Viagem *v =	historico.at(i)->getViagem();
-		float horasViagem = v->getDataPartida()->getHoursFormat() + v->getHorasPartida()->getHoursFormat();
+		float horasViagem = v->getDataPartida()->getTotalHours() + v->getHorasPartida()->getTotalHours();
 		if (horasViagem > horasActual)
 			temp.push_back(historico.at(i));
 	}

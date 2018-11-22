@@ -1,7 +1,7 @@
 #ifndef _COMBOIOS_H
 #define _COMBOIOS_H
 
-#include "geral.h"
+#include "datashoras.h"
 
 class Comboio {
 protected:

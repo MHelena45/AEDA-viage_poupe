@@ -2,6 +2,7 @@
 #include "viagens.h"
 #include "cartao.h"
 #include "comboios.h"
+#include "geral.h"
 
 
 using namespace std;
@@ -57,8 +58,8 @@ double Compra::getPrecoFinal() const {return precoFinal;}
 //Outros
 
 bool Compra::operator == (const Compra &c2){
-	float c1hf = this->dCompra->getHoursFormat() + this->hCompra->getHoursFormat();
-	float c2hf = c2.dCompra->getHoursFormat() + c2.hCompra->getHoursFormat();
+	float c1hf = this->dCompra->getTotalHours() + this->hCompra->getTotalHours();
+	float c2hf = c2.dCompra->getTotalHours() + c2.hCompra->getTotalHours();
 
 	if ( (c1hf == c2hf) && (*this->v1 == *c2.v1) && (this->precoFinal == c2.precoFinal))
 		return true;
@@ -115,9 +116,9 @@ void Bilheteira::updateViagens(){
 
 	Horas *tempHora = getHoraActual();
 	Datas *tempData = getDataActual();
-	float horasActual = tempData->getHoursFormat() + tempHora->getHoursFormat();
+	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
 	for (unsigned int i = 0; i < viagens.size(); i++){
-		float horasViagem = viagens.at(i)->getDataPartida()->getHoursFormat() + viagens.at(i)->getHorasPartida()->getHoursFormat();
+		float horasViagem = viagens.at(i)->getDataPartida()->getTotalHours() + viagens.at(i)->getHorasPartida()->getTotalHours();
 		if (horasActual > horasViagem){
 			if ( !(viagens.at(i)->compraRegisto()) ){
 				delete viagens.at(i);
@@ -134,9 +135,9 @@ void Bilheteira::updateViagens(){
 	//Selection Sort, organizado por viagens que saiam primeiro para viagens que saiam mais tarde
 
 	for (unsigned int i = 0; i < viagens.size(); i++){
-		double horasi = viagens.at(i)->getDataPartida()->getHoursFormat() + viagens.at(i)->getHorasPartida()->getHoursFormat();
+		double horasi = viagens.at(i)->getDataPartida()->getTotalHours() + viagens.at(i)->getHorasPartida()->getTotalHours();
 		for (unsigned int j = i + 1; j < viagens.size(); j++){
-			double horasj = viagens.at(j)->getDataPartida()->getHoursFormat() + viagens.at(j)->getHorasPartida()->getHoursFormat();
+			double horasj = viagens.at(j)->getDataPartida()->getTotalHours() + viagens.at(j)->getHorasPartida()->getTotalHours();
 
 			if (horasi > horasj){
 				Viagem *temp = viagens.at(i);

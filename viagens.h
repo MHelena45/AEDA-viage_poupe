@@ -1,9 +1,9 @@
 #ifndef _VIAGENS_H
 #define _VIAGENS_H
 
-#include "geral.h"
 #include "comboios.h"
 #include "cartao.h"
+#include "datashoras.h"
 
 /*
  * CLASS Viagem

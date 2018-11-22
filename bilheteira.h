@@ -1,17 +1,18 @@
 #ifndef _BILHETEIRA_H
 #define _BILHETEIRA_H
 
+
 #include "viagens.h"
 #include "comboios.h"
 #include "cartao.h"
-#include "geral.h"
-
+#include "datashoras.h"
 
 /*
  * CLASS Compra
  * Esta Class cria os objectos que vao ficar no historico dos passageiros
  *
  */
+
 
 class Compra {
 	Viagem *v1;
@@ -32,6 +33,7 @@ public:
 
 	bool operator == (const Compra &c2);
 };
+
 
 /*
  * CLASS Bilheteira
