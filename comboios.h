@@ -80,7 +80,7 @@ public:
 	 * Construtor de alfapendular
 	 * @param numPassageiros Numero de passageiros maximo do comboio
 	 * @param velocidade Velocidade do comboio
-	 * @param precoKM Ppreco por km do comboio
+	 * @param precoKM Preco por km do comboio
 	 * @param nome Nome do comboio
 	 */
 	AlfaPendular(int numPassageiros, int velocidade, double precoKM, std::string nome);
