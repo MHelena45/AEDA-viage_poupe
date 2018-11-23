@@ -38,7 +38,7 @@ public:
 	 */
 	std::string getInformacao() const;
 	/**
-	 * RedefiniÃ§ao do operador comparaÃ§ao
+	 * Redefiniçao do operador comparaçao
 	 * @param ct1 -> referencia para o cartao com o qual se vai comparar
 	 * @return se o cartao e igual ao outro ou nao
 	 */
@@ -63,7 +63,7 @@ class Registo {
 	std::vector <Compra *> historico;
 public:
 	/**
-	 * Construtor do registo, esta ativo por predefiniÃ§ao 
+	 * Construtor do registo, esta ativo por predefiniçao
 	 * @param *c -> apontador para objeto da class Cartao, tipo de subscricao
 	 * @param nome -> nome do passageiro
 	 * @param profissao -> profissao do passageiro
@@ -180,11 +180,11 @@ public:
 	 */
 	Registo* getRegisto() const;
 	/**
-	 * @return informaÃ§ao de um passageiro especifico
+	 * @return informaçao de um passageiro especifico
 	 */
 	std::string getInformacao () const;
 	/**
-	 * @return informaÃ§ao sobre o cartao
+	 * @return informaçao sobre o cartao
 	 */
 	std::string getInfoCartao() const;
 	/**

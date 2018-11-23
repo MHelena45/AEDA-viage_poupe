@@ -118,7 +118,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 
 //					MENU UTILIZADORES ANONIMOS
 
-void menuSemCartao(BaseClientes *r, Bilheteira *b){//TODO: PROPER INPUT VAL
+void menuSemCartao(BaseClientes *r, Bilheteira *b){
 	int menu = -2;
 
 	while (menu != 3){
@@ -171,10 +171,10 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){//TODO: PROPER INPUT VAL
 
 			double precoFinal = temp->getPrecoFinal();
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "â‚¬" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "â‚¬"
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "â‚¬" << endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl;
 
 			return;
 		}
@@ -388,10 +388,10 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			r->getRegisto()->adicionaCompra(tempC);
 
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "â‚¬" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "â‚¬"
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "â‚¬" << endl << endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl << endl;
 
 			break;
 		}
