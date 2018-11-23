@@ -86,7 +86,7 @@ string Frota::getInformacao() const{
 					ss << i << setw(6) << comboios.at(i)->getNome() << setw(7) << comboios.at(i)->getTipo()
 							<< setw(9) << comboios.at(i)->getLotacao() << setw(8);
 					ss << comboios.at(i)->getVelocidade() << " km/h" << setw(12)
-							<< comboios.at(i)->getPrecoKM() << "€" << "\n";
+							<< comboios.at(i)->getPrecoKM() << "â‚¬" << "\n";
 				}
 
 	return ss.str();

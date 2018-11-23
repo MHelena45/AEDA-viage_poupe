@@ -105,7 +105,7 @@ std::string Registo::getHistorico() const{
 	ss << left << setw(16) <<"Data da compra" << setw(16)  <<"Hora da Compra"
 			<< setw(9) << "Origem" << setw(9) << "Destino" << setw(16)
 			<< "Data da viagem" << setw(16) <<"Hora da viagem" << setw(16)
-			<< "Preco Base(�)" << setw(10) <<"Total(�)" << endl;
+			<< "Preco Base(€)" << setw(10) <<"Total(€)" << endl;
 
 	for (unsigned int i = 0; i < historico.size(); i++){
 		ss << historico.at(i)->getInfo();

@@ -97,7 +97,7 @@ string Bilheteira::getInfo(){
 
 	ss << left <<"id  " << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
 			<< "Distancia(KM)" << setw(9) << "Comboio" << setw(13) << "Data"
-			<< setw(8) <<  "Hora" << setw(16) << "Preco base(€)"<< setw(7) << "Vagas" << "\n";
+			<< setw(8) <<  "Hora" << setw(16) << "Preco base(â‚¬)"<< setw(7) << "Vagas" << "\n";
 
 	for (unsigned int i = 0; i < viagens.size(); i++){
 		ss << i << "   " << viagens.at(i)->getInfo();
