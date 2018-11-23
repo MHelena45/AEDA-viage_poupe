@@ -15,7 +15,7 @@ public:
 	 * Construtor de comboio
 	 * @param numPassageiros -> numero de passageiros maximo do comboio
 	 * @param velocidade -> velocidade do comboio
-	 * @param precoKM -> preço por km do comboio
+	 * @param precoKM -> preco por km do comboio
 	 * @param nome -> nome do comboio
 	 */
 	Comboio(int numPassageiros, int velocidade, double precoKM, std::string nome);
@@ -26,7 +26,7 @@ public:
 	 */
 	virtual std::string getTipo() const;
 	/**
-	 * @return lotaçao do comboio
+	 * @return lotacao do comboio
 	 */
 	unsigned int getLotacao() const;
 	/**
@@ -34,7 +34,7 @@ public:
 	 */
 	int getVelocidade() const;
 	/**
-	 * @return preço por km do comboio
+	 * @return preco por km do comboio
 	 */
 	double getPrecoKM() const;
 	/**
@@ -55,7 +55,7 @@ public:
 	 */
 	void setId(int id);
 	/**
-	 * @param os -> referencia para ofstream onde guardar a informaÃ§ao
+	 * @param os -> referencia para ofstream onde guardar a informacao
 	 * @param c1 -> referencia para o comboio
 	 */
 	friend std::ostream& operator << (std::ostream &os, const Comboio &c1){
@@ -71,7 +71,7 @@ public:
 	 * Construtor de alfapendular
 	 * @param numPassageiros -> numero de passageiros maximo do comboio
 	 * @param velocidade -> velocidade do comboio
-	 * @param precoKM -> preço por km do comboio
+	 * @param precoKM -> preco por km do comboio
 	 * @param nome -> nome do comboio
 	 */
 	AlfaPendular(int numPassageiros, int velocidade, double precoKM, std::string nome);
@@ -92,7 +92,7 @@ public:
 	 * Construtor de intercidades
 	 * @param numPassageiros -> numero de passageiros maximo do comboio
 	 * @param velocidade -> velocidade do comboio
-	 * @param precoKM -> preço por km do comboio
+	 * @param precoKM -> preco por km do comboio
 	 * @param nome -> nome do comboio
 	 */
 	Intercidades(int numPasseiros, int velocidade, double precoKMs, std::string nome);
@@ -118,7 +118,7 @@ public:
 
 	std::vector <Comboio *> comboios;
 	/**
-	 * @return informaçao de frota
+	 * @return informacao de frota
 	 */
 	std::string getInformacao() const;
 	/**

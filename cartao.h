@@ -38,7 +38,7 @@ public:
 	 */
 	std::string getInformacao() const;
 	/**
-	 * Redefiniçao do operador comparaçao
+	 * Redefinicao do operador comparacao
 	 * @param ct1 -> referencia para o cartao com o qual se vai comparar
 	 * @return se o cartao e igual ao outro ou nao
 	 */
@@ -63,7 +63,7 @@ class Registo {
 	std::vector <Compra *> historico;
 public:
 	/**
-	 * Construtor do registo, esta ativo por predefiniçao
+	 * Construtor do registo, esta ativo por predefinicao
 	 * @param *c -> apontador para objeto da class Cartao, tipo de subscricao
 	 * @param nome -> nome do passageiro
 	 * @param profissao -> profissao do passageiro
@@ -120,12 +120,12 @@ public:
 	 */
 	std::string getHistorico() const;
 
-	/*
+	/**
 	 * Activa ou desactiva a subscricao
-	 * @param at -> estado atual da subscriÃ§ao
+	 * @param at -> estado atual da subscriacao
 	 */
 	void alterarEstado(bool at);
-	/*
+	/**
 	 * Altera o cartao do passageiro
 	 * @param c -> apontador para cartao a alterar
 	 */
@@ -135,16 +135,16 @@ public:
 	 * @param c1 -> apontador para compra a adicionar
 	 */
 	void adicionaCompra(Compra *c1);
-	/*
+	/**
 	 * Elimina uma compra do historico do passageiro
 	 * @param c1 -> apontador para compra a remover
 	 */
 	void eliminaCompra(Compra *c1);
-	/*
+	/**
 	 * @return vector com apontadores para as compras ativas
 	 */
 	std::vector <Compra *> getCompraAtiva();
-	/*
+	/**
 	 * @return string com as compras ativas
 	 */
 	std::string listCompraActiva ();
@@ -180,11 +180,11 @@ public:
 	 */
 	Registo* getRegisto() const;
 	/**
-	 * @return informaçao de um passageiro especifico
+	 * @return informacao de um passageiro especifico
 	 */
 	std::string getInformacao () const;
 	/**
-	 * @return informaçao sobre o cartao
+	 * @return informacao sobre o cartao
 	 */
 	std::string getInfoCartao() const;
 	/**
@@ -192,7 +192,7 @@ public:
 	 * @return apontador para cartao do vector cartoes com esse id
 	 */
 	Cartao* getCartao(int id) const;
-	/*
+	/**
 	 * @return numero de cartoes
 	 */
 	int getNumCartoes() const;
@@ -214,7 +214,7 @@ public:
 	 * @param r1 -> apontador para objecto temporario da class registo, registo a adicionar a base de clientes
 	 */
 	void adicionaRegisto(Registo *r1);
-	/*
+	/**
 	 * Remove registos do vector(regs) de clientes
 	 */
 	void removeRegisto ();

@@ -25,7 +25,7 @@ public:
 	 * Construtor de compra
 	 * @param v -> apontador para a viagem que se vai comprar
 	 * @param c -> apontador para cartao co cliente que faz a compra
-	 * pf -> preço final
+	 * pf -> preco final
 	 * dc -> apontador para data da compra
 	 * hc ->apontador para horas da compra
 	 */
@@ -36,7 +36,7 @@ public:
 	 */
 	~Compra();
 	/**
-	 * @return informação sobre a compra
+	 * @return informacao sobre a compra
 	 */
 	std::string getInfo() const;
 	/**
@@ -56,12 +56,12 @@ public:
 	 */
 	Horas* getHoraCompra() const;
 	/**
-	 * @return preço final (ja depois do desconto) da compra
+	 * @return preco final (ja depois do desconto) da compra
 	 */
 	double getPrecoFinal() const;
 
 	/**
-	 * Redefinição do operador comparaÃ§ao
+	 * Redefinicao do operador comparaa§ao
 	 * @param c2 -> referencia para a compra com a qual se vai comparar
 	 * @return se as duas compras sao iguais
 	 */
@@ -99,7 +99,7 @@ public:
 	 */
 	Viagem* getViagem(int id);
 	/**
-	 * @return informação sobre a bilheteira
+	 * @return informacao sobre a bilheteira
 	 */
 	std::string getInfo();
 

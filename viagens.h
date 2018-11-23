@@ -37,7 +37,7 @@ public:
 	 * @param dest -> destino
 	 * @param dp -> apontador para data da viagem
 	 * @param hp -> apontador para horas da viagem
-	 * @param precoBase -> preço base da viagem
+	 * @param precoBase -> preco base da viagem
 	 */
 	Viagem(std::string ori, std::string dest, Datas *dp, Horas *hp,  double precoBase);
 	/**
@@ -67,7 +67,7 @@ public:
 	 */
 	Horas* getHorasPartida() const;
 	/**
-	 * @return preço base (sem desconto) da viagem
+	 * @return preco base (sem desconto) da viagem
 	 */
 	double getPrecoBase () const;
 	/**
@@ -95,7 +95,7 @@ public:
 	 */
 	unsigned int getComprasAnonimas() const;
 	/**
-	 * @return informaçao sobre a viagem
+	 * @return informacao sobre a viagem
 	 */
 	std::string getInfo() const;
 
@@ -110,22 +110,22 @@ public:
 	 */
 	int devolveBilhete(bool reg);
 	/**
-	 * @return preço final (preço base ou 30% desse valor se faltarem menos de 48 h e a lotacao estiver a menos de metade)
+	 * @return preco final (preco base ou 30% desse valor se faltarem menos de 48 h e a lotacao estiver a menos de metade)
 	 */
 	double getPrecoFinal();
 	/**
 	 * @param c -> apontador para o comboio
-	 * @return preço final em relaçao a subscriçao feita
+	 * @return preco final em relacao a subscricao feita
 	 */
 	double getPrecoFinal(Cartao *c);
 	/**
-	 * Redefiniçao do operador comparaçao
+	 * Redefinicao do operador comparacao
 	 * @param v2 -> referencia para a viagem com a qual se vai comparar
 	 * @return true se as duas viagens sao iguais
 	 */
 	bool operator == (const Viagem &v2);
 	/**
-	 * @return true se ainda se podem efetuar compras nesta viagem, false se a lotaçao maxima ja foi atingida
+	 * @return true se ainda se podem efetuar compras nesta viagem, false se a lotacao maxima ja foi atingida
 	 */
 	bool compraRegisto() const;
 

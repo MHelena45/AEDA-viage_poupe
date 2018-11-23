@@ -157,7 +157,7 @@ public:
 	class DataInvalida {};
 	class FormatoStringInvalido{};
 	/**
-	 * @param os -> referencia para ofstream onde guardar a informaçao
+	 * @param os -> referencia para ofstream onde guardar a informacao
 	 * @param d1 -> referencia para data
 	 */
 	friend std::ostream& operator << (std::ostream &os, const Datas &d1){
@@ -166,7 +166,7 @@ public:
 		return os;
 	}
 	/**
-	 * Redefiniçao do operador maior
+	 * Redefinicao do operador maior
 	 * @param d1 -> referencia para a data com a qual se vai comparar
 	 * @return true se d1 e menor
 	 */
@@ -185,7 +185,7 @@ public:
 	return false;
 	}
 	/**
-	 * Redefiniçao do operador comparaçao
+	 * Redefinicao do operador comparacao
 	 * @param d1 -> referencia para a data com a qual se vai comparar
 	 * @return true se as duas datas sao iguais
 	 */
@@ -196,7 +196,7 @@ public:
 	return false;
 	}
 	/**
-	 * Redefiniçao do operador menor
+	 * Redefinicao do operador menor
 	 * @param d1 -> referencia para a data com a qual se vai comparar
 	 * @return true se d1 e maior
 	 */
@@ -289,7 +289,7 @@ public:
 	class HoraInvalida{};
 	class FormatoStringInvalido{};
 	/**
-	 * @param os -> referencia para ofstream onde guardar a informaçao
+	 * @param os -> referencia para ofstream onde guardar a informacao
 	 * @param a1 -> referencia para horas
 	 */
 	friend std::ostream& operator << (std::ostream &os, const Horas &h1){
@@ -298,7 +298,7 @@ public:
 		return os;
 	}
 	/**
-	 * Redefiniçao do operador maior
+	 * Redefinicao do operador maior
 	 * @param h1 -> referencia para a hora com a qual se vai comparar
 	 * @return true se h1 e menor
 	 */
@@ -312,7 +312,7 @@ public:
 	return false;
 	}
 	/**
-	 * Redefiniçao do operador comparaçao
+	 * Redefinicao do operador comparacao
 	 * @param h1 -> referencia para a hora com a qual se vai comparar
 	 * @return true se as duas horas sao iguais
 	 */
@@ -323,7 +323,7 @@ public:
 	return false;
 	}
 	/**
-	 * Redefiniçao do operador menor
+	 * Redefinicao do operador menor
 	 * @param h1 -> referencia para a hora com a qual se vai comparar
 	 * @return true se h1 e maior
 	 */
