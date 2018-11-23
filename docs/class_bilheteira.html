@@ -108,7 +108,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Construtor de bilheteira </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">frt</td><td>-&gt; apontador para frota de comboios </td></tr>
+    <tr><td class="paramname">frt</td><td>Apontador para frota de comboios A frota de comboios e usada no carregamento de viagens de um ficheiro </td></tr>
   </table>
   </dd>
 </dl>
@@ -130,7 +130,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Destrutor <br />
-Elimina todos os dados de bilheteira </p>
+Destroi todas as viagens activas </p>
 
 </div>
 </div>
@@ -152,7 +152,7 @@ Elimina todos os dados de bilheteira </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v1</td><td>-&gt; apontador para viagem a adicionar </td></tr>
+    <tr><td class="paramname">v1</td><td>Apontador para viagem a adicionar </td></tr>
   </table>
   </dd>
 </dl>
@@ -173,7 +173,7 @@ Elimina todos os dados de bilheteira </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>informacao sobre a bilheteira </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Informacao sobre todas as viagens numa string em forma de tabela </dd></dl>
 
 </div>
 </div>
@@ -191,7 +191,7 @@ Elimina todos os dados de bilheteira </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>numero de v fiagens </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Numero de viagens </dd></dl>
 
 </div>
 </div>
@@ -212,11 +212,11 @@ Elimina todos os dados de bilheteira </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>-&gt; id da viagem </td></tr>
+    <tr><td class="paramname">id</td><td>ID da viagem </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>apontador para viagem com esse id </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para viagem com esse id </dd></dl>
 
 </div>
 </div>
@@ -270,7 +270,8 @@ Elimina todos os dados de bilheteira </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Atualiza as viagens e elimina as viagens que ja decorreram </p>
+<p>Atualiza as viagens e elimina as viagens que ja inciaram. <br />
+Ordena o vector das viagens por ordem de partida </p>
 
 </div>
 </div>

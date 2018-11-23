@@ -25,10 +25,17 @@ Compra::Compra(Viagem *v, Cartao *c, double pf, Datas *dc, Horas *hc){
 
 //Destrutor
 Compra::~Compra(){
-	delete v1;
+	double vgmhoras = v1->getDataPartida()->getTotalHours() + v1->getHorasPartida()->getTotalHours();
+	Datas *temp = getDataActual();
+	Horas *hTemp = getHoraActual();
+	double cTime = temp->getTotalHours() + hTemp->getTotalHours();
+	if (cTime > vgmhoras)
+		delete v1;
+
 	delete dCompra;
 	delete hCompra;
-
+	delete temp;
+	delete hTemp;
 }
 
 //Acessors

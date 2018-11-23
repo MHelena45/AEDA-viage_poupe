@@ -68,6 +68,8 @@ $(function() {
 <div class="title">BaseClientes Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="cartao_8h_source.html">cartao.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -106,7 +108,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af123dbedf3889f6ff00741df2c858c65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_clientes.html#af123dbedf3889f6ff00741df2c858c65">saveRegistos</a> ()</td></tr>
 <tr class="separator:af123dbedf3889f6ff00741df2c858c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>CLASS <a class="el" href="class_base_clientes.html">BaseClientes</a><br />
+Esta Class guarda os apontadores para todos os cartoes e passageiros </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4dc3f81d47e787054d5621b69e139fb9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4dc3f81d47e787054d5621b69e139fb9">&#9670;&nbsp;</a></span>BaseClientes()</h2>
 
@@ -129,7 +134,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construtor de baseclientes, inicializa id </p>
+<p>Construtor de baseclientes, inicializa id do registo no vetor que vai ser usado para aceder a dados do registo </p>
 
 </div>
 </div>
@@ -148,7 +153,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Destructor<br />
-Remove os registos da memoria </p>
+Destroi todos os objectos de Registos e Cartoes guardados </p>
 
 </div>
 </div>
@@ -170,7 +175,7 @@ Remove os registos da memoria </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">c1</td><td>-&gt; apontador para cartao a adicionar ao vetor cartoes </td></tr>
+    <tr><td class="paramname">c1</td><td>Apontador para cartao a adicionar ao vetor cartoes </td></tr>
   </table>
   </dd>
 </dl>
@@ -195,7 +200,7 @@ Remove os registos da memoria </p>
 <p>Adiciona registos ao vector(regs) de clientes <br />
 </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">r1</td><td>-&gt; apontador para objecto temporario da class registo, registo a adicionar a base de clientes </td></tr>
+    <tr><td class="paramname">r1</td><td><a class="el" href="class_registo.html">Registo</a> a adicionar a base de clientes </td></tr>
   </table>
   </dd>
 </dl>
@@ -219,11 +224,11 @@ Remove os registos da memoria </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>-&gt; id do cartao </td></tr>
+    <tr><td class="paramname">id</td><td>ID do cartao </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>apontador para cartao do vector cartoes com esse id </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para cartao do vector cartoes com esse id </dd></dl>
 
 </div>
 </div>
@@ -244,11 +249,11 @@ Remove os registos da memoria </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ct1</td><td>-&gt; apontador para cartao </td></tr>
+    <tr><td class="paramname">ct1</td><td>-Apontador para cartao </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>indice do cartao inserido </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Indice do cartao inserido </dd></dl>
 
 </div>
 </div>
@@ -284,7 +289,7 @@ Remove os registos da memoria </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>informacao de um passageiro especifico </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Informacao de um passageiro especifico numa string em forma de tabela </dd></dl>
 
 </div>
 </div>
@@ -302,7 +307,7 @@ Remove os registos da memoria </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>numero de cartoes </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Numero de cartoes </dd></dl>
 
 </div>
 </div>
@@ -320,7 +325,7 @@ Remove os registos da memoria </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>numero de clientes na base de dados </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Numero de clientes na base de dados </dd></dl>
 
 </div>
 </div>
@@ -338,7 +343,7 @@ Remove os registos da memoria </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>apontador para registo de um passageiro especifico </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para registo de um passageiro especifico </dd></dl>
 
 </div>
 </div>
@@ -449,7 +454,7 @@ Remove os registos da memoria </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>-&gt; novo id </td></tr>
+    <tr><td class="paramname">id</td><td>ID do cliente a aceder dados </td></tr>
   </table>
   </dd>
 </dl>

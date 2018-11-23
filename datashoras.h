@@ -16,16 +16,21 @@ class Compra;
 class Datas;
 class Horas;
 
+/**
+ * CLASS DATAS\n
+ * Esta class cria objectos com datas e trata de todas as suas operacoes
+ *
+ */
 class Datas {
 	unsigned int ano;
 	unsigned int mes;
 	unsigned int dia;
 public:
 	/**
-	 * Contrutor de datas
-	 * @param a -> ano
-	 * @param m -> mes (tem de estar entre 1-12, senao faz throw DataInvalida())
-	 * @param d -> dia (tem de estar entre 1-31, senao faz throw DataInvalida())
+	 * Contrutor de datas por inteiros
+	 * @param a Ano
+	 * @param m Mes
+	 * @param d Dia
 	 */
 	Datas(unsigned int a, unsigned int m, unsigned int d){
 		if (d > 31 || d < 1 || m > 12 || m < 1)
@@ -35,8 +40,9 @@ public:
 		ano= a; mes = m; dia = d;
 	}
 	/**
-	 * Construtor de datas
-	 * @param d -> string com data no formato DD-MM-AAAA
+	 * Construtor de datas por strings\n
+	 * Faz parse a string tem excepcoes para formatos errados
+	 * @param d String com data no formato DD-MM-AAAA
 	 */
 	Datas(std::string d){
 
@@ -94,19 +100,20 @@ public:
 
 	}
 	/**
-	 * @return ano
+	 * @return Ano
 	 */
 	unsigned int getAno() const {return ano;}
 	/**
-	 * @return mes
+	 * @return Mes
 	 */
 	unsigned int getMes() const {return mes;}
 	/**
-	 * @return dia
+	 * @return Dia
 	 */
 	unsigned int getDia() const {return dia;}
 	/**
-	 * @return numero de horas 
+	 * @return Numero de horas totais desde o ano 2000, util para comparacao direta
+	 * de um momento especifico
 	 */
 	double getTotalHours() const{
 
@@ -153,12 +160,18 @@ public:
 
 		return hours * 24;
 	}
-
+	/**
+	 * Excepcao
+	 */
 	class DataInvalida {};
+	/**
+	 * Excepcao
+	 */
 	class FormatoStringInvalido{};
 	/**
-	 * @param os -> referencia para ofstream onde guardar a informacao
-	 * @param d1 -> referencia para data
+	 * Faz overload ao operador de saida para imprimir a data no formato(DD-MM-AAAA)\n
+	 * @param os Referencia para ofstream
+	 * @param d1 Referencia para data
 	 */
 	friend std::ostream& operator << (std::ostream &os, const Datas &d1){
 		os << std::right << std::setw(2) << std::setfill('0') << d1.dia << "-"
@@ -167,8 +180,8 @@ public:
 	}
 	/**
 	 * Redefinicao do operador maior
-	 * @param d1 -> referencia para a data com a qual se vai comparar
-	 * @return true se d1 e menor
+	 * @param d1 Referencia para a data com a qual se vai comparar
+	 * @return True se d1 e menor
 	 */
 	bool operator > (const Datas &d1){
 
@@ -186,8 +199,8 @@ public:
 	}
 	/**
 	 * Redefinicao do operador comparacao
-	 * @param d1 -> referencia para a data com a qual se vai comparar
-	 * @return true se as duas datas sao iguais
+	 * @param d1 Referencia para a data com a qual se vai comparar
+	 * @return True se as duas datas sao iguais
 	 */
 	bool operator == (const Datas &d1){
 		if ( this->ano == d1.ano && this->mes == d1.mes && this->dia == d1.dia)
@@ -197,8 +210,8 @@ public:
 	}
 	/**
 	 * Redefinicao do operador menor
-	 * @param d1 -> referencia para a data com a qual se vai comparar
-	 * @return true se d1 e maior
+	 * @param Referencia para a data com a qual se vai comparar
+	 * @return True se d1 e maior
 	 */
 	bool operator < (const Datas &d1){
 
@@ -216,22 +229,27 @@ public:
 	}
 };
 
-
+/**
+ * CLASS DATAS\n
+ * Esta class cria objectos com datas e trata de todas as suas operacoes
+ *
+ */
 class Horas {
 	unsigned int hora;
 	unsigned int min;
 public:
 /**
-	 * Contrutor de horas
-	 * @param h -> horas
-	 * @param m -> minutos
+	 * Contrutor de horas usando inteiros
+	 * @param h Horas
+	 * @param m Minutos
 	 */
 	Horas(unsigned int h, unsigned int m){
 		hora = h; min = m;
 	}
 /**
-	 * Construtor de datas
-	 * @param h -> string com hora no formato HH-MM
+	 * Construtor de datas usando string
+	 * Faz parse a string tem excepcoes para formatos errados
+	 * @param h String com hora no formato HH-MM
 	 */
 	Horas (std::string h){
 		if (h.length() != 5)
@@ -271,26 +289,31 @@ public:
 		min = tMin;
 	}
 	/**
-	 * @return horas
+	 * @return Horas
 	 */
 	unsigned int getHora() const {return hora;}
 	/**
-	 * @return minutos
+	 * @return Minutos
 	 */
 	unsigned int getMin() const {return min;}
 	/**
-	 * @return numero total de horas
+	 * @return Numero total de horas
 	 */
 	double getTotalHours() const {
 		double hmin = (double)min/60;
 		return (double)hora + hmin;
 	}
-
+	/**
+	 * Excepcao
+	 */
 	class HoraInvalida{};
+	/**
+	 * Excepcao
+	 */
 	class FormatoStringInvalido{};
 	/**
-	 * @param os -> referencia para ofstream onde guardar a informacao
-	 * @param a1 -> referencia para horas
+	 * @param os Referencia para ofstream onde guardar a informacao
+	 * @param h1 Referencia para horas
 	 */
 	friend std::ostream& operator << (std::ostream &os, const Horas &h1){
 		os << std::right << std::setfill('0') << std::setw(2) << h1.hora << ":"
@@ -299,8 +322,8 @@ public:
 	}
 	/**
 	 * Redefinicao do operador maior
-	 * @param h1 -> referencia para a hora com a qual se vai comparar
-	 * @return true se h1 e menor
+	 * @param h1 Referencia para a hora com a qual se vai comparar
+	 * @return True se h1 e menor
 	 */
 	bool operator > (const Horas &h1){
 		if (this->hora > h1.hora)
@@ -313,8 +336,8 @@ public:
 	}
 	/**
 	 * Redefinicao do operador comparacao
-	 * @param h1 -> referencia para a hora com a qual se vai comparar
-	 * @return true se as duas horas sao iguais
+	 * @param h1 Referencia para a hora com a qual se vai comparar
+	 * @return True se as duas horas sao iguais
 	 */
 	bool operator == (const Horas &h1){
 		if ( this->hora == h1.hora && this->min == h1.min )
@@ -324,8 +347,8 @@ public:
 	}
 	/**
 	 * Redefinicao do operador menor
-	 * @param h1 -> referencia para a hora com a qual se vai comparar
-	 * @return true se h1 e maior
+	 * @param h1 Referencia para a hora com a qual se vai comparar
+	 * @return True se h1 e maior
 	 */
 	bool operator < (const Horas &h1){
 		if (this->hora < h1.hora)

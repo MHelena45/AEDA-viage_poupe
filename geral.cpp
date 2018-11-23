@@ -410,17 +410,20 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 				break;
 			}
 
-			int compraId = cmps.size() + 1;
+			int compraId = -2;
 
 			cout << "Bilhetes nao usados" << endl << endl;
 			cout << r->getRegisto()->listCompraActiva() << endl;
 
 			while (compraId >= (int)cmps.size() || compraId < -1){
-				cout << "Escolha o bilhete a devolver:";
+				cout << "Escolha o bilhete a devolver (-1 para cancelar):";
 				compraId = userIntInput();
 				cout << endl;
 
-			if ((compraId >= (int)cmps.size() || compraId < -1) && compraId != -200)
+				if (compraId == -1)
+					return;
+
+				if ((compraId >= (int)cmps.size() || compraId < -1) && compraId != -200)
 				cout<<"Erro: Esse bilhete nao existe."<<endl<<endl;
 			}
 

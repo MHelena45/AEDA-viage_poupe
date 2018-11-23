@@ -70,6 +70,8 @@ $(function() {
 <div class="title">Comboio Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="comboios_8h_source.html">comboios.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Comboio:</div>
 <div class="dyncontent">
@@ -125,7 +127,11 @@ Friends</h2></td></tr>
 <tr class="memitem:a0215ecd164fd795e0b1c6560f4f5cd15"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comboio.html#a0215ecd164fd795e0b1c6560f4f5cd15">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="class_comboio.html">Comboio</a> &amp;c1)</td></tr>
 <tr class="separator:a0215ecd164fd795e0b1c6560f4f5cd15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>CLASS COMBOIO<br />
+Esta Classe e usada para criar comboios a usar nas viagens.<br />
+Class base das classes <a class="el" href="class_alfa_pendular.html">AlfaPendular</a> e <a class="el" href="class_intercidades.html">Intercidades</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af5f055799eb4569b28bb21596a97ed71"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af5f055799eb4569b28bb21596a97ed71">&#9670;&nbsp;</a></span>Comboio()</h2>
 
@@ -165,10 +171,10 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>Construtor de comboio </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">numPassageiros</td><td>-&gt; numero de passageiros maximo do comboio </td></tr>
-    <tr><td class="paramname">velocidade</td><td>-&gt; velocidade do comboio </td></tr>
-    <tr><td class="paramname">precoKM</td><td>-&gt; preco por km do comboio </td></tr>
-    <tr><td class="paramname">nome</td><td>-&gt; nome do comboio </td></tr>
+    <tr><td class="paramname">numPassageiros</td><td>Numero de passageiros maximo do comboio </td></tr>
+    <tr><td class="paramname">velocidade</td><td>Velocidade do comboio </td></tr>
+    <tr><td class="paramname">precoKM</td><td>Preco por km do comboio </td></tr>
+    <tr><td class="paramname">nome</td><td>Nome do comboio </td></tr>
   </table>
   </dd>
 </dl>
@@ -197,8 +203,8 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Destrutor <br />
-Elimina todos os dados de comboio </p>
+<p>Destrutor virtual <br />
+</p>
 
 </div>
 </div>
@@ -217,7 +223,7 @@ Elimina todos os dados de comboio </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>id do comboio </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ID do comboio </dd></dl>
 
 </div>
 </div>
@@ -235,7 +241,7 @@ Elimina todos os dados de comboio </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>lotacao do comboio </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Lotacao do comboio </dd></dl>
 
 </div>
 </div>
@@ -253,7 +259,7 @@ Elimina todos os dados de comboio </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>nome do comboio </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Nome do comboio </dd></dl>
 
 </div>
 </div>
@@ -271,7 +277,7 @@ Elimina todos os dados de comboio </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>preco por km do comboio </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Preco por km do comboio </dd></dl>
 
 </div>
 </div>
@@ -297,7 +303,7 @@ Elimina todos os dados de comboio </p>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>tipo do comboio </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Tipo do comboio(AlfaPendular ou Intercidades) </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_intercidades.html#aec6f91af2bcd4a5cda2adc31835f96b5">Intercidades</a>, and <a class="el" href="class_alfa_pendular.html#ab0fa8384081b1be0b84c24394de6df35">AlfaPendular</a>.</p>
 
@@ -317,7 +323,7 @@ Elimina todos os dados de comboio </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>velocidade do comboio </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Velocidade do comboio </dd></dl>
 
 </div>
 </div>
@@ -338,7 +344,7 @@ Elimina todos os dados de comboio </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>-&gt; novo id </td></tr>
+    <tr><td class="paramname">id</td><td>Atribuir id </td></tr>
   </table>
   </dd>
 </dl>
@@ -379,10 +385,10 @@ Elimina todos os dados de comboio </p>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Faz overload ao operador de saida para dar output da informacao do comboio em forma de tabela </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">os</td><td>-&gt; referencia para ofstream onde guardar a informacao </td></tr>
-    <tr><td class="paramname">c1</td><td>-&gt; referencia para o comboio </td></tr>
+    <tr><td class="paramname">os</td><td>Referencia para ofstream onde guardar a informacao </td></tr>
+    <tr><td class="paramname">c1</td><td>Referencia para o comboio </td></tr>
   </table>
   </dd>
 </dl>

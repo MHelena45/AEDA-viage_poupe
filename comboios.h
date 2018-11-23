@@ -3,6 +3,12 @@
 
 #include "datashoras.h"
 
+/**
+ * CLASS COMBOIO\n
+ * Esta Classe e usada para criar comboios a usar nas viagens.\n
+ * Class base das classes AlfaPendular e Intercidades
+ *
+ */
 class Comboio {
 protected:
 	unsigned int lotacao; //capacidade do comboio
@@ -13,50 +19,49 @@ protected:
 public:
 	/**
 	 * Construtor de comboio
-	 * @param numPassageiros -> numero de passageiros maximo do comboio
-	 * @param velocidade -> velocidade do comboio
-	 * @param precoKM -> preco por km do comboio
-	 * @param nome -> nome do comboio
+	 * @param numPassageiros Numero de passageiros maximo do comboio
+	 * @param velocidade Velocidade do comboio
+	 * @param precoKM Preco por km do comboio
+	 * @param nome Nome do comboio
 	 */
 	Comboio(int numPassageiros, int velocidade, double precoKM, std::string nome);
-
-	//acessors
 	/**
-	 * @return tipo do comboio
+	 * @return Tipo do comboio(AlfaPendular ou Intercidades)
 	 */
 	virtual std::string getTipo() const;
 	/**
-	 * @return lotacao do comboio
+	 * @return Lotacao do comboio
 	 */
 	unsigned int getLotacao() const;
 	/**
-	 * @return velocidade do comboio
+	 * @return Velocidade do comboio
 	 */
 	int getVelocidade() const;
 	/**
-	 * @return preco por km do comboio
+	 * @return Preco por km do comboio
 	 */
 	double getPrecoKM() const;
 	/**
-	 * @return nome do comboio
+	 * @return Nome do comboio
 	 */
 	std::string getNome() const;
 	/**
-	 * @return id do comboio
+	 * @return ID do comboio
 	 */
 	unsigned int getId() const;
 	/**
-	 * Destrutor \n
-	 * Elimina todos os dados de comboio
+	 * Destrutor virtual \n
 	 */
 	virtual ~Comboio(){};
 	/**
-	 * @param id -> novo id
+	 * @param id Atribuir id
 	 */
 	void setId(int id);
 	/**
-	 * @param os -> referencia para ofstream onde guardar a informacao
-	 * @param c1 -> referencia para o comboio
+	 * Faz overload ao operador de saida para dar output da informacao do comboio em
+	 * forma de tabela
+	 * @param os Referencia para ofstream onde guardar a informacao
+	 * @param c1 Referencia para o comboio
 	 */
 	friend std::ostream& operator << (std::ostream &os, const Comboio &c1){
 		os << c1.getNome() << "-" << c1.getTipo();
@@ -64,15 +69,19 @@ public:
 	}
 
 };
-
+/**
+ * CLASS AlfaPendular\n
+ * Class derivada da class comboio
+ *
+ */
 class AlfaPendular: public Comboio {
 public:
 	/**
 	 * Construtor de alfapendular
-	 * @param numPassageiros -> numero de passageiros maximo do comboio
-	 * @param velocidade -> velocidade do comboio
-	 * @param precoKM -> preco por km do comboio
-	 * @param nome -> nome do comboio
+	 * @param numPassageiros Numero de passageiros maximo do comboio
+	 * @param velocidade Velocidade do comboio
+	 * @param precoKM Ppreco por km do comboio
+	 * @param nome Nome do comboio
 	 */
 	AlfaPendular(int numPassageiros, int velocidade, double precoKM, std::string nome);
 	/**
@@ -86,14 +95,19 @@ public:
 	virtual ~AlfaPendular(){};
 };
 
+/**
+ * CLASS Intercidades\n
+ * Class derivada da class comboio
+ *
+ */
 class Intercidades: public Comboio {
 public:
 	/**
 	 * Construtor de intercidades
-	 * @param numPassageiros -> numero de passageiros maximo do comboio
-	 * @param velocidade -> velocidade do comboio
-	 * @param precoKM -> preco por km do comboio
-	 * @param nome -> nome do comboio
+	 * @param numPassageiros Numero de passageiros maximo do comboio
+	 * @param velocidade Velocidade do comboio
+	 * @param precoKM Preco por km do comboio
+	 * @param nome Nome do comboio
 	 */
 	Intercidades(int numPasseiros, int velocidade, double precoKMs, std::string nome);
 	/**
@@ -107,31 +121,36 @@ public:
 	virtual ~Intercidades(){};
 };
 
+/**
+ * CLASS Frota\n
+ * Class que guarda todos os comboios
+ *
+ */
 class Frota{
 
 public:
 	/**
 	 * Destrutor \n
-	 * Elimina todos os dados de frota
+	 * Elimina todos os comboios da frota
 	 */
 	~Frota();
 
 	std::vector <Comboio *> comboios;
 	/**
-	 * @return informacao de frota
+	 * @return Informacao dos comboios numa string em forma de tabela
 	 */
 	std::string getInformacao() const;
 	/**
-	 * @param id ->id do comboio
-	 * @return apontador para comboio com esse id
+	 * @param id ID do comboio
+	 * @return Apontador para comboio com esse id
 	 */
 	Comboio* getComboio(int id) const;
 	/**
-	 * @return numero de comboios da frota
+	 * @return Numero de comboios da frota
 	 */
 	int getNumComboios() const;
 	/**
-	 * @param c1 -> apontador para comboio a adicionar a frota
+	 * @param c1 Apontador para comboio a adicionar a frota
 	 */
 	void adicionaComboio(Comboio *c1);
 	/**

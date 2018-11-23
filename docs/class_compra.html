@@ -138,10 +138,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Construtor de compra </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Construtor da class <a class="el" href="class_compra.html">Compra</a> </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>-&gt; apontador para a viagem que se vai comprar </td></tr>
-    <tr><td class="paramname">c</td><td>-&gt; apontador para cartao co cliente que faz a compra pf -&gt; preco final dc -&gt; apontador para data da compra hc -&gt;apontador para horas da compra </td></tr>
+    <tr><td class="paramname">v</td><td>Apontador para a viagem que se reservou </td></tr>
+    <tr><td class="paramname">c</td><td>Apontador para o cartao que o cliente usou na compra </td></tr>
+    <tr><td class="paramname">pf</td><td>Preco final </td></tr>
+    <tr><td class="paramname">dc</td><td>Apontador para data da compra </td></tr>
+    <tr><td class="paramname">hc</td><td>Apontador para horas da compra </td></tr>
   </table>
   </dd>
 </dl>
@@ -163,7 +166,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Destrutor <br />
-Elimina todos os dados de compra </p>
+Destroi os objectos da class <a class="el" href="class_datas.html">Datas</a> e <a class="el" href="class_horas.html">Horas</a> associados ao objeto compra. <br />
+<br />
+Destroi tambem a <a class="el" href="class_viagem.html">Viagem</a> apenas se a <a class="el" href="class_viagem.html">Viagem</a> ja tiver partido. <br />
+so acontece ao desligar o proprio programa pois a viagem pode ser usada para o historico de outros passageiros. </p>
 
 </div>
 </div>
@@ -182,7 +188,7 @@ Elimina todos os dados de compra </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>apontador para cartao usado para a compra </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para cartao usado para a compra </dd></dl>
 
 </div>
 </div>
@@ -200,7 +206,7 @@ Elimina todos os dados de compra </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>apontador para data (ano-mes-dia) da compra </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para data da compra </dd></dl>
 
 </div>
 </div>
@@ -218,7 +224,7 @@ Elimina todos os dados de compra </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>apontador para hora (horas:minutos) da compra </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para hora da compra </dd></dl>
 
 </div>
 </div>
@@ -236,7 +242,7 @@ Elimina todos os dados de compra </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>informacao sobre a compra </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Informacao sobre a compra numa string em forma de tabela </dd></dl>
 
 </div>
 </div>
@@ -254,7 +260,7 @@ Elimina todos os dados de compra </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>preco final (ja depois do desconto) da compra </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Preco final (ja depois de qualquer desconto) da compra </dd></dl>
 
 </div>
 </div>
@@ -272,7 +278,7 @@ Elimina todos os dados de compra </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>apontador para viagem comprada </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para viagem comprada </dd></dl>
 
 </div>
 </div>
@@ -291,13 +297,13 @@ Elimina todos os dados de compra </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Redefinicao do operador comparaa§ao </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Redefinicao do operador de comparacao </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">c2</td><td>-&gt; referencia para a compra com a qual se vai comparar </td></tr>
+    <tr><td class="paramname">c2</td><td>Referencia para a compra com a qual se vai comparar </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>se as duas compras sao iguais </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Se as duas compras sao iguais ou nao </dd></dl>
 
 </div>
 </div>

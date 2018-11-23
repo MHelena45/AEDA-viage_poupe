@@ -1,7 +1,7 @@
 var searchData=
 [
   ['getano',['getAno',['../class_datas.html#a4ebb36ac15a39d5f092aff8b81e2b498',1,'Datas']]],
-  ['getcartao',['getCartao',['../class_compra.html#a99b0b7654e976a18c66239b5dcd78c45',1,'Compra::getCartao()'],['../class_base_clientes.html#a02a7edff8a968173afb4bdedcb04854f',1,'BaseClientes::getCartao()']]],
+  ['getcartao',['getCartao',['../class_compra.html#a99b0b7654e976a18c66239b5dcd78c45',1,'Compra::getCartao()'],['../class_registo.html#a9891c677adecb2b24a2dc0e63c9405dd',1,'Registo::getCartao()'],['../class_base_clientes.html#a02a7edff8a968173afb4bdedcb04854f',1,'BaseClientes::getCartao()']]],
   ['getcartaoindex',['getCartaoIndex',['../class_base_clientes.html#a755ec6460a63cb1cc78886fc793e9d65',1,'BaseClientes']]],
   ['getcomboio',['getComboio',['../class_frota.html#ac61750d01a9d341735b036ce73f85240',1,'Frota::getComboio()'],['../class_viagem.html#a4389e71c96dcbd75e3481f14533bd2ac',1,'Viagem::getComboio()']]],
   ['getcompra',['getCompra',['../class_registo.html#a132490f38fe8d2b20daf452135a690ea',1,'Registo']]],

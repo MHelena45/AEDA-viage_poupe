@@ -70,6 +70,8 @@ $(function() {
 <div class="title">Datas Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="datashoras_8h_source.html">datashoras.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -104,7 +106,10 @@ Friends</h2></td></tr>
 <tr class="memitem:ac738d290b48eb8b83e0861c519853274"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_datas.html#ac738d290b48eb8b83e0861c519853274">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="class_datas.html">Datas</a> &amp;d1)</td></tr>
 <tr class="separator:ac738d290b48eb8b83e0861c519853274"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>CLASS DATAS<br />
+Esta class cria objectos com datas e trata de todas as suas operacoes </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a45c9b147942e8dc80d63f2098918871e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a45c9b147942e8dc80d63f2098918871e">&#9670;&nbsp;</a></span>Datas() <span class="overload">[1/2]</span></h2>
 
@@ -144,11 +149,11 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Contrutor de datas </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Contrutor de datas por inteiros </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">a</td><td>-&gt; ano </td></tr>
-    <tr><td class="paramname">m</td><td>-&gt; mes (tem de estar entre 1-12, senao faz throw DataInvalida()) </td></tr>
-    <tr><td class="paramname">d</td><td>-&gt; dia (tem de estar entre 1-31, senao faz throw DataInvalida()) </td></tr>
+    <tr><td class="paramname">a</td><td>Ano </td></tr>
+    <tr><td class="paramname">m</td><td>Mes </td></tr>
+    <tr><td class="paramname">d</td><td>Dia </td></tr>
   </table>
   </dd>
 </dl>
@@ -178,9 +183,10 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construtor de datas </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Construtor de datas por strings<br />
+Faz parse a string tem excepcoes para formatos errados </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">d</td><td>-&gt; string com data no formato DD-MM-AAAA </td></tr>
+    <tr><td class="paramname">d</td><td>String com data no formato DD-MM-AAAA </td></tr>
   </table>
   </dd>
 </dl>
@@ -210,7 +216,7 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>ano </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Ano </dd></dl>
 
 </div>
 </div>
@@ -236,7 +242,7 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>dia </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Dia </dd></dl>
 
 </div>
 </div>
@@ -262,7 +268,7 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>mes </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Mes </dd></dl>
 
 </div>
 </div>
@@ -288,7 +294,7 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>numero de horas </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Numero de horas totais desde o ano 2000, util para comparacao direta de um momento especifico </dd></dl>
 
 </div>
 </div>
@@ -317,11 +323,11 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>Redefinicao do operador menor </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">d1</td><td>-&gt; referencia para a data com a qual se vai comparar </td></tr>
+    <tr><td class="paramname">Referencia</td><td>para a data com a qual se vai comparar </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true se d1 e maior </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True se d1 e maior </dd></dl>
 
 </div>
 </div>
@@ -350,11 +356,11 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>Redefinicao do operador comparacao </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">d1</td><td>-&gt; referencia para a data com a qual se vai comparar </td></tr>
+    <tr><td class="paramname">d1</td><td>Referencia para a data com a qual se vai comparar </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true se as duas datas sao iguais </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True se as duas datas sao iguais </dd></dl>
 
 </div>
 </div>
@@ -383,11 +389,11 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>Redefinicao do operador maior </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">d1</td><td>-&gt; referencia para a data com a qual se vai comparar </td></tr>
+    <tr><td class="paramname">d1</td><td>Referencia para a data com a qual se vai comparar </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true se d1 e menor </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True se d1 e menor </dd></dl>
 
 </div>
 </div>
@@ -425,10 +431,11 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Faz overload ao operador de saida para imprimir a data no formato(DD-MM-AAAA)<br />
+</p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">os</td><td>-&gt; referencia para ofstream onde guardar a informacao </td></tr>
-    <tr><td class="paramname">d1</td><td>-&gt; referencia para data </td></tr>
+    <tr><td class="paramname">os</td><td>Referencia para ofstream </td></tr>
+    <tr><td class="paramname">d1</td><td>Referencia para data </td></tr>
   </table>
   </dd>
 </dl>

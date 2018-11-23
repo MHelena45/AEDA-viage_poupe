@@ -4,11 +4,10 @@
 #include "datashoras.h"
 
 	/**
-	 * CLASS CARTAO
+	 * CLASS CARTAO\n
 	 * Esta Classe e usada para criar cartoes com modalidades de desconto diferentes
 	 *
 	 */
-
 class Cartao {
 	double precoMensal;
 	int desconto;
@@ -16,21 +15,21 @@ class Cartao {
 public:
 	/**
 	 * Construtor de cartao
-	 * @param nome -> Nome do cartao 
-	 * @param prc -> Preco mensal da subscricao do cartao 
-	 * @param desc -> Discount dado pelo cartao em todas as viagens
+	 * @param nome  Nome do cartao
+	 * @param prc  Preco mensal da subscricao do cartao
+	 * @param desc Valor a pagar depois do desconto, ex: 25% de desconto = 75
 	 */
 	Cartao(std::string nome, double prc, int desc);
 	/**
-	 * @return preco mensal do cartao
+	 * @return Preco mensal do cartao
 	 */
 	float getPreco() const;
 	/**
-	 * @return desconto em todas as viagens dado pelo cartao
+	 * @return Desconto em todas as viagens dado pelo cartao
 	 */
 	int getDesconto() const;
 	/**
-	 * @return nome do cartao usado
+	 * @return Nome do cartao usado
 	 */
 	std::string getNome() const;
 	/**
@@ -39,7 +38,7 @@ public:
 	std::string getInformacao() const;
 	/**
 	 * Redefinicao do operador comparacao
-	 * @param ct1 -> referencia para o cartao com o qual se vai comparar
+	 * @param ct1 Referencia para o cartao com o qual se vai comparar
 	 * @return se o cartao e igual ao outro ou nao
 	 */
 	bool operator == (const Cartao &ct1);
@@ -47,13 +46,11 @@ public:
 };
 
 
-/*
- * CLASS REGISTO
+/**
+ * CLASS REGISTO\n
  * Esta Classe e usada para criar cartoes com modalidades de desconto diferentes
  *
  */
-
-
 class Registo {
 	Cartao *c1;
 	std::string nome;
@@ -64,101 +61,100 @@ class Registo {
 public:
 	/**
 	 * Construtor do registo, esta ativo por predefinicao
-	 * @param *c -> apontador para objeto da class Cartao, tipo de subscricao
-	 * @param nome -> nome do passageiro
-	 * @param profissao -> profissao do passageiro
-	 * @param datanasc -> apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
+	 * @param *c Apontador para objeto da class Cartao, tipo de subscricao
+	 * @param nome Nome do passageiro
+	 * @param profissao Profissao do passageiro
+	 * @param datanasc Apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
 	 */
 	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc);
 
 	/**
 	 * Construtor do registo, pode estar ativo ou nao
-	 * @param *c -> apontador para objeto da class Cartao, tipo de subscricao
-	 * @param nome -> nome do passageiro
-	 * @param profissao -> profissao do passageiro
-	 * @param datanasc -> apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
-	 * @param ativo -> bool indica se o registo esta ativo
+	 * @param *c Apontador para objeto da class Cartao, tipo de subscricao
+	 * @param nome Nome do passageiro
+	 * @param profissao Profissao do passageiro
+	 * @param datanasc Apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
+	 * @param ativo Bool indica se o registo esta ativo
 	 */
 	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc, bool ativo);
 
 	/**
 	 * Destrutor \n
-	 * Elimina todos os dados de registo
+	 * Destroi todos os objectos de compra do vector historico.\n
+	 * Destroi tambem o objecto com a data de nascimento.
 	 */
 	~Registo();
 	/**
-	 * @return nome do passageiro
+	 * @return Nome do passageiro
 	 */
 	std::string getNome() const;
-	/*
-	 * @return apontador para cartao que esta a ser usado por este passageiro
+	/**
+	 * @return Apontador para cartao que esta a ser usado por este passageiro
 	 */
 	Cartao* getCartao() const;
 	/**
-	 * @return profissao do passageiro
+	 * @return Profissao do passageiro
 	 */
 	std::string getProfissao() const;
 	/**
-	 * @return data de nascimento do passageiro
+	 * @return Data de nascimento do passageiro
 	 */
 	std::string getDatanascimento() const;
 	/**
-	 * @return se o cartao esta activo ou nao
+	 * @return Se o cartao esta activo ou nao
 	 */
 	bool getEstado() const;
 	/**
-	 * @return numero de compras feitas
+	 * @return Numero de compras feitas
 	 */
 	int getNumCompras() const;
 	/**
-	 * @param id -> id da compra
-	 * @return apontador para compra com esse id 
+	 * @param id ID da compra
+	 * @return Apontador para compra com esse id
 	 */
 	Compra* getCompra (int id) const;
 	/**
-	 * @return string com historico de compras
+	 * @return String com historico de compras
 	 */
 	std::string getHistorico() const;
 
 	/**
 	 * Activa ou desactiva a subscricao
-	 * @param at -> estado atual da subscriacao
+	 * @param at escolhe ativar ou desativar cartao
 	 */
 	void alterarEstado(bool at);
 	/**
 	 * Altera o cartao do passageiro
-	 * @param c -> apontador para cartao a alterar
+	 * @param c Apontador para cartao a alterar
 	 */
 	void alterarCartao(Cartao *c);
-	/*
+	/**
 	 * Adiciona uma compra ao historico do passageiro
-	 * @param c1 -> apontador para compra a adicionar
+	 * @param c1 Apontador para compra a adicionar
 	 */
 	void adicionaCompra(Compra *c1);
 	/**
 	 * Elimina uma compra do historico do passageiro
-	 * @param c1 -> apontador para compra a remover
+	 * @param c1 Apontador para compra a remover
 	 */
 	void eliminaCompra(Compra *c1);
 	/**
-	 * @return vector com apontadores para as compras ativas
+	 * @return Vector com apontadores para as compras ativas, isto e compras em que a viagem ainda nao partiu
 	 */
 	std::vector <Compra *> getCompraAtiva();
 	/**
-	 * @return string com as compras ativas
+	 * @return Informacao sobre as viagens activas numa string em forma de tabela
 	 */
 	std::string listCompraActiva ();
 
 
 };
 
-/*
- * CLASS BaseClientes
+/**
+ * CLASS BaseClientes\n
  * Esta Class guarda os apontadores para todos os cartoes e passageiros
  *
  */
-
-
 class BaseClientes {
 	std::vector <Cartao *> cartoes;
 	std::vector<Registo *> regs;
@@ -166,21 +162,22 @@ class BaseClientes {
 public:
 
 	/**
-	 * Construtor de baseclientes, inicializa id
+	 * Construtor de baseclientes, inicializa id do registo no vetor que vai ser usado
+	 * para aceder a dados do registo
 	 */
 	BaseClientes(){id = 0;};
 	/**
 	 * Destructor\n
-	 * Remove os registos da memoria
+	 * Destroi todos os objectos de Registos e Cartoes guardados
 	 */
 	~BaseClientes();
 
 	/**
-	 * @return apontador para registo de um passageiro especifico
+	 * @return Apontador para registo de um passageiro especifico
 	 */
 	Registo* getRegisto() const;
 	/**
-	 * @return informacao de um passageiro especifico
+	 * @return Informacao de um passageiro especifico numa string em forma de tabela
 	 */
 	std::string getInformacao () const;
 	/**
@@ -188,30 +185,30 @@ public:
 	 */
 	std::string getInfoCartao() const;
 	/**
-	 * @param id -> id do cartao
-	 * @return apontador para cartao do vector cartoes com esse id
+	 * @param id ID do cartao
+	 * @return Apontador para cartao do vector cartoes com esse id
 	 */
 	Cartao* getCartao(int id) const;
 	/**
-	 * @return numero de cartoes
+	 * @return Numero de cartoes
 	 */
 	int getNumCartoes() const;
 	/**
-	 * @return numero de clientes na base de dados
+	 * @return Numero de clientes na base de dados
 	 */
 	int getNumRegistos() const;
 	/**
-	 * @param ct1 -> apontador para cartao
-	 * @return indice do cartao inserido
+	 * @param ct1 -Apontador para cartao
+	 * @return Indice do cartao inserido
 	 */
 	int getCartaoIndex (Cartao *ct1) const;
 	/**
-	 * @param c1 -> apontador para cartao a adicionar ao vetor cartoes
+	 * @param c1 Apontador para cartao a adicionar ao vetor cartoes
 	 */
 	void adicionaCartao(Cartao *c1);
 	/**
 	 * Adiciona registos ao vector(regs) de clientes \n
-	 * @param r1 -> apontador para objecto temporario da class registo, registo a adicionar a base de clientes
+	 * @param r1 Registo a adicionar a base de clientes
 	 */
 	void adicionaRegisto(Registo *r1);
 	/**
@@ -219,7 +216,7 @@ public:
 	 */
 	void removeRegisto ();
 	/**
-	 * @param id -> novo id
+	 * @param id ID do cliente a aceder dados
 	 */
 	void setId(int id);
 	/**

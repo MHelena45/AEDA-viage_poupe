@@ -68,6 +68,8 @@ $(function() {
 <div class="title">Viagem Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="viagens_8h_source.html">viagens.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -112,7 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a86cf23a4fc0ee79f4366759b359901ed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#a86cf23a4fc0ee79f4366759b359901ed">compraRegisto</a> () const</td></tr>
 <tr class="separator:a86cf23a4fc0ee79f4366759b359901ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>CLASS <a class="el" href="class_viagem.html">Viagem</a><br />
+Esta Classe cria uma viagem e controla as vagas de essa viagem </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1ff64a6647aea558c4f35e022080a2e4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1ff64a6647aea558c4f35e022080a2e4">&#9670;&nbsp;</a></span>Viagem() <span class="overload">[1/3]</span></h2>
 
@@ -162,14 +167,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Construtor de viagem </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Construtor de viagem para quando e o nova viagem </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ori</td><td>-&gt; origem </td></tr>
-    <tr><td class="paramname">dest</td><td>-&gt; destino </td></tr>
-    <tr><td class="paramname">dist</td><td>-&gt; distancia </td></tr>
-    <tr><td class="paramname">c</td><td>-&gt; apontador para comboio que fara a viagem </td></tr>
-    <tr><td class="paramname">dp</td><td>-&gt; apontador para data da viagem </td></tr>
-    <tr><td class="paramname">hp</td><td>-&gt; apontador para horas da viagem </td></tr>
+    <tr><td class="paramname">ori</td><td>Origem </td></tr>
+    <tr><td class="paramname">dest</td><td>Destino </td></tr>
+    <tr><td class="paramname">dist</td><td>Distancia </td></tr>
+    <tr><td class="paramname">c</td><td>Apontador para comboio que fara a viagem </td></tr>
+    <tr><td class="paramname">dp</td><td>Apontador para data da viagem </td></tr>
+    <tr><td class="paramname">hp</td><td>Apontador para horas da viagem </td></tr>
   </table>
   </dd>
 </dl>
@@ -219,13 +224,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Construtor de viagem </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Construtor de viagem para quando a viagem e carregada de um ficheiro </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ori</td><td>-&gt; origem </td></tr>
-    <tr><td class="paramname">dest</td><td>-&gt; destino </td></tr>
-    <tr><td class="paramname">dp</td><td>-&gt; apontador para data da viagem </td></tr>
-    <tr><td class="paramname">hp</td><td>-&gt; apontador para horas da viagem </td></tr>
-    <tr><td class="paramname">precoBase</td><td>-&gt; preco base da viagem </td></tr>
+    <tr><td class="paramname">ori</td><td>Origem </td></tr>
+    <tr><td class="paramname">dest</td><td>Destino </td></tr>
+    <tr><td class="paramname">dp</td><td>Apontador para data da viagem </td></tr>
+    <tr><td class="paramname">hp</td><td>Apontador para horas da viagem </td></tr>
+    <tr><td class="paramname">precoBase</td><td>Preco base da viagem </td></tr>
   </table>
   </dd>
 </dl>
@@ -293,16 +298,16 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Construtor de viagem </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Construtor de viagem para quando e carregada de um ficheiro para um objecto de compra </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ori</td><td>-&gt; origem </td></tr>
-    <tr><td class="paramname">dest</td><td>-&gt; destino </td></tr>
-    <tr><td class="paramname">dist</td><td>-&gt; distancia </td></tr>
-    <tr><td class="paramname">c</td><td>-&gt; apontador para comboio que fara a viagem </td></tr>
-    <tr><td class="paramname">dp</td><td>-&gt; apontador para data da viagem </td></tr>
-    <tr><td class="paramname">hp</td><td>-&gt; apontador para horas da viagem </td></tr>
-    <tr><td class="paramname">vagas</td><td>-&gt; numero de lugares disponiveis para essa viagem </td></tr>
-    <tr><td class="paramname">comprasAnon</td><td>-&gt; numero de lugares comprados anonimamente (por clientes sem cartao) </td></tr>
+    <tr><td class="paramname">ori</td><td>Origem </td></tr>
+    <tr><td class="paramname">dest</td><td>Destino </td></tr>
+    <tr><td class="paramname">dist</td><td>Distancia </td></tr>
+    <tr><td class="paramname">c</td><td>Apontador para comboio que fara a viagem </td></tr>
+    <tr><td class="paramname">dp</td><td>Apontador para data da viagem </td></tr>
+    <tr><td class="paramname">hp</td><td>Apontador para horas da viagem </td></tr>
+    <tr><td class="paramname">vagas</td><td>Numero de lugares disponiveis para essa viagem </td></tr>
+    <tr><td class="paramname">comprasAnon</td><td>Numero de lugares comprados anonimamente (por clientes sem cartao) </td></tr>
   </table>
   </dd>
 </dl>
@@ -324,7 +329,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Destrutor <br />
-Elimina todos os dados de viagem </p>
+Destroi os objectos <a class="el" href="class_datas.html">Datas</a> e <a class="el" href="class_horas.html">Horas</a> com o tempo da partida da viagem </p>
 
 </div>
 </div>
@@ -343,7 +348,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true se ainda se podem efetuar compras nesta viagem, false se a lotacao maxima ja foi atingida </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True se ainda se podem efetuar compras nesta viagem, false se a lotacao maxima ja foi atingida </dd></dl>
 
 </div>
 </div>
@@ -364,11 +369,11 @@ Elimina todos os dados de viagem </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reg</td><td>-&gt; indica se o cliente tem cartao ou nao </td></tr>
+    <tr><td class="paramname">reg</td><td>Indica se o cliente tem cartao ou nao </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 se ja nao da para devolver mais bilhetes </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>1 Se ja nao da para devolver mais bilhetes </dd></dl>
 
 </div>
 </div>
@@ -386,7 +391,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>apontador para o comboio que faz a viagem </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para o comboio que faz a viagem </dd></dl>
 
 </div>
 </div>
@@ -404,7 +409,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>numero de compras anonimas (feitas por clientes sem cartao) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Numero de compras anonimas (feitas por clientes sem cartao) </dd></dl>
 
 </div>
 </div>
@@ -422,7 +427,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>apontador para a data (ano-mes-dia) de partida da viagem </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para a data (ano-mes-dia) de partida da viagem </dd></dl>
 
 </div>
 </div>
@@ -440,7 +445,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>destino da viagem </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Destino da viagem </dd></dl>
 
 </div>
 </div>
@@ -458,7 +463,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>distancia da viagem </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Distancia da viagem </dd></dl>
 
 </div>
 </div>
@@ -476,7 +481,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>apontador para a hora (horas:minutos) de partida da viagem </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Apontador para a hora (horas:minutos) de partida da viagem </dd></dl>
 
 </div>
 </div>
@@ -494,7 +499,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>informacao sobre a viagem </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Informacao sobre a viagem </dd></dl>
 
 </div>
 </div>
@@ -512,7 +517,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>origem da viagem </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Origem da viagem </dd></dl>
 
 </div>
 </div>
@@ -530,7 +535,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>preco base (sem desconto) da viagem </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Preco base (sem desconto) da viagem </dd></dl>
 
 </div>
 </div>
@@ -548,7 +553,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>preco final (preco base ou 30% desse valor se faltarem menos de 48 h e a lotacao estiver a menos de metade) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Preco final (Depois de descontos) </dd></dl>
 
 </div>
 </div>
@@ -569,11 +574,11 @@ Elimina todos os dados de viagem </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">c</td><td>-&gt; apontador para o comboio </td></tr>
+    <tr><td class="paramname">c</td><td>Apontador para o comboio </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>preco final em relacao a subscricao feita </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Preco final em relacao a subscricao feita </dd></dl>
 
 </div>
 </div>
@@ -591,7 +596,7 @@ Elimina todos os dados de viagem </p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>numero de vagas da viagem </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Numero de vagas da viagem </dd></dl>
 
 </div>
 </div>
@@ -612,11 +617,11 @@ Elimina todos os dados de viagem </p>
 </div><div class="memdoc">
 <p>Redefinicao do operador comparacao </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v2</td><td>-&gt; referencia para a viagem com a qual se vai comparar </td></tr>
+    <tr><td class="paramname">v2</td><td>Referencia para a viagem com a qual se vai comparar </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true se as duas viagens sao iguais </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True se as duas viagens sao iguais </dd></dl>
 
 </div>
 </div>
@@ -637,11 +642,11 @@ Elimina todos os dados de viagem </p>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reg</td><td>-&gt; indica se o cliente tem cartao ou nao </td></tr>
+    <tr><td class="paramname">reg</td><td>Indica se o cliente tem cartao ou nao </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 se ja nao da para reservar mais bilhetes </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>1 Se ja nao da para reservar mais bilhetes </dd></dl>
 
 </div>
 </div>
