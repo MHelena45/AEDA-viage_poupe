@@ -41,7 +41,7 @@ int userIntInput(){
 	if (cin.fail()){
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "Erro: Input Invalido, apenas numeros inteiros, tente outra vez" << endl;
+		cout << "Erro: Input Invalido, apenas numeros inteiros, tente outra vez." << endl;
 		return -200;
 	}
 	return val;
@@ -171,10 +171,10 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){//TODO: PROPER INPUT VAL
 
 			double precoFinal = temp->getPrecoFinal();
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
+			cout << "Preco Base = " << temp->getPrecoBase() << "ï¿½" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "ï¿½"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "€" << endl;
+			cout << "Preco Final = " << precoFinal << "ï¿½" << endl;
 
 			return;
 		}
@@ -388,10 +388,10 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			r->getRegisto()->adicionaCompra(tempC);
 
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
+			cout << "Preco Base = " << temp->getPrecoBase() << "ï¿½" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "ï¿½"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "€" << endl << endl;
+			cout << "Preco Final = " << precoFinal << "ï¿½" << endl << endl;
 
 			break;
 		}
@@ -555,15 +555,14 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 					}
 
 				while (lotacao < 0){
-					cout << "Insira lotacao do comboio (-1 para cancelar): ";
+					cout << endl << "Insira lotacao do comboio (-1 para cancelar): ";
 					lotacao = userIntInput();
-					cout << endl;
 
 					if (lotacao == -1)
 						return;
 
 					if (lotacao < -1 && lotacao != -200)
-						cout << "Erro: Lotacao invalida, apenas sao aceites numeros inteiros positivos" << endl;
+						cout << "Erro: Lotacao invalida, apenas sao aceites numeros inteiros positivos." << endl;
 					}
 
 				while (velocidade < 0){
@@ -575,7 +574,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 						return;
 
 					if (velocidade < -1 && velocidade != -200)
-						cout << "Erro: Velocidade invalida, apenas sao aceites numeros inteiros positivos" << endl;
+						cout << "Erro: Velocidade invalida, apenas sao aceites numeros inteiros positivos." << endl;
 				}
 
 				while (precoKM < 0){
@@ -587,7 +586,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 						return;
 
 					if (precoKM < -1 && precoKM != -200)
-						cout << "Erro: Preco invalido, apenas sao aceites numeros positivos" << endl;
+						cout << "Erro: Preco invalido, apenas sao aceites numeros positivos." << endl;
 				}
 
 
@@ -596,7 +595,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				else c = new AlfaPendular (lotacao, velocidade, precoKM, nome);
 				f->adicionaComboio(c);
 
-				cout << "Comboio adicionado com sucesso" << endl;
+				cout << "Comboio adicionado com sucesso." << endl;
 				return;
 			}
 			case 3: {
@@ -605,7 +604,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				string nome;
 				cin.ignore();
 				cin.clear();
-				cout << endl << "---Criaçao de cartao---" << endl;
+				cout << endl << "---Criaï¿½ao de cartao---" << endl;
 				cout<<endl<<"Nome:";
 				getline(cin,nome);
 
@@ -651,7 +650,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				}
 				cin.ignore();
 				cin.clear();
-				cout << endl << "---Criaçao de viagem---"  << endl;
+				cout << endl << "---Criaï¿½ao de viagem---"  << endl;
 				cout<<endl<<"Origem:";
 				getline(cin,origem);
 				cout<<endl<<"Destino:";

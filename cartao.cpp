@@ -33,7 +33,7 @@ string Cartao::getNome() const{
 }
 
 string Cartao::getInformacao() const{
-	return this->nome + " - Preço: " + to_string(this->precoMensal).substr(0, 6) + "€/mês - Desconto: " + to_string(100 - this->desconto) + "% por Viagem";
+	return this->nome + " - PreÃ§o: " + to_string(this->precoMensal).substr(0, 6) + "â‚¬/mes - Desconto: " + to_string(100 - this->desconto) + "% por Viagem";
 }
 
 //Outros
@@ -105,7 +105,7 @@ std::string Registo::getHistorico() const{
 	ss << left << setw(16) <<"Data da compra" << setw(16)  <<"Hora da Compra"
 			<< setw(9) << "Origem" << setw(9) << "Destino" << setw(16)
 			<< "Data da viagem" << setw(16) <<"Hora da viagem" << setw(16)
-			<< "Preco Base(€)" << setw(10) <<"Total(€)" << endl;
+			<< "Preco Base(ï¿½)" << setw(10) <<"Total(ï¿½)" << endl;
 
 	for (unsigned int i = 0; i < historico.size(); i++){
 		ss << historico.at(i)->getInfo();
@@ -163,7 +163,7 @@ string Registo::listCompraActiva(){
 	ss <<"ID  " <<left << setw(16) <<"Data da compra" << setw(16)  <<"Hora da Compra"
 			<< setw(9) << "Origem" << setw(9) << "Destino" << setw(16)
 			<< "Data da viagem" << setw(16) <<"Hora da viagem" << setw(16)
-			<< "Preco Base(€)" << setw(10) <<"Total(€)" << endl;
+			<< "Preco Base(â‚¬)" << setw(10) <<"Total(â‚¬)" << endl;
 
 	for (unsigned int i = 0; i < c.size(); i++){
 		ss << i << "   " << c.at(i)->getInfo();
@@ -281,7 +281,7 @@ void BaseClientes::saveCartoes()const{
 void BaseClientes::loadRegistos(){
 	ifstream mfile;
 
-	mfile.open ("Registos.txt");
+	mfile.open ("registos.txt");
 
 		while (!mfile.eof()) {
 			string nome;
@@ -447,7 +447,7 @@ void BaseClientes::saveRegistos(){
 
 	ofstream mfile;
 
-	mfile.open ("Registos.txt");
+	mfile.open ("registos.txt");
 
 	for (unsigned int i = 0; i < regs.size(); i++){
 		mfile << "Cliente:" << endl;

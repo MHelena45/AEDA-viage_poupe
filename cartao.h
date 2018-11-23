@@ -3,9 +3,9 @@
 
 #include "datashoras.h"
 
-	/*
+	/**
 	 * CLASS CARTAO
-	 * Esta Class e usada para criar cartoes com modalidades de desconto diferentes
+	 * Esta Classe e usada para criar cartoes com modalidades de desconto diferentes
 	 *
 	 */
 
@@ -15,35 +15,41 @@ class Cartao {
 	std::string nome;
 public:
 	/**
-	 * Construtor: \n
-	 * nome -> Nome do cartao \n
-	 * prc  -> Preco mensal da subscricao do cartao \n
-	 * desc -> Discount dado pelo cartao em todas as viagens \n
+	 * Construtor de cartao
+	 * @param nome -> Nome do cartao 
+	 * @param prc -> Preco mensal da subscricao do cartao 
+	 * @param desc -> Discount dado pelo cartao em todas as viagens
 	 */
 	Cartao(std::string nome, double prc, int desc);
 	/**
-	 * Retorna o preco mensal do cartao
+	 * @return preco mensal do cartao
 	 */
 	float getPreco() const;
 	/**
-	 * Retorna o desconto em todas as viagens dado pelo cartao
+	 * @return desconto em todas as viagens dado pelo cartao
 	 */
 	int getDesconto() const;
 	/**
-	 * Retorna o nome do cartao usado
+	 * @return nome do cartao usado
 	 */
 	std::string getNome() const;
 	/**
-	 * Retorna toda a informacao relacionada com o cartao
+	 * @return toda a informacao relacionada com o cartao
 	 */
 	std::string getInformacao() const;
+	/**
+	 * Redefiniçao do operador comparaçao
+	 * @param ct1 -> referencia para o cartao com o qual se vai comparar
+	 * @return se o cartao e igual ao outro ou nao
+	 */
 	bool operator == (const Cartao &ct1);
+
 };
 
 
 /*
  * CLASS REGISTO
- * Esta Class e usada para criar cartoes com modalidades de desconto diferentes
+ * Esta Classe e usada para criar cartoes com modalidades de desconto diferentes
  *
  */
 
@@ -57,61 +63,90 @@ class Registo {
 	std::vector <Compra *> historico;
 public:
 	/**
-	 * Construtor: \n
-	 * *c -> Objeto da class Cartao, tipo de subscricao \n
-	 * nome -> Nome do passageiro \n
-	 * profissao -> Profissao do passageiro \n
-	 * datanasc -> struct (int dia, int mes, int ano), recebe a data de nascimento \n
+	 * Construtor do registo, esta ativo por predefiniçao 
+	 * @param *c -> apontador para objeto da class Cartao, tipo de subscricao
+	 * @param nome -> nome do passageiro
+	 * @param profissao -> profissao do passageiro
+	 * @param datanasc -> apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
 	 */
 	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc);
 
+	/**
+	 * Construtor do registo, pode estar ativo ou nao
+	 * @param *c -> apontador para objeto da class Cartao, tipo de subscricao
+	 * @param nome -> nome do passageiro
+	 * @param profissao -> profissao do passageiro
+	 * @param datanasc -> apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
+	 * @param ativo -> bool indica se o registo esta ativo
+	 */
 	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc, bool ativo);
 
+	/**
+	 * Destrutor \n
+	 * Elimina todos os dados de registo
+	 */
 	~Registo();
 	/**
-	 * Retorna o nome do passageiro
+	 * @return nome do passageiro
 	 */
 	std::string getNome() const;
 	/*
-	 * Retorna o cartao que estar a ser usado por este passageiro
+	 * @return apontador para cartao que esta a ser usado por este passageiro
 	 */
 	Cartao* getCartao() const;
 	/**
-	 * Retorna a profissao do passageiro
+	 * @return profissao do passageiro
 	 */
 	std::string getProfissao() const;
 	/**
-	 * Retorna a data de nascimento do passageiro
+	 * @return data de nascimento do passageiro
 	 */
 	std::string getDatanascimento() const;
-	/*
-	 * Retorna se o cartao esta activo ou nao
+	/**
+	 * @return se o cartao esta activo ou nao
 	 */
 	bool getEstado() const;
-
+	/**
+	 * @return numero de compras feitas
+	 */
 	int getNumCompras() const;
-
+	/**
+	 * @param id -> id da compra
+	 * @return apontador para compra com esse id 
+	 */
 	Compra* getCompra (int id) const;
-
+	/**
+	 * @return string com historico de compras
+	 */
 	std::string getHistorico() const;
 
 	/*
 	 * Activa ou desactiva a subscricao
+	 * @param at -> estado atual da subscriçao
 	 */
 	void alterarEstado(bool at);
 	/*
 	 * Altera o cartao do passageiro
+	 * @param c -> apontador para cartao a alterar
 	 */
 	void alterarCartao(Cartao *c);
 	/*
 	 * Adiciona uma compra ao historico do passageiro
+	 * @param c1 -> apontador para compra a adicionar
 	 */
 	void adicionaCompra(Compra *c1);
-
+	/*
+	 * Elimina uma compra do historico do passageiro
+	 * @param c1 -> apontador para compra a remover
+	 */
 	void eliminaCompra(Compra *c1);
-
+	/*
+	 * @return vector com apontadores para as compras ativas
+	 */
 	std::vector <Compra *> getCompraAtiva();
-
+	/*
+	 * @return string com as compras ativas
+	 */
 	std::string listCompraActiva ();
 
 
@@ -131,59 +166,77 @@ class BaseClientes {
 public:
 
 	/**
-	 * Construtor, inicializa id
+	 * Construtor de baseclientes, inicializa id
 	 */
 	BaseClientes(){id = 0;};
 	/**
-	 * Destructor
+	 * Destructor\n
 	 * Remove os registos da memoria
 	 */
 	~BaseClientes();
 
-
+	/**
+	 * @return apontador para registo de um passageiro especifico
+	 */
 	Registo* getRegisto() const;
 	/**
-	 * Retorna toda a informacao de um passageiro especifico
+	 * @return informaçao de um passageiro especifico
 	 */
 	std::string getInformacao () const;
-
+	/**
+	 * @return informaçao sobre o cartao
+	 */
 	std::string getInfoCartao() const;
 	/**
-	 * retorna um cartao do vector cartoes
+	 * @param id -> id do cartao
+	 * @return apontador para cartao do vector cartoes com esse id
 	 */
 	Cartao* getCartao(int id) const;
 	/*
-	 * retorna o numero de cartoes
+	 * @return numero de cartoes
 	 */
 	int getNumCartoes() const;
 	/**
-	 * retorna o numero de clientes na base de dados
+	 * @return numero de clientes na base de dados
 	 */
 	int getNumRegistos() const;
-
+	/**
+	 * @param ct1 -> apontador para cartao
+	 * @return indice do cartao inserido
+	 */
 	int getCartaoIndex (Cartao *ct1) const;
 	/**
-	 * Adiciona um cartao ao vector de cartoes
+	 * @param c1 -> apontador para cartao a adicionar ao vetor cartoes
 	 */
 	void adicionaCartao(Cartao *c1);
 	/**
 	 * Adiciona registos ao vector(regs) de clientes \n
-	 * r1 -> objecto temporario da class registo, registo a adicionar a base de clientes
+	 * @param r1 -> apontador para objecto temporario da class registo, registo a adicionar a base de clientes
 	 */
 	void adicionaRegisto(Registo *r1);
 	/*
-	 *Remove registos do vector(regs) de clientes
+	 * Remove registos do vector(regs) de clientes
 	 */
 	void removeRegisto ();
-
+	/**
+	 * @param id -> novo id
+	 */
 	void setId(int id);
-
+	/**
+	 * Abre "cartoes.txt" e adiciona os cartoes contidos a base de clientes
+	 */
 	void loadCartoes();
-
+	/**
+	 * Guarda os cartoes da base de clientes em "cartoes.txt"
+	 */
 	void saveCartoes()const;
-
+	/**
+	 * Abre "registos.txt" e adiciona os registos contidos a base de clientes
+	 */
 	void loadRegistos();
-
+	/**
+	 * Guarda os registos da base de clientes em "registos.txt"
+	 */
 	void saveRegistos();
 };
 
