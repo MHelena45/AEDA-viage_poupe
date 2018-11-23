@@ -171,10 +171,10 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){//TODO: PROPER INPUT VAL
 
 			double precoFinal = temp->getPrecoFinal();
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "�" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "�"
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "�" << endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl;
 
 			return;
 		}
@@ -388,10 +388,10 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			r->getRegisto()->adicionaCompra(tempC);
 
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "�" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "�"
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "�" << endl << endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl << endl;
 
 			break;
 		}
@@ -604,7 +604,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				string nome;
 				cin.ignore();
 				cin.clear();
-				cout << endl << "---Cria�ao de cartao---" << endl;
+				cout << endl << "---Criacao de cartao---" << endl;
 				cout<<endl<<"Nome:";
 				getline(cin,nome);
 
@@ -650,7 +650,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				}
 				cin.ignore();
 				cin.clear();
-				cout << endl << "---Cria�ao de viagem---"  << endl;
+				cout << endl << "---Criacao de viagem---"  << endl;
 				cout<<endl<<"Origem:";
 				getline(cin,origem);
 				cout<<endl<<"Destino:";
