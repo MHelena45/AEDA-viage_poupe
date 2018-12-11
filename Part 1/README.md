@@ -10,7 +10,7 @@ Group Project for Data Structures and Algorithms class at Faculty of Engineering
 
 ## Doxygen Documentation:
 
-[Classes Documentation](https://nunomiguel22.github.io/viage-poupe/index.html "Doxygen documentation")
+[Classes Documentation](https://nunomiguel22.github.io/AEDA-viage_poupe/index.html "Doxygen documentation")
 
 ## Screenshot:
 ![Screenshot](screenshot.jpg)
