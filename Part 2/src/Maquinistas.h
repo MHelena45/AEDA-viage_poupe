@@ -2,8 +2,7 @@
 #define MAQUINISTAS_H_
 
 #include <unordered_set>
-#include <vector>
-#include <string>
+#include "datashoras.h"
 
 using namespace std;
 
@@ -47,6 +46,8 @@ class Maquinistas
 	tabHInt maquinistas;
 public:
 	Maquinistas();
+	bool loadMaquinistas();
+	void saveMaquinista(Maquinista maq);
 	bool adicionaMaquinista(Maquinista trabalhador);
 	void editaMaquinista(Maquinista trabalhador1, Maquinista trabalhador2);
 	void eliminaMaquinista(Maquinista trabalhador);
