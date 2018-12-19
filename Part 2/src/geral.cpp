@@ -77,9 +77,10 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 
 			cout << endl << "0 - Lista de Comboios" << endl;
 			cout << "1 - Lista de Viagens" << endl;
-			cout << "2 - Sair" << endl;
+			cout << "2 - Lista de Maquinistas " << endl;
+			cout << "3 - Sair" << endl;
 
-			menu = menuInput(2);
+			menu = menuInput(3);
 			if (menu == -1)
 				cout << "Erro: Menu nao existe, tente outra vez" << endl;
 
@@ -109,6 +110,8 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 			cout << b->getInfo();
 			break;
 		case 2:
+			menu = 3;
+		case 3:
 			return;
 		default:
 			return;
@@ -171,10 +174,10 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 
 			double precoFinal = temp->getPrecoFinal();
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
+			cout << "Preco Base = " << temp->getPrecoBase() << "â‚¬" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "â‚¬"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "€" << endl;
+			cout << "Preco Final = " << precoFinal << "â‚¬" << endl;
 
 			return;
 		}
@@ -388,10 +391,10 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			r->getRegisto()->adicionaCompra(tempC);
 
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
+			cout << "Preco Base = " << temp->getPrecoBase() << "â‚¬" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "â‚¬"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "€" << endl << endl;
+			cout << "Preco Final = " << precoFinal << "â‚¬" << endl << endl;
 
 			break;
 		}
