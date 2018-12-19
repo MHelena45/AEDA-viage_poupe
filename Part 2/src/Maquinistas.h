@@ -40,10 +40,10 @@ struct hstr {
 
 
 
-typedef unordered_set<Maquinista, hstr , eqMaquinista> tabHInt;
+typedef unordered_set<Maquinista, hstr , eqMaquinista> tabHMaq;
 class Maquinistas
 {
-	tabHInt maquinistas;
+	tabHMaq maquinistas;
 public:
 	Maquinistas();
 	bool loadMaquinistas();
@@ -51,7 +51,7 @@ public:
 	bool adicionaMaquinista(Maquinista trabalhador);
 	void editaMaquinista(Maquinista trabalhador1, Maquinista trabalhador2);
 	void eliminaMaquinista(Maquinista trabalhador);
-
+	void showMaquinista();
 };
 
 
