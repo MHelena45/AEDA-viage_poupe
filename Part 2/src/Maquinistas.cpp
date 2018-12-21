@@ -69,7 +69,7 @@ void Maquinistas::saveMaquinista(Maquinista maq) {
 
 	maqfile.open("maquinistas.txt");
 	
-	maqfile << maq.getNome() << endl << maq.getApelido() << endl;
+	maqfile << maq.getId() << " " << maq.getNome() << endl << maq.getApelido() << endl;
 	
 	maqfile.close();
 }
@@ -86,13 +86,25 @@ Maquinistas::Maquinistas() {
 	maquinistas.clear();
 }
 
+
+bool Maquinistas::emptyMaquinistas() {
+	tabHMaq::const_iterator it;
+	for (it = maquinistas.begin(); it != maquinistas.end(); it++) {
+		if (it->getNome() != "") {
+			return false;
+		}
+	}
+	
+	return true;
+}
+
 /**
  *  Adiciona um maquinista a tabela de dispersao
  *  designada de maquinistas
  * @param maquinistas a adicionar a tabela de dispersão
  */
 bool Maquinistas::adicionaMaquinista(Maquinista trabalhador) {
-	pair<unordered_set<Maquinista, hstr, eqMaquinista >::iterator,bool> res = maquinistas.insert(trabalhador);
+	pair<tabHMaq::iterator,bool> res = maquinistas.insert(trabalhador);
 	if (res.second == true)
 		return true;
 	else return false;
@@ -120,4 +132,9 @@ void Maquinistas::eliminaMaquinista(Maquinista trabalhador) {
 	it = maquinistas.find(trabalhador);
 	maquinistas.erase(it);
 
+}
+
+void showMaquinistas() {
+
+	return;
 }

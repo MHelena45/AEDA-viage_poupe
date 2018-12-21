@@ -1,4 +1,5 @@
 #include "geral.h"
+#pragma warning(disable : 4996)
 
 using namespace std;
 
@@ -67,11 +68,11 @@ double userDoubleInput(){
 
 //			INFORMACAO
 
-void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
+void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 
 	int menu = -2;
 
-	while (menu != 2){
+	while (menu != 3){
 		while (menu == -2 || menu == -1){
 			cout << endl << "---Informacao---" << endl << endl;
 
@@ -109,8 +110,15 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b){
 			cout << endl << "Lista de Viagens" << endl << endl;
 			cout << b->getInfo();
 			break;
-		case 2:
+		case 2: 
 			menu = 3;
+			if (M->emptyMaquinistas() ) {
+				cout << endl << "Erro: Nao existem viagens" << endl;
+				break;
+			}
+			cout << "Lista de Maquinistas " << endl;			
+			break;
+		
 		case 3:
 			return;
 		default:
@@ -493,11 +501,11 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 	}
 }
 
-void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
+void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 
 	int menu = -2;
 
-		while (menu != 5){
+		while (menu !=  6){
 			while (menu == -2 || menu == -1){
 				cout << endl << "---Administracao---" << endl << endl;
 				cout << endl << "0 - Guardar Dados" << endl;
@@ -505,9 +513,10 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 				cout << "2 - Adicionar Comboios" << endl;
 				cout << "3 - Adicionar Cartoes" << endl;
 				cout << "4 - Adicionar Viagens" << endl;
-				cout << "5 - Sair" << endl;
+				cout << "5 - Adiconar Maquinistas" << endl;
+				cout << "6 - Sair" << endl;
 
-				menu = menuInput(5);
+				menu = menuInput(6);
 				if (menu == -1)
 					cout << "Erro: Menu nao existe, tente outra vez" << endl;
 
@@ -739,6 +748,30 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b){
 			}
 
 			case 5:
+			{
+				string nome, apelido;
+				unsigned int id;
+				cin.ignore();
+				cin.clear();
+				cout << "Qual o maquinista que quer adicionar (-1 para cancelar) ? " << endl;
+				getline(cin, nome);
+				cout << "Qual o apelido ?" << endl;
+				getline(cin, apelido);
+				cout << "Qual o id? " << endl;
+				cin >> id;
+				//id = userIntInput();
+				Maquinista M1(nome, apelido, id);
+				if (M->adicionaMaquinista(M1)) {
+					M->loadMaquinistas();
+					cout << "Maquinistas adicionado com sucesso! " << endl;
+				}				
+				else {
+					cout << "Nao foi possivel adicionar o maquinista! " << endl;
+				}
+				return;
+
+			}
+			case 6:
 				return;
 
 			default:

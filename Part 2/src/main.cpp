@@ -10,6 +10,7 @@ int main(){
 	BaseClientes r;
 	Frota f;
 	Bilheteira b(&f);
+	Maquinistas M;
 
 	while (menu != -4){
 		while (menu == -2){
@@ -28,7 +29,7 @@ int main(){
 
 		switch (menu){
 		case 0:
-			menuInformacao(&r, &f, &b);
+			menuInformacao(&r, &f, &b, &M);
 			menu = -2;
 			break;
 		case 1:
@@ -40,7 +41,7 @@ int main(){
 			menu = -2;
 			break;
 		case 3:
-			menuAdministracao(&r, &f, &b);
+			menuAdministracao(&r, &f, &b, &M);
 			menu = -2;
 			break;
 		case 4:

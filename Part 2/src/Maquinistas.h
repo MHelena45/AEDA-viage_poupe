@@ -46,12 +46,13 @@ class Maquinistas
 	tabHMaq maquinistas;
 public:
 	Maquinistas();
+	bool emptyMaquinistas();
 	bool loadMaquinistas();
 	void saveMaquinista(Maquinista maq);
 	bool adicionaMaquinista(Maquinista trabalhador);
 	void editaMaquinista(Maquinista trabalhador1, Maquinista trabalhador2);
 	void eliminaMaquinista(Maquinista trabalhador);
-	void showMaquinista();
+	void showMaquinistas();
 };
 
 
