@@ -113,10 +113,11 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 		case 2: 
 			menu = 3;
 			if (M->emptyMaquinistas() ) {
-				cout << endl << "Erro: Nao existem viagens" << endl;
+				cout << endl << "Erro: Nao existem Maquinistas" << endl;
 				break;
 			}
-			cout << "Lista de Maquinistas " << endl;			
+			cout << "Lista de Maquinistas " << endl;	
+			M->showMaquinistas();
 			break;
 		
 		case 3:
@@ -762,7 +763,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				//id = userIntInput();
 				Maquinista M1(nome, apelido, id);
 				if (M->adicionaMaquinista(M1)) {
-					M->loadMaquinistas();
+					M->saveMaquinista(M1);
 					cout << "Maquinistas adicionado com sucesso! " << endl;
 				}				
 				else {

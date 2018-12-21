@@ -9,10 +9,7 @@
  * @param apelidos do maquinistas serados por espaço
  * @param identificacao do maquinistas
  */
-Maquinista::Maquinista(string nome, string apelido, int id) {
-	nome = nome;
-	apelido = apelido;
-	id = id;
+Maquinista::Maquinista(string n, string a, int i) : nome(n), apelido(a), id(i) {
 	ativo = true;
 }
 
@@ -26,10 +23,8 @@ Maquinista::Maquinista(string nome, string apelido, int id) {
  * @param se o maqinista está atualmente ao serviço ou não
  *
  */
-Maquinista::Maquinista(string nome, string apelido, int id, bool atual) {
-	nome = nome;
-	apelido = apelido;
-	id = id;
+Maquinista::Maquinista(string n, string a, int i, bool atual) : nome(n), apelido(a), id(i) {
+
 	ativo = atual;
 }
 /**
@@ -128,13 +123,16 @@ void Maquinistas::editaMaquinista(Maquinista trabalhador1, Maquinista trabalhado
  *
  */
 void Maquinistas::eliminaMaquinista(Maquinista trabalhador) {
-	unordered_set<Maquinista, hstr, eqMaquinista >::const_iterator it;
+	tabHMaq::const_iterator it;
 	it = maquinistas.find(trabalhador);
 	maquinistas.erase(it);
 
 }
 
-void showMaquinistas() {
-
+void Maquinistas::showMaquinistas() {
+	for (auto it : this->maquinistas  ) {
+		cout << it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl;
+	}
+	
 	return;
 }

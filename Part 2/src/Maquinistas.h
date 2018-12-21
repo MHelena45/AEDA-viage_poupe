@@ -8,7 +8,7 @@ using namespace std;
 
 class Maquinista
 {
-	string nome, apelido;
+	const string nome, apelido;
 	bool ativo;
 	unsigned id;
 public:
