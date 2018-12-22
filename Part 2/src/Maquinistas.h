@@ -3,6 +3,7 @@
 
 #include <unordered_set>
 #include "datashoras.h"
+#include "viagens.h"
 
 using namespace std;
 /**
@@ -16,6 +17,7 @@ class Maquinista
 	const string nome, apelido;
 	bool ativo;
 	unsigned id;
+	vector<Viagem *> viagens;
 public:
 	/**
 	* Construtor:
@@ -57,7 +59,14 @@ public:
 	/**
 	*	@return o estado ativo ou não do maquinista
 	*/
-	bool getAtivo() const { return ativo };
+	bool getAtivo() const { return ativo; };
+	
+	/*
+	* Altera o estado (atual ou não) do maquinista.
+	* 
+	*/
+	void alteraEstado();
+
 	/**
 	 * Faz overload ao operador de saida para dar output da informacao do maquinista como parâmetro
 	 * na forma de tabela
@@ -67,6 +76,8 @@ public:
 	 * @return o estado, o número de identificação, o primeiro nome e todos os apelidos do maquinista.
 	 */
 	friend ostream & operator << (ostream &out, const Maquinista & M);
+
+	bool adicionaViagem(Viagem *v);
 };
 
 /**

@@ -8,6 +8,15 @@ Maquinista::Maquinista(string n, string a, int i, bool atual) : nome(n), apelido
 	ativo = atual;
 }
 
+void Maquinista::alteraEstado() {
+	ativo = !ativo;
+}
+
+bool Maquinista::adicionaViagem(Viagem *v) {
+	viagens.push_back(v);
+	return true;
+}
+
 bool Maquinistas::loadMaquinistas() {
 	bool sucedido = true;
 	ifstream maqfile;
@@ -40,7 +49,7 @@ void Maquinistas::saveMaquinista(Maquinista &maq) {
 }
 
 ostream & operator << (ostream &out, const Maquinista & M) {
-	out << M.getAtivo << "  " << M.getId() << " : " << M.getNome() << " " << M.getApelido() << endl;
+	out << M.getAtivo() << "  " << M.getId() << " : " << M.getNome() << " " << M.getApelido() << endl;
 	return out;
 }
 
@@ -82,7 +91,7 @@ void Maquinistas::eliminaMaquinista(Maquinista trabalhador) {
 
 void Maquinistas::showMaquinistas() {
 	for (auto it : this->maquinistas  ) {
-		cout << it.getAtivo << setw(8) <<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl;
+		cout << it.getAtivo() << setw(8) <<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl;
 	}	
 	return;
 }
