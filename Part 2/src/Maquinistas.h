@@ -40,26 +40,31 @@ public:
 	Maquinista(string nome, string apelido, int id) ;
 
 	/**
-	*	returna o primeiro nome do maquinista
+	*	@return o primeiro nome do maquinista
 	*/
 	string getNome() const { return nome; } ;
 
 	/**
-	*	returna uma string com todos os apelidos do maquinista
+	*	@return uma string com todos os apelidos do maquinista
 	*/
 	string getApelido() const { return apelido; } ;
 
 	/**
-	*	returna o número de identificação do maquinista
+	*	@return o número de identificação do maquinista
 	*/
 	unsigned getId() const { return id; } ;
 
 	/**
+	*	@return o estado ativo ou não do maquinista
+	*/
+	bool getAtivo() const { return ativo };
+	/**
 	 * Faz overload ao operador de saida para dar output da informacao do maquinista como parâmetro
 	 * na forma de tabela
-	 * returna o número de identificação do maquinista, o primeiro nome do maquinista e todos os apelidos do maquinista e 
+	 *
 	 * @param os Referencia para ofstream onde guardar a informacao
 	 * @param M referência para o maquinista
+	 * @return o estado, o número de identificação, o primeiro nome e todos os apelidos do maquinista.
 	 */
 	friend ostream & operator << (ostream &out, const Maquinista & M);
 };
@@ -82,7 +87,7 @@ struct eqMaquinista {
 * diminuindo a alta eficiência da tabela de dispersão ,
 * a função multiplica o código ASCII pela respectiva posição na string e soma o id do maquinista,
 * provocando menos colisões.
-*
+* @return o valor que define o lugar na tabela de dispersão
 */
 struct hstr {
 	int operator() (const Maquinista &maquinista) const {
@@ -123,14 +128,14 @@ public:
 	void clearMaquinistas();
 	/**
 	*
-	* retorna um booleano com o estados vazio ou não da tabela de dispersão
+	* @return um booleano com o estados vazio ou não da tabela de dispersão
 	*/
 	bool emptyMaquinistas();
 	
 	/*
 	* extrai do ficheiro com os maquinistas os registos dos maquinistas guardados,
 	* tanto os maquinista em serviço como os os antigos
-	*
+	* @return se foi possível adicionar todos os maquinistas
 	*/
 	bool loadMaquinistas();
 	/** 
@@ -143,6 +148,7 @@ public:
 	*  Adiciona um maquinista a tabela de dispersao
 	*  designada de maquinistas
 	* @param maquinistas a adicionar a tabela de dispersão
+	* @return o sucesso ou não da operaçao de inserção
 	*/
 	bool adicionaMaquinista(Maquinista trabalhador);
 	/**

@@ -752,19 +752,23 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 			{
 				string nome, apelido;
 				unsigned int id;
+				
+				cout << "Qual o id do maquinista que quer adicionar (-1 para cancelar)? " << endl;
+				id = userIntInput();
+				if (id == -1)
+					return;
 				cin.ignore();
 				cin.clear();
-				cout << "Qual o maquinista que quer adicionar (-1 para cancelar) ? " << endl;
+				cout << "Qual o primeiro nome do maquinista que quer adicionar ? " << endl;
 				getline(cin, nome);
 				cout << "Qual o apelido ?" << endl;
 				getline(cin, apelido);
-				cout << "Qual o id? " << endl;
-				cin >> id;
-				//id = userIntInput();
+				
+	
 				Maquinista M1(nome, apelido, id);
 				if (M->adicionaMaquinista(M1)) {
 					M->saveMaquinista(M1);
-					cout << "Maquinistas adicionado com sucesso! " << endl;
+					cout << "O maquinista foi adicionado com sucesso! " << endl;
 				}				
 				else {
 					cout << "Nao foi possivel adicionar o maquinista! " << endl;

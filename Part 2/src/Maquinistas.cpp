@@ -8,15 +8,13 @@ Maquinista::Maquinista(string n, string a, int i, bool atual) : nome(n), apelido
 	ativo = atual;
 }
 
-
 bool Maquinistas::loadMaquinistas() {
-
+	bool sucedido = true;
 	ifstream maqfile;
 
 	maqfile.open("maquinistas.txt");
 	
-	while (!maqfile.eof()) {
-		
+	while (!maqfile.eof()) {		
 		string Pnome;
 		string apelidos;
 		maqfile >> Pnome;
@@ -25,10 +23,10 @@ bool Maquinistas::loadMaquinistas() {
 			break;
 		Maquinista M1(Pnome, apelidos, 1);
 		if (!adicionaMaquinista(M1))
-			return false;		
+			sucedido = false;		
 	}
 	maqfile.close();
-	return true;
+	return sucedido;
 }
 
 void Maquinistas::saveMaquinista(Maquinista &maq) {
@@ -42,7 +40,7 @@ void Maquinistas::saveMaquinista(Maquinista &maq) {
 }
 
 ostream & operator << (ostream &out, const Maquinista & M) {
-	out << M.getId() << " : " << M.getNome() << " " << M.getApelido() << endl;
+	out << M.getAtivo << "  " << M.getId() << " : " << M.getNome() << " " << M.getApelido() << endl;
 	return out;
 }
 
@@ -84,8 +82,7 @@ void Maquinistas::eliminaMaquinista(Maquinista trabalhador) {
 
 void Maquinistas::showMaquinistas() {
 	for (auto it : this->maquinistas  ) {
-		cout << it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl;
-	}
-	
+		cout << it.getAtivo << setw(8) <<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl;
+	}	
 	return;
 }
