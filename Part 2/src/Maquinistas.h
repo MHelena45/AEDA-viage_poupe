@@ -5,6 +5,11 @@
 #include "datashoras.h"
 
 using namespace std;
+/**
+* CLASS MAQUINISTA \n
+* cria um novo maquinita
+*
+*/
 
 class Maquinista
 {
@@ -12,24 +17,77 @@ class Maquinista
 	bool ativo;
 	unsigned id;
 public:
+	/**
+	* Construtor:
+	*  Se se esta a adicionar um maquinista atual, não é necessario indicar o boleano se 
+	*  este é ou não um membro ativo, porque será um maquinista novo
+	*
+	* @param primeiro nome do maquinistas
+	* @param apelidos do maquinistas serados por espaço
+	* @param identificacao do maquinistas
+	*/
 	Maquinista(string nome, string apelido, int id, bool atual);
-	Maquinista(string nome, string apelido, int id);
+	/**
+	* Se queremos adicionar um maquinista que já não se encontra ao serviço, o 4 parametro deverá ser
+	* false, dado este não ser um maquinista atual
+	*
+	* @param primeiro nome do maquinistas
+	* @param apelidos do maquinistas
+	* @param identificacao do maquinistas
+	* @param se o maqinista está atualmente ao serviço ou não
+	*
+	*/
+	Maquinista(string nome, string apelido, int id) ;
+
+	/**
+	*	returna o primeiro nome do maquinista
+	*/
 	string getNome() const { return nome; } ;
+
+	/**
+	*	returna uma string com todos os apelidos do maquinista
+	*/
 	string getApelido() const { return apelido; } ;
+
+	/**
+	*	returna o número de identificação do maquinista
+	*/
 	unsigned getId() const { return id; } ;
+
+	/**
+	 * Faz overload ao operador de saida para dar output da informacao do maquinista como parâmetro
+	 * na forma de tabela
+	 * returna o número de identificação do maquinista, o primeiro nome do maquinista e todos os apelidos do maquinista e 
+	 * @param os Referencia para ofstream onde guardar a informacao
+	 * @param M referência para o maquinista
+	 */
 	friend ostream & operator << (ostream &out, const Maquinista & M);
 };
 
+/**
+*	redefiniçao do operador de igualdade\n
+*  sendo a identificaçao de cada mquinistas única, dois maquinistas com o mesmo número de identificaçao
+*   são o mesmo maquinista, se não forem este não deverá de ser aceite para a tabela de dispersão
+*/
 struct eqMaquinista {
 	bool operator() (const Maquinista& M1, const Maquinista M2) const{
 		return M1.getId()  == M2.getId();
 	}
 };
 
+/**
+*	Função hash \n
+* utiliza o primeiro nome do maquinista, isto é, o valor na tabela é  a somo dos valores ascii de cada caracter.
+* Sendo que há nomes mais vulgares e nomes com iguais letras, que provocam bastantes colisões, 
+* diminuindo a alta eficiência da tabela de dispersão ,
+* a função multiplica o código ASCII pela respectiva posição na string e soma o id do maquinista,
+* provocando menos colisões.
+*
+*/
 struct hstr {
 	int operator() (const Maquinista &maquinista) const {
 	
-		int value = 0;
+		int value = maquinista.getId();
 		string nome = maquinista.getNome();
 		for (unsigned int i = 0; i < nome.size(); i++)
 		value += nome[i] * i;
@@ -38,20 +96,75 @@ struct hstr {
 	}
 };
 
-
-
+/**
+* Cria a tabela de dipersão
+*/
 typedef unordered_set<Maquinista, hstr , eqMaquinista> tabHMaq;
+
+/**
+*	CLASS MAQUINISTAS \n
+*   Classe associada a tabela de dispersão
+*
+*/
 class Maquinistas
 {
 	tabHMaq maquinistas;
 public:
-	Maquinistas();
+	/**
+	* Construtor:
+	* Inicia a tabela de dispersao vazia
+	*
+	*/
+	Maquinistas() {};
+	/**
+	*  Elimina todos os maquinistas da tabela de dispersão
+	*
+	*/
+	void clearMaquinistas();
+	/**
+	*
+	* retorna um booleano com o estados vazio ou não da tabela de dispersão
+	*/
 	bool emptyMaquinistas();
+	
+	/*
+	* extrai do ficheiro com os maquinistas os registos dos maquinistas guardados,
+	* tanto os maquinista em serviço como os os antigos
+	*
+	*/
 	bool loadMaquinistas();
-	void saveMaquinista(Maquinista maq);
+	/** 
+	* Guarda um novo maquinistas no ficheiro com os maquinistas
+	* @param maquinistas a adicionar ao ficheiro
+	*/
+	void saveMaquinista(Maquinista & maq);
+
+	/**
+	*  Adiciona um maquinista a tabela de dispersao
+	*  designada de maquinistas
+	* @param maquinistas a adicionar a tabela de dispersão
+	*/
 	bool adicionaMaquinista(Maquinista trabalhador);
+	/**
+	*  Se nos enganarmos a colocar um maquinista na 
+	*  tabela podemos editar o erro
+	*  @param maquinista enrado
+	*  @param maquinista com o nome correto 
+	*/
 	void editaMaquinista(Maquinista trabalhador1, Maquinista trabalhador2);
+
+	/**
+	 *  Se quisermos eliminar um maquinas, porque por exemplo faleceu,
+	 *  nao podendo ser reconstratado, podemos elimna-lo da nossa tabela
+	 *  @param maquinista que quermos eliminar da tabela
+	*
+	*/
 	void eliminaMaquinista(Maquinista trabalhador);
+
+	/**
+	*  Mosta todos os maquinistas que se encontram na tabela de dispersão. \n
+	*  Na respetiva ordem, número de identificação, nome
+	*/
 	void showMaquinistas();
 };
 
