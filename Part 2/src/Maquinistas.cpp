@@ -45,7 +45,7 @@ bool Maquinistas::loadMaquinistas(string nome) {
 			break;
 		vazio = false;
 		Maquinista M1(Pnome, apelidos, 1, v);
-		if (!adicionaMaquinista(M1))
+		if (!adicionaMaquinista(&M1))
 			sucedido = false;		
 	}
 	if (vazio) {
@@ -55,15 +55,15 @@ bool Maquinistas::loadMaquinistas(string nome) {
 	return sucedido;
 }
 
-void Maquinistas::saveMaquinista(Maquinista &maq) {
+void Maquinistas::saveMaquinista(Maquinista *maq) {
 	ofstream maqfile;
 
 	maqfile.open("maquinistas.txt");
 	
-	maqfile << maq.getId() << " " << maq.getNome() << endl << maq.getApelido() << endl;
-	if (!maq.getViagens().size()) {
+	maqfile << maq->getId() << " " << maq->getNome() << endl << maq->getApelido() << endl;
+	if (!maq->getViagens().size()) {
 		maqfile << "Viagens ";
-		vector<Viagem *> v = maq.getViagens();
+		vector<Viagem *> v = maq->getViagens();
 		for(int i = 0; i < v.size(); i++) {
 			cout << v.at(i) << " ";
 		}
@@ -95,22 +95,22 @@ bool Maquinistas::emptyMaquinistas() {
 	return true;
 }
 
-bool Maquinistas::adicionaMaquinista(Maquinista trabalhador) {
-	pair<tabHMaq::iterator,bool> res = maquinistas.insert(trabalhador);
+bool Maquinistas::adicionaMaquinista(Maquinista *trabalhador) {
+	pair<tabHMaq::iterator,bool> res = maquinistas.insert(*trabalhador);
 	if (res.second == true)
 		return true;
 	else return false;
 }
 
 
-void Maquinistas::editaMaquinista(Maquinista trabalhador1, Maquinista trabalhador2) {
+void Maquinistas::editaMaquinista(Maquinista *trabalhador1, Maquinista* trabalhador2) {
 	eliminaMaquinista(trabalhador1);
 	adicionaMaquinista(trabalhador2);
 }
 
-void Maquinistas::eliminaMaquinista(Maquinista trabalhador) {
+void Maquinistas::eliminaMaquinista(Maquinista *trabalhador) {
 	tabHMaq::const_iterator it;
-	it = maquinistas.find(trabalhador);
+	it = maquinistas.find(*trabalhador);
 	maquinistas.erase(it);
 
 }

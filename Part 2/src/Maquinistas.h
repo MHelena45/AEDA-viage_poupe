@@ -183,7 +183,7 @@ public:
 	* Guarda um novo maquinistas no ficheiro com os maquinistas
 	* @param maquinistas a adicionar ao ficheiro
 	*/
-	void saveMaquinista(Maquinista & maq);
+	void saveMaquinista(Maquinista *maq);
 
 	/**
 	* Adiciona um maquinista a tabela de dispersao
@@ -191,14 +191,14 @@ public:
 	* @param maquinistas a adicionar a tabela de dispersão
 	* @return o sucesso ou não da operaçao de inserção
 	*/
-	bool adicionaMaquinista(Maquinista trabalhador);
+	bool adicionaMaquinista(Maquinista *trabalhador);
 	/**
 	*  Se nos enganarmos a colocar um maquinista na 
 	*  tabela podemos editar o erro
 	*  @param maquinista enrado
 	*  @param maquinista com o nome correto 
 	*/
-	void editaMaquinista(Maquinista trabalhador1, Maquinista trabalhador2);
+	void editaMaquinista(Maquinista *trabalhador1, Maquinista *trabalhador2);
 
 	/**
 	*  Se quisermos eliminar um maquinas, porque por exemplo faleceu,
@@ -206,7 +206,7 @@ public:
 	*  @param maquinista que quermos eliminar da tabela
 	*
 	*/
-	void eliminaMaquinista(Maquinista trabalhador);
+	void eliminaMaquinista(Maquinista *trabalhador);
 
 	/**
 	*  Mosta todos os maquinistas que se encontram na tabela de dispersão. \n

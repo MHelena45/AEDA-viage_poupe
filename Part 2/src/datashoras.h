@@ -168,6 +168,9 @@ public:
 	 * Excepcao
 	 */
 	class FormatoStringInvalido{};
+
+	
+
 	/**
 	 * Faz overload ao operador de saida para imprimir a data no formato(DD-MM-AAAA)\n
 	 * @param os Referencia para ofstream

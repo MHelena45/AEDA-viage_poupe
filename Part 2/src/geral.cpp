@@ -60,6 +60,23 @@ double userDoubleInput(){
 	return val;
 }
 
+Maquinista criaMaquinista() {
+	string nome, apelido, viagens;
+	//vector<Viagem * > v;
+	unsigned int id;
+
+	cout << "Qual o id do maquinista que quer adicionar? " << endl;
+	id = userIntInput();
+	cin.ignore();
+	cin.clear();
+	cout << "Qual o primeiro nome do maquinista que quer adicionar ? " << endl;
+	getline(cin, nome);
+	cout << "Qual o apelido ?" << endl;
+	getline(cin, apelido);
+	Maquinista M1(nome, apelido, id);
+	return M1;
+}
+
 /*
  * Menus
  *
@@ -514,7 +531,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cout << "2 - Adicionar Comboios" << endl;
 				cout << "3 - Adicionar Cartoes" << endl;
 				cout << "4 - Adicionar Viagens" << endl;
-				cout << "5 - Adiconar Maquinistas" << endl;
+				cout << "5 - Maquinistas" << endl;
 				cout << "6 - Sair" << endl;
 
 				menu = menuInput(6);
@@ -750,41 +767,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 
 			case 5:
 			{
-				string nome, apelido, viagens;
-				
-				vector<Viagem * > v;
-				unsigned int id;
-				
-				cout << "Qual o id do maquinista que quer adicionar (-1 para cancelar)? " << endl;
-				id = userIntInput();
-				if (id == -1)
-					return;
-				cin.ignore();
-				cin.clear();
-				cout << "Qual o primeiro nome do maquinista que quer adicionar ? " << endl;
-				getline(cin, nome);
-				cout << "Qual o apelido ?" << endl;
-				getline(cin, apelido);
-				Maquinista M1(nome, apelido, id );
-				cout << "Quantas viagens associadas ? " << endl;
-				id = userIntInput();
-				string ori , t, des;
-				while (id) {
-					cout << " Origem - Destino" << endl;
-					cin >> ori >> t >> des;
-					Viagem* via = b->getViagem(ori, des);
-					M1.adicionaViagem(via);
-					id--;
-
-				}
-						
-				if (M->adicionaMaquinista(M1)) {
-					M->saveMaquinista(M1);
-					cout << "O maquinista foi adicionado com sucesso! " << endl;
-				}				
-				else {
-					cout << "Nao foi possivel adicionar o maquinista! " << endl;
-				}
+				menuMaquinista(M);
 				return;
 
 			}
@@ -795,4 +778,99 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				return;
 			}
 		}
+}
+
+void menuMaquinista(Maquinistas *M) {
+
+	int menu = -2;
+
+	while (menu != 6) {
+		while (menu == -2 || menu == -1) {
+			cout << endl << "---Administracao---" << endl << endl;
+			cout << endl << "0 - Guardar Dados" << endl;
+			cout << "1 - Carregar ficheiro com maquinistas " << endl;
+			cout << "2 - Adicionar Maquinista" << endl;
+			cout << "3 - Editar MAquinista " << endl;
+			cout << "4 - Eliminar Maquinista " << endl;
+			cout << "5 - Adicionar viagens a um maquinista " << endl;
+			cout << "6 - Sair " << endl;
+
+			menu = menuInput(6);
+			if (menu == -1)
+				cout << "Erro: Menu nao existe, tente outra vez" << endl;
+
+		}
+
+		switch (menu) {
+		case 0: {
+			cout << "Os dados estao guardados " << endl;
+			return;
+		}
+				//Adiciona Maquinistas 
+		case 1: {
+			M->loadMaquinistas("maquinistas.txt");
+			return;
+		}
+		case 2: {
+			Maquinista M1 = criaMaquinista();
+			/*
+			cout << "Quantas viagens associadas ? " << endl;
+			id = userIntInput();
+			string ori , t, des;
+
+			try {
+				while (id) {
+					cout << " Origem - Destino" << endl;
+					cin >> ori >> t >> des;
+					Viagem* via = b->getViagem(ori, des);
+					M1.adicionaViagem(via);
+					id--;
+
+				}
+			}
+			catch (Bilheteira::ViagemNaoEncontrada) {
+				cout << "Erro: Viagem nao encontrada !" << endl;
+				return;
+			}
+			*/
+
+			if (M->adicionaMaquinista(&M1)) {
+				M->saveMaquinista(&M1);
+				cout << "O maquinista foi adicionado com sucesso! " << endl;
+			}
+			else {
+				cout << "Nao foi possivel adicionar o maquinista! " << endl;
+			}
+			return;
+		}
+		case 3: {
+			cout << "sobre o Maquinista Antigo " << endl;
+			Maquinista  M3 = criaMaquinista();
+			cout << "Sobre o maquinista Novo " << endl;
+			Maquinista  M2 = criaMaquinista();
+			M->editaMaquinista(&M3, &M2);
+			return;
+		}
+				// Eliminar Maquinista
+
+		case 4: {
+			cout << "Sobre  maquinista que quer eliminar " << endl;
+			Maquinista M3 = criaMaquinista();
+			M->eliminaMaquinista(&M3);
+			return;
+		}
+				// Adicionar viagens 
+		case 5: {
+			cout << "Qual o id do condutor que quer adicionar viagens ? " << endl;
+			return;
+		}
+
+		case 6:
+			return;
+
+		default:
+			return;
+		}
+
+	}
 }
