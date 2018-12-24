@@ -750,7 +750,9 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 
 			case 5:
 			{
-				string nome, apelido;
+				string nome, apelido, viagens;
+				
+				vector<Viagem * > v;
 				unsigned int id;
 				
 				cout << "Qual o id do maquinista que quer adicionar (-1 para cancelar)? " << endl;
@@ -763,9 +765,19 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				getline(cin, nome);
 				cout << "Qual o apelido ?" << endl;
 				getline(cin, apelido);
-				
-	
-				Maquinista M1(nome, apelido, id);
+				Maquinista M1(nome, apelido, id );
+				cout << "Quantas viagens associadas ? " << endl;
+				id = userIntInput();
+				string ori , t, des;
+				while (id) {
+					cout << " Origem - Destino" << endl;
+					cin >> ori >> t >> des;
+					Viagem* via = b->getViagem(ori, des);
+					M1.adicionaViagem(via);
+					id--;
+
+				}
+						
 				if (M->adicionaMaquinista(M1)) {
 					M->saveMaquinista(M1);
 					cout << "O maquinista foi adicionado com sucesso! " << endl;

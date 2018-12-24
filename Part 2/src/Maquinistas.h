@@ -21,15 +21,6 @@ class Maquinista
 public:
 	/**
 	* Construtor:
-	*  Se se esta a adicionar um maquinista atual, não é necessario indicar o boleano se 
-	*  este é ou não um membro ativo, porque será um maquinista novo
-	*
-	* @param primeiro nome do maquinistas
-	* @param apelidos do maquinistas serados por espaço
-	* @param identificacao do maquinistas
-	*/
-	Maquinista(string nome, string apelido, int id, bool atual);
-	/**
 	* Se queremos adicionar um maquinista que já não se encontra ao serviço, o 4 parametro deverá ser
 	* false, dado este não ser um maquinista atual
 	*
@@ -37,9 +28,32 @@ public:
 	* @param apelidos do maquinistas
 	* @param identificacao do maquinistas
 	* @param se o maqinista está atualmente ao serviço ou não
-	*
 	*/
-	Maquinista(string nome, string apelido, int id) ;
+	Maquinista(string nome, string apelido, int id, bool atual);
+	
+	/**
+	* Construtor:
+	*  Se se esta a adicionar um maquinista atual, não é necessario indicar o boleano se
+	*  este é ou não um membro ativo, porque será um maquinista novo
+	*
+	* @param primeiro nome do maquinistas
+	* @param apelidos do maquinistas serados por espaço
+	* @param identificacao do maquinistas
+	* @param vetor de viagens pelas quais o maquinista esta encarregue
+	*/
+	Maquinista(string nome, string apelido, int id);
+
+	/**
+	* Construtor:
+	*  Se se esta a adicionar um maquinista atual, não é necessario indicar o boleano se 
+	*  este é ou não um membro ativo, porque será um maquinista novo
+	*
+	* @param primeiro nome do maquinistas
+	* @param apelidos do maquinistas serados por espaço
+	* @param identificacao do maquinistas
+	* @param vetor de viagens pelas quais o maquinista esta encarregue
+	*/
+	Maquinista(string nome, string apelido, int id, vector<Viagem *> viagens) ;
 
 	/**
 	*	@return o primeiro nome do maquinista
@@ -60,6 +74,11 @@ public:
 	*	@return o estado ativo ou não do maquinista
 	*/
 	bool getAtivo() const { return ativo; };
+
+	/**
+	*	@return a viagens associadas ao maquinista
+	*/
+	vector<Viagem *> getViagens() { return viagens; };
 	
 	/*
 	* Altera o estado (atual ou não) do maquinista.
@@ -78,12 +97,14 @@ public:
 	friend ostream & operator << (ostream &out, const Maquinista & M);
 
 	bool adicionaViagem(Viagem *v);
+	void reforma();
 };
 
 /**
 *	redefiniçao do operador de igualdade\n
 *  sendo a identificaçao de cada mquinistas única, dois maquinistas com o mesmo número de identificaçao
 *   são o mesmo maquinista, se não forem este não deverá de ser aceite para a tabela de dispersão
+*   @return se os maquinistas são iguais
 */
 struct eqMaquinista {
 	bool operator() (const Maquinista& M1, const Maquinista M2) const{
@@ -132,13 +153,22 @@ public:
 	*
 	*/
 	Maquinistas() {};
+
+	/**
+	* Construtor:
+	* Inicia a tabela de dispersao com os maquinistas registados no ficheiro
+	* @param nome do ficheiro com os maquinistas
+	*/
+	Maquinistas(string nome) ;
 	/**
 	*  Elimina todos os maquinistas da tabela de dispersão
 	*
 	*/
 	void clearMaquinistas();
+
 	/**
 	*
+	* Ve o estado da tabela
 	* @return um booleano com o estados vazio ou não da tabela de dispersão
 	*/
 	bool emptyMaquinistas();
@@ -148,7 +178,7 @@ public:
 	* tanto os maquinista em serviço como os os antigos
 	* @return se foi possível adicionar todos os maquinistas
 	*/
-	bool loadMaquinistas();
+	bool loadMaquinistas(string nome);
 	/** 
 	* Guarda um novo maquinistas no ficheiro com os maquinistas
 	* @param maquinistas a adicionar ao ficheiro
@@ -156,8 +186,8 @@ public:
 	void saveMaquinista(Maquinista & maq);
 
 	/**
-	*  Adiciona um maquinista a tabela de dispersao
-	*  designada de maquinistas
+	* Adiciona um maquinista a tabela de dispersao
+	* designada de maquinistas
 	* @param maquinistas a adicionar a tabela de dispersão
 	* @return o sucesso ou não da operaçao de inserção
 	*/
@@ -171,9 +201,9 @@ public:
 	void editaMaquinista(Maquinista trabalhador1, Maquinista trabalhador2);
 
 	/**
-	 *  Se quisermos eliminar um maquinas, porque por exemplo faleceu,
-	 *  nao podendo ser reconstratado, podemos elimna-lo da nossa tabela
-	 *  @param maquinista que quermos eliminar da tabela
+	*  Se quisermos eliminar um maquinas, porque por exemplo faleceu,
+	*  nao podendo ser reconstratado, podemos elimna-lo da nossa tabela
+	*  @param maquinista que quermos eliminar da tabela
 	*
 	*/
 	void eliminaMaquinista(Maquinista trabalhador);

@@ -98,6 +98,14 @@ int Bilheteira::getNumViagens() const {return viagens.size();}
 
 Viagem* Bilheteira::getViagem(int id) {return viagens.at(id);}
 
+Viagem* Bilheteira::getViagem(string origem, string destino) {
+	for (int i = 0; i < viagens.size(); i++) {
+		if (viagens.at(i)->getOrigem() == origem && viagens.at(i)->getDestino == destino)
+			return viagens.at(i);
+	}
+	return;
+}
+
 string Bilheteira::getInfo(){
 	updateViagens();
 	stringstream ss;

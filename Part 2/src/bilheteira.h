@@ -102,6 +102,8 @@ public:
 	 * @return Apontador para viagem com esse id
 	 */
 	Viagem* getViagem(int id);
+
+	Viagem* getViagem(string origem, string destino);
 	/**
 	 * @return Informacao sobre todas as viagens numa string em forma de tabela
 	 */

@@ -1,15 +1,29 @@
 #include "Maquinistas.h"
 
+Maquinista::Maquinista(string n, string a, int i, vector<Viagem *> v) : nome(n), apelido(a), id(i) {
+	ativo = true;
+	viagens = v;
+}
+
 Maquinista::Maquinista(string n, string a, int i) : nome(n), apelido(a), id(i) {
 	ativo = true;
 }
-
 Maquinista::Maquinista(string n, string a, int i, bool atual) : nome(n), apelido(a), id(i) {
 	ativo = atual;
 }
 
+Maquinistas::Maquinistas(string nome) {
+	loadMaquinistas(nome);
+}
+
 void Maquinista::alteraEstado() {
 	ativo = !ativo;
+}
+void Maquinista::reforma() {
+	if (ativo) {
+		alteraEstado();
+	}
+	viagens.clear();
 }
 
 bool Maquinista::adicionaViagem(Viagem *v) {
@@ -17,12 +31,11 @@ bool Maquinista::adicionaViagem(Viagem *v) {
 	return true;
 }
 
-bool Maquinistas::loadMaquinistas() {
-	bool sucedido = true;
+bool Maquinistas::loadMaquinistas(string nome) {
+	bool sucedido = true, vazio = true;
 	ifstream maqfile;
-
-	maqfile.open("maquinistas.txt");
-	
+	maqfile.open(nome);
+	vector <Viagem * > v;
 	while (!maqfile.eof()) {		
 		string Pnome;
 		string apelidos;
@@ -30,9 +43,13 @@ bool Maquinistas::loadMaquinistas() {
 		getline(maqfile, apelidos);
 		if (Pnome == "")
 			break;
-		Maquinista M1(Pnome, apelidos, 1);
+		vazio = false;
+		Maquinista M1(Pnome, apelidos, 1, v);
 		if (!adicionaMaquinista(M1))
 			sucedido = false;		
+	}
+	if (vazio) {
+		cout << "O ficheiro está vazio! " << endl;
 	}
 	maqfile.close();
 	return sucedido;
@@ -44,12 +61,21 @@ void Maquinistas::saveMaquinista(Maquinista &maq) {
 	maqfile.open("maquinistas.txt");
 	
 	maqfile << maq.getId() << " " << maq.getNome() << endl << maq.getApelido() << endl;
+	if (!maq.getViagens().size()) {
+		maqfile << "Viagens ";
+		vector<Viagem *> v = maq.getViagens();
+		for(int i = 0; i < v.size(); i++) {
+			cout << v.at(i) << " ";
+		}
+	}
+	
 	
 	maqfile.close();
 }
 
 ostream & operator << (ostream &out, const Maquinista & M) {
 	out << M.getAtivo() << "  " << M.getId() << " : " << M.getNome() << " " << M.getApelido() << endl;
+	
 	return out;
 }
 
