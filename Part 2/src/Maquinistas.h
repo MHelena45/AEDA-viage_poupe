@@ -97,7 +97,9 @@ public:
 	friend ostream & operator << (ostream &out, const Maquinista & M);
 
 	bool adicionaViagem(Viagem *v);
-	void reforma();
+
+	void eliminaViagens();
+	
 };
 
 /**
@@ -165,7 +167,7 @@ public:
 	*
 	*/
 	void clearMaquinistas();
-
+	void reforma(Maquinista *M1);
 	/**
 	*
 	* Ve o estado da tabela
@@ -179,6 +181,12 @@ public:
 	* @return se foi possível adicionar todos os maquinistas
 	*/
 	bool loadMaquinistas(string nome);
+
+	/**
+	* Guarda todos os maquinistas da tabela de dispersão
+	* no ficheiro maquinistas.txt
+	*/
+	void saveMaquinistas();
 	/** 
 	* Guarda um novo maquinistas no ficheiro com os maquinistas
 	* @param maquinistas a adicionar ao ficheiro

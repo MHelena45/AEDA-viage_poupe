@@ -64,13 +64,27 @@ Maquinista criaMaquinista() {
 	string nome, apelido, viagens;
 	//vector<Viagem * > v;
 	unsigned int id;
+//	bool invalido = true;
 
-	cout << "Qual o id do maquinista que quer adicionar? " << endl;
+	cout << "Qual o id do maquinista ? " << endl;
 	id = userIntInput();
 	cin.ignore();
 	cin.clear();
-	cout << "Qual o primeiro nome do maquinista que quer adicionar ? " << endl;
+	cout << "Qual o primeiro nome do maquinista ? " << endl;
 	getline(cin, nome);
+/*	while (invalido) {
+		invalido = false;
+		cout << nome << endl;
+		for (int i = 0; i < nome.size(); i++) {
+			if (!(nome.at(i) >= 'A' && nome.at(i) <= 'Z') || (nome.at(i) >= 'a' && nome.at(i) <= 'z'))
+				invalido = true;
+		}
+		if (invalido) {
+			cout << "Erro: caracteres invalidos \n";
+			cout << "Qual o primeiro nome do maquinista ? " << endl;
+			getline(cin, nome);
+		}
+	}*/
 	cout << "Qual o apelido ?" << endl;
 	getline(cin, apelido);
 	Maquinista M1(nome, apelido, id);
@@ -547,6 +561,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				r->saveCartoes();
 				r->saveRegistos();
 				b->saveViagens();
+				M->saveMaquinistas();
 				cout << endl <<"Dados Gravados" << endl;
 				return;
 			}
@@ -555,6 +570,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				r->loadCartoes();
 				r->loadRegistos();
 				b->loadViagens();
+				M->loadMaquinistas("maquinistas.txt");
 				cout << endl <<"Dados Carregados" << endl;
 				return;
 
@@ -786,11 +802,11 @@ void menuMaquinista(Maquinistas *M) {
 
 	while (menu != 6) {
 		while (menu == -2 || menu == -1) {
-			cout << endl << "---Administracao---" << endl << endl;
-			cout << endl << "0 - Guardar Dados" << endl;
-			cout << "1 - Carregar ficheiro com maquinistas " << endl;
+			cout << endl << "---Maquinistas---" << endl << endl;
+			cout << " 0 - Limpar dados carregados " << endl;
+			cout << "1 - Reformar um Maquinista " << endl;
 			cout << "2 - Adicionar Maquinista" << endl;
-			cout << "3 - Editar MAquinista " << endl;
+			cout << "3 - Editar Maquinista " << endl;
 			cout << "4 - Eliminar Maquinista " << endl;
 			cout << "5 - Adicionar viagens a um maquinista " << endl;
 			cout << "6 - Sair " << endl;
@@ -802,15 +818,19 @@ void menuMaquinista(Maquinistas *M) {
 		}
 
 		switch (menu) {
+			// Limpar dados carregados
 		case 0: {
-			cout << "Os dados estao guardados " << endl;
+			M->clearMaquinistas();
+			cout << "Os dados foram eliminados! " << endl;
+			return;
+		}
+				
+		case 1: {
+			Maquinista M1 = criaMaquinista();
+			M->reforma(&M1);
 			return;
 		}
 				//Adiciona Maquinistas 
-		case 1: {
-			M->loadMaquinistas("maquinistas.txt");
-			return;
-		}
 		case 2: {
 			Maquinista M1 = criaMaquinista();
 			/*
