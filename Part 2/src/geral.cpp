@@ -396,7 +396,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 			cout << endl << "---Subscricao de cartao---" << endl << endl;
 
 			cout << "Nome: ";
-			getline(cin, nome);
+			nome = nomeValido();
 
 			cout << endl << "Profissao: ";
 			getline(cin,profissao);
@@ -820,7 +820,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 
 				return;
 			}
-
+				//se relacionado com os maquinista
 			case 5:
 			{
 				menuMaquinista(f, b,M);
