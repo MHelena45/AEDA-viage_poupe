@@ -27,19 +27,33 @@ bool Maquinista::adicionaViagem(Viagem *v) {
 	viagens.push_back(v);
 	return true;
 }
+bool Maquinista::operator== (Maquinista M3) {
+	return id = M3.getId();
+}
 
 Maquinistas::Maquinistas(string nome) {
 	loadMaquinistas(nome);
 }
 
-void Maquinistas::reforma(Maquinista *M1) {
+bool Maquinistas::encontraMaquinista( Maquinista *M00) {
+	tabHMaq::const_iterator it;
+	it = maquinistas.find(*M00);
+	if (it != maquinistas.end())
+		return true;
+	return false;
+}
+
+bool Maquinistas::reforma(Maquinista *M1) {
 	tabHMaq::const_iterator it;
 	it = maquinistas.find(*M1);
-	
+	if (it == maquinistas.end()) {
+		return false;
+	}
 	if (M1->getAtivo()) {
 		M1->alteraEstado();
 	}
 	M1->eliminaViagens();
+	return true;
 }
 bool Maquinistas::loadMaquinistas(string nome) {
 	bool sucedido = true, vazio = true;
@@ -129,16 +143,21 @@ bool Maquinistas::adicionaMaquinista(Maquinista *trabalhador) {
 }
 
 
-void Maquinistas::editaMaquinista(Maquinista *trabalhador1, Maquinista* trabalhador2) {
-	eliminaMaquinista(trabalhador1);
+bool Maquinistas::editaMaquinista(Maquinista *trabalhador1, Maquinista* trabalhador2) {
+	if (eliminaMaquinista(trabalhador1))
+		return false;
 	adicionaMaquinista(trabalhador2);
+	return true;
 }
 
-void Maquinistas::eliminaMaquinista(Maquinista *trabalhador) {
+bool Maquinistas::eliminaMaquinista(Maquinista *trabalhador) {
 	tabHMaq::const_iterator it;
 	it = maquinistas.find(*trabalhador);
-	maquinistas.erase(it);
-
+	if (it != maquinistas.end()) {
+		maquinistas.erase(it);
+		return true;
+	}
+	return false;
 }
 
 void Maquinistas::showMaquinistas() {

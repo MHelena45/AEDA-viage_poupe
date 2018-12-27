@@ -60,37 +60,158 @@ double userDoubleInput(){
 	return val;
 }
 
+bool LetrasInvalidas(string nome) {
+	bool invalido = false;
+	for (int i = 0; i < nome.size(); i++) {
+		if (!((nome.at(i) >= 'A' && nome.at(i) <= 'Z') || (nome.at(i) >= 'a' && nome.at(i) <= 'z') || (nome.at(i) == ' ' )))
+			invalido = true;
+	}	
+	return invalido;
+}
+
+string nomeValido() {
+	string nome;
+	bool invalido = false;
+	do {
+		cout << "Qual o primeiro nome do maquinista ? " << endl;
+		getline(cin, nome);
+		invalido = LetrasInvalidas(nome);
+		if (invalido) {
+			cout << "Erro: caracteres invalidos \n";
+		}
+	} while (invalido);
+	return nome;
+}
+
+string apelidoValido() {
+	bool invalido = false;
+	string apelido;
+	do {
+		cout << "Qual o apelido ?" << endl;
+		getline(cin, apelido);
+		invalido = LetrasInvalidas(apelido);
+		if (invalido) {
+			cout << "Erro: caracteres invalidos \n";
+		}	
+	} while (invalido);
+	return apelido;
+}
+
 Maquinista criaMaquinista() {
 	string nome, apelido, viagens;
 	//vector<Viagem * > v;
 	unsigned int id;
-//	bool invalido = true;
-
+	bool invalido = false;
 	cout << "Qual o id do maquinista ? " << endl;
 	id = userIntInput();
 	cin.ignore();
-	cin.clear();
-	cout << "Qual o primeiro nome do maquinista ? " << endl;
-	getline(cin, nome);
-/*	while (invalido) {
-		invalido = false;
-		cout << nome << endl;
-		for (int i = 0; i < nome.size(); i++) {
-			if (!(nome.at(i) >= 'A' && nome.at(i) <= 'Z') || (nome.at(i) >= 'a' && nome.at(i) <= 'z'))
-				invalido = true;
-		}
-		if (invalido) {
-			cout << "Erro: caracteres invalidos \n";
-			cout << "Qual o primeiro nome do maquinista ? " << endl;
-			getline(cin, nome);
-		}
-	}*/
-	cout << "Qual o apelido ?" << endl;
-	getline(cin, apelido);
+	cin.clear();	
+	nome = nomeValido();
+	apelido = apelidoValido();
 	Maquinista M1(nome, apelido, id);
 	return M1;
 }
+Viagem*  adicionaViagem(Bilheteira *b, Frota *f) {
+	string origem, destino, datavgm, horavgm;
+	double distancia = -2;
+	int id_comboio = -2;
 
+	cout << endl << "---Criacao de viagem---" << endl;
+	cout << endl << "Origem:";
+	getline(cin, origem);
+	cout << endl << "Destino:";
+	getline(cin, destino);
+
+	while (distancia < 0) {
+		cout << "Insira a distancia da viagem (-1 para cancelar): ";
+		distancia = userDoubleInput();
+		cout << endl;
+
+		if (distancia == -1)
+			return NULL;
+
+		if (distancia < -1 && distancia != -200)
+			cout << "Erro: Distancia invalida, apenas sao aceites numeros positivos" << endl;
+	}
+
+	// DATA DA VIAGEM
+
+	Datas *dvgm;
+	try {
+		cin.ignore();
+		cin.clear();
+		cout << "Data da viagem(DD-MM-AAAA): ";
+		getline(cin, datavgm);
+		dvgm = new Datas(datavgm);
+		cout << endl;
+	}
+	catch (Datas::DataInvalida) {
+		cout << "Erro: Data Invalida - Dia(1-31), Mes (1-12)" << endl;
+		return NULL;
+	}
+	catch (Datas::FormatoStringInvalido) {
+		cout << "Erro: Formato invalido - (DD-MM-AAAA)" << endl;
+		return NULL;
+	}
+
+	// HORA DA VIAGEM
+
+	Horas *hvgm;
+	try {
+		cout << "Hora da viagem(HH:MM): ";
+		getline(cin, horavgm);
+		hvgm = new Horas(horavgm);
+		cout << endl;
+	}
+	catch (Horas::HoraInvalida) {
+		cout << "Erro: Hora Invalida - Hora(0-23), Min (0-59)" << endl;
+		return NULL;
+	}
+	catch (Horas::FormatoStringInvalido) {
+		cout << "Erro: Formato invalido - (HH:MM)" << endl;
+		return NULL;
+	}
+
+	cout << endl << f->getInformacao() << endl;
+
+
+	while (id_comboio < 0 || id_comboio >= f->getNumComboios()) {
+		cout << "Insira o Comboio que vai efectuar a viagem (-1 para cancelar): ";
+		id_comboio = userIntInput();
+		cout << endl;
+
+		if (id_comboio == -1)
+			return NULL;
+
+		if ((id_comboio < -1 || id_comboio >= f->getNumComboios()) && id_comboio != -200)
+			cout << "Erro: Este comboio nao existe" << endl;
+
+	}
+
+	Comboio *c = f->getComboio(id_comboio);
+
+	Viagem *v = new Viagem(origem, destino, distancia, c, dvgm, hvgm);
+	return v;
+}
+
+bool adicionaViagensAMaquinista(Frota *f, Bilheteira *b, Maquinista *M1) {
+	bool sucedido = true;
+	int n = 0;
+	cout << "Quantas viagens associadas ? " << endl;
+	n = userIntInput();
+
+	while (n) {
+		Viagem* via = adicionaViagem(b, f);
+		if (via != NULL) {
+			M1->adicionaViagem(via);
+		}
+		else {
+			sucedido = false;
+		}
+		n--;
+	}
+	return sucedido;
+}
 /*
  * Menus
  *
@@ -654,32 +775,25 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cin.ignore();
 				cin.clear();
 				cout << endl << "---Criacao de cartao---" << endl;
-				cout<<endl<<"Nome:";
+				cout<<endl<<"Nome do passageiro :";
 				getline(cin,nome);
-
-				while (precoMensal < 0){
-					cout << "Insira o preco mensal deste cartao (-1 para cancelar): ";
-					precoMensal = userDoubleInput();
-					cout << endl;
-
-					if (precoMensal == -1)
-						return;
-
-					if (precoMensal < -1 && precoMensal != -200)
-						cout << "Erro: Preco invalido, apenas sao aceites numeros positivos" << endl;
-				}
-
-				while (desconto < 0){
-					cout << "Insira o desconto do carto em percentagem (numero inteiro) (-1 para cancelar): ";
+				do {
+					cout << "Insira o desconto do cartao em percentagem (25, 50 ou 100) (-1 para cancelar): " << endl;
 					desconto = userIntInput();
 					cout << endl;
-
 					if (desconto == -1)
 						return;
+					if (desconto == 25)
+						precoMensal = 39;
+					else if(desconto == 50)
+						precoMensal = 69;
+					else if (desconto == 100)
+						precoMensal = 149;
+					else
+						cout << "Erro: Desconto invalido, só existem contratos de preco 25, 50 e 100 porcento" << endl;
+				} while (desconto != 25 && desconto != 50 && desconto != 100);
+				cout << "O preco mensal desta modalidadade e " << precoMensal << endl;
 
-					if (desconto < -1 && desconto != -200)
-						cout << "Erro: Desconto invalido, apenas sao aceites numeros inteiros positivos" << endl;
-				}
 				desconto = 100 - desconto;
 				Cartao *c1 = new Cartao(nome, precoMensal, desconto);
 				r->adicionaCartao(c1);
@@ -699,82 +813,8 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				}
 				cin.ignore();
 				cin.clear();
-				cout << endl << "---Criacao de viagem---"  << endl;
-				cout<<endl<<"Origem:";
-				getline(cin,origem);
-				cout<<endl<<"Destino:";
-				getline(cin,destino);
-
-				while (distancia < 0){
-					cout << "Insira a distancia da viagem (-1 para cancelar): ";
-					distancia = userDoubleInput();
-					cout << endl;
-
-					if (distancia == -1)
-						return;
-
-					if (distancia < -1 && distancia != -200)
-						cout << "Erro: Distancia invalida, apenas sao aceites numeros positivos" << endl;
-				}
-
-				// DATA DA VIAGEM
-
-				Datas *dvgm;
-				try{
-					cin.ignore();
-					cin.clear();
-					cout << "Data da viagem(DD-MM-AAAA): ";
-					getline(cin, datavgm);
-					dvgm = new Datas (datavgm);
-					cout << endl;
-				}
-				catch (Datas::DataInvalida){
-					cout << "Erro: Data Invalida - Dia(1-31), Mes (1-12)" << endl;
-					return;
-				}
-				catch (Datas::FormatoStringInvalido){
-					cout << "Erro: Formato invalido - (DD-MM-AAAA)" << endl;
-					return;
-				}
-
-				// HORA DA VIAGEM
-
-				Horas *hvgm;
-				try {
-					cout << "Hora da viagem(HH:MM): ";
-					getline (cin, horavgm);
-					hvgm = new Horas (horavgm);
-					cout << endl;
-				}
-				catch (Horas::HoraInvalida){
-					cout << "Erro: Hora Invalida - Hora(0-23), Min (0-59)" << endl;
-					return;
-				}
-				catch (Horas::FormatoStringInvalido){
-					cout << "Erro: Formato invalido - (HH:MM)" << endl;
-					return;
-				}
-
-				cout << endl << f->getInformacao() << endl;
-
-
-				while (id_comboio < 0 || id_comboio >= f->getNumComboios()){
-					cout << "Insira o Comboio que vai efectuar a viagem (-1 para cancelar): ";
-					id_comboio = userIntInput();
-					cout << endl;
-
-					if (id_comboio == -1)
-						return;
-
-					if ((id_comboio < -1 || id_comboio >= f->getNumComboios()) && id_comboio != -200)
-						cout << "Erro: Este comboio nao existe" << endl;
-
-				}
-
-				Comboio *c = f->getComboio(id_comboio);
-
-				Viagem *v=new Viagem(origem, destino, distancia, c,dvgm,hvgm);
-				b->adicionaViagem(v);
+				cout << endl << "---Criacao de viagem---" << endl;
+				b->adicionaViagem(adicionaViagem(b, f));
 
 				cout << "Viagem adicionada com sucesso" << endl;
 
@@ -783,7 +823,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 
 			case 5:
 			{
-				menuMaquinista(M);
+				menuMaquinista(f, b,M);
 				return;
 
 			}
@@ -796,14 +836,14 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 		}
 }
 
-void menuMaquinista(Maquinistas *M) {
+void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 
 	int menu = -2;
 
 	while (menu != 6) {
 		while (menu == -2 || menu == -1) {
 			cout << endl << "---Maquinistas---" << endl << endl;
-			cout << " 0 - Limpar dados carregados " << endl;
+			cout << "0 - Limpar dados carregados " << endl;
 			cout << "1 - Reformar um Maquinista " << endl;
 			cout << "2 - Adicionar Maquinista" << endl;
 			cout << "3 - Editar Maquinista " << endl;
@@ -821,38 +861,26 @@ void menuMaquinista(Maquinistas *M) {
 			// Limpar dados carregados
 		case 0: {
 			M->clearMaquinistas();
-			cout << "Os dados foram eliminados! " << endl;
+			cout << "Os dados foram eliminados do registo atual! " << endl;
 			return;
 		}
-				
+				//reforma maquinista
 		case 1: {
+			cout << "sobre o Maquinista a reformar-se " << endl;
 			Maquinista M1 = criaMaquinista();
-			M->reforma(&M1);
+			if (M->reforma(&M1))
+				cout << "Maquinista reformado " << endl;
+			else
+				cout << "Maquinista nao foi encontrado no registo, faca load dos dados " << endl;
 			return;
 		}
 				//Adiciona Maquinistas 
 		case 2: {
 			Maquinista M1 = criaMaquinista();
-			/*
-			cout << "Quantas viagens associadas ? " << endl;
-			id = userIntInput();
-			string ori , t, des;
-
-			try {
-				while (id) {
-					cout << " Origem - Destino" << endl;
-					cin >> ori >> t >> des;
-					Viagem* via = b->getViagem(ori, des);
-					M1.adicionaViagem(via);
-					id--;
-
-				}
-			}
-			catch (Bilheteira::ViagemNaoEncontrada) {
-				cout << "Erro: Viagem nao encontrada !" << endl;
-				return;
-			}
-			*/
+			if (adicionaViagensAMaquinista(f, b, &M1))
+				cout << " Todas as viagens foram adicionadas com sucesso!" << endl;
+			else
+				cout << "Alguma viagens nao foi adicionada com sucesso !" << endl;
 
 			if (M->adicionaMaquinista(&M1)) {
 				M->saveMaquinista(&M1);
@@ -863,12 +891,16 @@ void menuMaquinista(Maquinistas *M) {
 			}
 			return;
 		}
+				//Editar maquinista
 		case 3: {
 			cout << "sobre o Maquinista Antigo " << endl;
 			Maquinista  M3 = criaMaquinista();
 			cout << "Sobre o maquinista Novo " << endl;
 			Maquinista  M2 = criaMaquinista();
-			M->editaMaquinista(&M3, &M2);
+			if (M->editaMaquinista(&M3, &M2))
+				cout << "Troca efetuada! " << endl;
+			else
+				cout << "Maquinista antigo nao foi encontrado!" << endl;
 			return;
 		}
 				// Eliminar Maquinista
@@ -876,12 +908,27 @@ void menuMaquinista(Maquinistas *M) {
 		case 4: {
 			cout << "Sobre  maquinista que quer eliminar " << endl;
 			Maquinista M3 = criaMaquinista();
-			M->eliminaMaquinista(&M3);
+			if (M->eliminaMaquinista(&M3))
+				cout << "Maquinista eliminado com sucesso! " << endl;
+			else
+				cout << "Maquinista nao encontrado " << endl;
 			return;
 		}
-				// Adicionar viagens 
+				// Adicionar viagens ao maquinista
 		case 5: {
+			cout << "Sobre o maquinista que quer adicionar viagens. " << endl;
 			cout << "Qual o id do condutor que quer adicionar viagens ? " << endl;
+			int id = userIntInput();
+			Maquinista M0("n", "n", id);
+			if (M->encontraMaquinista( &M0)) {
+				if (adicionaViagensAMaquinista(f, b, &M0))
+					cout << " Todas as viagens foram adicionadas com sucesso!" << endl;
+				else
+					cout << "Alguma viagens nao foi adicionada com sucesso !" << endl;
+			}
+				
+			else
+				cout << "Maquinista nao encontrado!" << endl;
 			return;
 		}
 

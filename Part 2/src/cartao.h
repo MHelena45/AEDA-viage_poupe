@@ -2,7 +2,7 @@
 #define _CARTAO_H
 
 #include "datashoras.h"
-
+using namespace std;
 	/**
 	 * CLASS CARTAO\n
 	 * Esta Classe e usada para criar cartoes com modalidades de desconto diferentes
@@ -11,7 +11,7 @@
 class Cartao {
 	double precoMensal;
 	int desconto;
-	std::string nome;
+	string nome;
 public:
 	/**
 	 * Construtor de cartao
@@ -19,7 +19,8 @@ public:
 	 * @param prc  Preco mensal da subscricao do cartao
 	 * @param desc Valor a pagar depois do desconto, ex: 25% de desconto = 75
 	 */
-	Cartao(std::string nome, double prc, int desc);
+	Cartao(string n, double prc, int desc) : nome(n), precoMensal(prc), desconto(desc) { };
+
 	/**
 	 * @return Preco mensal do cartao
 	 */
@@ -31,11 +32,11 @@ public:
 	/**
 	 * @return Nome do cartao usado
 	 */
-	std::string getNome() const;
+	string getNome() const;
 	/**
 	 * @return toda a informacao relacionada com o cartao
 	 */
-	std::string getInformacao() const;
+	string getInformacao() const;
 	/**
 	 * Redefinicao do operador comparacao
 	 * @param ct1 Referencia para o cartao com o qual se vai comparar
@@ -53,11 +54,11 @@ public:
  */
 class Registo {
 	Cartao *c1;
-	std::string nome;
-	std::string profissao;
+	string nome;
+	string profissao;
 	Datas *datanascimento;
 	bool ativo;
-	std::vector <Compra *> historico;
+	vector <Compra *> historico;
 public:
 	/**
 	 * Construtor do registo, esta ativo por predefinicao
@@ -66,7 +67,7 @@ public:
 	 * @param profissao Profissao do passageiro
 	 * @param datanasc Apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
 	 */
-	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc);
+	Registo(Cartao *c, string nome, string profissao, Datas *datanasc);
 
 	/**
 	 * Construtor do registo, pode estar ativo ou nao
@@ -76,7 +77,7 @@ public:
 	 * @param datanasc Apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
 	 * @param ativo Bool indica se o registo esta ativo
 	 */
-	Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc, bool ativo);
+	Registo(Cartao *c, string nome, string profissao, Datas *datanasc, bool ativo);
 
 	/**
 	 * Destrutor \n
@@ -87,7 +88,7 @@ public:
 	/**
 	 * @return Nome do passageiro
 	 */
-	std::string getNome() const;
+	string getNome() const;
 	/**
 	 * @return Apontador para cartao que esta a ser usado por este passageiro
 	 */
@@ -95,11 +96,11 @@ public:
 	/**
 	 * @return Profissao do passageiro
 	 */
-	std::string getProfissao() const;
+	string getProfissao() const;
 	/**
 	 * @return Data de nascimento do passageiro
 	 */
-	std::string getDatanascimento() const;
+	string getDatanascimento() const;
 	/**
 	 * @return Se o cartao esta activo ou nao
 	 */
@@ -141,11 +142,11 @@ public:
 	/**
 	 * @return Vector com apontadores para as compras ativas, isto e compras em que a viagem ainda nao partiu
 	 */
-	std::vector <Compra *> getCompraAtiva();
+	vector <Compra *> getCompraAtiva();
 	/**
 	 * @return Informacao sobre as viagens activas numa string em forma de tabela
 	 */
-	std::string listCompraActiva ();
+	string listCompraActiva ();
 
 
 };
@@ -156,8 +157,8 @@ public:
  *
  */
 class BaseClientes {
-	std::vector <Cartao *> cartoes;
-	std::vector<Registo *> regs;
+	vector <Cartao *> cartoes;
+	vector<Registo *> regs;
 	int id;
 public:
 
@@ -179,11 +180,11 @@ public:
 	/**
 	 * @return Informacao de um passageiro especifico numa string em forma de tabela
 	 */
-	std::string getInformacao () const;
+	string getInformacao () const;
 	/**
 	 * @return informacao sobre o cartao
 	 */
-	std::string getInfoCartao() const;
+	string getInfoCartao() const;
 	/**
 	 * @param id ID do cartao
 	 * @return Apontador para cartao do vector cartoes com esse id

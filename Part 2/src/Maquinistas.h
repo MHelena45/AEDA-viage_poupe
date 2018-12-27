@@ -8,7 +8,7 @@
 using namespace std;
 /**
 * CLASS MAQUINISTA \n
-* cria um novo maquinita
+* cria um novo maquinista dos comboios da CP
 *
 */
 
@@ -81,8 +81,8 @@ public:
 	vector<Viagem *> getViagens() { return viagens; };
 	
 	/*
-	* Altera o estado (atual ou não) do maquinista.
-	* 
+	* Altera o estado (atual ou não) do maquinista. \n
+	* Se este esta ativo, desativa-o e vice-versa.
 	*/
 	void alteraEstado();
 
@@ -92,13 +92,32 @@ public:
 	 *
 	 * @param os Referencia para ofstream onde guardar a informacao
 	 * @param M referência para o maquinista
+	 *
 	 * @return o estado, o número de identificação, o primeiro nome e todos os apelidos do maquinista.
 	 */
 	friend ostream & operator << (ostream &out, const Maquinista & M);
 
+	/**
+	* adiciona uma viagem ao maquinista
+	* @param viagem a ser adicionada
+	*
+	* @return sucesso ou nao da adiçao da viagem
+	*/
 	bool adicionaViagem(Viagem *v);
 
+	/**
+	* elimina todas as viagens associadas a um maquinista. \n 
+	* útil na reforma de um maquinista
+	* 
+	*/
 	void eliminaViagens();
+	
+	/**
+	* redefinição do operador de igualdade
+	* @param Maquinista
+	*  @return igualdade ou nao dos maquinista
+	*/
+	bool operator== (Maquinista M3);
 	
 };
 
@@ -162,12 +181,29 @@ public:
 	* @param nome do ficheiro com os maquinistas
 	*/
 	Maquinistas(string nome) ;
+
+	/** 
+	*  Procura um maquinista pelo numero de identificaçao
+	* @param maquinistas com a identificacao que se procura
+	*
+	* @return sucesso ou nao da procura de um maquinista
+	*/
+	 bool encontraMaquinista(Maquinista *M00);
+
 	/**
 	*  Elimina todos os maquinistas da tabela de dispersão
 	*
 	*/
 	void clearMaquinistas();
-	void reforma(Maquinista *M1);
+
+	/**
+	*  altera o estado de ativo de um maquinista, para desativo
+	* e elimina as viagens a este atribuidas
+	*  @param maquinista a reformar-se
+	* @return sucesso ou nao da procura de um maquinista para a reforma
+	*/
+	bool reforma(Maquinista *M1);
+
 	/**
 	*
 	* Ve o estado da tabela
@@ -187,6 +223,7 @@ public:
 	* no ficheiro maquinistas.txt
 	*/
 	void saveMaquinistas();
+
 	/** 
 	* Guarda um novo maquinistas no ficheiro com os maquinistas
 	* @param maquinistas a adicionar ao ficheiro
@@ -200,13 +237,14 @@ public:
 	* @return o sucesso ou não da operaçao de inserção
 	*/
 	bool adicionaMaquinista(Maquinista *trabalhador);
+
 	/**
 	*  Se nos enganarmos a colocar um maquinista na 
 	*  tabela podemos editar o erro
 	*  @param maquinista enrado
 	*  @param maquinista com o nome correto 
 	*/
-	void editaMaquinista(Maquinista *trabalhador1, Maquinista *trabalhador2);
+	bool editaMaquinista(Maquinista *trabalhador1, Maquinista *trabalhador2);
 
 	/**
 	*  Se quisermos eliminar um maquinas, porque por exemplo faleceu,
@@ -214,7 +252,7 @@ public:
 	*  @param maquinista que quermos eliminar da tabela
 	*
 	*/
-	void eliminaMaquinista(Maquinista *trabalhador);
+	bool eliminaMaquinista(Maquinista *trabalhador);
 
 	/**
 	*  Mosta todos os maquinistas que se encontram na tabela de dispersão. \n

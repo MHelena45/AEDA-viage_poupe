@@ -15,11 +15,15 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M);
 void menuComCartao(BaseClientes *r, Bilheteira *b);
 void menuSemCartao(BaseClientes *r, Bilheteira *b);
 void menuAdministracao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M);
-void menuMaquinista(Maquinistas *M);
+void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M);
 
 int menuInput(int nOptions);
 int userIntInput();
 double userDoubleInput();
 Maquinista criaMaquinista();
+Viagem * adicionaViagem(Bilheteira *b, Frota *f);
+string nomeValido();
+string apelidoValido();
+bool adicionaViagensAMaquinista(Frota *f, Bilheteira *b, Maquinista *M1);
 
 #endif

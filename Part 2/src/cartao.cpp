@@ -2,21 +2,12 @@
 #include "bilheteira.h"
 #include "geral.h"
 
-using namespace std;
-
-/*
+/**
  * Metodos class Cartao
  *
  *
  */
 
-// Construtor
-
-Cartao::Cartao(string nome, double prc, int desc){
-	this->precoMensal = prc;
-	this->desconto = desc;
-	this->nome = nome;
-}
 
 // Acessors
 
@@ -212,7 +203,11 @@ string BaseClientes::getInfoCartao() const{
 	return ss.str();
 }
 
-Cartao* BaseClientes::getCartao(int id) const {return cartoes.at(id);}
+Cartao* BaseClientes::getCartao(int id) const {
+	if (!cartoes.size())
+		return NULL;
+	return cartoes.at(id);
+}
 
 int BaseClientes::getNumCartoes () const {return cartoes.size();}
 
