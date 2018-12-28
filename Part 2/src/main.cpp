@@ -12,6 +12,21 @@ int main(){
 	Bilheteira b(&f);
 	Maquinistas m;
 
+	//Dado so termos conhecimento destes cartoes de desconto
+	//cartao com 25 % de desconto
+	Cartao *c1 = new Cartao("Viagens25", 39, 75);
+	r.adicionaCartao(c1);
+
+	//cartao com 50 % de desconto
+	Cartao *c2 = new Cartao("Viagens50", 69, 50);
+	r.adicionaCartao(c2);
+
+	//cartao com 100 % de desconto
+	Cartao *c3 = new Cartao("Viagens100", 149, 0);
+	r.adicionaCartao(c3);
+
+
+
 	while (menu != -4){
 		while (menu == -2){
 

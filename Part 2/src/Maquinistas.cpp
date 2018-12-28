@@ -144,7 +144,7 @@ bool Maquinistas::adicionaMaquinista(Maquinista *trabalhador) {
 
 
 bool Maquinistas::editaMaquinista(Maquinista *trabalhador1, Maquinista* trabalhador2) {
-	if (eliminaMaquinista(trabalhador1))
+	if (!eliminaMaquinista(trabalhador1))
 		return false;
 	adicionaMaquinista(trabalhador2);
 	return true;
