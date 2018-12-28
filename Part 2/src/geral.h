@@ -22,6 +22,7 @@ int userIntInput();
 double userDoubleInput();
 Maquinista criaMaquinista();
 Viagem * adicionaViagem(Bilheteira *b, Frota *f);
+bool LetrasInvalidas(string nome);
 string nomeValido();
 string apelidoValido();
 bool adicionaViagensAMaquinista(Frota *f, Bilheteira *b, Maquinista *M1);

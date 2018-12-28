@@ -27,6 +27,7 @@ bool Maquinista::adicionaViagem(Viagem *v) {
 	viagens.push_back(v);
 	return true;
 }
+
 bool Maquinista::operator== (Maquinista M3) {
 	return id = M3.getId();
 }
@@ -49,12 +50,16 @@ bool Maquinistas::reforma(Maquinista *M1) {
 	if (it == maquinistas.end()) {
 		return false;
 	}
+	maquinistas.erase(it);
 	if (M1->getAtivo()) {
 		M1->alteraEstado();
 	}
 	M1->eliminaViagens();
-	return true;
+	pair<tabHMaq::iterator, bool> res = maquinistas.insert(*M1);
+	if (res.second == true)
+		return true;
 }
+
 bool Maquinistas::loadMaquinistas(string nome) {
 	bool sucedido = true, vazio = true;
 	ifstream maqfile;
@@ -144,7 +149,7 @@ bool Maquinistas::adicionaMaquinista(Maquinista *trabalhador) {
 
 
 bool Maquinistas::editaMaquinista(Maquinista *trabalhador1, Maquinista* trabalhador2) {
-	if (eliminaMaquinista(trabalhador1))
+	if (!eliminaMaquinista(trabalhador1))
 		return false;
 	adicionaMaquinista(trabalhador2);
 	return true;
@@ -161,13 +166,13 @@ bool Maquinistas::eliminaMaquinista(Maquinista *trabalhador) {
 }
 
 void Maquinistas::showMaquinistas() {
-	cout << "ESTADO" << setw(8) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
+	cout << "ESTADO" << setw(9) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
 	for (auto it : this->maquinistas  ) {
 		if (it.getAtivo()) {
 			cout << "Ativo" << setw(8);
 		}
 		else {
-			cout << "Reformado" << setw(8);
+			cout << "Reformado" << setw(3);
 		}
 		cout <<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl;
 	}	

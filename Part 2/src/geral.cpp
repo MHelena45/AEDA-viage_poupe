@@ -73,7 +73,6 @@ string nomeValido() {
 	string nome;
 	bool invalido = false;
 	do {
-		cout << "Qual o primeiro nome do maquinista ? " << endl;
 		getline(cin, nome);
 		invalido = LetrasInvalidas(nome);
 		if (invalido) {
@@ -105,6 +104,7 @@ Maquinista criaMaquinista() {
 	id = userIntInput();
 	cin.ignore();
 	cin.clear();	
+	cout << "Qual o primeiro nome do maquinista ? " << endl;
 	nome = nomeValido();
 	apelido = apelidoValido();
 	Maquinista M1(nome, apelido, id);
@@ -117,9 +117,9 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f) {
 
 	cout << endl << "---Criacao de viagem---" << endl;
 	cout << endl << "Origem:";
-	getline(cin, origem);
+	origem = nomeValido();
 	cout << endl << "Destino:";
-	getline(cin, destino);
+	destino = nomeValido();
 
 	while (distancia < 0) {
 		cout << "Insira a distancia da viagem (-1 para cancelar): ";
@@ -398,7 +398,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 			nome = nomeValido();
 
 			cout << endl << "Profissao: ";
-			getline(cin,profissao);
+			profissao = nomeValido();
 
 			try {
 			cout << endl << "Data de Nascimento(DD-MM-AAAA): ";
@@ -481,7 +481,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 			cin.clear();
 			cin.ignore();
 			getline(cin, ans);
-			if (ans == "s"){
+			if (ans == "s" || ans == "S"){
 				cout << endl << "Cartao re-ativado" << endl << endl;
 				cout << "Escolha o tipo de cartao da nova subscricao" << endl;
 				r->getRegisto()->alterarEstado(true);
@@ -706,7 +706,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 
 				cout << endl << "---Criacao de comboio---" << endl;
 				cout<<endl<<"Nome:";
-				getline(cin,nome);
+				nome = nomeValido();
 
 				for (int i = 0; i < f->getNumComboios();i++){
 					if (f->getComboio(i)->getNome()==nome){
@@ -776,7 +776,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cin.clear();
 				cout << endl << "---Criacao de cartao---" << endl;
 				cout<<endl<<"Nome do cartao de descontos :";
-				getline(cin,nome);
+				nome = nomeValido();
 				do {
 					cout << "Insira o desconto do cartao em percentagem (25, 50 ou 100) (-1 para cancelar): " << endl;
 					desconto = userIntInput();
@@ -876,7 +876,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 			}
 			else {
 				M->showMaquinistas();
-				cout << endl << "sobre o Maquinista a reformar-se " << endl;
+				cout << endl << "Sobre o Maquinista a reformar-se " << endl;
 				Maquinista M1 = criaMaquinista();
 				if (M->reforma(&M1))
 					cout << endl << "Maquinista reformado " << endl;
@@ -907,7 +907,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 			}
 			else {
 				M->showMaquinistas();
-				cout << endl << "sobre o Maquinista Antigo " << endl;
+				cout << endl << "Sobre o Maquinista Antigo " << endl;
 				Maquinista  M3 = criaMaquinista();
 				cout << endl << "Sobre o maquinista Novo " << endl;
 				Maquinista  M2 = criaMaquinista();
