@@ -847,7 +847,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 		while (menu == -2 || menu == -1) {
 			cout << endl << "---Maquinistas---" << endl << endl;
 			cout << "0 - Limpar dados carregados " << endl;
-			cout << "1 - Reformar um Maquinista " << endl;
+			cout << "1 - Reformar/ Recontratar um Maquinista " << endl;
 			cout << "2 - Adicionar Maquinista" << endl;
 			cout << "3 - Editar Maquinista " << endl;
 			cout << "4 - Eliminar Maquinista " << endl;
@@ -872,7 +872,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 			}
 			return;
 		}
-				//reforma maquinista
+				//reforma maquinista ou recontratacao do maquinista
 		case 1: {
 			if (M->emptyMaquinistas()) {
 				cout << " Erro : Nao existem maquinistas!" << endl;
@@ -881,8 +881,8 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 				M->showMaquinistas();
 				cout << endl << "Sobre o Maquinista a reformar-se " << endl;
 				Maquinista M1 = criaMaquinista();
-				if (M->reforma(&M1))
-					cout << endl << "Maquinista reformado " << endl;
+				if (M->alteraEstado(&M1))
+					cout << endl << "Estado alterado !" << endl;
 				else
 					cout << endl << "Maquinista nao foi encontrado no registo, faca load dos dados " << endl;
 			}

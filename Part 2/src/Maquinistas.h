@@ -191,12 +191,13 @@ public:
 	void clearMaquinistas();
 
 	/**
-	*  altera o estado de ativo de um maquinista, para desativo
-	* e elimina as viagens a este atribuidas
-	*  @param maquinista a reformar-se
-	* @return sucesso ou nao da procura de um maquinista para a reforma
+	* Dependendo do estado atual do maquinista (ativo ou reformado) \n
+	*  altera o estado de ativo de um maquinista, para desativo e elimina as viagens a este atribuidas ou
+	*  altera o estado de reformado de um maquinista, para ativo
+	*  @param maquinista a reformar-se ou a voltar a ser contratado
+	* @return sucesso ou nao da procura de um maquinista para a reforma ou recontratar
 	*/
-	bool reforma(Maquinista *M1);
+	bool alteraEstado(Maquinista *M1);
 
 	/**
 	*

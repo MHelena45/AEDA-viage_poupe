@@ -40,17 +40,19 @@ bool Maquinistas::encontraMaquinista( Maquinista *M00) {
 	return false;
 }
 
-bool Maquinistas::reforma(Maquinista *M1) {
+bool Maquinistas::alteraEstado(Maquinista *M1) {
 	tabHMaq::const_iterator it;
 	it = maquinistas.find(*M1);
 	if (it == maquinistas.end()) {
 		return false;
 	}
 	maquinistas.erase(it);
+	//se se vai reforma, apagar viagens atribuidas
 	if (M1->getAtivo()) {
-		M1->alteraEstado();
+		M1->eliminaViagens();
 	}
-	M1->eliminaViagens();
+	M1->alteraEstado();
+
 	pair<tabHMaq::iterator, bool> res = maquinistas.insert(*M1);
 	if (res.second == true)
 		return true;
