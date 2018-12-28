@@ -99,7 +99,6 @@ string apelidoValido() {
 
 Maquinista criaMaquinista() {
 	string nome, apelido, viagens;
-	//vector<Viagem * > v;
 	unsigned int id;
 	bool invalido = false;
 	cout << "Qual o id do maquinista ? " << endl;
@@ -719,7 +718,8 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cout<< endl <<"Tipo ( IC para Intercidades, AP para AlfaPendular (IC/AP) ):";
 				getline(cin,tipo);
 
-				if (tipo!="IC" && tipo!= "AP"){
+				if (tipo!="IC" && tipo != "ic" && tipo != "Ic" && tipo != "iC"
+					&& tipo!= "AP" && tipo != "ap" && tipo != "Ap" && tipo != "aP"){
 						cout<<"Erro: Tipo invalido."<<endl;
 						return;
 					}
@@ -760,7 +760,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				}
 
 
-				if (tipo == "IC")
+				if (tipo!="IC" && tipo != "ic" && tipo != "Ic" && tipo != "iC")
 					c = new Intercidades (lotacao, velocidade, precoKM, nome);
 				else c = new AlfaPendular (lotacao, velocidade, precoKM, nome);
 				f->adicionaComboio(c);
@@ -860,75 +860,100 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 		switch (menu) {
 			// Limpar dados carregados
 		case 0: {
-			M->clearMaquinistas();
-			cout << "Os dados foram eliminados do registo atual! " << endl;
+			if (M->emptyMaquinistas()) {
+				cout << " Erro : Nao existem maquinistas!" << endl;
+			}
+			else {
+				M->clearMaquinistas();
+				cout << "Os dados foram eliminados do registo atual! " << endl;
+			}
 			return;
 		}
 				//reforma maquinista
 		case 1: {
-			cout << "sobre o Maquinista a reformar-se " << endl;
-			Maquinista M1 = criaMaquinista();
-			if (M->reforma(&M1))
-				cout << "Maquinista reformado " << endl;
-			else
-				cout << "Maquinista nao foi encontrado no registo, faca load dos dados " << endl;
+			if (M->emptyMaquinistas()) {
+				cout << " Erro : Nao existem maquinistas!" << endl;
+			}
+			else {
+				M->showMaquinistas();
+				cout << endl << "sobre o Maquinista a reformar-se " << endl;
+				Maquinista M1 = criaMaquinista();
+				if (M->reforma(&M1))
+					cout << endl << "Maquinista reformado " << endl;
+				else
+					cout << endl << "Maquinista nao foi encontrado no registo, faca load dos dados " << endl;
+			}
 			return;
 		}
 				//Adiciona Maquinistas 
 		case 2: {
 			Maquinista M1 = criaMaquinista();
-			if (adicionaViagensAMaquinista(f, b, &M1))
-				cout << " Todas as viagens foram adicionadas com sucesso!" << endl;
-			else
+			if (! adicionaViagensAMaquinista(f, b, &M1))
 				cout << "Alguma viagens nao foi adicionada com sucesso !" << endl;
 
 			if (M->adicionaMaquinista(&M1)) {
 				M->saveMaquinista(&M1);
-				cout << "O maquinista foi adicionado com sucesso! " << endl;
+				cout << endl << "O maquinista foi adicionado com sucesso! " << endl;
 			}
 			else {
-				cout << "Nao foi possivel adicionar o maquinista! " << endl;
+				cout << endl << "Nao foi possivel adicionar o maquinista! " << endl;
 			}
 			return;
 		}
 				//Editar maquinista
 		case 3: {
-			cout << "sobre o Maquinista Antigo " << endl;
-			Maquinista  M3 = criaMaquinista();
-			cout << "Sobre o maquinista Novo " << endl;
-			Maquinista  M2 = criaMaquinista();
-			if (M->editaMaquinista(&M3, &M2))
-				cout << "Troca efetuada! " << endl;
-			else
-				cout << "Maquinista antigo nao foi encontrado!" << endl;
+			if (M->emptyMaquinistas()) {
+				cout << " Erro : Nao existem maquinistas!" << endl;
+			}
+			else {
+				M->showMaquinistas();
+				cout << endl << "sobre o Maquinista Antigo " << endl;
+				Maquinista  M3 = criaMaquinista();
+				cout << endl << "Sobre o maquinista Novo " << endl;
+				Maquinista  M2 = criaMaquinista();
+				if (M->editaMaquinista(&M3, &M2))
+					cout << "Troca efetuada! " << endl;
+				else
+					cout << "Maquinista antigo nao foi encontrado!" << endl;
+			}
 			return;
 		}
 				// Eliminar Maquinista
 
 		case 4: {
-			cout << "Sobre  maquinista que quer eliminar " << endl;
-			Maquinista M3 = criaMaquinista();
-			if (M->eliminaMaquinista(&M3))
-				cout << "Maquinista eliminado com sucesso! " << endl;
-			else
-				cout << "Maquinista nao encontrado " << endl;
+			if (M->emptyMaquinistas()) {
+				cout << " Erro : Nao existem maquinistas!" << endl;
+			}
+			else {
+				M->showMaquinistas();
+				cout << endl << "Sobre  maquinista que quer eliminar " << endl;
+				Maquinista M3 = criaMaquinista();
+				if (M->eliminaMaquinista(&M3))
+					cout << "Maquinista eliminado com sucesso! " << endl;
+				else
+					cout << "Maquinista nao encontrado " << endl;
+			}
 			return;
 		}
 				// Adicionar viagens ao maquinista
 		case 5: {
-			cout << "Sobre o maquinista que quer adicionar viagens. " << endl;
-			cout << "Qual o id do condutor que quer adicionar viagens ? " << endl;
-			int id = userIntInput();
-			Maquinista M0("n", "n", id);
-			if (M->encontraMaquinista( &M0)) {
-				if (adicionaViagensAMaquinista(f, b, &M0))
-					cout << " Todas as viagens foram adicionadas com sucesso!" << endl;
-				else
-					cout << "Alguma viagens nao foi adicionada com sucesso !" << endl;
+			if (M->emptyMaquinistas()) {
+				cout << " Erro : Nao existem maquinistas!" << endl;
 			}
-				
-			else
-				cout << "Maquinista nao encontrado!" << endl;
+			else {
+				M->showMaquinistas();
+				cout << endl << "Sobre o maquinista que quer adicionar viagens. " << endl;
+				Maquinista M0 = criaMaquinista();
+				if (M->encontraMaquinista(&M0)) {
+					if (adicionaViagensAMaquinista(f, b, &M0))
+						cout << "Todas as viagens foram adicionadas com sucesso!" << endl;
+					else
+						cout << endl << " Pelo menos uma viagem nao foi adicionada com sucesso !" << endl;
+				}
+
+				else
+					cout << "Maquinista nao encontrado!" << endl;
+			}
 			return;
 		}
 
