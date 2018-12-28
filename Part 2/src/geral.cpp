@@ -775,7 +775,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cin.ignore();
 				cin.clear();
 				cout << endl << "---Criacao de cartao---" << endl;
-				cout<<endl<<"Nome do passageiro :";
+				cout<<endl<<"Nome do cartao de descontos :";
 				getline(cin,nome);
 				do {
 					cout << "Insira o desconto do cartao em percentagem (25, 50 ou 100) (-1 para cancelar): " << endl;
