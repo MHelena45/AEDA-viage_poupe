@@ -81,7 +81,7 @@ bool Maquinistas::loadMaquinistas(string nome, Frota *f) {
 			string datavgm, horavgm;
 			int vagas, comprasAnonimas;
 			maqfile >> origem >> destino >> distancia >> comboioId;
-			maqfile.ignore(1);
+			//maqfile.ignore(1);
 
 			// DATA DA VIAGEM
 
@@ -146,13 +146,13 @@ void Maquinistas::saveMaquinistas() {
 	maqfile.open("maquinistas.txt");
 	for (auto it : this->maquinistas) {
 		maqfile << it.getId() << " " << it.getNome() << endl << it.getApelido() << endl;
-		if (!it.getViagens().size()) {
-			maqfile << !it.getViagens().size() << endl;
+		maqfile << !it.getViagens().size() << endl;
+		if (!it.getViagens().size()) {		
 			vector<Viagem *> v = it.getViagens();
 			for (int i = 0; i < v.size(); i++) {
 				maqfile << v.at(i)->getOrigem() << " " << v.at(i)->getDestino() << " " << v.at(i)->getDistancia() << " " << v.at(i)->getComboio()->getId() << endl;
 				maqfile << v.at(i)->getHorasPartida() << endl << v.at(i)->getHorasPartida();
-				maqfile << v.at(i)->getVagas() << " " << v.at(i)->getComprasAnonimas();
+				maqfile << v.at(i)->getVagas() << " " << v.at(i)->getComprasAnonimas() << endl;
 			}
 		}
 	}	
@@ -165,8 +165,9 @@ void Maquinistas::saveMaquinista(Maquinista *maq) {
 	maqfile.open("maquinistas.txt");
 
 	maqfile << maq->getId() << " " << maq->getNome() << endl << maq->getApelido() << endl;
+	maqfile << maq->getViagens().size();
 	if (!maq->getViagens().size()) {
-		maqfile << maq->getViagens().size();
+		
 		vector<Viagem *> v = maq->getViagens();
 		for (int i = 0; i < v.size(); i++) {
 			maqfile << v.at(i)->getOrigem() << " " << v.at(i)->getDestino() << " " << v.at(i)->getDistancia() << " " << v.at(i)->getComboio()->getId() << endl;

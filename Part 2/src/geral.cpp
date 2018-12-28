@@ -63,7 +63,7 @@ double userDoubleInput(){
 bool LetrasInvalidas(string nome) {
 	bool invalido = false;
 	for (int i = 0; i < nome.size(); i++) {
-		if (!((nome.at(i) >= 'A' && nome.at(i) <= 'Z') || (nome.at(i) >= 'a' && nome.at(i) <= 'z') || (nome.at(i) == ' ' )))
+		if (!((nome.at(i) >= 'A' && nome.at(i) <= 'Z') || (nome.at(i) >= 'a' && nome.at(i) <= 'z') || (nome.at(i) == ' ' ) || (nome.at(i) == '-')))
 			invalido = true;
 	}	
 	return invalido;
@@ -110,6 +110,7 @@ Maquinista criaMaquinista() {
 	Maquinista M1(nome, apelido, id);
 	return M1;
 }
+
 Viagem*  adicionaViagem(Bilheteira *b, Frota *f) {
 	string origem, destino, datavgm, horavgm;
 	double distancia = -2;
@@ -708,7 +709,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 
 				cout << endl << "---Criacao de comboio---" << endl;
 				cout<<endl<<"Nome:";
-				nome = nomeValido();
+				getline(cin, nome);
 
 				for (int i = 0; i < f->getNumComboios();i++){
 					if (f->getComboio(i)->getNome()==nome){
@@ -894,7 +895,6 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 				cout << "Alguma viagens nao foi adicionada com sucesso !" << endl;
 
 			if (M->adicionaMaquinista(&M1)) {
-				M->saveMaquinista(&M1);
 				cout << endl << "O maquinista foi adicionado com sucesso! " << endl;
 			}
 			else {
