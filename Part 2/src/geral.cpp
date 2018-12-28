@@ -114,7 +114,8 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f) {
 	string origem, destino, datavgm, horavgm;
 	double distancia = -2;
 	int id_comboio = -2;
-
+	cin.ignore();
+	cin.clear();
 	cout << endl << "---Criacao de viagem---" << endl;
 	cout << endl << "Origem:";
 	origem = nomeValido();
@@ -267,6 +268,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 				cout << endl << "Erro: Nao existem Maquinistas" << endl;
 				break;
 			}
+
 			cout << "Lista de Maquinistas " << endl;	
 			M->showMaquinistas();
 			break;
@@ -690,7 +692,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				r->loadCartoes();
 				r->loadRegistos();
 				b->loadViagens();
-				M->loadMaquinistas("maquinistas.txt");
+				M->loadMaquinistas("maquinistas.txt", f);
 				cout << endl <<"Dados Carregados" << endl;
 				return;
 
@@ -948,7 +950,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 					if (adicionaViagensAMaquinista(f, b, &M0))
 						cout << "Todas as viagens foram adicionadas com sucesso!" << endl;
 					else
-						cout << endl << " Pelo menos uma viagem nao foi adicionada com sucesso !" << endl;
+						cout << endl << "Pelo menos uma viagem nao foi adicionada com sucesso !" << endl;
 				}
 
 				else

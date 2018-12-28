@@ -32,10 +32,6 @@ bool Maquinista::operator== (Maquinista M3) {
 	return id = M3.getId();
 }
 
-Maquinistas::Maquinistas(string nome) {
-	loadMaquinistas(nome);
-}
-
 bool Maquinistas::encontraMaquinista( Maquinista *M00) {
 	tabHMaq::const_iterator it;
 	it = maquinistas.find(*M00);
@@ -60,19 +56,79 @@ bool Maquinistas::reforma(Maquinista *M1) {
 		return true;
 }
 
-bool Maquinistas::loadMaquinistas(string nome) {
-	bool sucedido = true, vazio = true;
+bool Maquinistas::loadMaquinistas(string nome, Frota *f) {
+	bool sucedido = true, vazio = true; int id;
 	ifstream maqfile;
 	maqfile.open(nome);
 	vector <Viagem * > v;
 	while (!maqfile.eof()) {		
 		string Pnome;
 		string apelidos;
+		int numero;
+		maqfile >> id;	
 		maqfile >> Pnome;
 		getline(maqfile, apelidos);
-		if (Pnome == "")
+		if ( Pnome == "" || apelidos == "")
 			break;
 		vazio = false;
+		maqfile >> numero;
+		while (!numero)
+		{
+			numero--;
+			string origem, destino;
+			double distancia;
+			int comboioId;
+			string datavgm, horavgm;
+			int vagas, comprasAnonimas;
+			maqfile >> origem >> destino >> distancia >> comboioId;
+			maqfile.ignore(1);
+
+			// DATA DA VIAGEM
+
+			Datas *dvgm;
+			try {
+				getline(maqfile, datavgm);
+				dvgm = new Datas(datavgm);
+			}
+			catch (Datas::DataInvalida) {
+				cout << "Data Invalida - Dia(1-31), Mes (1-12)" << endl;
+				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+				return false;
+			}
+			catch (Datas::FormatoStringInvalido) {
+				cout << "Formato invalido - (DD-MM-AAAA)" << endl;
+				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+				return false;
+			}
+
+			// HORA DA VIAGEM
+
+			Horas *hvgm;
+			try {
+				getline(maqfile, horavgm);
+				hvgm = new Horas(horavgm);
+			}
+			catch (Horas::HoraInvalida) {
+				cout << "No ficheiro de maquinistas:";
+				cout << "Hora Invalida - Hora(0-23), Min (0-59)" << endl;
+				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+				return false;
+			}
+			catch (Horas::FormatoStringInvalido) {
+				cout << "No ficheiro de maquinistas:";
+				cout << "Formato invalido - (HH-MM)" << endl;
+				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
+				return false;
+			}
+
+			maqfile >> vagas; maqfile >> comprasAnonimas;
+
+			Viagem *temp = new Viagem(origem, destino, distancia, f->getComboio(comboioId),
+				dvgm, hvgm, vagas, comprasAnonimas);
+
+			v.push_back(temp);
+
+		}
 		Maquinista M1(Pnome, apelidos, 1, v);
 		if (!adicionaMaquinista(&M1))
 			sucedido = false;		
@@ -91,10 +147,12 @@ void Maquinistas::saveMaquinistas() {
 	for (auto it : this->maquinistas) {
 		maqfile << it.getId() << " " << it.getNome() << endl << it.getApelido() << endl;
 		if (!it.getViagens().size()) {
-			maqfile << "Viagens ";
+			maqfile << !it.getViagens().size() << endl;
 			vector<Viagem *> v = it.getViagens();
 			for (int i = 0; i < v.size(); i++) {
-				cout << v.at(i) << " ";
+				maqfile << v.at(i)->getOrigem() << " " << v.at(i)->getDestino() << " " << v.at(i)->getDistancia() << " " << v.at(i)->getComboio()->getId() << endl;
+				maqfile << v.at(i)->getHorasPartida() << endl << v.at(i)->getHorasPartida();
+				maqfile << v.at(i)->getVagas() << " " << v.at(i)->getComprasAnonimas();
 			}
 		}
 	}	
@@ -108,11 +166,14 @@ void Maquinistas::saveMaquinista(Maquinista *maq) {
 
 	maqfile << maq->getId() << " " << maq->getNome() << endl << maq->getApelido() << endl;
 	if (!maq->getViagens().size()) {
-		maqfile << "Viagens ";
+		maqfile << maq->getViagens().size();
 		vector<Viagem *> v = maq->getViagens();
 		for (int i = 0; i < v.size(); i++) {
-			cout << v.at(i) << " ";
+			maqfile << v.at(i)->getOrigem() << " " << v.at(i)->getDestino() << " " << v.at(i)->getDistancia() << " " << v.at(i)->getComboio()->getId() << endl;
+			maqfile << v.at(i)->getHorasPartida() << endl << v.at(i)->getHorasPartida();
+			maqfile << v.at(i)->getVagas() << " " << v.at(i)->getComprasAnonimas();
 		}
+		
 	}
 	
 

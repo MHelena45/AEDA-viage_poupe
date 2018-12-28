@@ -175,12 +175,6 @@ public:
 	*/
 	Maquinistas() {};
 
-	/**
-	* Construtor:
-	* Inicia a tabela de dispersao com os maquinistas registados no ficheiro
-	* @param nome do ficheiro com os maquinistas
-	*/
-	Maquinistas(string nome) ;
 
 	/** 
 	*  Procura um maquinista pelo numero de identificaçao
@@ -216,7 +210,7 @@ public:
 	* tanto os maquinista em serviço como os os antigos
 	* @return se foi possível adicionar todos os maquinistas
 	*/
-	bool loadMaquinistas(string nome);
+	bool loadMaquinistas(string nome, Frota *f);
 
 	/**
 	* Guarda todos os maquinistas da tabela de dispersão
