@@ -703,15 +703,15 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 			}
 			case 1:{
 				f->loadComboios();	
-				cout << "load comboios " << endl;
+				//cout << "load comboios " << endl;
 				r->loadCartoes();
-				cout << "load Cartoes " << endl;
-				//r->loadRegistos();
-				cout << "load registos " << endl;
-				//b->loadViagens();
-				cout << "load Viagens " << endl;
+				//cout << "load Cartoes " << endl;
+				r->loadRegistos();
+				//cout << "load registos " << endl;
+				b->loadViagens();
+				//cout << "load Viagens " << endl;
 				M->loadMaquinistas(f, "maquinistas.txt");
-				cout << "load maquinistas " << endl;
+				//cout << "load maquinistas " << endl;
 				cout << endl <<"Dados Carregados" << endl;
 				return;
 
@@ -996,8 +996,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 
 			M->showMaquinistas();
 			cout << endl << "Sobre  maquinista que quer adicionar viagens " << endl;
-			Maquinista M3 = criaMaquinista();
-			
+			Maquinista M3 = criaMaquinista();		
 			M->atribuiViagem( &M3, b->getViagem(viagemId));
 							
 			return;
