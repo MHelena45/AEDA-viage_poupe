@@ -121,7 +121,9 @@ string Bilheteira::getInfo() {
 
 //Outros
 
-void Bilheteira::adicionaViagem(Viagem *v1) { viagens.push_back(v1); }
+void Bilheteira::adicionaViagem(Viagem *v1) {
+	viagens.push_back(v1); 
+}
 
 void Bilheteira::updateViagens() {
 

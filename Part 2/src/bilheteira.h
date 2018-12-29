@@ -81,6 +81,7 @@
 class Bilheteira {
 	std::vector<Viagem *> viagens;
 	Frota *f;
+
 public:
 	/**
 	 * Construtor de bilheteira
@@ -97,6 +98,13 @@ public:
 	 * @return Numero de viagens
 	 */
 	int getNumViagens() const;
+
+	/**
+	 * 
+	 * @return vetor com todos os apontador para viagens
+	 */
+	vector<Viagem *> getViagens() const { return viagens;  }
+
 	/**
 	 * @param id ID da viagem
 	 * @return Apontador para viagem com esse id

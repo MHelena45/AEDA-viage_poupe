@@ -11,15 +11,21 @@ Maquinista::Maquinista(string n, string a, int i) : nome(n), apelido(a), id(i) {
 Maquinista::Maquinista(string n, string a, int i, bool atual) : nome(n), apelido(a), id(i) {
 	ativo = atual;
 }
-void Maquinista::eliminaViagens() {
+bool Maquinista::eliminaViagens() {
+	if (!viagens.size())
+		return false;
 	viagens.clear();
-	/*vector<Viagem *> viage;
-	viagens = viage;*/
+	return true;
 }
 
-
 void Maquinista::alteraEstado() {
-	ativo = !ativo;
+	//ativo = !ativo;
+	if (ativo) {
+		ativo = false;
+	}
+	else {
+		ativo = true;
+	}
 }
 
 
@@ -51,6 +57,7 @@ bool Maquinistas::alteraEstado(Maquinista *M1) {
 	if (M1->getAtivo()) {
 		M1->eliminaViagens();
 	}
+
 	M1->alteraEstado();
 
 	pair<tabHMaq::iterator, bool> res = maquinistas.insert(*M1);
@@ -58,47 +65,59 @@ bool Maquinistas::alteraEstado(Maquinista *M1) {
 		return true;
 }
 
-bool Maquinistas::loadMaquinistas(string nome, Frota *f) {
-	bool sucedido = true, vazio = true; int id;
+bool Maquinistas::loadMaquinistas(Frota *f, string nome) {
+	bool sucedido = true, vazio = true;
 	ifstream maqfile;
-	maqfile.open(nome);
-	vector <Viagem * > v;
-	while (!maqfile.eof()) {		
-		string Pnome;
-		string apelidos;
-		int numero;
+	
+	maqfile.open("maquinistas.txt");
+	while (!maqfile.eof()) {
+		int estado, id, numViagens= 0;
+		string Pnome, apelidos;	
+		maqfile >> estado;
+		maqfile.ignore(1);
 		maqfile >> id;	
-		maqfile >> Pnome;
-		getline(maqfile, apelidos);
-		if ( Pnome == "" || apelidos == "")
+		maqfile.ignore(1);
+		maqfile >> Pnome;	
+		if (Pnome == "" )
 			break;
 		vazio = false;
-		maqfile >> numero;
-		while (!numero)
-		{
-			numero--;
+		getline(maqfile, apelidos);
+		maqfile >> numViagens;
+		Maquinista M1(Pnome, apelidos, id, estado);
+		maqfile.ignore(1);
+		while(numViagens) {
+			numViagens--;
 			string origem, destino;
 			double distancia;
 			int comboioId;
 			string datavgm, horavgm;
 			int vagas, comprasAnonimas;
-			maqfile >> origem >> destino >> distancia >> comboioId;
-			//maqfile.ignore(1);
-
+			
+			maqfile >> origem;			
+			maqfile.ignore(1);
+			maqfile >> destino;
+			maqfile.ignore(1);
+			maqfile >> distancia;
+			maqfile.ignore(1);
+			maqfile >> comboioId;
+			maqfile.ignore(1);
+			maqfile >> vagas;
+			maqfile.ignore(1);
+			maqfile >> comprasAnonimas;
+			maqfile.ignore(1);
 			// DATA DA VIAGEM
-
 			Datas *dvgm;
 			try {
 				getline(maqfile, datavgm);
 				dvgm = new Datas(datavgm);
 			}
 			catch (Datas::DataInvalida) {
-				cout << "Data Invalida - Dia(1-31), Mes (1-12)" << endl;
+				cout << "Em maquinistas exixte uma data Invalida - Dia(1-31), Mes (1-12)" << endl;
 				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
 				return false;
 			}
 			catch (Datas::FormatoStringInvalido) {
-				cout << "Formato invalido - (DD-MM-AAAA)" << endl;
+				cout << "Em maquinistas exixte um formato invalido - (DD-MM-AAAA)" << endl;
 				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
 				return false;
 			}
@@ -111,32 +130,26 @@ bool Maquinistas::loadMaquinistas(string nome, Frota *f) {
 				hvgm = new Horas(horavgm);
 			}
 			catch (Horas::HoraInvalida) {
-				cout << "No ficheiro de maquinistas:";
-				cout << "Hora Invalida - Hora(0-23), Min (0-59)" << endl;
+				cout << "Em maquinistas exixte uma hora Invalida - Hora(0-23), Min (0-59)" << endl;
 				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
 				return false;
 			}
 			catch (Horas::FormatoStringInvalido) {
-				cout << "No ficheiro de maquinistas:";
-				cout << "Formato invalido - (HH-MM)" << endl;
+				cout << "Em maquinistas exixte um formato invalido - (HH-MM)" << endl;
 				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
 				return false;
 			}
-
-			maqfile >> vagas; maqfile >> comprasAnonimas;
-
+			
 			Viagem *temp = new Viagem(origem, destino, distancia, f->getComboio(comboioId),
 				dvgm, hvgm, vagas, comprasAnonimas);
-
-			v.push_back(temp);
-
+			M1.adicionaViagem(temp);
 		}
-		Maquinista M1(Pnome, apelidos, 1, v);
+		
 		if (!adicionaMaquinista(&M1))
-			sucedido = false;		
+			sucedido = false;
 	}
 	if (vazio) {
-		cout << "O ficheiro está vazio! " << endl;
+		cout << "O ficheiro de maquinistas está vazio! " << endl;
 	}
 	maqfile.close();
 	return sucedido;
@@ -147,15 +160,13 @@ void Maquinistas::saveMaquinistas() {
 
 	maqfile.open("maquinistas.txt");
 	for (auto it : this->maquinistas) {
-		maqfile << it.getId() << " " << it.getNome() << endl << it.getApelido() << endl;
-		maqfile << !it.getViagens().size() << endl;
-		if (!it.getViagens().size()) {		
-			vector<Viagem *> v = it.getViagens();
-			for (int i = 0; i < v.size(); i++) {
-				maqfile << v.at(i)->getOrigem() << " " << v.at(i)->getDestino() << " " << v.at(i)->getDistancia() << " " << v.at(i)->getComboio()->getId() << endl;
-				maqfile << v.at(i)->getHorasPartida() << endl << v.at(i)->getHorasPartida();
-				maqfile << v.at(i)->getVagas() << " " << v.at(i)->getComprasAnonimas() << endl;
-			}
+		maqfile << it.getAtivo() << " " << it.getId() << " " << it.getNome() << " " << it.getApelido() << endl ;
+		vector <Viagem*> viagens = it.getViagens();
+		maqfile << viagens.size() << " ";
+		for(int i=0; i < viagens.size(); i++) {
+			maqfile << viagens.at(i)->getOrigem() << " " << viagens.at(i)->getDestino() << " " << viagens.at(i)->getDistancia()
+				<< " " << viagens.at(i)->getComboio()->getId() << " "<< viagens.at(i)->getVagas() << " " << viagens.at(i)->getComprasAnonimas()
+				<< " " << *viagens.at(i)->getDataPartida() << endl << *viagens.at(i)->getHorasPartida() << endl;
 		}
 	}	
 	maqfile.close();
@@ -166,19 +177,8 @@ void Maquinistas::saveMaquinista(Maquinista *maq) {
 
 	maqfile.open("maquinistas.txt");
 
-	maqfile << maq->getId() << " " << maq->getNome() << endl << maq->getApelido() << endl;
-	maqfile << maq->getViagens().size();
-	if (!maq->getViagens().size()) {
-		
-		vector<Viagem *> v = maq->getViagens();
-		for (int i = 0; i < v.size(); i++) {
-			maqfile << v.at(i)->getOrigem() << " " << v.at(i)->getDestino() << " " << v.at(i)->getDistancia() << " " << v.at(i)->getComboio()->getId() << endl;
-			maqfile << v.at(i)->getHorasPartida() << endl << v.at(i)->getHorasPartida();
-			maqfile << v.at(i)->getVagas() << " " << v.at(i)->getComprasAnonimas();
-		}
-		
-	}
-	
+	maqfile << maq->getAtivo() << " " << maq->getId() << " " << maq->getNome() 
+		<< " " << maq->getApelido() << endl;
 
 	maqfile.close();
 }
@@ -226,19 +226,111 @@ bool Maquinistas::eliminaMaquinista(Maquinista *trabalhador) {
 		maquinistas.erase(it);
 		return true;
 	}
+	
 	return false;
 }
 
+unsigned int Maquinistas::numeroDeMaquinistas() {
+	return maquinistas.size();
+}
+
 void Maquinistas::showMaquinistas() {
-	cout << "ESTADO" << setw(9) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
+	cout << "ESTADO" << setw(10) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
 	for (auto it : this->maquinistas  ) {
 		if (it.getAtivo()) {
-			cout << "Ativo" << setw(8);
+			cout << "Ativo" << setw(11) << it.getId() << setw(15) << it.getNome() << setw(15) << it.getApelido() << endl;
 		}
 		else {
-			cout << "Reformado" << setw(3);
+			cout << "Reformado" << setw(6)<<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl;
 		}
-		cout <<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl;
 	}	
 	return;
 }
+
+void Maquinistas::showMaquinista(Maquinista *M1) {
+	tabHMaq::const_iterator it;
+	it = maquinistas.find(*M1);
+	if (it != maquinistas.end()) {
+		cout << "ESTADO" << setw(9) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
+		if (it->getAtivo()) {
+			cout << "Ativo" << setw(10);
+		}
+		else {
+			cout << "Reformado" << setw(6);
+		}
+		cout << it->getId() << setw(15) << it->getNome() << setw(15) << it->getApelido() << endl;
+	}
+	return;
+}
+bool Maquinistas::showViagensMaquinistas( Maquinista* M1 ) const {
+	vector <Viagem *> via;
+	tabHMaq::const_iterator it;
+	it = maquinistas.find(*M1);
+	if (it != maquinistas.end()) {	
+		via = it->getViagens();
+		if (!via.size())
+			if (it->getAtivo()) {
+				cout << "ERRO: Ainda nao existem viagens associadas !! " << endl;
+			}
+			else {
+				cout << "Um maquinista reformado nao tem viagens associadas ! " << endl;
+			}
+		else {
+			cout << "Viagens atribuidas : " << it->getViagens().size()  << endl << endl;
+			cout << left << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
+				<< "Distancia(KM)" << setw(9) << "Comboio" << setw(13) << "Data"
+				<< setw(8) << "Hora" << setw(16) << "Preco base(€)" << setw(7) << "Vagas" << "\n";
+			for (int i = 0; i < via.size(); i++) {
+				cout << via.at(i)->getInfo();
+			}
+		}
+		return true;
+	}
+	return false;
+}
+bool Maquinistas::atribuiViagem( Maquinista* M1, Viagem * v) {
+	tabHMaq::const_iterator it;
+	it = maquinistas.find(*M1);
+	Maquinista M2 = *it;
+	maquinistas.erase(M2);
+	M2.adicionaViagem(v);
+	pair<tabHMaq::iterator, bool> res = maquinistas.insert(M2);
+	if (res.second == true)
+		return true;
+	else return false;
+	
+}
+
+bool Maquinistas::atribuiViagens(Bilheteira *b) {
+
+	cout << endl << "Existem atualmente : "<< b->getNumViagens()  << " viagens"<< endl;
+	if (!b->getNumViagens()) return false;
+		
+	bool primeiraVolta = true;
+	int i = 0;
+	int numViagens = b->getNumViagens();
+	for (; i < numViagens; ){
+		//percorre todos os maquinistas
+		for (auto it : this->maquinistas) {
+			if(it.getId() >= 0 || it.getNome() != "")
+				maquinistas.erase(it);
+				//se o maquinista ja tiver viagens antigas associadas
+				if (primeiraVolta) {
+				it.eliminaViagens();
+			}
+			//adiciona viagens ao maquinista
+			if (it.adicionaViagem(b->getViagem(i))) {
+				maquinistas.insert(it);
+				i++;
+			}
+			//todoas as viagens ja foram atribuidas
+			if (i >= b->getNumViagens())
+				break;
+		}
+		primeiraVolta = false;
+	}
+	
+	
+	return true;
+}
+

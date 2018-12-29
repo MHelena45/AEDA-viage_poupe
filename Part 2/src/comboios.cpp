@@ -27,7 +27,7 @@ int Comboio::getVelocidade() const{return velocidade;}
 
 double Comboio::getPrecoKM() const{return precoKM;}
 
-string Comboio::getNome() const{return nome;}
+string Comboio::getNome() const{ return nome;}
 
 unsigned int Comboio::getId() const{return id;}
 
@@ -93,7 +93,7 @@ string Frota::getInformacao() const{
 
 }
 
-Comboio* Frota::getComboio(int id) const{return comboios.at(id);}
+Comboio* Frota::getComboio(int id) const{ return comboios.at(id);}
 
 int Frota::getNumComboios() const{return comboios.size();}
 

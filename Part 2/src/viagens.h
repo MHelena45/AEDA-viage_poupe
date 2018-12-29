@@ -128,6 +128,7 @@ public:
 	 */
 	bool compraRegisto() const;
 
+
 };
 
 

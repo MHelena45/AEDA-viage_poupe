@@ -4,6 +4,7 @@
 #include <unordered_set>
 #include "datashoras.h"
 #include "viagens.h"
+#include "bilheteira.h"
 
 using namespace std;
 /**
@@ -14,10 +15,10 @@ using namespace std;
 
 class Maquinista
 {
-	const string nome, apelido;
+	string nome, apelido;
 	bool ativo;
 	unsigned id;
-	vector<Viagem *> viagens;
+	vector<Viagem*> viagens;
 public:
 	/**
 	* Construtor:
@@ -56,29 +57,52 @@ public:
 	Maquinista(string nome, string apelido, int id, vector<Viagem *> viagens) ;
 
 	/**
-	*	@return o primeiro nome do maquinista
+	* altera o nome do maquinista
+	* @param novo nome
+	*/	
+	void novoNome(string n) { nome = n; }
+
+	/**
+	* altera o apelido do maquinista
+	* @param novo apelido
+	*/
+	void novoApelido(string a) { apelido = a; }
+
+	/**
+	* altera o id do maquinista
+	* @param novo id
+	*/
+	void novoId(int i) { id = i; }
+
+	/**
+	*  Metodo que retorna membro-dado
+	*  @return o primeiro nome do maquinista
 	*/
 	string getNome() const { return nome; } ;
 
 	/**
+	*  Metodo que retorna membro-dado
 	*	@return uma string com todos os apelidos do maquinista
 	*/
 	string getApelido() const { return apelido; } ;
 
 	/**
+	*  Metodo que retorna membro-dado
 	*	@return o número de identificação do maquinista
 	*/
 	unsigned getId() const { return id; } ;
 
 	/**
+	*  Metodo que retorna membro-dado
 	*	@return o estado ativo ou não do maquinista
 	*/
 	bool getAtivo() const { return ativo; };
 
 	/**
-	*	@return a viagens associadas ao maquinista
+	*  Metodo que retorna membro-dado de viagens
+	*	@return vetor com apontadores para viagens associadas a um maquinista
 	*/
-	vector<Viagem *> getViagens() { return viagens; };
+	vector<Viagem *> getViagens() const { return viagens; } ;
 	
 	/*
 	* Altera o estado (atual ou não) do maquinista. \n
@@ -110,7 +134,7 @@ public:
 	* útil na reforma de um maquinista
 	* 
 	*/
-	void eliminaViagens();
+	bool eliminaViagens();
 	
 	/**
 	* redefinição do operador de igualdade
@@ -135,22 +159,12 @@ struct eqMaquinista {
 
 /**
 *	Função hash \n
-* utiliza o primeiro nome do maquinista, isto é, o valor na tabela é  a somo dos valores ascii de cada caracter.
-* Sendo que há nomes mais vulgares e nomes com iguais letras, que provocam bastantes colisões, 
-* diminuindo a alta eficiência da tabela de dispersão ,
-* a função multiplica o código ASCII pela respectiva posição na string e soma o id do maquinista,
-* provocando menos colisões.
+* utiliza o id do maquinista
 * @return o valor que define o lugar na tabela de dispersão
 */
 struct hstr {
-	int operator() (const Maquinista &maquinista) const {
-	
-		int value = maquinista.getId();
-		string nome = maquinista.getNome();
-		for (unsigned int i = 0; i < nome.size(); i++)
-		value += nome[i] * i;
-		return value;
-
+	int operator() (const Maquinista &maquinista) const {	
+		return maquinista.getId();
 	}
 };
 
@@ -175,7 +189,6 @@ public:
 	*/
 	Maquinistas() {};
 
-
 	/** 
 	*  Procura um maquinista pelo numero de identificaçao
 	* @param maquinistas com a identificacao que se procura
@@ -195,7 +208,7 @@ public:
 	*  altera o estado de ativo de um maquinista, para desativo e elimina as viagens a este atribuidas ou
 	*  altera o estado de reformado de um maquinista, para ativo
 	*  @param maquinista a reformar-se ou a voltar a ser contratado
-	* @return sucesso ou nao da procura de um maquinista para a reforma ou recontratar
+	* @return sucesso ou nao da procura de um maquinista para a reforma ou reativacao
 	*/
 	bool alteraEstado(Maquinista *M1);
 
@@ -211,7 +224,7 @@ public:
 	* tanto os maquinista em serviço como os os antigos
 	* @return se foi possível adicionar todos os maquinistas
 	*/
-	bool loadMaquinistas(string nome, Frota *f);
+	bool loadMaquinistas(Frota *f, string nome);
 
 	/**
 	* Guarda todos os maquinistas da tabela de dispersão
@@ -237,7 +250,8 @@ public:
 	*  Se nos enganarmos a colocar um maquinista na 
 	*  tabela podemos editar o erro
 	*  @param maquinista enrado
-	*  @param maquinista com o nome correto 
+	*  @param maquinista com o nome correto
+	*  @return o sucesso ou não da operaçao de ediçao
 	*/
 	bool editaMaquinista(Maquinista *trabalhador1, Maquinista *trabalhador2);
 
@@ -245,7 +259,7 @@ public:
 	*  Se quisermos eliminar um maquinas, porque por exemplo faleceu,
 	*  nao podendo ser reconstratado, podemos elimna-lo da nossa tabela
 	*  @param maquinista que quermos eliminar da tabela
-	*
+	*  @return o sucesso ou não da operaçao de eliminacao
 	*/
 	bool eliminaMaquinista(Maquinista *trabalhador);
 
@@ -254,6 +268,40 @@ public:
 	*  Na respetiva ordem, número de identificação, nome
 	*/
 	void showMaquinistas();
+
+	/**
+	*  Mosta o maquinista passado por argumento. \n
+	*  Na respetiva ordem, número de identificação, nome
+	*  @param maquinista queremos os dados
+	*/
+	void showMaquinista(Maquinista *M1);
+
+	/**
+	*  Mosta as viagens do maquinista passado por argumento. \n
+	*  A um maquinista reformado nao podem estar atribuidas viagens
+	*  @param maquinista queremos os dados das viagens atribuidas
+	*  @return se existem ou nao viagens atribuidas
+	*/
+	bool showViagensMaquinistas( Maquinista* M1) const;
+
+	/**
+	* @return o numero de maquinistas na tabela de dispersao
+	*/
+	unsigned int numeroDeMaquinistas();
+	
+	/**
+	* atribui ao maquinista no 1 argumento a viagem passada no 2 argumento
+	* 
+	*  @param maquinista a quem vamos atribuir a viagem
+	*  @param viagem que queremos atribuir
+	*/
+	bool atribuiViagem( Maquinista* M1, Viagem * v);
+
+	/**
+	* atribuir as viagens existentes aos mquinistas existentes
+	* @param bilheteira com as viagens a atribuir
+	*/
+	bool atribuiViagens(Bilheteira *b);
 };
 
 

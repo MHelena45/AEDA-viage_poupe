@@ -307,11 +307,13 @@ void BaseClientes::loadRegistos(){
 				nasc = new Datas (datanasc);
 			}
 			catch (Datas::DataInvalida){
+				cout << "Em registos : " << endl;
 				cout << "Data Invalida - Dia(1-31), Mes (1-12)" << endl;
 				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
 				return;
 			}
 			catch (Datas::FormatoStringInvalido){
+				cout << "Em registos : " << endl;
 				cout << "Formato invalido - (DD-MM-AAAA)" << endl;
 				cout << endl << "AVISO - Dados corrompidos / incompletos" << endl;
 				return;

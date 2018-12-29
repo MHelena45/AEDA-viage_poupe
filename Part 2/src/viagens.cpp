@@ -82,7 +82,7 @@ std::string Viagem::getInfo() const{
 	stringstream ss;
 	ss << left << setw(10) << origem << setw(10) << destino << setw(15) << distancia
 			<< *c1 << "    "  << *dPartida << "   "	<< *hPartida << "   " << left << setfill(' ')
-			<< setw(16) << precoBase  <<  setfill(' ') << setw(5) << vagas <<"\n";
+			<< setw(16) << precoBase  <<  setfill(' ') << setw(5) << vagas << " \n";
 	return ss.str();
 }
 
@@ -154,3 +154,4 @@ bool Viagem::compraRegisto() const{
 		return false;
 	return true;
 }
+
