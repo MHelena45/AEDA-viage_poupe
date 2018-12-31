@@ -1027,7 +1027,8 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 			if (id == -1)
 				return;
 			Maquinista  M3("", "", id);
-			M->showViagensMaquinistas(&M3);
+			if (!M->showViagensMaquinistas(&M3))
+				return;
 			cout << "Qual da viagem do maquinista (-1 para cancelar)? " << endl;
 			id = userIntInput();
 			if (id == -1)
@@ -1036,6 +1037,7 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 				cout << "Viagem eliminada com sucesso " << endl;
 			else
 				cout << "Viagem nao foi eliminada " << endl;
+			
 			int viagemId = -2;
 
 			cout << "Lista de Viagens" << endl << endl;
@@ -1056,13 +1058,12 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 
 			M->showMaquinistas();
 			cout << endl << "Sobre  maquinista que quer adicionar viagens " << endl;
-			int id;
 			cout << "Qual o id do maquinista (-1 para cancelar)? " << endl;
 			id = userIntInput();
 			if (id == -1)
 				return;
-			Maquinista  M3("", "", id);
-			M->atribuiViagem(&M3, b->getViagem(viagemId));
+			Maquinista  M2("", "", id);
+			M->atribuiViagem(&M2, b->getViagem(viagemId));
 			return;
 		}
 		case 1:
@@ -1124,7 +1125,8 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 			if (id == -1)
 				return;
 			Maquinista  M3("", "", id);
-			M->showViagensMaquinistas(&M3);
+			if (!M->showViagensMaquinistas(&M3))
+				return;
 			cout << "Qual da viagem do maquinista (-1 para cancelar)? " << endl;
 			id = userIntInput();
 			if (id == -1)
