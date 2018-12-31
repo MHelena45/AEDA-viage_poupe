@@ -93,7 +93,11 @@ string Frota::getInformacao() const{
 
 }
 
-Comboio* Frota::getComboio(int id) const{ return comboios.at(id);}
+Comboio* Frota::getComboio(int id) const{
+	if (id >= comboios.size())
+		return NULL;	
+	return comboios.at(id);
+}
 
 int Frota::getNumComboios() const{return comboios.size();}
 

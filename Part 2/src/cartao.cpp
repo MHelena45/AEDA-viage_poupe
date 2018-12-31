@@ -204,7 +204,7 @@ string BaseClientes::getInfoCartao() const{
 }
 
 Cartao* BaseClientes::getCartao(int id) const {
-	if (!cartoes.size())
+	if (id >= cartoes.size())
 		return NULL;
 	return cartoes.at(id);
 }

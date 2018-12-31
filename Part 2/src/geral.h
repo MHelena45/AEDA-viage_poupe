@@ -16,6 +16,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b);
 void menuSemCartao(BaseClientes *r, Bilheteira *b);
 void menuAdministracao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M);
 void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M);
+void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M);
 
 int menuInput(int nOptions);
 int userIntInput();

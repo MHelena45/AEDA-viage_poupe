@@ -703,15 +703,16 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 			}
 			case 1:{
 				f->loadComboios();	
-				//cout << "load comboios " << endl;
+				cout << "load comboios " << endl;
 				r->loadCartoes();
-				//cout << "load Cartoes " << endl;
-				r->loadRegistos();
-				//cout << "load registos " << endl;
-				b->loadViagens();
-				//cout << "load Viagens " << endl;
+				cout << "load Cartoes " << endl;
+				//b->loadViagens();
+				cout << "load Viagens " << endl;		
+				//r->loadRegistos();
+				cout << "load registos " << endl;
+				
 				M->loadMaquinistas(f, "maquinistas.txt");
-				//cout << "load maquinistas " << endl;
+				cout << "load maquinistas " << endl;
 				cout << endl <<"Dados Carregados" << endl;
 				return;
 
@@ -823,21 +824,25 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				return;
 			}
 
-			case 4:{
-				string origem,destino, datavgm, horavgm;
+			case 4: {
+				string origem, destino, datavgm, horavgm;
 				double distancia = -2;
 				int id_comboio = -2;
 
-				if (f->getNumComboios()==0){
-					cout<<"Nao ha comboios."<<endl;
+				if (f->getNumComboios() == 0) {
+					cout << "Nao ha comboios." << endl;
 					return;
 				}
 				cin.ignore();
 				cin.clear();
-				b->adicionaViagem(adicionaViagem(b, f));
-
-				cout << "Viagem adicionada com sucesso" << endl;
-
+				Viagem *v = adicionaViagem(b, f);
+				if (v != NULL) {
+					b->adicionaViagem(v);
+					cout << "Viagem adicionada com sucesso" << endl;
+				}
+				else {
+					cout << "A viagem nao foi adicionada com sucesso" << endl;
+				}
 				return;
 			}
 				//se relacionado com os maquinista
@@ -868,7 +873,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 			cout << "2 - Adicionar Maquinista" << endl;
 			cout << "3 - Editar Maquinista " << endl;
 			cout << "4 - Eliminar Maquinista " << endl;
-			cout << "5 - Atribui as viagens aos Maquinistas " << endl;
+			cout << "5 - Sobre as viagens dos Maquinistas " << endl;
 			cout << "6 - Sair " << endl;
 
 			menu = menuInput(6);
@@ -965,7 +970,60 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 			return;
 		}
 				//atribui as viagens existentes aos Maquinistas
-		case 5: {
+		case 5: {		
+			menuMaquinistaViagens(f, b, M);
+			return;
+		}
+
+		case 6:
+			return;
+
+		default:
+			return;
+		}
+
+	}
+}
+void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
+
+	int menu = -2;
+
+	while (menu != 3) {
+		while (menu == -2 || menu == -1) {
+			cout << endl << "---Viagens dos Maquinistas---" << endl << endl;
+			cout << "0 - Atribui as viagens existentes aos maquinistas existentes" << endl;
+			cout << "1 - Atribui uma viagem a um Maquinista " << endl;
+			cout << "2 - Elimina uma viagem a um Maquinista" << endl;
+			cout << "3 - Sair " << endl;
+
+			menu = menuInput(3);
+			if (menu == -1)
+				cout << "Erro: Menu nao existe, tente outra vez" << endl;
+
+		}
+
+		switch (menu) {
+			// Limpar dados carregados
+		case 0: {
+			if (b->getNumViagens() == 0) {
+				cout << endl << "Erro: Nao existem viagens" << endl;
+				return;
+			}
+
+			if (M->emptyMaquinistas()) {
+				cout << " Erro : Nao existem maquinistas!" << endl;
+				return;
+			}
+
+			if (M->atribuiViagens(b))
+				cout << "As viagens foram atribuidas" << endl;
+			else
+				cout << "Ocorreu um problema a atribuir as viagens " << endl;
+
+			return;
+		}
+		case 1:
+		{
 			if (b->getNumViagens() == 0) {
 				cout << endl << "Erro: Nao existem viagens" << endl;
 				return;
@@ -996,18 +1054,50 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 
 			M->showMaquinistas();
 			cout << endl << "Sobre  maquinista que quer adicionar viagens " << endl;
-			Maquinista M3 = criaMaquinista();		
-			M->atribuiViagem( &M3, b->getViagem(viagemId));
-							
+			int id;
+			cout << "Qual o id do maquinista (-1 para cancelar)? " << endl;
+			id = userIntInput();
+			if (id == -1)
+				return;
+			Maquinista  M3("", "", id);
+			M->atribuiViagem(&M3, b->getViagem(viagemId));
 			return;
 		}
+		case 2: {
+			if (b->getNumViagens() == 0) {
+				cout << endl << "Erro: Nao existem viagens" << endl;
+				return;
+			}
 
-		case 6:
+			if (M->emptyMaquinistas()) {
+				cout << " Erro : Nao existem maquinistas!" << endl;
+				return;
+			}
+			M->showMaquinistas();
+			cout << endl << "Sobre  maquinista que quer eliminar uma viagem " << endl;
+			int id;
+			cout << "Qual o id do maquinista (-1 para cancelar)? " << endl;
+			id = userIntInput();
+			if (id == -1)
+				return;
+			Maquinista  M3("", "", id);
+			M->showViagensMaquinistas(&M3);
+			cout << "Qual da viagem do maquinista (-1 para cancelar)? " << endl;
+			id = userIntInput();
+			if (id == -1)
+				return;
+			if(M->EliminaViagemDoId(&M3, id))
+				cout << "Viagem eliminada com sucesso " << endl;
+			else
+				cout << "Viagem nao foi eliminada " << endl;
+			return;
+		}
+			
+		case 3:
 			return;
 
 		default:
 			return;
 		}
-
 	}
 }

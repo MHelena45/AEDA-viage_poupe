@@ -135,6 +135,8 @@ public:
 	* 
 	*/
 	bool eliminaViagens();
+
+	bool eliminaViagem(int id);
 	
 	/**
 	* redefinição do operador de igualdade
@@ -276,6 +278,7 @@ public:
 	*/
 	void showMaquinista(Maquinista *M1);
 
+	bool EliminaViagemDoId(Maquinista* M1 , int id);
 	/**
 	*  Mosta as viagens do maquinista passado por argumento. \n
 	*  A um maquinista reformado nao podem estar atribuidas viagens
@@ -302,6 +305,8 @@ public:
 	* @param bilheteira com as viagens a atribuir
 	*/
 	bool atribuiViagens(Bilheteira *b);
+
+	void eliminaViagensDosMAquinistas();
 };
 
 

@@ -11,6 +11,31 @@ Maquinista::Maquinista(string n, string a, int i) : nome(n), apelido(a), id(i) {
 Maquinista::Maquinista(string n, string a, int i, bool atual) : nome(n), apelido(a), id(i) {
 	ativo = atual;
 }
+
+bool Maquinista::eliminaViagem(int id) {
+	vector<Viagem *> via;
+	if (!viagens.size()) {
+		if (!id && viagens.size() > 1) {
+			for (int i = 1; i < viagens.size(); i++) {
+				via.push_back(viagens.at(i));
+			}
+		}
+		else if(id && viagens.size() > 1) {
+			for (int i = 0; i < viagens.size(); i++) {
+				if(i != id)
+					via.push_back(viagens.at(i));
+			}
+		}
+
+		viagens = via;
+		/*for (int i = 0; i < viagens.size(); i++) {
+			cout << viagens.at(i);
+		}*/
+		return true;
+	}
+
+	return false;
+}
 bool Maquinista::eliminaViagens() {
 	if (!viagens.size())
 		return false;
@@ -195,8 +220,8 @@ void Maquinistas::clearMaquinistas() {
 
 bool Maquinistas::emptyMaquinistas() {
 	tabHMaq::const_iterator it;
-	for (it = maquinistas.begin(); it != maquinistas.end(); it++) {
-		if (it->getNome() != "") {
+	for (auto it : this->maquinistas){
+		if (it.getNome() != "") {
 			return false;
 		}
 	}
@@ -262,6 +287,35 @@ void Maquinistas::showMaquinista(Maquinista *M1) {
 	}
 	return;
 }
+
+bool Maquinistas::EliminaViagemDoId(Maquinista* M1 , int id) {
+	vector <Viagem *> via;
+	tabHMaq::const_iterator it;
+	it = maquinistas.find(*M1);
+	Maquinista M2 = *it;
+	if (it != maquinistas.end()) {
+		via = it->getViagens();
+		if (!via.size())
+			if (it->getAtivo()) {
+				cout << "ERRO: Ainda nao existem viagens associadas !! " << endl;
+				return false;
+			}
+			else {
+				cout << "Um maquinista reformado nao tem viagens associadas ! " << endl;
+			}
+		else {
+			maquinistas.erase(M2);
+			if (!M2.eliminaViagem(id))
+				return false;
+			pair<tabHMaq::iterator, bool> res = maquinistas.insert(M2);
+			if (res.second == true)
+				return true;
+
+		}
+	}
+	return false;
+
+}
 bool Maquinistas::showViagensMaquinistas( Maquinista* M1 ) const {
 	vector <Viagem *> via;
 	tabHMaq::const_iterator it;
@@ -271,17 +325,18 @@ bool Maquinistas::showViagensMaquinistas( Maquinista* M1 ) const {
 		if (!via.size())
 			if (it->getAtivo()) {
 				cout << "ERRO: Ainda nao existem viagens associadas !! " << endl;
+				return false;
 			}
 			else {
 				cout << "Um maquinista reformado nao tem viagens associadas ! " << endl;
 			}
 		else {
 			cout << "Viagens atribuidas : " << it->getViagens().size()  << endl << endl;
-			cout << left << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
+			cout << setw(10) << "ID" << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
 				<< "Distancia(KM)" << setw(9) << "Comboio" << setw(13) << "Data"
 				<< setw(8) << "Hora" << setw(16) << "Preco base(€)" << setw(7) << "Vagas" << "\n";
 			for (int i = 0; i < via.size(); i++) {
-				cout << via.at(i)->getInfo();
+				cout << setw(10) << i << setw(10) << via.at(i)->getInfo();
 			}
 		}
 		return true;
@@ -300,36 +355,43 @@ bool Maquinistas::atribuiViagem( Maquinista* M1, Viagem * v) {
 	else return false;
 	
 }
+void Maquinistas::eliminaViagensDosMAquinistas() {
+	for (auto it : this->maquinistas) {
+		if (it.getId() >= 0 && it.getAtivo() && it.getNome() != "" && it.getApelido() != "") {
+			cout << "i";
+			maquinistas.erase(it);
+			it.eliminaViagens();
+			maquinistas.insert(it);
+		}
+	}
+}
 
 bool Maquinistas::atribuiViagens(Bilheteira *b) {
 
 	cout << endl << "Existem atualmente : "<< b->getNumViagens()  << " viagens"<< endl;
 	if (!b->getNumViagens()) return false;
-		
-	bool primeiraVolta = true;
-	int i = 0;
+
+	//elimina todas as viagens atribuidas
+	eliminaViagensDosMAquinistas();
+	cout << "Conseguiu eliminar " << endl;
 	int numViagens = b->getNumViagens();
-	for (; i < numViagens; ){
+	for (int i = 0; i < numViagens; ){
 		//percorre todos os maquinistas
 		for (auto it : this->maquinistas) {
-			if(it.getId() >= 0 || it.getNome() != "")
+			if (it.getId() >= 0 && it.getAtivo()) {
+				//adiciona viagens ao maquinista
 				maquinistas.erase(it);
-				//se o maquinista ja tiver viagens antigas associadas
-				if (primeiraVolta) {
-				it.eliminaViagens();
-			}
-			//adiciona viagens ao maquinista
-			if (it.adicionaViagem(b->getViagem(i))) {
+				if (it.adicionaViagem(b->getViagem(i)))
+					return false;
 				maquinistas.insert(it);
 				i++;
+
+				//se todoas as viagens ja foram atribuidas
+				if (i >= b->getNumViagens())
+					break;
 			}
-			//todoas as viagens ja foram atribuidas
-			if (i >= b->getNumViagens())
-				break;
 		}
-		primeiraVolta = false;
 	}
-	
 	
 	return true;
 }
