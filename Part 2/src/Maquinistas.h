@@ -278,6 +278,13 @@ public:
 	*/
 	void showMaquinista(Maquinista *M1);
 
+	/**
+	* elimina uma vigem do maquinista passado no parametro 1 \n
+	* A operacao pode nao ser sucedida se o maquinista nao existe ou se a viagens nao existe
+	* @param maquinista queremos eliminar uma viagem
+	*  @param  posicao no vetor de viagens do maquinista
+	* @return sucesso ou nao da operacao
+	*/
 	bool EliminaViagemDoId(Maquinista* M1 , int id);
 	/**
 	*  Mosta as viagens do maquinista passado por argumento. \n
@@ -300,13 +307,6 @@ public:
 	*/
 	bool atribuiViagem( Maquinista* M1, Viagem * v);
 
-	/**
-	* atribuir as viagens existentes aos mquinistas existentes
-	* @param bilheteira com as viagens a atribuir
-	*/
-	bool atribuiViagens(Bilheteira *b);
-
-	void eliminaViagensDosMAquinistas();
 };
 
 

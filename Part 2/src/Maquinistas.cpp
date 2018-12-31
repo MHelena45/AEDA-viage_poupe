@@ -13,28 +13,15 @@ Maquinista::Maquinista(string n, string a, int i, bool atual) : nome(n), apelido
 }
 
 bool Maquinista::eliminaViagem(int id) {
+	if (id >= viagens.size()) return false;
 	vector<Viagem *> via;
-	if (!viagens.size()) {
-		if (!id && viagens.size() > 1) {
-			for (int i = 1; i < viagens.size(); i++) {
-				via.push_back(viagens.at(i));
-			}
-		}
-		else if(id && viagens.size() > 1) {
-			for (int i = 0; i < viagens.size(); i++) {
-				if(i != id)
-					via.push_back(viagens.at(i));
-			}
-		}
-
-		viagens = via;
-		/*for (int i = 0; i < viagens.size(); i++) {
-			cout << viagens.at(i);
-		}*/
-		return true;
+	for (int i = 0; i < viagens.size(); i++) {
+		if (i != id)
+			via.push_back(viagens.at(i));
 	}
+	viagens = via;
 
-	return false;
+	return true;
 }
 bool Maquinista::eliminaViagens() {
 	if (!viagens.size())
@@ -343,6 +330,7 @@ bool Maquinistas::showViagensMaquinistas( Maquinista* M1 ) const {
 	}
 	return false;
 }
+
 bool Maquinistas::atribuiViagem( Maquinista* M1, Viagem * v) {
 	tabHMaq::const_iterator it;
 	it = maquinistas.find(*M1);
@@ -355,44 +343,6 @@ bool Maquinistas::atribuiViagem( Maquinista* M1, Viagem * v) {
 	else return false;
 	
 }
-void Maquinistas::eliminaViagensDosMAquinistas() {
-	for (auto it : this->maquinistas) {
-		if (it.getId() >= 0 && it.getAtivo() && it.getNome() != "" && it.getApelido() != "") {
-			cout << "i";
-			maquinistas.erase(it);
-			it.eliminaViagens();
-			maquinistas.insert(it);
-		}
-	}
-}
 
-bool Maquinistas::atribuiViagens(Bilheteira *b) {
 
-	cout << endl << "Existem atualmente : "<< b->getNumViagens()  << " viagens"<< endl;
-	if (!b->getNumViagens()) return false;
-
-	//elimina todas as viagens atribuidas
-	eliminaViagensDosMAquinistas();
-	cout << "Conseguiu eliminar " << endl;
-	int numViagens = b->getNumViagens();
-	for (int i = 0; i < numViagens; ){
-		//percorre todos os maquinistas
-		for (auto it : this->maquinistas) {
-			if (it.getId() >= 0 && it.getAtivo()) {
-				//adiciona viagens ao maquinista
-				maquinistas.erase(it);
-				if (it.adicionaViagem(b->getViagem(i)))
-					return false;
-				maquinistas.insert(it);
-				i++;
-
-				//se todoas as viagens ja foram atribuidas
-				if (i >= b->getNumViagens())
-					break;
-			}
-		}
-	}
-	
-	return true;
-}
 

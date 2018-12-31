@@ -280,9 +280,14 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 			}
 			cout << endl;
 			M->showMaquinistas();
-			Maquinista M1 = criaMaquinista();
-			if (!M->showViagensMaquinistas(&M1))
-				cout << "Maquinista nao encontrado!" << endl;
+			int id;
+			cout << endl << "Qual o id do maquinista (-1 para cancelar)? " << endl;
+			id = userIntInput();
+			if (id == -1)
+				return;
+			Maquinista  M1("", "", id);
+			cout << endl;
+			M->showViagensMaquinistas(&M1);
 			break;
 		}
 			
@@ -991,7 +996,7 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 	while (menu != 3) {
 		while (menu == -2 || menu == -1) {
 			cout << endl << "---Viagens dos Maquinistas---" << endl << endl;
-			cout << "0 - Atribui as viagens existentes aos maquinistas existentes" << endl;
+			cout << "0 - Update de uma viagem de um maquinista" << endl;
 			cout << "1 - Atribui uma viagem a um Maquinista " << endl;
 			cout << "2 - Elimina uma viagem a um Maquinista" << endl;
 			cout << "3 - Sair " << endl;
@@ -1014,12 +1019,50 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 				cout << " Erro : Nao existem maquinistas!" << endl;
 				return;
 			}
-
-			if (M->atribuiViagens(b))
-				cout << "As viagens foram atribuidas" << endl;
+			M->showMaquinistas();
+			cout << endl << "Sobre  maquinista que quer eliminar uma viagem " << endl;
+			int id;
+			cout << "Qual o id do maquinista (-1 para cancelar)? " << endl;
+			id = userIntInput();
+			if (id == -1)
+				return;
+			Maquinista  M3("", "", id);
+			M->showViagensMaquinistas(&M3);
+			cout << "Qual da viagem do maquinista (-1 para cancelar)? " << endl;
+			id = userIntInput();
+			if (id == -1)
+				return;
+			if (M->EliminaViagemDoId(&M3, id))
+				cout << "Viagem eliminada com sucesso " << endl;
 			else
-				cout << "Ocorreu um problema a atribuir as viagens " << endl;
+				cout << "Viagem nao foi eliminada " << endl;
+			int viagemId = -2;
 
+			cout << "Lista de Viagens" << endl << endl;
+			cout << endl << b->getInfo();
+			while (viagemId >= b->getNumViagens() || viagemId < -1) {
+
+				cout << endl << "Escolha o id da viagem que quer adicionar ao maquinista (-1 para cancelar):";
+				viagemId = userIntInput();
+				cout << endl;
+
+				if (viagemId == -1)
+					return;
+
+				if ((viagemId >= b->getNumViagens() || viagemId < -1) && viagemId != -200) {
+					cout << endl << "Erro: Esta viagem nao existe, tente outra vez " << endl;
+				}
+			}
+
+			M->showMaquinistas();
+			cout << endl << "Sobre  maquinista que quer adicionar viagens " << endl;
+			int id;
+			cout << "Qual o id do maquinista (-1 para cancelar)? " << endl;
+			id = userIntInput();
+			if (id == -1)
+				return;
+			Maquinista  M3("", "", id);
+			M->atribuiViagem(&M3, b->getViagem(viagemId));
 			return;
 		}
 		case 1:
