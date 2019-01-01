@@ -136,7 +136,7 @@ void Frota::loadComboios(){
 		mfile.ignore(1);
 		mfile >> precoKM;
 
-		if (tipo == "IC")
+		if (tipo == "IC" || tipo == "ic" || tipo == "Ic" || tipo == "iC")
 			c1 = new Intercidades (lotacao, velocidade, precoKM, nome);
 		else c1 = new AlfaPendular (lotacao, velocidade, precoKM, nome);
 

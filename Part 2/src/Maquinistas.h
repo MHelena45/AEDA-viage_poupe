@@ -30,7 +30,7 @@ public:
 	* @param identificacao do maquinistas
 	* @param se o maqinista está atualmente ao serviço ou não
 	*/
-	Maquinista(string nome, string apelido, int id, bool atual);
+	Maquinista(string nome, string apelido, int id, int atual);
 	
 	/**
 	* Construtor:
@@ -270,6 +270,8 @@ public:
 	*  Na respetiva ordem, número de identificação, nome
 	*/
 	void showMaquinistas();
+
+	void showMaquinistaseViagens();
 
 	/**
 	*  Mosta o maquinista passado por argumento. \n

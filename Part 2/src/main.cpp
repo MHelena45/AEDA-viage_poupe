@@ -15,11 +15,11 @@ int main(){
 		while (menu == -2){
 
 			cout << endl << "---MENU INICIAL---" << endl << endl;
-			cout << "0 - Informacao" << endl;
-			cout << "1 - Passageiro sem cartao" << endl;
-			cout << "2 - Passageiro com cartao" << endl;
-			cout << "3 - Administracao" << endl;
-			cout << "4 - Sair" << endl;
+			cout << " 0 - Informacao" << endl;
+			cout << " 1 - Passageiro sem cartao" << endl;
+			cout << " 2 - Passageiro com cartao" << endl;
+			cout << " 3 - Administracao" << endl;
+			cout << " 4 - Sair" << endl;
 
 		menu = menuInput(4);
 		if (menu == -1)

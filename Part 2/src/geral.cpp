@@ -223,17 +223,18 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 
 	int menu = -2;
 
-	while (menu != 3){
+	while (menu != 5){
 		while (menu == -2 || menu == -1){
 			cout << endl << "---Informacao---" << endl << endl;
 
-			cout << endl << "0 - Lista de Comboios" << endl;
-			cout << "1 - Lista de Viagens" << endl;
-			cout << "2 - Lista de Maquinistas " << endl;
-			cout << "3-  Viagens atribuidas a um maquinista " << endl;
-			cout << "4 - Sair" << endl;
+			cout << " 0 - Lista de Comboios" << endl;
+			cout << " 1 - Lista de Viagens" << endl;
+			cout << " 2 - Lista de Maquinistas " << endl;
+			cout << " 3 - Lista de Maquinistas e suas repetivas viagens " << endl;
+			cout << " 4 - Lista de viagens atribuidas a um maquinista " << endl;
+			cout << " 5 - Sair" << endl;
 
-			menu = menuInput(4);
+			menu = menuInput(5);
 			if (menu == -1)
 				cout << "Erro: Menu nao existe, tente outra vez" << endl;
 
@@ -241,7 +242,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 		switch (menu){
 		case 0:
 
-			menu = 3;
+			menu = 5;
 
 			if (f->getNumComboios() == 0){
 				cout << endl << "Erro: Nao existem comboios" << endl;
@@ -253,27 +254,39 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 
 			break;
 		case 1:
-			menu = 3;
+		{
+			menu = 5;
 
-			if (b->getNumViagens() == 0){
+			if (b->getNumViagens() == 0) {
 				cout << endl << "Erro: Nao existem viagens" << endl;
 				break;
 			}
 			cout << endl << "Lista de Viagens" << endl << endl;
 			cout << b->getInfo();
 			break;
-		case 2: 
-			menu = 3;
-			if (M->emptyMaquinistas() ) {
+		case 2:
+			menu = 5;
+			if (M->emptyMaquinistas()) {
 				cout << endl << "Erro: Nao existem Maquinistas" << endl;
 				break;
 			}
 
-			cout << "Lista de Maquinistas " << endl;	
+			cout << "Lista de Maquinistas " << endl;
 			M->showMaquinistas();
 			break;
+		}
 		case 3: {
-			menu = 3;
+			menu = 5;
+			if (M->emptyMaquinistas()) {
+				cout << endl << "Erro: Nao existem Maquinistas" << endl;
+				break;
+			}
+			cout << "Lista de Maquinistas " << endl;
+			M->showMaquinistaseViagens();
+			break;
+		}
+		case 4: {
+			menu = 5;
 			if (M->emptyMaquinistas()) {
 				cout << endl << "Erro: Nao existem Maquinistas" << endl;
 				break;
@@ -292,7 +305,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 		}
 			
 
-		case 4:
+		case 5:
 			return;
 		default:
 			return;
@@ -310,10 +323,10 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 		while (menu == -2 || menu == -1){
 
 		cout << endl << "---Passageiro sem Cartao---" << endl << endl;
-		cout << endl << "0 - Comprar Bilhete" << endl;
-		cout << "1 - Devolver Bilhete" << endl;
-		cout << "2 - Subscrever a um cartao" << endl;
-		cout << "3 - Sair" << endl;
+		cout << endl << " 0 - Comprar Bilhete" << endl;
+		cout << " 1 - Devolver Bilhete" << endl;
+		cout << " 2 - Subscrever a um cartao" << endl;
+		cout << " 3 - Sair" << endl;
 
 		menu = menuInput(3);
 
@@ -517,12 +530,12 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 
 		while (menu == -2 || menu == -1){
 			if (!skip){
-				cout << endl << "0 - Comprar Bilhete" << endl;
-				cout << "1 - Devolver Bilhete" << endl;
-				cout << "2 - Alterar cartao subscrito" << endl;
-				cout << "3 - Remover subscricao" << endl;
-				cout << "4 - Historico de Viagens" << endl;
-				cout << "5 - Sair" << endl << endl;
+				cout << endl << " 0 - Comprar Bilhete" << endl;
+				cout << " 1 - Devolver Bilhete" << endl;
+				cout << " 2 - Alterar cartao subscrito" << endl;
+				cout << " 3 - Remover subscricao" << endl;
+				cout << " 4 - Historico de Viagens" << endl;
+				cout << " 5 - Sair" << endl << endl;
 
 				menu = menuInput(5);
 				if (menu == -1)
@@ -681,13 +694,13 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 		while (menu !=  6){
 			while (menu == -2 || menu == -1){
 				cout << endl << "---Administracao---" << endl << endl;
-				cout << endl << "0 - Guardar Dados" << endl;
-				cout << "1 - Carregar Dados" << endl;
-				cout << "2 - Adicionar Comboios" << endl;
-				cout << "3 - Adicionar Cartoes" << endl;
-				cout << "4 - Adicionar Viagens" << endl;
-				cout << "5 - Maquinistas" << endl;
-				cout << "6 - Sair" << endl;
+				cout << " 0 - Guardar Dados" << endl;
+				cout << " 1 - Carregar Dados" << endl;
+				cout << " 2 - Adicionar Comboios" << endl;
+				cout << " 3 - Adicionar Cartoes" << endl;
+				cout << " 4 - Adicionar Viagens" << endl;
+				cout << " 5 - Maquinistas" << endl;
+				cout << " 6 - Sair" << endl;
 
 				menu = menuInput(6);
 				if (menu == -1)
@@ -873,13 +886,13 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 	while (menu != 6) {
 		while (menu == -2 || menu == -1) {
 			cout << endl << "---Maquinistas---" << endl << endl;
-			cout << "0 - Limpar dados carregados " << endl;
-			cout << "1 - Reformar/ Recontratar um Maquinista " << endl;
-			cout << "2 - Adicionar Maquinista" << endl;
-			cout << "3 - Editar Maquinista " << endl;
-			cout << "4 - Eliminar Maquinista " << endl;
-			cout << "5 - Sobre as viagens dos Maquinistas " << endl;
-			cout << "6 - Sair " << endl;
+			cout << " 0 - Limpar dados carregados " << endl;
+			cout << " 1 - Reformar/ Recontratar um Maquinista " << endl;
+			cout << " 2 - Adicionar Maquinista" << endl;
+			cout << " 3 - Editar Maquinista " << endl;
+			cout << " 4 - Eliminar Maquinista " << endl;
+			cout << " 5 - Sobre as viagens dos Maquinistas " << endl;
+			cout << " 6 - Sair " << endl;
 
 			menu = menuInput(6);
 			if (menu == -1)
@@ -907,7 +920,12 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 			else {
 				M->showMaquinistas();
 				cout << endl << "Sobre o Maquinista a alterar o estado " << endl;
-				Maquinista M1 = criaMaquinista();
+				int id;
+				cout << "Qual o id do maquinista (-1 para cancelar)? " << endl;
+				id = userIntInput();
+				if (id == -1)
+					return;
+				Maquinista  M1("", "", id);
 				if (M->alteraEstado(&M1))
 					cout << endl << "Estado alterado !" << endl;
 				else
@@ -996,10 +1014,10 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 	while (menu != 3) {
 		while (menu == -2 || menu == -1) {
 			cout << endl << "---Viagens dos Maquinistas---" << endl << endl;
-			cout << "0 - Update de uma viagem de um maquinista" << endl;
-			cout << "1 - Atribui uma viagem a um Maquinista " << endl;
-			cout << "2 - Elimina uma viagem a um Maquinista" << endl;
-			cout << "3 - Sair " << endl;
+			cout << " 0 - Update de uma viagem de um maquinista" << endl;
+			cout << " 1 - Atribui uma viagem a um Maquinista " << endl;
+			cout << " 2 - Elimina uma viagem a um Maquinista" << endl;
+			cout << " 3 - Sair " << endl;
 
 			menu = menuInput(3);
 			if (menu == -1)
@@ -1104,7 +1122,9 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 			if (id == -1)
 				return;
 			Maquinista  M3("", "", id);
-			M->atribuiViagem(&M3, b->getViagem(viagemId));
+			if (M->atribuiViagem(&M3, b->getViagem(viagemId)))
+				cout << "Viagem atribuida " << endl;
+			else cout << "ERRO: Viagem nao atribuida " << endl;
 			return;
 		}
 		case 2: {

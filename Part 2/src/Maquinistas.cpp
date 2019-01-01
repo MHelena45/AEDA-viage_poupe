@@ -8,7 +8,8 @@ Maquinista::Maquinista(string n, string a, int i, vector<Viagem *> v) : nome(n),
 Maquinista::Maquinista(string n, string a, int i) : nome(n), apelido(a), id(i) {
 	ativo = true;
 }
-Maquinista::Maquinista(string n, string a, int i, bool atual) : nome(n), apelido(a), id(i) {
+Maquinista::Maquinista(string n, string a, int i, int atual) : nome(n), apelido(a)
+{
 	ativo = atual;
 }
 
@@ -64,15 +65,13 @@ bool Maquinistas::alteraEstado(Maquinista *M1) {
 	if (it == maquinistas.end()) {
 		return false;
 	}
+	Maquinista M2(it->getNome(), it->getApelido(), it->getId(), !it->getAtivo());
 	maquinistas.erase(it);
 	//se se vai reforma, apagar viagens atribuidas
-	if (M1->getAtivo()) {
-		M1->eliminaViagens();
+	if (!M2.getAtivo()) {
+		M2.eliminaViagens();
 	}
-
-	M1->alteraEstado();
-
-	pair<tabHMaq::iterator, bool> res = maquinistas.insert(*M1);
+	pair<tabHMaq::iterator, bool> res = maquinistas.insert(M2);
 	if (res.second == true)
 		return true;
 }
@@ -248,15 +247,38 @@ unsigned int Maquinistas::numeroDeMaquinistas() {
 
 void Maquinistas::showMaquinistas() {
 	cout << "ESTADO" << setw(10) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
+	for (auto it : this->maquinistas) {
+		if (it.getAtivo()) {
+			cout << "Ativo" << setw(11) << it.getId() << setw(15) << it.getNome() << setw(15) << it.getApelido() << endl;
+		}
+		else {
+			cout << "Reformado" << setw(7) << it.getId() << setw(15) << it.getNome() << setw(15) << it.getApelido() << endl;
+		}
+	}
+}
+
+void Maquinistas::showMaquinistaseViagens() {
+	vector <Viagem *> via;
+	cout << "ESTADO" << setw(10) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
 	for (auto it : this->maquinistas  ) {
 		if (it.getAtivo()) {
 			cout << "Ativo" << setw(11) << it.getId() << setw(15) << it.getNome() << setw(15) << it.getApelido() << endl;
 		}
 		else {
-			cout << "Reformado" << setw(6)<<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl;
+			cout << "Reformado" << setw(8)<<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl << endl;
+		}
+		via = it.getViagens();
+		if (via.size()){
+			cout << setw(10) << "ID" << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
+				<< "Distancia(KM)" << setw(9) << "Comboio" << setw(13) << "Data"
+				<< setw(8) << "Hora" << setw(16) << "Preco base(€)" << setw(7) << "Vagas" << "\n";
+				for (int i = 0; i < via.size(); i++) {
+					cout << setw(10) << i << "   ";
+					cout << via.at(i)->getInfo();
+				}
+				cout << endl;
 		}
 	}	
-	return;
 }
 
 void Maquinistas::showMaquinista(Maquinista *M1) {
@@ -271,6 +293,7 @@ void Maquinistas::showMaquinista(Maquinista *M1) {
 			cout << "Reformado" << setw(6);
 		}
 		cout << it->getId() << setw(15) << it->getNome() << setw(15) << it->getApelido() << endl;
+
 	}
 	return;
 }
@@ -335,12 +358,17 @@ bool Maquinistas::atribuiViagem( Maquinista* M1, Viagem * v) {
 	tabHMaq::const_iterator it;
 	it = maquinistas.find(*M1);
 	Maquinista M2 = *it;
-	maquinistas.erase(M2);
-	M2.adicionaViagem(v);
-	pair<tabHMaq::iterator, bool> res = maquinistas.insert(M2);
-	if (res.second == true)
-		return true;
-	else return false;
+
+	//so pode atribuir viegens a maquinistas que estejam ativos
+	if (M1->getAtivo()) {
+		maquinistas.erase(M2);
+		M2.adicionaViagem(v);
+		pair<tabHMaq::iterator, bool> res = maquinistas.insert(M2);
+		if (res.second == true)
+			return true;
+	}
+	return false;
+
 	
 }
 
