@@ -136,6 +136,11 @@ public:
 	*/
 	bool eliminaViagens();
 
+	/**
+	* elimina uma viagem associada a um maquinista. \n
+	* @param id da viagens, que coicide com a posicao no vetor de viagens
+	* @return sucesso na eliminacao da viagem
+	*/
 	bool eliminaViagem(int id);
 	
 	/**
@@ -271,6 +276,11 @@ public:
 	*/
 	void showMaquinistas();
 
+	/**
+	*  Mosta todos os maquinistas que se encontram na tabela de dispersão e as suas viagens associadas. \n
+	*	Se o maquinistas estiver reformado tem um estado que o indica. Quando uma maquinista ainda nao
+	*  tem viagens associadas, quer seja por ser novo ou ser reformado, a lista de maquinistas continua.
+	*/
 	void showMaquinistaseViagens();
 
 	/**

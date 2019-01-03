@@ -8,7 +8,8 @@ Maquinista::Maquinista(string n, string a, int i, vector<Viagem *> v) : nome(n),
 Maquinista::Maquinista(string n, string a, int i) : nome(n), apelido(a), id(i) {
 	ativo = true;
 }
-Maquinista::Maquinista(string n, string a, int i, int atual) : nome(n), apelido(a)
+
+Maquinista::Maquinista(string n, string a, int i, int atual) : nome(n), apelido(a), id(i)
 {
 	ativo = atual;
 }
@@ -89,13 +90,16 @@ bool Maquinistas::loadMaquinistas(Frota *f, string nome) {
 		maqfile >> id;	
 		maqfile.ignore(1);
 		maqfile >> Pnome;	
+		
 		if (Pnome == "" )
 			break;
 		vazio = false;
 		getline(maqfile, apelidos);
 		maqfile >> numViagens;
-		Maquinista M1(Pnome, apelidos, id, estado);
 		maqfile.ignore(1);
+		Maquinista M1(Pnome, apelidos, id);
+		if (!estado)
+			M1.alteraEstado();
 		while(numViagens) {
 			numViagens--;
 			string origem, destino;
@@ -156,8 +160,10 @@ bool Maquinistas::loadMaquinistas(Frota *f, string nome) {
 			M1.adicionaViagem(temp);
 		}
 		
-		if (!adicionaMaquinista(&M1))
+		if (!adicionaMaquinista(&M1)) {
 			sucedido = false;
+		}
+			
 	}
 	if (vazio) {
 		cout << "O ficheiro de maquinistas está vazio! " << endl;
@@ -269,14 +275,14 @@ void Maquinistas::showMaquinistaseViagens() {
 		}
 		via = it.getViagens();
 		if (via.size()){
+			cout << endl;
 			cout << setw(10) << "ID" << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
 				<< "Distancia(KM)" << setw(9) << "Comboio" << setw(13) << "Data"
 				<< setw(8) << "Hora" << setw(16) << "Preco base(€)" << setw(7) << "Vagas" << "\n";
-				for (int i = 0; i < via.size(); i++) {
-					cout << setw(10) << i << "   ";
-					cout << via.at(i)->getInfo();
-				}
-				cout << endl;
+			for (int i = 0; i < via.size(); i++) {
+				cout << setw(10) << i << setw(10) << via.at(i)->getInfo();
+			}
+			cout << endl;
 		}
 	}	
 }
