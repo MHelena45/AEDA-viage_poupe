@@ -1,4 +1,5 @@
 #include "comboios.h"
+#include "geral.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ Comboio::Comboio(int numPassageiros, int velocidade, double precoKM, string nome
 	this->precoKM = precoKM;
 	this->nome = nome;
 	id = 0;
+	avariado = false;
 }
 
  // Acessors
@@ -31,10 +33,54 @@ string Comboio::getNome() const{ return nome;}
 
 unsigned int Comboio::getId() const{return id;}
 
+Paragem Comboio::getUltimaParagem() const { return ultimaParagem; }
+
+bool Comboio::getAvariado() const {return avariado;}
+
+Oficina* Comboio::getOficina() const {return ofic;}
+
+double Comboio::getDataUltimaAvaria() const {return dataUltimaAvaria;}
+
 //Outros
 
 void Comboio::setId(int id){this->id = id;}
 
+void Comboio::setUltimaParagem(Paragem &p1){this->ultimaParagem = p1;}
+
+void Comboio::setAvaria(priority_queue<Oficina *> oficinas, double distmaxima){
+
+	if (this->getAvariado())
+		return;
+
+	priority_queue <Oficina *> temp = oficinas;
+
+	Horas *tempHora = getHoraActual();
+	Datas *tempData = getDataActual();
+	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
+
+	unsigned int i;
+	unsigned int size = temp.size();
+
+	for (i = 0; i < size; i++){
+		double dist = this->getUltimaParagem().distancia(temp.top()->getLatitude() ,temp.top()->getLongitude());
+		if ( dist < distmaxima){
+			ofic = temp.top();
+			temp.top()->setDisponibilidade(temp.top()->getDisponibilidade() + 3);
+			this->dataUltimaAvaria = horasActual;
+			break;
+		}
+		else temp.pop();
+	}
+
+	if (i == size)
+		cout << "Nenhuma oficina está disponivel" << endl;
+
+
+}
+
+void Comboio::setOficina(Oficina *o1) { ofic = o1; };
+
+void Comboio::setAvariado(bool avariado) { this->avariado = avariado; }
 
 /*
  * Metodos da class AlfaPendular
@@ -78,15 +124,22 @@ Frota::~Frota(){
 
 //Acessors
 
-string Frota::getInformacao() const{
+string Frota::getInformacao() {
+	this->updateManuntencao();
+
 	stringstream ss;
 	ss << "ID" << setw(7) << "Nome" << setw(7) << "Tipo" << setw(9) << "Lotacao"
-			<< setw(12) << "Velocidade"	<< setw(15) << "Preco por Km" << "\n";
+			<< setw(12) << "Velocidade"	<< setw(15) << "Preco por Km" << setw(17) <<"Ultima Paragem" << setw(10)
+			<< "Avariado" << setw(10) << "Oficina" <<"\n";
 				for (unsigned int i = 0; i < comboios.size();i++){
 					ss << i << setw(6) << comboios.at(i)->getNome() << setw(7) << comboios.at(i)->getTipo()
 							<< setw(9) << comboios.at(i)->getLotacao() << setw(8);
 					ss << comboios.at(i)->getVelocidade() << " km/h" << setw(12)
-							<< comboios.at(i)->getPrecoKM() << "€" << "\n";
+							<< comboios.at(i)->getPrecoKM() << "€" << setw(17) << comboios.at(i)->getUltimaParagem().getNome();
+					if (comboios.at(i)->getAvariado()){
+						ss << setw(10) << "Sim" << setw(10) << comboios.at(i)->getOficina()->getNome() << endl;
+					}
+					else ss << setw(10) << "Nao" << endl;
 				}
 
 	return ss.str();
@@ -157,5 +210,23 @@ void Frota::saveComboios() const{
 
 	mfile.close();
 }
+
+void Frota::updateManuntencao(){
+
+	Horas *tempHora = getHoraActual();
+	Datas *tempData = getDataActual();
+	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
+
+	for (unsigned int i = 0; i < comboios.size(); i++){
+		if (comboios.at(i)->getAvariado()){
+			if (horasActual > comboios.at(i)->getDataUltimaAvaria() + 72){
+				comboios.at(i)->setAvariado(false);
+				Oficina * temp = comboios.at(i)->getOficina();
+				temp->setDisponibilidade(temp->getDisponibilidade() - 3);
+			}
+		}
+	}
+}
+
 
 

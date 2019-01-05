@@ -113,7 +113,7 @@ public:
 	/**
 	 * @return Informacao sobre todas as viagens numa string em forma de tabela
 	 */
-	std::string getInfo();
+	std::string getInfo(Paragens *p);
 
 	/**
 	 * @param v1 Apontador para viagem a adicionar
@@ -123,15 +123,15 @@ public:
 	 * Atualiza as viagens e elimina as viagens que ja inciaram. \n
 	 * Ordena o vector das viagens por ordem de partida
 	 */
-	void updateViagens();
+	void updateViagens(Paragens *p);
 	/**
 	 * Abre "viagens.txt" e adiciona as viagens a bilheteira
 	 */
-	void loadViagens();
+	void loadViagens(Paragens *p);
 	/**
 	 * Guarda as viagens da bilheteira em "viagens.txt"
 	 */
-	void saveViagens();
+	void saveViagens(Paragens *p);
 };
 
 

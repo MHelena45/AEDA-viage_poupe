@@ -2,6 +2,7 @@
 #define _COMBOIOS_H
 
 #include "datashoras.h"
+#include "locais.h"
 
 /**
  * CLASS COMBOIO\n
@@ -16,6 +17,10 @@ protected:
 	double precoKM;
 	std::string nome;
 	unsigned int id;
+	Paragem ultimaParagem;
+	bool avariado;
+	Oficina *ofic;
+	double dataUltimaAvaria;
 public:
 	/**
 	 * Construtor de comboio
@@ -50,6 +55,22 @@ public:
 	 */
 	unsigned int getId() const;
 	/**
+	 * @return Ultima paragem do comboio
+	 */
+	Paragem getUltimaParagem() const;
+	/**
+	 * @return Estado funcional do comboio
+	 */
+	bool getAvariado() const;
+	/**
+	 * @return Ultima oficina que serviu o comboio
+	 */
+	Oficina* getOficina() const;
+	/**
+	 * @return Data da ultima avaria
+	 */
+	double getDataUltimaAvaria() const;
+	/**
 	 * Destrutor virtual \n
 	 */
 	virtual ~Comboio(){};
@@ -57,6 +78,22 @@ public:
 	 * @param id Atribuir id
 	 */
 	void setId(int id);
+	/**
+	 * @param id Atribuir estado do comboio
+	 */
+	void setAvariado(bool avariado);
+	/**
+	 * @param p1 Atribuir ultima Paragem
+	 */
+	void setUltimaParagem(Paragem &p1);
+	/**
+	 * @param oficinas oficinas disponiveis
+	 */
+	void setAvaria(std::priority_queue<Oficina *> oficinas, double distmaxima);
+	/**
+	 * @param p1 Atribuir uma oficina
+	 */
+	void setOficina(Oficina *o1);
 	/**
 	 * Faz overload ao operador de saida para dar output da informacao do comboio em
 	 * forma de tabela
@@ -139,7 +176,7 @@ public:
 	/**
 	 * @return Informacao dos comboios numa string em forma de tabela
 	 */
-	std::string getInformacao() const;
+	std::string getInformacao();
 	/**
 	 * @param id ID do comboio
 	 * @return Apontador para comboio com esse id
@@ -161,6 +198,10 @@ public:
 	 * Guarda os comboios da frota em "comboios.txt"
 	 */
 	void saveComboios() const;
+	/**
+	 * @brief Verifica e atualiza comboios em manuntecao
+	 */
+	void updateManuntencao();
 };
 
 

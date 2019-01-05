@@ -104,8 +104,8 @@ Viagem* Bilheteira::getViagem(int id) {
 	}
 	return viagens.at(id); }
 
-string Bilheteira::getInfo() {
-	updateViagens();
+string Bilheteira::getInfo(Paragens *p) {
+	updateViagens(p);
 	stringstream ss;
 
 	ss << left << "id  " << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
@@ -125,7 +125,7 @@ void Bilheteira::adicionaViagem(Viagem *v1) {
 	viagens.push_back(v1); 
 }
 
-void Bilheteira::updateViagens() {
+void Bilheteira::updateViagens(Paragens *p) {
 
 	//Remove viagens ja inciadas do vector
 
@@ -136,6 +136,10 @@ void Bilheteira::updateViagens() {
 		float horasViagem = viagens.at(i)->getDataPartida()->getTotalHours() + viagens.at(i)->getHorasPartida()->getTotalHours();
 		if (horasActual > horasViagem) {
 			if (!(viagens.at(i)->compraRegisto())) {
+				Paragem temp = p->findParagem(viagens.at(i)->getDestino());
+				viagens.at(i)->getComboio()->setUltimaParagem(temp);
+
+
 				delete viagens.at(i);
 				viagens.erase(viagens.begin() + i);
 
@@ -163,7 +167,7 @@ void Bilheteira::updateViagens() {
 	}
 }
 
-void Bilheteira::loadViagens() {
+void Bilheteira::loadViagens(Paragens *p) {
 	ifstream mfile;
 
 	mfile.open("viagens.txt");
@@ -238,11 +242,11 @@ void Bilheteira::loadViagens() {
 	}
 
 	mfile.close();
-	updateViagens();
+	updateViagens(p);
 }
 
-void Bilheteira::saveViagens() {
-	updateViagens();
+void Bilheteira::saveViagens(Paragens *p) {
+	updateViagens(p);
 	ofstream mfile;
 
 	mfile.open("viagens.txt");

@@ -111,15 +111,22 @@ Maquinista criaMaquinista() {
 	return M1;
 }
 
-Viagem*  adicionaViagem(Bilheteira *b, Frota *f) {
+Viagem*  adicionaViagem(Bilheteira *b, Frota *f, Paragens *p) {
 	string origem, destino, datavgm, horavgm;
 	double distancia = -2;
 	int id_comboio = -2;
+	int par;
 	cout << endl << "---Criacao de viagem---" << endl;
 	cout << endl << "Origem:";
-	origem = nomeValido();
-	cout << endl << "Destino:";
-	destino = nomeValido();
+	p->printParagens();
+	cout << endl << "Escolha a paragem de origem:";
+	par = userIntInput();
+	origem = p->getParagem(par).getNome();
+	cout << endl << endl << "Destino:";
+	p->printParagens();
+	cout << endl << "Escolha a paragem de destino:";
+	par = userIntInput();
+	destino = p->getParagem(par).getNome();
 	cout << endl;
 	while (distancia < 0) {
 		cout << "Insira a distancia da viagem (-1 para cancelar): ";
@@ -174,7 +181,7 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f) {
 	cout << endl << f->getInformacao() << endl;
 
 
-	while (id_comboio < 0 || id_comboio >= f->getNumComboios()) {
+	while (id_comboio < 0 || id_comboio >= f->getNumComboios() || f->getComboio(id_comboio)->getAvariado()) {
 		cout << "Insira o Comboio que vai efectuar a viagem (-1 para cancelar): ";
 		id_comboio = userIntInput();
 		cout << endl;
@@ -185,6 +192,9 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f) {
 		if ((id_comboio < -1 || id_comboio >= f->getNumComboios()) && id_comboio != -200)
 			cout << "Erro: Este comboio nao existe" << endl;
 
+		if (f->getComboio(id_comboio)->getAvariado())
+			cout << "Este Comboio esta em manuntençao na oficina: " << f->getComboio(id_comboio)->getOficina()->getNome();
+
 	}
 
 	Comboio *c = f->getComboio(id_comboio);
@@ -193,14 +203,14 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f) {
 	return v;
 }
 
-bool adicionaViagensAMaquinista(Frota *f, Bilheteira *b, Maquinista *M1) {
+bool adicionaViagensAMaquinista(Frota *f, Bilheteira *b, Maquinista *M1, Paragens *p) {
 	bool sucedido = true;
 	int n = 0;
 	cout << "Quantas viagens associadas ? " << endl;
 	n = userIntInput();
 
 	while (n) {
-		Viagem* via = adicionaViagem(b, f);
+		Viagem* via = adicionaViagem(b, f, p);
 		if (via != NULL) {
 			M1->adicionaViagem(via);
 		}
@@ -219,11 +229,11 @@ bool adicionaViagensAMaquinista(Frota *f, Bilheteira *b, Maquinista *M1) {
 
 //			INFORMACAO
 
-void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
+void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p, Oficinas *o){
 
 	int menu = -2;
 
-	while (menu != 5){
+	while (menu != 7){
 		while (menu == -2 || menu == -1){
 			cout << endl << "---Informacao---" << endl << endl;
 
@@ -232,9 +242,11 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 			cout << " 2 - Lista de Maquinistas " << endl;
 			cout << " 3 - Lista de Maquinistas e suas repetivas viagens " << endl;
 			cout << " 4 - Lista de viagens atribuidas a um maquinista " << endl;
-			cout << " 5 - Sair" << endl;
+			cout << " 5 - Lista de Paragens " << endl;
+			cout << " 6 - Lista de Oficinas " << endl;
+			cout << " 7 - Sair" << endl;
 
-			menu = menuInput(5);
+			menu = menuInput(7);
 			if (menu == -1)
 				cout << "Erro: Menu nao existe, tente outra vez" << endl;
 
@@ -242,7 +254,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 		switch (menu){
 		case 0:
 
-			menu = 5;
+			menu = 7;
 
 			if (f->getNumComboios() == 0){
 				cout << endl << "Erro: Nao existem comboios" << endl;
@@ -255,17 +267,17 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 			break;
 		case 1:
 		{
-			menu = 5;
+			menu = 7;
 
 			if (b->getNumViagens() == 0) {
 				cout << endl << "Erro: Nao existem viagens" << endl;
 				break;
 			}
 			cout << endl << "Lista de Viagens" << endl << endl;
-			cout << b->getInfo();
+			cout << b->getInfo(p);
 			break;
 		case 2:
-			menu = 5;
+			menu = 7;
 			if (M->emptyMaquinistas()) {
 				cout << endl << "Erro: Nao existem Maquinistas" << endl;
 				break;
@@ -276,7 +288,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 			break;
 		}
 		case 3: {
-			menu = 5;
+			menu = 7;
 			if (M->emptyMaquinistas()) {
 				cout << endl << "Erro: Nao existem Maquinistas" << endl;
 				break;
@@ -286,7 +298,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 			break;
 		}
 		case 4: {
-			menu = 5;
+			menu = 7;
 			if (M->emptyMaquinistas()) {
 				cout << endl << "Erro: Nao existem Maquinistas" << endl;
 				break;
@@ -303,10 +315,27 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 			M->showViagensMaquinistas(&M1);
 			break;
 		}
+		case 5: {
+			menu = 7;
+			if (p->emptyParagens()) {
+				cout << endl << "Erro: Nao existem paragens" << endl;
+			}
+			else{
+				cout << endl << "Paragens:" << endl;
+				p->printParagens();
+			}
+			break;
+		}
 			
-
-		case 5:
-			return;
+		case 6:
+			menu = 7;
+			if (o->emptyOficinas()) {
+				cout << endl << "Erro: Nao existem Oficinas" << endl;
+			}
+			else{
+				o->printOficinas();
+			}
+			break;
 		default:
 			return;
 		}
@@ -315,7 +344,7 @@ void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
 
 //					MENU UTILIZADORES ANONIMOS
 
-void menuSemCartao(BaseClientes *r, Bilheteira *b){
+void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 	int menu = -2;
 
 	while (menu != 3){
@@ -345,7 +374,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 			int viagemId = -2;
 
 			cout << "Lista de Viagens" << endl << endl;
-			cout << endl << b->getInfo();
+			cout << endl << b->getInfo(p);
 			while (viagemId >= b->getNumViagens() || viagemId < -1){
 
 				cout << endl << "Escolha o id da viagem a cancelar o bilhete (-1 para cancelar):";
@@ -385,7 +414,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 			int viagemId = -2;
 
 			cout << "Lista de Viagens" << endl << endl;
-			cout << endl << b->getInfo();
+			cout << endl << b->getInfo(p);
 			while (viagemId >= b->getNumViagens() || viagemId < -1){
 
 				cout << endl << "Escolha o id da viagem a reservar(-1 para cancelar):";
@@ -481,7 +510,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b){
 
 //				MENU UTILIZADORES REGISTADOS
 
-void menuComCartao(BaseClientes *r, Bilheteira *b){
+void menuComCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 	int numRegs = r->getNumRegistos();
 	int id = -200;
 	int menu = -2;
@@ -557,7 +586,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 
 			int viagemId =  b->getNumViagens() + 1;
 
-			cout << "Lista de Viagens" << endl << endl << endl << b->getInfo();
+			cout << "Lista de Viagens" << endl << endl << endl << b->getInfo(p);
 
 			while (viagemId >= b->getNumViagens() || viagemId < -1){
 
@@ -687,11 +716,11 @@ void menuComCartao(BaseClientes *r, Bilheteira *b){
 	}
 }
 
-void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M){
+void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p, Oficinas *o){
 
 	int menu = -2;
 
-		while (menu !=  6){
+		while (menu !=  7){
 			while (menu == -2 || menu == -1){
 				cout << endl << "---Administracao---" << endl << endl;
 				cout << " 0 - Guardar Dados" << endl;
@@ -700,9 +729,12 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cout << " 3 - Adicionar Cartoes" << endl;
 				cout << " 4 - Adicionar Viagens" << endl;
 				cout << " 5 - Maquinistas" << endl;
-				cout << " 6 - Sair" << endl;
+				cout << " 6 - Adicionar Paragem" << endl;
+				cout << " 7 - Adicionar Oficina" << endl;
+				cout << " 8 - Reportar Comboio Avariado" << endl;
+				cout << " 9 - Sair" << endl;
 
-				menu = menuInput(6);
+				menu = menuInput(9);
 				if (menu == -1)
 					cout << "Erro: Menu nao existe, tente outra vez" << endl;
 
@@ -714,7 +746,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				f->saveComboios();
 				r->saveCartoes();
 				r->saveRegistos();
-				b->saveViagens();
+				b->saveViagens(p);
 				M->saveMaquinistas();
 				cout << endl <<"Dados Gravados" << endl;
 				return;
@@ -853,7 +885,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				}
 				cin.ignore();
 				cin.clear();
-				Viagem *v = adicionaViagem(b, f);
+				Viagem *v = adicionaViagem(b, f, p);
 				if (v != NULL) {
 					b->adicionaViagem(v);
 					cout << "Viagem adicionada com sucesso" << endl;
@@ -866,20 +898,94 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				//se relacionado com os maquinista
 			case 5:
 			{
-				menuMaquinista(f, b,M);
+				menuMaquinista(f, b, M, p);
 				return;
 
 			}
-			case 6:
-				return;
+			case 6:{
+				string nome;
+				double lat, log;
+				cin.ignore();
+				cin.clear();
 
+				cout << "Nome da paragem:";
+				getline(cin, nome);
+				cout << endl;
+				cout << "Latitude:";
+				lat = userDoubleInput();
+				cout << endl;
+				cout << "Longitude:";
+				cout << endl;
+				log = userDoubleInput();
+
+				Paragem temp(nome, lat, log);
+				p->addParagem(temp);
+
+				cout << endl << "Paragem adicionada com sucesso" << endl;
+
+				return;
+			}
+			case 7:{
+				string nome;
+				double lat, log;
+				cin.ignore();
+				cin.clear();
+
+				cout << "Nome da oficina:";
+				getline(cin, nome);
+				cout << endl;
+				cout << "Latitude:";
+				lat = userDoubleInput();
+				cout << endl;
+				cout << "Longitude:";
+				cout << endl;
+				log = userDoubleInput();
+
+				Oficina *temp = new Oficina(nome, lat, log);
+				o->addOficina(temp);
+
+				cout << endl << "Paragem adicionada com sucesso" << endl;
+
+				return;
+			}
+
+			case 8:{
+				int id_comboio = -2;
+				double dist;
+				cout << endl << f->getInformacao() << endl;
+
+				while (id_comboio < 0 || id_comboio >= f->getNumComboios()) {
+					cout << "Insira o Comboio que esta avariado (-1 para cancelar): ";
+					id_comboio = userIntInput();
+					cout << endl;
+
+					if (id_comboio == -1)
+						return;
+
+					if ((id_comboio < -1 || id_comboio >= f->getNumComboios()) && id_comboio != -200){
+						cout << "Erro: Este comboio nao existe" << endl;
+						return;
+					}
+
+				}
+
+				cout << "Distancia Maxima da oficina:";
+				dist = userDoubleInput();
+				cout << endl;
+
+				f->getComboio(id_comboio)->setAvaria(o->getOficinas(), dist);
+
+
+
+				return;
+			}
 			default:
 				return;
 			}
 		}
 }
 
-void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
+void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p ) {
 
 	int menu = -2;
 
@@ -994,7 +1100,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 		}
 				//atribui as viagens existentes aos Maquinistas
 		case 5: {		
-			menuMaquinistaViagens(f, b, M);
+			menuMaquinistaViagens(f, b, M, p);
 			return;
 		}
 
@@ -1007,7 +1113,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M) {
 
 	}
 }
-void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
+void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p) {
 
 	int menu = -2;
 
@@ -1059,7 +1165,7 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 			int viagemId = -2;
 
 			cout << "Lista de Viagens" << endl << endl;
-			cout << endl << b->getInfo();
+			cout << endl << b->getInfo(p);
 			while (viagemId >= b->getNumViagens() || viagemId < -1) {
 
 				cout << endl << "Escolha o id da viagem que quer adicionar ao maquinista (-1 para cancelar):";
@@ -1099,7 +1205,7 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M) {
 			int viagemId = -2;
 
 			cout << "Lista de Viagens" << endl << endl;
-			cout << endl << b->getInfo();
+			cout << endl << b->getInfo(p);
 			while (viagemId >= b->getNumViagens() || viagemId < -1) {
 
 				cout << endl << "Escolha o id da viagem que quer adicionar ao maquinista (-1 para cancelar):";

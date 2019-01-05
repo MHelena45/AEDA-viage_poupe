@@ -5,6 +5,7 @@
 #include "cartao.h"
 #include "datashoras.h"
 
+
 /**
  * CLASS Viagem\n
  * Esta Classe cria uma viagem e controla as vagas de essa viagem

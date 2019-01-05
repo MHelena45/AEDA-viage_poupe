@@ -11,12 +11,12 @@
 Datas* getDataActual();
 Horas* getHoraActual();
 
-void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M);
-void menuComCartao(BaseClientes *r, Bilheteira *b);
-void menuSemCartao(BaseClientes *r, Bilheteira *b);
-void menuAdministracao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M);
-void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M);
-void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M);
+void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p, Oficinas *o);
+void menuComCartao(BaseClientes *r, Bilheteira *b, Paragens *p);
+void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p);
+void menuAdministracao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p, Oficinas *o);
+void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p);
+void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p);
 
 int menuInput(int nOptions);
 int userIntInput();

@@ -1,4 +1,5 @@
 #include "geral.h"
+#include "locais.h"
 
 using namespace std;
 
@@ -10,6 +11,8 @@ int main(){
 	Frota f;
 	Bilheteira b(&f);
 	Maquinistas m;
+	Paragens p;
+	Oficinas o;
 
 	while (menu != -4){
 		while (menu == -2){
@@ -28,19 +31,19 @@ int main(){
 
 		switch (menu){
 		case 0:
-			menuInformacao(&r, &f, &b, &m);
+			menuInformacao(&r, &f, &b, &m, &p, &o);
 			menu = -2;
 			break;
 		case 1:
-			menuSemCartao(&r, &b);
+			menuSemCartao(&r, &b, &p);
 			menu = -2;
 			break;
 		case 2:
-			menuComCartao(&r, &b);
+			menuComCartao(&r, &b, &p);
 			menu = -2;
 			break;
 		case 3:
-			menuAdministracao(&r, &f, &b, &m);
+			menuAdministracao(&r, &f, &b, &m, &p, &o);
 			menu = -2;
 			break;
 		case 4:
