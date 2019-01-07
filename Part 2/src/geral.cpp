@@ -1,8 +1,10 @@
 #include "geral.h"
-#pragma warning(disable : 4996)
+//#pragma warning(disable : 4996)
 
 using namespace std;
 
+void menuParagens(Paragens *p);
+void menuOficinas (Oficinas *o);
 
 Datas* getDataActual(){
 	std::time_t t = std::time(0);
@@ -62,7 +64,7 @@ double userDoubleInput(){
 
 bool LetrasInvalidas(string nome) {
 	bool invalido = false;
-	for (int i = 0; i < nome.size(); i++) {
+	for (unsigned int i = 0; i < nome.size(); i++) {
 		if (!((nome.at(i) >= 'A' && nome.at(i) <= 'Z') || (nome.at(i) >= 'a' && nome.at(i) <= 'z') || (nome.at(i) == ' ' ) || (nome.at(i) == '-')))
 			invalido = true;
 	}	
@@ -99,7 +101,6 @@ string apelidoValido() {
 Maquinista criaMaquinista() {
 	string nome, apelido, viagens;
 	unsigned int id;
-	bool invalido = false;
 	cout << "Qual o id do maquinista? " << endl;
 	id = userIntInput();
 	cin.ignore();
@@ -121,12 +122,12 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f, Paragens *p) {
 	p->printParagens();
 	cout << endl << "Escolha a paragem de origem:";
 	par = userIntInput();
-	origem = p->getParagem(par).getNome();
+	origem = p->getParagem(par)->getNome();
 	cout << endl << endl << "Destino:";
 	p->printParagens();
 	cout << endl << "Escolha a paragem de destino:";
 	par = userIntInput();
-	destino = p->getParagem(par).getNome();
+	destino = p->getParagem(par)->getNome();
 	cout << endl;
 	while (distancia < 0) {
 		cout << "Insira a distancia da viagem (-1 para cancelar): ";
@@ -729,8 +730,8 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cout << " 3 - Adicionar Cartoes" << endl;
 				cout << " 4 - Adicionar Viagens" << endl;
 				cout << " 5 - Maquinistas" << endl;
-				cout << " 6 - Adicionar Paragem" << endl;
-				cout << " 7 - Adicionar Oficina" << endl;
+				cout << " 6 - Paragens" << endl;
+				cout << " 7 - Oficinas" << endl;
 				cout << " 8 - Reportar Comboio Avariado" << endl;
 				cout << " 9 - Sair" << endl;
 
@@ -876,8 +877,6 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 
 			case 4: {
 				string origem, destino, datavgm, horavgm;
-				double distancia = -2;
-				int id_comboio = -2;
 
 				if (f->getNumComboios() == 0) {
 					cout << "Nao ha comboios." << endl;
@@ -903,25 +902,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 
 			}
 			case 6:{
-				string nome;
-				double lat, log;
-				cin.ignore();
-				cin.clear();
-
-				cout << "Nome da paragem:";
-				getline(cin, nome);
-				cout << endl;
-				cout << "Latitude:";
-				lat = userDoubleInput();
-				cout << endl;
-				cout << "Longitude:";
-				cout << endl;
-				log = userDoubleInput();
-
-				Paragem temp(nome, lat, log);
-				p->addParagem(temp);
-
-				cout << endl << "Paragem adicionada com sucesso" << endl;
+				menuParagens(p);
 
 				return;
 			}
@@ -1113,6 +1094,7 @@ void menuMaquinista(Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p ) {
 
 	}
 }
+
 void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p) {
 
 	int menu = -2;
@@ -1272,3 +1254,199 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p)
 		}
 	}
 }
+
+void menuParagens(Paragens *p) {
+
+	int menu = -2;
+
+	while (menu != 3) {
+		while (menu == -2 || menu == -1) {
+			cout << endl << "---Paragens---" << endl << endl;
+			cout << " 0 - Adicionar paragem" << endl;
+			cout << " 1 - Editar paragem " << endl;
+			cout << " 2 - Eliminar paragem" << endl;
+			cout << " 3 - Sair " << endl;
+
+			menu = menuInput(3);
+			if (menu == -1)
+				cout << "Erro: Menu nao existe, tente outra vez" << endl;
+
+		}
+
+		switch (menu) {
+
+		case 0: {
+			string nome;
+			double lat, log;
+			cin.ignore();
+			cin.clear();
+
+			cout << "Nome da paragem:";
+			getline(cin, nome);
+			cout << endl;
+			cout << "Latitude:";
+			lat = userDoubleInput();
+			cout << endl;
+			cout << "Longitude:";
+			cout << endl;
+			log = userDoubleInput();
+
+			Paragem temp(nome, lat, log);
+			p->addParagem(temp);
+
+			cout << endl << "Paragem adicionada com sucesso" << endl;
+
+			return;
+		}
+		case 1:
+		{
+			string nome;
+			double lat, log;
+			int par;
+			p->printParagens();
+			cout << endl << "Paragem a editar:";
+			par = userIntInput();
+
+			cout << "Nome da paragem:";
+			getline(cin, nome);
+			cout << endl;
+			cout << "Latitude:";
+			lat = userDoubleInput();
+			cout << endl;
+			cout << "Longitude:";
+			cout << endl;
+			log = userDoubleInput();
+
+			Paragem *temp = p->getParagem(par);
+			temp->setNome(nome);
+			temp->setLatitude(lat);
+			temp->setLongitude(log);
+
+			cout << endl << "Paragem editada com sucesso" << endl;
+
+			return;
+		}
+		case 2: {
+			int par;
+			p->printParagens();
+			cout << "Paragem a apagar:";
+			par = userIntInput();
+			if (par >= p->sizeParagens() || par < 0){
+				cout << endl << "Paragem não existe" << endl;
+				return;
+			}
+			p->deleteParagem(par);
+
+			cout << endl << "Paragem apagada com sucesso" << endl;
+			return;
+		}
+
+		case 3: return;
+
+		default: return;
+		}
+	}
+}
+
+void menuOficinas (Oficinas *o) {
+
+	int menu = -2;
+
+	while (menu != 3) {
+		while (menu == -2 || menu == -1) {
+			cout << endl << "---Oficinas---" << endl << endl;
+			cout << " 0 - Adicionar oficina" << endl;
+			cout << " 1 - Editar oficina " << endl;
+			cout << " 2 - Eliminar oficina" << endl;
+			cout << " 3 - Sair " << endl;
+
+			menu = menuInput(3);
+			if (menu == -1)
+				cout << "Erro: Menu nao existe, tente outra vez" << endl;
+
+		}
+
+		switch (menu) {
+
+		case 0: {
+			string nome;
+			double lat, log;
+			cin.ignore();
+			cin.clear();
+
+			cout << "Nome da oficina:";
+			getline(cin, nome);
+			cout << endl;
+			cout << "Latitude:";
+			lat = userDoubleInput();
+			cout << endl;
+			cout << "Longitude:";
+			cout << endl;
+			log = userDoubleInput();
+
+			Oficina *temp = new Oficina(nome, lat, log);
+			o->addOficina(temp);
+
+			cout << endl << "Oficina adicionada com sucesso" << endl;
+
+			return;
+		}
+		case 1:
+		{
+			string nome;
+			double lat, log;
+			int ofi;
+			o->printOficinas();
+			cout << endl << "Oficina a editar:";
+			ofi = userIntInput();
+			if (ofi >= o->sizeOficinas() || ofi < 0){
+				cout << endl << "Oficina não existe" << endl;
+			}
+
+			cout << "Nome da oficina:";
+			getline(cin, nome);
+			cout << endl;
+			cout << "Latitude:";
+			lat = userDoubleInput();
+			cout << endl;
+			cout << "Longitude:";
+			cout << endl;
+			log = userDoubleInput();
+
+			priority_queue <Oficina *> temp = o->getOficinas();
+
+			for (int i = 0; i < ofi; i++)
+				temp.pop();
+
+			Oficina *tempofi = temp.top();
+			tempofi->setNome(nome);
+			tempofi->setLatitude(lat);
+			tempofi->setLongitude(log);
+
+			cout << endl << "Oficina editada com sucesso" << endl;
+
+
+			return;
+		}
+		case 2: {
+			int ofi;
+			o->printOficinas();
+			cout << "Oficina a apagar:";
+			ofi = userIntInput();
+			if (ofi >= o->sizeOficinas() || ofi < 0){
+				cout << endl << "Oficina não existe" << endl;
+				return;
+			}
+			o->deleteOficina(ofi);
+
+			cout << endl << "Oficina apagada com sucesso" << endl;
+			return;
+		}
+
+		case 3: return;
+
+		default: return;
+		}
+	}
+}
+

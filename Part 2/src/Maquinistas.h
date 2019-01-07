@@ -141,7 +141,7 @@ public:
 	* @param id da viagens, que coicide com a posicao no vetor de viagens
 	* @return sucesso na eliminacao da viagem
 	*/
-	bool eliminaViagem(int id);
+	bool eliminaViagem(unsigned int id);
 	
 	/**
 	* redefinição do operador de igualdade

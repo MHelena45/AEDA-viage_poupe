@@ -181,7 +181,7 @@ public:
 	 * @param id ID do comboio
 	 * @return Apontador para comboio com esse id
 	 */
-	Comboio* getComboio(int id) const;
+	Comboio* getComboio(unsigned int id) const;
 	/**
 	 * @return Numero de comboios da frota
 	 */

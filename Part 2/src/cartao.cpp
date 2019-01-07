@@ -203,7 +203,7 @@ string BaseClientes::getInfoCartao() const{
 	return ss.str();
 }
 
-Cartao* BaseClientes::getCartao(int id) const {
+Cartao* BaseClientes::getCartao(unsigned int id) const {
 	if (id >= cartoes.size())
 		return NULL;
 	return cartoes.at(id);

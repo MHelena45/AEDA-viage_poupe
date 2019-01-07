@@ -9,9 +9,10 @@ using namespace std;
 	 *
 	 */
 class Cartao {
+	string nome;
 	double precoMensal;
 	int desconto;
-	string nome;
+
 public:
 	/**
 	 * Construtor de cartao
@@ -189,7 +190,7 @@ public:
 	 * @param id ID do cartao
 	 * @return Apontador para cartao do vector cartoes com esse id
 	 */
-	Cartao* getCartao(int id) const;
+	Cartao* getCartao(unsigned int id) const;
 	/**
 	 * @return Numero de cartoes
 	 */

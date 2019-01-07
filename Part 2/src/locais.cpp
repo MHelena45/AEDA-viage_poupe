@@ -48,7 +48,7 @@ double Paragem::distancia(double latitude, double longitude){
 
 
 void Paragens::addParagem(Paragem &p1){paragens.push_back(p1);}
-Paragem Paragens::getParagem(int id){return paragens.at(id);}
+Paragem* Paragens::getParagem(int id){return &paragens.at(id);}
 
 void Paragens::printParagens() const{
 	for (unsigned int i = 0; i < paragens.size(); i++)
@@ -59,6 +59,14 @@ bool Paragens::emptyParagens() const{
 	if (paragens.empty())
 		return true;
 	return false;
+}
+
+int Paragens::sizeParagens() const {return paragens.size();}
+
+void Paragens::deleteParagem(int id) {
+	delete &paragens.at(id);
+	paragens.erase(paragens.begin() + id);
+
 }
 
 Paragem Paragens::findParagem (std::string nome) const{
@@ -123,3 +131,21 @@ bool Oficinas::emptyOficinas() const{
 		return true;
 	return false;
 }
+
+int Oficinas::sizeOficinas() const {return oficinas.size();}
+
+void Oficinas::deleteOficina(int id){
+
+	vector<Oficina *> v1;
+
+	for (int i = 0; i < id; i++){
+		v1.push_back (oficinas.top());
+		oficinas.pop();
+	}
+	delete oficinas.top();
+	oficinas.pop();
+
+	for (unsigned int i = 0; i < v1.size(); i++)
+		oficinas.push(v1.at(i));
+}
+

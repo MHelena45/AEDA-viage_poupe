@@ -14,10 +14,10 @@ Maquinista::Maquinista(string n, string a, int i, int atual) : nome(n), apelido(
 	ativo = atual;
 }
 
-bool Maquinista::eliminaViagem(int id) {
+bool Maquinista::eliminaViagem(unsigned int id) {
 	if (id >= viagens.size()) return false;
 	vector<Viagem *> via;
-	for (int i = 0; i < viagens.size(); i++) {
+	for (unsigned int i = 0; i < viagens.size(); i++) {
 		if (i != id)
 			via.push_back(viagens.at(i));
 	}
@@ -49,7 +49,7 @@ bool Maquinista::adicionaViagem(Viagem *v) {
 }
 
 bool Maquinista::operator== (Maquinista M3) {
-	return id = M3.getId();
+	return (bool)(id = M3.getId());
 }
 
 bool Maquinistas::encontraMaquinista( Maquinista *M00) {
@@ -75,6 +75,7 @@ bool Maquinistas::alteraEstado(Maquinista *M1) {
 	pair<tabHMaq::iterator, bool> res = maquinistas.insert(M2);
 	if (res.second == true)
 		return true;
+	return false;
 }
 
 bool Maquinistas::loadMaquinistas(Frota *f, string nome) {
@@ -180,7 +181,7 @@ void Maquinistas::saveMaquinistas() {
 		maqfile << it.getAtivo() << " " << it.getId() << " " << it.getNome() << " " << it.getApelido() << endl ;
 		vector <Viagem*> viagens = it.getViagens();
 		maqfile << viagens.size() << " ";
-		for(int i=0; i < viagens.size(); i++) {
+		for(unsigned int i=0; i < viagens.size(); i++) {
 			maqfile << viagens.at(i)->getOrigem() << " " << viagens.at(i)->getDestino() << " " << viagens.at(i)->getDistancia()
 				<< " " << viagens.at(i)->getComboio()->getId() << " "<< viagens.at(i)->getVagas() << " " << viagens.at(i)->getComprasAnonimas()
 				<< " " << *viagens.at(i)->getDataPartida() << endl << *viagens.at(i)->getHorasPartida() << endl;
@@ -279,7 +280,7 @@ void Maquinistas::showMaquinistaseViagens() {
 			cout << setw(10) << "ID" << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
 				<< "Distancia(KM)" << setw(9) << "Comboio" << setw(13) << "Data"
 				<< setw(8) << "Hora" << setw(16) << "Preco base(€)" << setw(7) << "Vagas" << "\n";
-			for (int i = 0; i < via.size(); i++) {
+			for (unsigned int i = 0; i < via.size(); i++) {
 				cout << setw(10) << i << setw(10) << via.at(i)->getInfo();
 			}
 			cout << endl;
@@ -351,7 +352,7 @@ bool Maquinistas::showViagensMaquinistas( Maquinista* M1 ) const {
 			cout << setw(10) << "ID" << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
 				<< "Distancia(KM)" << setw(9) << "Comboio" << setw(13) << "Data"
 				<< setw(8) << "Hora" << setw(16) << "Preco base(€)" << setw(7) << "Vagas" << "\n";
-			for (int i = 0; i < via.size(); i++) {
+			for (unsigned int i = 0; i < via.size(); i++) {
 				cout << setw(10) << i << setw(10) << via.at(i)->getInfo();
 			}
 		}

@@ -97,7 +97,7 @@ Bilheteira::~Bilheteira() {
 int Bilheteira::getNumViagens() const { return viagens.size(); }
 
 Viagem* Bilheteira::getViagem(int id) {
-	for (int i = 0; i < viagens.size(); i++) {
+	for (unsigned int i = 0; i < viagens.size(); i++) {
 		if (viagens.at(i)) {
 
 		}

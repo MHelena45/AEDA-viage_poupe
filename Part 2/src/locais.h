@@ -92,7 +92,7 @@ public:
 	 * @param id id da paragem
 	 * @return Paragem guardada
 	 */
-	Paragem getParagem(int id);
+	Paragem* getParagem(int id);
 	/**
 	 * @brief Imprime no ecra todas as paragens
 	 */
@@ -103,6 +103,18 @@ public:
 	 * @return Verdade se o vector paragens estiver vazio, falso senao
 	 */
 	bool emptyParagens() const;
+	/**
+	 * @brief Verifica numero de paragens
+	 *
+	 * @return Numero de paragens
+	 */
+	int sizeParagens() const;
+	/**
+	 * @brief Imprime no ecra todas as paragens
+	 *
+	 * @param id id da paragem
+	 */
+	void deleteParagem(int id);
 	/**
 	 * @brief Encontra uma paragem
 	 *
@@ -179,7 +191,9 @@ public:
 	 * @param val valor a ser somar a disponibilidade
 	 */
 	void setDisponibilidade(int val);
-
+	/**
+	 * @return true if object is smaller than 01
+	 */
 	bool operator < (Oficina &o1);
 
 };
@@ -214,8 +228,14 @@ public:
 	 * @return Verdade quando nao existem oficinas, falso caso contrario
 	 */
 	bool emptyOficinas() const;
-
-
+	/**
+	 * @return Numero de oficinas
+	 */
+	int sizeOficinas() const;
+	/**
+	 * @brief Apaga uma oficina
+	 */
+	void deleteOficina(int id);
 };
 
 
