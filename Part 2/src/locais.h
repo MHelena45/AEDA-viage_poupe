@@ -131,11 +131,11 @@ public:
 	 */
 	Paragem* getParagem(int id);
 	/**
-	 * @brief Aumenta o nÃºmero de clientes por 1
+	 * @brief Aumenta o número de clientes por 1
 	 */
 	void aumentaNumClientes(string nome);
 	/**
-	 * @brief Diminui o nÃºmero de clientes por 1
+	 * @brief Diminui o número de clientes por 1
 	 */
 	void diminuiNumClientes(string nome);
 	/**
@@ -310,6 +310,8 @@ public:
 	 * @brief Carrega as oficinas em "oficinas.txt"
 	 */
 	void loadOficinas();
+
+	Oficina* findOficina(std::string nome);
 };
 
 

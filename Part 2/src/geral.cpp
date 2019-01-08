@@ -762,7 +762,9 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				return;
 			}
 			case 1:{
-				f->loadComboios();	
+				p->loadParagens();
+				cout << "load paragens " << endl;
+				f->loadComboios();
 				cout << "load comboios " << endl;
 				r->loadCartoes();
 				cout << "load Cartoes " << endl;
@@ -770,8 +772,6 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cout << "load Viagens " << endl;		
 				r->loadRegistos();
 				cout << "load registos " << endl;
-				p->loadParagens();
-				cout << "load paragens " << endl;
 				o->loadOficinas();
 				cout << "load oficinas " << endl;
 				
@@ -779,7 +779,6 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cout << "load maquinistas " << endl;
 				cout << endl <<"Dados Carregados" << endl;
 				return;
-
 				}
 
 			case 2: {

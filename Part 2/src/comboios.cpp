@@ -19,6 +19,7 @@ Comboio::Comboio(int numPassageiros, int velocidade, double precoKM, string nome
 	avariado = false;
 }
 
+
  // Acessors
 
 string Comboio::getTipo() const{return "OT";}
@@ -63,10 +64,13 @@ void Comboio::setAvaria(priority_queue<Oficina *> oficinas, double distmaxima){
 
 	for (i = 0; i < size; i++){
 		double dist = this->getUltimaParagem().distancia(temp.top()->getLatitude() ,temp.top()->getLongitude());
+		cout << "nome = " << temp.top()->getNome() << endl;
+		cout << "dist = " << dist << endl << endl;
 		if ( dist < distmaxima){
 			ofic = temp.top();
 			temp.top()->setDisponibilidade(temp.top()->getDisponibilidade() + 3);
 			this->dataUltimaAvaria = horasActual;
+			this->setAvariado(true);
 			break;
 		}
 		else temp.pop();
@@ -91,6 +95,7 @@ void Comboio::setAvariado(bool avariado) { this->avariado = avariado; }
 
 AlfaPendular::AlfaPendular(int numPassageiros, int velocidade, double precoKM, string nome)
 : Comboio(numPassageiros, velocidade, precoKM, nome){}
+
 
 //Outros
 
@@ -137,7 +142,7 @@ string Frota::getInformacao() {
 					ss << comboios.at(i)->getVelocidade() << " km/h" << setw(12)
 							<< comboios.at(i)->getPrecoKM() << "€" << setw(17) << comboios.at(i)->getUltimaParagem().getNome();
 					if (comboios.at(i)->getAvariado()){
-						ss << setw(10) << "Sim" << setw(10) << comboios.at(i)->getOficina()->getNome() << endl;
+						ss << setw(10) << "Sim" << setw(13) << comboios.at(i)->getOficina()->getNome() << endl;
 					}
 					else ss << setw(10) << "Nao" << endl;
 				}
@@ -205,7 +210,8 @@ void Frota::saveComboios() const{
 
 	for (unsigned int i= 0; i < comboios.size(); i++){
 		mfile << comboios.at(i)->getNome() << " " << comboios.at(i)->getLotacao() <<" " << comboios.at(i)->getTipo();
-		mfile << " " << comboios.at(i)->getVelocidade() << " " << comboios.at(i)->getPrecoKM() << endl;
+		mfile << " " << comboios.at(i)->getVelocidade() << " " << comboios.at(i)->getPrecoKM() << " " <<comboios.at(i)->getAvariado()
+			 << " "	<< comboios.at(i)->getOficina()->getNome() << endl;
 	}
 
 	mfile.close();

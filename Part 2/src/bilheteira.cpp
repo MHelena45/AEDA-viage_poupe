@@ -3,7 +3,7 @@
 #include "cartao.h"
 #include "comboios.h"
 #include "geral.h"
-
+#include <iostream>
 
 using namespace std;
 
@@ -138,14 +138,14 @@ void Bilheteira::updateViagens(Paragens *p) {
 			if (!(viagens.at(i)->compraRegisto())) {
 				Paragem *temp = p->findParagem(viagens.at(i)->getDestino());
 				viagens.at(i)->getComboio()->setUltimaParagem(*temp);
-
-
 				delete viagens.at(i);
 				viagens.erase(viagens.begin() + i);
 
 
 			}
 			else {
+				Paragem *temp = p->findParagem(viagens.at(i)->getDestino());
+				viagens.at(i)->getComboio()->setUltimaParagem(*temp);
 				viagens.erase(viagens.begin() + i);
 			}
 		}

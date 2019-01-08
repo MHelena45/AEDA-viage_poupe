@@ -293,3 +293,16 @@ void Oficinas::loadOficinas() {
 
 }
 
+Oficina* Oficinas::findOficina(std::string nome){
+
+	priority_queue <Oficina *> temp = oficinas;
+
+	for (unsigned int i = temp.size(); i != 0; i--){
+		if (temp.top()->getNome() == nome)
+			return temp.top();
+		else temp.pop();
+	}
+
+	return NULL;
+}
+
