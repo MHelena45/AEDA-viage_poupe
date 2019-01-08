@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include "BST.h"
 
 /**
  * CLASS Paragem
@@ -90,6 +91,18 @@ public:
 	 * * @param longitude Longitude do local
 	 */
 	double distancia(double latitude, double longitude);
+	/**
+	 * @param p Paragem com a qual se vai comparar
+	 *
+	 * @return true se a paragem for menor que p (menor número de clientes ou menor nome caso sejam iguais)
+	 */
+	bool operator < (const Paragem &p) const;
+	/**
+	 * @param p Paragem com a qual se vai comparar
+	 *
+	 * @return true se a paragem for igual a p (igual número de clientes e igual nome)
+	 */
+	bool operator == (const Paragem &p) const;
 };
 
 
@@ -100,8 +113,10 @@ public:
  */
 class Paragens {
 	std::vector<Paragem> paragens;
+	BST<Paragem> paragensbst;
+	
 public:
-	Paragens(){};
+	Paragens(): paragensbst(Paragem()){};
 	/**
 	 * @brief Adiciona uma paragem
 	 *
@@ -119,6 +134,10 @@ public:
 	 * @brief Imprime no ecra todas as paragens
 	 */
 	void printParagens() const;
+	/**
+	 * @brief Imprime no ecra todas as paragens pela ordem da BST
+	 */
+	void printParagensBST() const;
 	/**
 	 * @brief Verifica vector paragens
 	 *

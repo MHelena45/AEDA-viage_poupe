@@ -194,7 +194,7 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f, Paragens *p) {
 			cout << "Erro: Este comboio nao existe" << endl;
 
 		if (f->getComboio(id_comboio)->getAvariado())
-			cout << "Este Comboio esta em manuntençao na oficina: " << f->getComboio(id_comboio)->getOficina()->getNome();
+			cout << "Este Comboio esta em manuntenï¿½ao na oficina: " << f->getComboio(id_comboio)->getOficina()->getNome();
 
 	}
 
@@ -893,6 +893,10 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 					cout << "Nao ha comboios." << endl;
 					return;
 				}
+				if (p->sizeParagens() == 0){
+					cout << "Nao ha paragens." << endl;
+					return;
+				}
 				cin.ignore();
 				cin.clear();
 				Viagem *v = adicionaViagem(b, f, p);
@@ -1270,15 +1274,16 @@ void menuParagens(Paragens *p) {
 
 	int menu = -2;
 
-	while (menu != 3) {
+	while (menu != 4) {
 		while (menu == -2 || menu == -1) {
 			cout << endl << "---Paragens---" << endl << endl;
 			cout << " 0 - Adicionar paragem" << endl;
 			cout << " 1 - Editar paragem " << endl;
 			cout << " 2 - Eliminar paragem" << endl;
-			cout << " 3 - Sair " << endl;
+			cout << " 3 - Mostrar as paragens ordenadas por nÃºmero de clientes" << endl;
+			cout << " 4 - Sair " << endl;
 
-			menu = menuInput(3);
+			menu = menuInput(4);
 			if (menu == -1)
 				cout << "Erro: Menu nao existe, tente outra vez" << endl;
 
@@ -1343,7 +1348,7 @@ void menuParagens(Paragens *p) {
 			cout << "Paragem a apagar:";
 			par = userIntInput();
 			if (par >= p->sizeParagens() || par < 0){
-				cout << endl << "Paragem não existe" << endl;
+				cout << endl << "Paragem nï¿½o existe" << endl;
 				return;
 			}
 			p->deleteParagem(par);
@@ -1351,8 +1356,11 @@ void menuParagens(Paragens *p) {
 			cout << endl << "Paragem apagada com sucesso" << endl;
 			return;
 		}
+		case 3:{
+			p->printParagensBST();
+			return;}
 
-		case 3: return;
+		case 4: return;
 
 		default: return;
 		}
@@ -1411,7 +1419,7 @@ void menuOficinas (Oficinas *o) {
 			cout << endl << "Oficina a editar:";
 			ofi = userIntInput();
 			if (ofi >= o->sizeOficinas() || ofi < 0){
-				cout << endl << "Oficina não existe" << endl;
+				cout << endl << "Oficina nï¿½o existe" << endl;
 			}
 
 			cout << "Nome da oficina:";
@@ -1445,7 +1453,7 @@ void menuOficinas (Oficinas *o) {
 			cout << "Oficina a apagar:";
 			ofi = userIntInput();
 			if (ofi >= o->sizeOficinas() || ofi < 0){
-				cout << endl << "Oficina não existe" << endl;
+				cout << endl << "Oficina nï¿½o existe" << endl;
 				return;
 			}
 			o->deleteOficina(ofi);

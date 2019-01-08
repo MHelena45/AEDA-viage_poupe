@@ -57,15 +57,36 @@ double Paragem::distancia(double latitude, double longitude){
 	return c * raioTerra;
 }
 
+bool Paragem::operator < (const Paragem &p) const {
+	if (getNumClientes()==p.getNumClientes()) return getNome()<p.getNome();
+	else return getNumClientes()<p.getNumClientes();}
+
+bool Paragem::operator == (const Paragem &p) const {
+	return (getNumClientes()==p.getNumClientes() && getNome()==p.getNome());}
 
 
 
-void Paragens::addParagem(Paragem &p1){paragens.push_back(p1);}
+void Paragens::addParagem(Paragem &p1){
+	paragens.push_back(p1);
+	paragensbst.insert(p1);}
+
 Paragem* Paragens::getParagem(int id){return &paragens.at(id);}
 
 void Paragens::printParagens() const{
 	for (unsigned int i = 0; i < paragens.size(); i++)
 		cout << i << " - " <<paragens.at(i).getNumClientes() << " - " << paragens.at(i).getNome() << endl;
+}
+
+void Paragens::printParagensBST() const
+{
+     BSTItrIn<Paragem> it(paragensbst);
+	 int x=0;
+     while (!it.isAtEnd())
+     {
+		x++;
+        cout << x << " - " <<it.retrieve().getNumClientes() << " - " << it.retrieve().getNome() << endl;
+    	it.advance();
+     }
 }
 
 bool Paragens::emptyParagens() const{
@@ -77,9 +98,9 @@ bool Paragens::emptyParagens() const{
 int Paragens::sizeParagens() const {return paragens.size();}
 
 void Paragens::deleteParagem(int id) {
+	paragensbst.remove(paragens.at(id));
 	delete &paragens.at(id);
 	paragens.erase(paragens.begin() + id);
-
 }
 
 Paragem* Paragens::findParagem (std::string nome){
