@@ -14,7 +14,7 @@ class Paragem {
 	std::string nome;
 	double latitude;
 	double longitude;
-	static int numeroclientes;
+	unsigned int numeroclientes;
 public:
 	/**
 	 * Construtor de Paragem
@@ -143,7 +143,7 @@ public:
 	 * @param nome Nome da paragem
 	 * @return Devolve a paragem se encontrada, Paragem com nome "Nenhuma" senao encontrada
 	 */
-	Paragem findParagem (std::string nome) const;
+	Paragem* findParagem (std::string nome);
 };
 /**
  * CLASS Oficina

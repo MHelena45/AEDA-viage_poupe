@@ -65,7 +65,7 @@ Paragem* Paragens::getParagem(int id){return &paragens.at(id);}
 
 void Paragens::printParagens() const{
 	for (unsigned int i = 0; i < paragens.size(); i++)
-		cout << i << " - " << paragens.at(i).getNome() << endl;
+		cout << i << " - " <<paragens.at(i).getNumClientes() << " - " << paragens.at(i).getNome() << endl;
 }
 
 bool Paragens::emptyParagens() const{
@@ -82,13 +82,13 @@ void Paragens::deleteParagem(int id) {
 
 }
 
-Paragem Paragens::findParagem (std::string nome) const{
+Paragem* Paragens::findParagem (std::string nome){
 	for (unsigned int i = 0; i < paragens.size(); i++){
 		if (paragens.at(i).getNome() == nome)
-			return paragens.at(i);
+			return &paragens.at(i);
 	}
 
-	Paragem temp("Nenhuma", 0 , 0);
+	Paragem *temp = new Paragem("Nenhuma", 0 , 0);
 
 	return temp;
 }

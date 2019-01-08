@@ -136,8 +136,8 @@ void Bilheteira::updateViagens(Paragens *p) {
 		float horasViagem = viagens.at(i)->getDataPartida()->getTotalHours() + viagens.at(i)->getHorasPartida()->getTotalHours();
 		if (horasActual > horasViagem) {
 			if (!(viagens.at(i)->compraRegisto())) {
-				Paragem temp = p->findParagem(viagens.at(i)->getDestino());
-				viagens.at(i)->getComboio()->setUltimaParagem(temp);
+				Paragem *temp = p->findParagem(viagens.at(i)->getDestino());
+				viagens.at(i)->getComboio()->setUltimaParagem(*temp);
 
 
 				delete viagens.at(i);
