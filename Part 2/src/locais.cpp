@@ -2,6 +2,7 @@
 #include "math.h"
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 
 using namespace std;
 
@@ -73,8 +74,10 @@ void Paragens::addParagem(Paragem &p1){
 Paragem* Paragens::getParagem(int id){return &paragens.at(id);}
 
 void Paragens::printParagens() const{
+	cout << left << setw(6) << "id" << setw(18) << "Localidade" << setw(12) <<  "Clientes" << endl;;
+
 	for (unsigned int i = 0; i < paragens.size(); i++)
-		cout << i << " - " <<paragens.at(i).getNumClientes() << " - " << paragens.at(i).getNome() << endl;
+		cout << left <<setw(6) << i << setw(18) << paragens.at(i).getNome() << setw(12) <<  paragens.at(i).getNumClientes()<< endl;
 }
 
 void Paragens::printParagensBST() const
@@ -112,6 +115,45 @@ Paragem* Paragens::findParagem (std::string nome){
 	Paragem *temp = new Paragem("Nenhuma", 0 , 0);
 
 	return temp;
+}
+
+void Paragens::saveParagens() {
+
+	ofstream mfile;
+
+	mfile.open("paragens.txt");
+
+	for (unsigned int i = 0; i < paragens.size(); i++) {
+		mfile << paragens.at(i).getNome() << endl << paragens.at(i).getLatitude() << endl << paragens.at(i).getLongitude()
+				<< endl << paragens.at(i).getNumClientes() << endl;
+	}
+
+	mfile.close();
+
+}
+
+void Paragens::loadParagens() {
+	ifstream mfile;
+
+	mfile.open("paragens.txt");
+
+
+	while (!mfile.eof()) {
+			string nome;
+			double latitude, longitude;
+			int clientes;
+
+			getline(mfile, nome);
+			if (nome.empty())
+				break;
+			mfile >> latitude;
+			mfile >> longitude;
+			mfile >> clientes;
+			Paragem temp(nome, latitude, longitude, clientes);
+			paragens.push_back(temp);
+			mfile.ignore(1);
+		}
+
 }
 
 Oficina::Oficina(string nome, double latitude, double longitude){

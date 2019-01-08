@@ -758,6 +758,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				f->saveComboios();
 				r->saveCartoes();
 				r->saveRegistos();
+				p->saveParagens();
 				b->saveViagens(p);
 				M->saveMaquinistas();
 				cout << endl <<"Dados Gravados" << endl;
@@ -768,10 +769,12 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cout << "load comboios " << endl;
 				r->loadCartoes();
 				cout << "load Cartoes " << endl;
-				//b->loadViagens();
+				b->loadViagens(p);
 				cout << "load Viagens " << endl;		
-				//r->loadRegistos();
+				r->loadRegistos();
 				cout << "load registos " << endl;
+				p->loadParagens();
+				cout << "load paragens " << endl;
 				
 				M->loadMaquinistas(f, "maquinistas.txt");
 				cout << "load maquinistas " << endl;

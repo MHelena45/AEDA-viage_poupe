@@ -290,6 +290,8 @@ void BaseClientes::loadRegistos(){
 			double precoBase, precoFinal;
 
 			getline(mfile, nome);
+			if (nome.empty())
+				return;
 
 			if (nome == "Cliente:")
 				continue;

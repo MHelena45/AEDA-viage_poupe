@@ -163,6 +163,10 @@ public:
 	 * @return Devolve a paragem se encontrada, Paragem com nome "Nenhuma" senao encontrada
 	 */
 	Paragem* findParagem (std::string nome);
+
+	void saveParagens();
+
+	void loadParagens();
 };
 /**
  * CLASS Oficina
