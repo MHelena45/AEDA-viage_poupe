@@ -8,8 +8,8 @@
 #include "bilheteira.h"
 #include "Maquinistas.h"
 
-Datas* getDataActual();
-Horas* getHoraActual();
+Datas getDataActual();
+Horas getHoraActual();
 
 void menuInformacao(BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p, Oficinas *o);
 void menuComCartao(BaseClientes *r, Bilheteira *b, Paragens *p);

@@ -37,7 +37,6 @@ public:
 	 * @param numclientes Numero de clientes da Paragem
 	 */
 	Paragem(std::string nome, double latitude, double longitude, int numclientes);
-	
 	/**
 	 * Destrutor de Paragem
 	 */
@@ -55,15 +54,15 @@ public:
 	 */
 	double getLongitude() const;
 	/**
-	 * @return Número de clientes que já saiu nessa paragem
+	 * @return Numero de clientes que ja saiu nessa paragem
 	 */
 	int getNumClientes() const;
 	/**
-	 * @brief Aumenta o número de clientes por 1
+	 * @brief Aumenta o numero de clientes por 1
 	 */
 	void aumentaNumClientes();
 	/**
-	 * @brief Diminui o número de clientes por 1
+	 * @brief Diminui o numero de clientes por 1
 	 */
 	void diminuiNumClientes();
 	/**
@@ -94,13 +93,13 @@ public:
 	/**
 	 * @param p Paragem com a qual se vai comparar
 	 *
-	 * @return true se a paragem for menor que p (menor número de clientes ou menor nome caso sejam iguais)
+	 * @return true se a paragem for menor que p (menor numero de clientes ou menor nome caso sejam iguais)
 	 */
 	bool operator < (const Paragem &p) const;
 	/**
 	 * @param p Paragem com a qual se vai comparar
 	 *
-	 * @return true se a paragem for igual a p (igual número de clientes e igual nome)
+	 * @return true se a paragem for igual a p (igual numero de clientes e igual nome)
 	 */
 	bool operator == (const Paragem &p) const;
 };
@@ -131,15 +130,15 @@ public:
 	 */
 	Paragem* getParagem(int id);
 	/**
+	 * @brief Aumenta o n�mero de clientes por 1
+	 *
 	 * @param nome Nome (localidade) da paragem a alterar
-	 * 
-	 * @brief Aumenta o n�mero de clientes da paragem por 1
 	 */
 	void aumentaNumClientes(string nome);
 	/**
+	 * @brief Diminui o n�mero de clientes por 1
+	 *
 	 * @param nome Nome (localidade) da paragem a alterar
-	 * 
-	 * @brief Diminui o n�mero de clientes da paragem por 1
 	 */
 	void diminuiNumClientes(string nome);
 	/**
@@ -202,14 +201,14 @@ public:
 	 */
 	Oficina(){};
 	/**
-	 * Construtor de Paragem
+	 * @brief Construtor de Paragem
 	 * @param nome Nome da paragem
 	 * @param latitude Latitude da Paragem
 	 * @param longitude Longitude da Paragem
 	 */
 	Oficina(std::string nome, double latitude, double longitude);
 	/**
-	 * Construtor de Paragem ao carregar ficheiros
+	 * @brief Construtor de Paragem ao carregar ficheiros
 	 * @param nome Nome da paragem
 	 * @param latitude Latitude da Paragem
 	 * @param longitude Longitude da Paragem
@@ -217,7 +216,7 @@ public:
 	 */
 	Oficina(std::string nome, double latitude, double longitude, unsigned int disp);
 	/**
-	 * Destrutor de Paragem
+	 * @brief Destrutor de Paragem
 	 *
 	 */
 	~Oficina(){};
@@ -277,7 +276,7 @@ class Oficinas {
 	std::priority_queue <Oficina *> oficinas;
 public:
 	/**
-	 * Construtor de Oficinas
+	 * @brief Construtor de Oficinas
 	 *
 	 */
 	Oficinas(){};
@@ -314,7 +313,11 @@ public:
 	 * @brief Carrega as oficinas em "oficinas.txt"
 	 */
 	void loadOficinas();
-
+	/**
+	 * @brief Encontra oficina com dado nome
+	 * @param nome nome da oficina
+	 * @returns apontador para a oficina
+	 */
 	Oficina* findOficina(std::string nome);
 };
 

@@ -5,18 +5,20 @@ using namespace std;
 
 void menuParagens(Paragens *p);
 void menuOficinas (Oficinas *o);
+void menuComboios(Frota *f);
+void menuCartoes(BaseClientes *r);
 
-Datas* getDataActual(){
+Datas getDataActual(){
 	std::time_t t = std::time(0);
 	std::tm* now = std::localtime(&t);
-	Datas *temp = new Datas(now->tm_year+ 1900, now->tm_mon+1, now->tm_mday);
+	Datas temp (now->tm_year+ 1900, now->tm_mon+1, now->tm_mday);
 	return temp;
 }
 
-Horas* getHoraActual(){
+Horas getHoraActual(){
 	std::time_t t = std::time(0);
 	std::tm* now = std::localtime(&t);
-	Horas *temp = new Horas(now->tm_hour, now->tm_min);
+	Horas temp(now->tm_hour, now->tm_min);
 	return temp;
 }
 
@@ -143,13 +145,13 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f, Paragens *p) {
 
 	// DATA DA VIAGEM
 
-	Datas *dvgm;
+	Datas dvgm;
 	try {
 		cin.ignore();
 		cin.clear();
 		cout << "Data da viagem(DD-MM-AAAA): ";
 		getline(cin, datavgm);
-		dvgm = new Datas(datavgm);
+		dvgm = Datas(datavgm);
 		cout << endl;
 	}
 	catch (Datas::DataInvalida) {
@@ -163,11 +165,11 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f, Paragens *p) {
 
 	// HORA DA VIAGEM
 
-	Horas *hvgm;
+	Horas hvgm;
 	try {
 		cout << "Hora da viagem(HH:MM): ";
 		getline(cin, horavgm);
-		hvgm = new Horas(horavgm);
+		hvgm = Horas(horavgm);
 		cout << endl;
 	}
 	catch (Horas::HoraInvalida) {
@@ -194,7 +196,7 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f, Paragens *p) {
 			cout << "Erro: Este comboio nao existe" << endl;
 
 		if (f->getComboio(id_comboio)->getAvariado())
-			cout << "Este Comboio esta em manuntenï¿½ao na oficina: " << f->getComboio(id_comboio)->getOficina()->getNome();
+			cout << "Este Comboio esta em manuntencao na oficina: " << f->getComboio(id_comboio)->getOficina()->getNome();
 
 	}
 
@@ -400,10 +402,10 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 			p->aumentaNumClientes(temp->getDestino());
 
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "â‚¬" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "â‚¬"
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "â‚¬" << endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl;
 
 			return;
 		}
@@ -449,7 +451,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 			int cart = -2;
 			string nome;
 			string profissao;
-			Datas *datanasc;
+			Datas datanasc;
 
 			if (r->getNumCartoes() == 0){
 				cout << "Erro: Nao existem cartoes para subscrever" << endl;
@@ -471,7 +473,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 			cout << endl << "Data de Nascimento(DD-MM-AAAA): ";
 			getline(cin, datans);
 			cout << endl;
-			datanasc = new Datas(datans);
+			datanasc = Datas(datans);
 			}
 			catch (Datas::DataInvalida){
 				cout << "Data Invalida - Dia(1-31), Mes (1-12), tente outra vez" << endl;
@@ -620,10 +622,10 @@ void menuComCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 			p->aumentaNumClientes(temp->getDestino());
 
 			cout << "Compra efectuada" << endl << endl;
-			cout << "Preco Base = " << temp->getPrecoBase() << "â‚¬" << endl;
-			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "â‚¬"
+			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
+			cout << "Desconto = " <<temp->getPrecoBase() - precoFinal << "€"
 					<< " (" << 100 - (precoFinal/temp->getPrecoBase() * 100) << "%)"<< endl;
-			cout << "Preco Final = " << precoFinal << "â‚¬" << endl << endl;
+			cout << "Preco Final = " << precoFinal << "€" << endl << endl;
 
 			break;
 		}
@@ -733,9 +735,9 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cout << endl << "---Administracao---" << endl << endl;
 				cout << " 0 - Guardar Dados" << endl;
 				cout << " 1 - Carregar Dados" << endl;
-				cout << " 2 - Adicionar Comboios" << endl;
-				cout << " 3 - Adicionar Cartoes" << endl;
-				cout << " 4 - Adicionar Viagens" << endl;
+				cout << " 2 - Comboios" << endl;
+				cout << " 3 - Cartoes" << endl;
+				cout << " 4 - Viagens" << endl;
 				cout << " 5 - Maquinistas" << endl;
 				cout << " 6 - Paragens" << endl;
 				cout << " 7 - Oficinas" << endl;
@@ -782,108 +784,11 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				}
 
 			case 2: {
-				int lotacao = -2, velocidade = -2;
-				double precoKM = -2;
-				string nome, tipo;
-				Comboio *c;
-				cin.ignore();
-				cin.clear();
-
-				cout << endl << "---Criacao de comboio---" << endl;
-				cout<<endl<<"Nome:";
-				getline(cin, nome);
-
-				for (int i = 0; i < f->getNumComboios();i++){
-					if (f->getComboio(i)->getNome()==nome){
-						cout<<"Erro: Ja existe um comboio com esse nome."<<endl;
-						continue;
-					}
-				}
-
-				cout<< endl <<"Tipo ( IC para Intercidades, AP para AlfaPendular (IC/AP) ):";
-				getline(cin,tipo);
-
-				if (tipo!="IC" && tipo != "ic" && tipo != "Ic" && tipo != "iC"
-					&& tipo!= "AP" && tipo != "ap" && tipo != "Ap" && tipo != "aP"){
-						cout<<"Erro: Tipo invalido."<<endl;
-						return;
-					}
-
-				while (lotacao < 0){
-					cout << endl << "Insira lotacao do comboio (-1 para cancelar): ";
-					lotacao = userIntInput();
-
-					if (lotacao == -1)
-						return;
-
-					if (lotacao < -1 && lotacao != -200)
-						cout << "Erro: Lotacao invalida, apenas sao aceites numeros inteiros positivos." << endl;
-					}
-				cout << endl;
-				while (velocidade < 0){
-					cout << "Insira a velocidade do comboio (numero inteiro) (-1 para cancelar): ";
-					velocidade = userIntInput();
-					cout << endl;
-
-					if (velocidade == -1)
-						return;
-
-					if (velocidade < -1 && velocidade != -200)
-						cout << "Erro: Velocidade invalida, apenas sao aceites numeros inteiros positivos." << endl;
-				}
-
-				while (precoKM < 0){
-					cout << "Insira o preco por kilometro deste comboio (-1 para cancelar): ";
-					precoKM = userDoubleInput();
-					cout << endl;
-
-					if (precoKM == -1)
-						return;
-
-					if (precoKM < -1 && precoKM != -200)
-						cout << "Erro: Preco invalido, apenas sao aceites numeros positivos." << endl;
-				}
-
-
-				if (tipo!="IC" && tipo != "ic" && tipo != "Ic" && tipo != "iC")
-					c = new Intercidades (lotacao, velocidade, precoKM, nome);
-				else c = new AlfaPendular (lotacao, velocidade, precoKM, nome);
-				f->adicionaComboio(c);
-
-				cout << "Comboio adicionado com sucesso." << endl;
+				menuComboios(f);
 				return;
 			}
 			case 3: {
-				double precoMensal = -2;
-				int desconto = -2;
-				string nome;
-				cin.ignore();
-				cin.clear();
-				cout << endl << "---Criacao de cartao---" << endl;
-				cout<<endl<<"Nome do cartao de descontos :";
-				nome = nomeValido();
-				do {
-					cout << "Insira o desconto do cartao em percentagem (25, 50 ou 100) (-1 para cancelar): " << endl;
-					desconto = userIntInput();
-					cout << endl;
-					if (desconto == -1)
-						return;
-					if (desconto == 25)
-						precoMensal = 39;
-					else if(desconto == 50)
-						precoMensal = 69;
-					else if (desconto == 100)
-						precoMensal = 149;
-					else
-						cout << "Erro: Desconto invalido, sÃ³ existem contratos de preco 25, 50 e 100 porcento" << endl;
-				} while (desconto != 25 && desconto != 50 && desconto != 100);
-				cout << "O preco mensal desta modalidadade e " << precoMensal << endl;
-
-				desconto = 100 - desconto;
-				Cartao *c1 = new Cartao(nome, precoMensal, desconto);
-				r->adicionaCartao(c1);
-
-				cout << "Cartao adicionado com sucesso" << endl;
+				menuCartoes(r);
 				return;
 			}
 
@@ -923,26 +828,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				return;
 			}
 			case 7:{
-				string nome;
-				double lat, log;
-				cin.ignore();
-				cin.clear();
-
-				cout << "Nome da oficina:";
-				getline(cin, nome);
-				cout << endl;
-				cout << "Latitude:";
-				lat = userDoubleInput();
-				cout << endl;
-				cout << "Longitude:";
-				cout << endl;
-				log = userDoubleInput();
-
-				Oficina *temp = new Oficina(nome, lat, log);
-				o->addOficina(temp);
-
-				cout << endl << "Paragem adicionada com sucesso" << endl;
-
+				menuOficinas(o);
 				return;
 			}
 
@@ -1271,6 +1157,313 @@ void menuMaquinistaViagens(Frota *f, Bilheteira *b, Maquinistas *M, Paragens *p)
 	}
 }
 
+void menuCartoes(BaseClientes *r) {
+
+	int menu = -2;
+
+	while (menu != 3) {
+		while (menu == -2 || menu == -1) {
+			cout << endl << "---Cartoes---" << endl << endl;
+			cout << " 0 - Adicionar cartao" << endl;
+			cout << " 1 - Editar cartao " << endl;
+			cout << " 2 - Eliminar cartao" << endl;
+			cout << " 3 - Sair " << endl;
+
+			menu = menuInput(3);
+			if (menu == -1)
+				cout << "Erro: Menu nao existe, tente outra vez" << endl;
+
+		}
+
+		switch (menu) {
+
+		case 0: {
+			double precoMensal = -2;
+			int desconto = -2;
+			string nome;
+			cin.ignore();
+			cin.clear();
+			cout << endl << "---Criacao de cartao---" << endl;
+			cout<<endl<<"Nome do cartao de descontos :";
+			nome = nomeValido();
+			do {
+				cout << "Insira o desconto do cartao em percentagem (25, 50 ou 100) (-1 para cancelar): " << endl;
+				desconto = userIntInput();
+				cout << endl;
+				if (desconto == -1)
+					return;
+				if (desconto == 25)
+					precoMensal = 39;
+				else if(desconto == 50)
+					precoMensal = 69;
+				else if (desconto == 100)
+					precoMensal = 149;
+				else cout << "Erro: Desconto invalido, so existem contratos de preco 25, 50 e 100 porcento" << endl;
+				} while (desconto != 25 && desconto != 50 && desconto != 100);
+
+			cout << "O preco mensal desta modalidadade e " << precoMensal << endl;
+
+			desconto = 100 - desconto;
+			Cartao *c1 = new Cartao(nome, precoMensal, desconto);
+			r->adicionaCartao(c1);
+			cout << "Cartao adicionado com sucesso" << endl;
+
+			return;
+		}
+		case 1:
+		{
+			if (r->getNumCartoes() == 0){
+				cout << "Erro: Nao existem cartoes para subscrever" << endl;
+				return;
+			}
+
+			int id;
+
+			r->getInfoCartao();
+			cout << "Id do cartao a editar:";
+			id = userIntInput();
+
+			double precoMensal = -2;
+			int desconto = -2;
+			string nome;
+			cin.ignore();
+			cin.clear();
+			cout<<endl<<"Nome do cartao de descontos :";
+			nome = nomeValido();
+			do {
+				cout << "Insira o desconto do cartao em percentagem (25, 50 ou 100) (-1 para cancelar): " << endl;
+				desconto = userIntInput();
+				cout << endl;
+				if (desconto == -1)
+					return;
+				if (desconto == 25)
+					precoMensal = 39;
+				else if(desconto == 50)
+					precoMensal = 69;
+				else if (desconto == 100)
+					precoMensal = 149;
+				else cout << "Erro: Desconto invalido, so existem contratos de preco 25, 50 e 100 porcento" << endl;
+			} while (desconto != 25 && desconto != 50 && desconto != 100);
+
+			r->getCartao(id)->setNome(nome);
+			r->getCartao(id)->setPreco(precoMensal);
+			r->getCartao(id)->setDesconto(desconto);
+
+			cout << "Cartao editado com sucesso" << endl;
+
+			return;
+		}
+		case 2: {
+
+			if (r->getNumCartoes() == 0){
+				cout << "Erro: Nao existem cartoes para subscrever" << endl;
+				return;
+			}
+
+			int id;
+
+			r->getInfoCartao();
+			cout << "Id do cartao a remover:";
+			id = userIntInput();
+
+			r->removeCartao(id);
+
+
+			cout << "Cartao removido com sucesso" << endl;
+
+			return;
+		}
+		case 3: return;
+
+		default: return;
+		}
+	}
+}
+
+void menuComboios(Frota *f) {
+
+	int menu = -2;
+
+	while (menu != 3) {
+		while (menu == -2 || menu == -1) {
+			cout << endl << "---Comboios---" << endl << endl;
+			cout << " 0 - Adicionar comboio" << endl;
+			cout << " 1 - Editar comboio " << endl;
+			cout << " 2 - Eliminar comboio" << endl;
+			cout << " 3 - Sair " << endl;
+
+			menu = menuInput(3);
+			if (menu == -1)
+				cout << "Erro: Menu nao existe, tente outra vez" << endl;
+
+		}
+
+		switch (menu) {
+
+		case 0: {
+			int lotacao = -2, velocidade = -2;
+			double precoKM = -2;
+			string nome, tipo;
+			Comboio *c;
+			cin.ignore();
+			cin.clear();
+
+			cout << endl << "---Criacao de comboio---" << endl;
+			cout<<endl<<"Nome:";
+			getline(cin, nome);
+
+			for (int i = 0; i < f->getNumComboios();i++){
+				if (f->getComboio(i)->getNome()==nome){
+					cout<<"Erro: Ja existe um comboio com esse nome."<<endl;
+					continue;
+				}
+			}
+
+			cout<< endl <<"Tipo ( IC para Intercidades, AP para AlfaPendular (IC/AP) ):";
+			getline(cin,tipo);
+
+			if (tipo!="IC" && tipo != "ic" && tipo != "Ic" && tipo != "iC"
+				&& tipo!= "AP" && tipo != "ap" && tipo != "Ap" && tipo != "aP"){
+					cout<<"Erro: Tipo invalido."<<endl;
+					return;
+				}
+
+			while (lotacao < 0){
+				cout << endl << "Insira lotacao do comboio (-1 para cancelar): ";
+				lotacao = userIntInput();
+
+				if (lotacao == -1)
+					return;
+
+				if (lotacao < -1 && lotacao != -200)
+					cout << "Erro: Lotacao invalida, apenas sao aceites numeros inteiros positivos." << endl;
+				}
+			cout << endl;
+			while (velocidade < 0){
+				cout << "Insira a velocidade do comboio (numero inteiro) (-1 para cancelar): ";
+				velocidade = userIntInput();
+				cout << endl;
+
+				if (velocidade == -1)
+					return;
+
+				if (velocidade < -1 && velocidade != -200)
+					cout << "Erro: Velocidade invalida, apenas sao aceites numeros inteiros positivos." << endl;
+			}
+
+			while (precoKM < 0){
+				cout << "Insira o preco por kilometro deste comboio (-1 para cancelar): ";
+				precoKM = userDoubleInput();
+				cout << endl;
+
+				if (precoKM == -1)
+					return;
+
+				if (precoKM < -1 && precoKM != -200)
+					cout << "Erro: Preco invalido, apenas sao aceites numeros positivos." << endl;
+			}
+
+
+			if (tipo!="IC" && tipo != "ic" && tipo != "Ic" && tipo != "iC")
+				c = new Intercidades (lotacao, velocidade, precoKM, nome);
+			else c = new AlfaPendular (lotacao, velocidade, precoKM, nome);
+			f->adicionaComboio(c);
+
+			cout << "Comboio adicionado com sucesso." << endl;
+
+			return;
+		}
+		case 1:
+		{
+			int id;
+			if (f->getNumComboios() == 0){
+				cout << endl << "Erro: Nao existem comboios" << endl;
+				return;
+			}
+			string nome, tipo;
+			int lotacao, velocidade;
+			double precoKM;
+
+			cout << endl << "Lista de Comboios" << endl << endl;
+			cout << f->getInformacao();
+			cout << "Escolha o comboio a editar:";
+			id = userIntInput();
+			cout << endl;
+			cout<<endl<<"Nome:";
+			getline(cin, nome);
+			cout << endl;
+
+			while (lotacao < 0){
+				cout << endl << "Insira lotacao do comboio (-1 para cancelar): ";
+				lotacao = userIntInput();
+
+				if (lotacao == -1)
+					return;
+
+				if (lotacao < -1 && lotacao != -200)
+					cout << "Erro: Lotacao invalida, apenas sao aceites numeros inteiros positivos." << endl;
+			}
+
+			while (velocidade < 0){
+				cout << "Insira a velocidade do comboio (numero inteiro) (-1 para cancelar): ";
+				velocidade = userIntInput();
+				cout << endl;
+
+				if (velocidade == -1)
+					return;
+
+				if (velocidade < -1 && velocidade != -200)
+					cout << "Erro: Velocidade invalida, apenas sao aceites numeros inteiros positivos." << endl;
+			}
+
+			while (precoKM < 0){
+				cout << "Insira o preco por kilometro deste comboio (-1 para cancelar): ";
+				precoKM = userDoubleInput();
+				cout << endl;
+
+				if (precoKM == -1)
+					return;
+
+				if (precoKM < -1 && precoKM != -200)
+					cout << "Erro: Preco invalido, apenas sao aceites numeros positivos." << endl;
+			}
+
+			f->getComboio(id)->setNome(nome);
+			f->getComboio(id)->setLotacao(lotacao);
+			f->getComboio(id)->setVelocidade(velocidade);
+			f->getComboio(id)->setPreco(precoKM);
+
+			cout << "Comboio editado com sucesso" << endl;
+			return;
+		}
+		case 2: {
+
+			int id;
+
+			if (f->getNumComboios() == 0){
+				cout << endl << "Erro: Nao existem comboios" << endl;
+				return;
+			}
+
+			cout << endl << "Lista de Comboios" << endl << endl;
+			cout << f->getInformacao();
+			cout << "Escolha o comboio a editar:";
+			id = userIntInput();
+			cout << endl;
+
+			f->removeComboio(id);
+
+			cout << "Comboio removido com sucesso" << endl;
+
+			return;
+		}
+		case 3: return;
+
+		default: return;
+		}
+	}
+}
+
 void menuParagens(Paragens *p) {
 
 	int menu = -2;
@@ -1281,7 +1474,7 @@ void menuParagens(Paragens *p) {
 			cout << " 0 - Adicionar paragem" << endl;
 			cout << " 1 - Editar paragem " << endl;
 			cout << " 2 - Eliminar paragem" << endl;
-			cout << " 3 - Mostrar as paragens ordenadas por nÃºmero de clientes" << endl;
+			cout << " 3 - Mostrar as paragens ordenadas por numero de clientes" << endl;
 			cout << " 4 - Sair " << endl;
 
 			menu = menuInput(4);
@@ -1349,7 +1542,7 @@ void menuParagens(Paragens *p) {
 			cout << "Paragem a apagar:";
 			par = userIntInput();
 			if (par >= p->sizeParagens() || par < 0){
-				cout << endl << "Paragem nï¿½o existe" << endl;
+				cout << endl << "Paragem nao existe" << endl;
 				return;
 			}
 			p->deleteParagem(par);
@@ -1420,7 +1613,7 @@ void menuOficinas (Oficinas *o) {
 			cout << endl << "Oficina a editar:";
 			ofi = userIntInput();
 			if (ofi >= o->sizeOficinas() || ofi < 0){
-				cout << endl << "Oficina nï¿½o existe" << endl;
+				cout << endl << "Oficina nao existe" << endl;
 			}
 
 			cout << "Nome da oficina:";
@@ -1454,7 +1647,7 @@ void menuOficinas (Oficinas *o) {
 			cout << "Oficina a apagar:";
 			ofi = userIntInput();
 			if (ofi >= o->sizeOficinas() || ofi < 0){
-				cout << endl << "Oficina nï¿½o existe" << endl;
+				cout << endl << "Oficina nao existe" << endl;
 				return;
 			}
 			o->deleteOficina(ofi);

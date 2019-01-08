@@ -15,7 +15,7 @@ using namespace std;
 
  //Construtor
 
-Compra::Compra(Viagem *v, Cartao *c, double pf, Datas *dc, Horas *hc) {
+Compra::Compra(Viagem *v, Cartao *c, double pf, Datas dc, Horas hc) {
 	v1 = v;
 	c1 = c;
 	precoFinal = pf;
@@ -25,17 +25,15 @@ Compra::Compra(Viagem *v, Cartao *c, double pf, Datas *dc, Horas *hc) {
 
 //Destrutor
 Compra::~Compra() {
-	double vgmhoras = v1->getDataPartida()->getTotalHours() + v1->getHorasPartida()->getTotalHours();
-	Datas *temp = getDataActual();
-	Horas *hTemp = getHoraActual();
-	double cTime = temp->getTotalHours() + hTemp->getTotalHours();
+
+	double vgmhoras = v1->getDataPartida().getTotalHours() + v1->getHorasPartida().getTotalHours();
+	double cTime = getDataActual().getTotalHours() + getHoraActual().getTotalHours();
+
 	if (cTime > vgmhoras)
 		delete v1;
 
-	delete dCompra;
-	delete hCompra;
-	delete temp;
-	delete hTemp;
+	delete &dCompra;
+	delete &hCompra;
 }
 
 //Acessors
@@ -43,9 +41,9 @@ Compra::~Compra() {
 std::string Compra::getInfo() const {
 	stringstream ss;
 
-	ss << *dCompra << "      " << *hCompra << "           " << left << setfill(' ') << setw(9)
-		<< v1->getOrigem() << setw(9) << v1->getDestino() << *v1->getDataPartida() << "      "
-		<< *v1->getHorasPartida() << "           " << left << setw(16) << setfill(' ')
+	ss << dCompra << "      " << hCompra << "           " << left << setfill(' ') << setw(9)
+		<< v1->getOrigem() << setw(9) << v1->getDestino() << v1->getDataPartida() << "      "
+		<< v1->getHorasPartida() << "           " << left << setw(16) << setfill(' ')
 		<< v1->getPrecoBase() << setw(6) << precoFinal << endl;
 
 	return ss.str();
@@ -55,9 +53,9 @@ Viagem* Compra::getViagem() const { return v1; }
 
 Cartao* Compra::getCartao() const { return this->c1; }
 
-Datas* Compra::getDataCompra() const { return dCompra; }
+Datas Compra::getDataCompra() const { return dCompra; }
 
-Horas* Compra::getHoraCompra() const { return hCompra; }
+Horas Compra::getHoraCompra() const { return hCompra; }
 
 double Compra::getPrecoFinal() const { return precoFinal; }
 
@@ -65,8 +63,8 @@ double Compra::getPrecoFinal() const { return precoFinal; }
 //Outros
 
 bool Compra::operator == (const Compra &c2) {
-	float c1hf = this->dCompra->getTotalHours() + this->hCompra->getTotalHours();
-	float c2hf = c2.dCompra->getTotalHours() + c2.hCompra->getTotalHours();
+	float c1hf = this->dCompra.getTotalHours() + this->hCompra.getTotalHours();
+	float c2hf = c2.dCompra.getTotalHours() + c2.hCompra.getTotalHours();
 
 	if ((c1hf == c2hf) && (*this->v1 == *c2.v1) && (this->precoFinal == c2.precoFinal))
 		return true;
@@ -129,11 +127,9 @@ void Bilheteira::updateViagens(Paragens *p) {
 
 	//Remove viagens ja inciadas do vector
 
-	Horas *tempHora = getHoraActual();
-	Datas *tempData = getDataActual();
-	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
+	float horasActual = getDataActual().getTotalHours() + getHoraActual().getTotalHours();
 	for (unsigned int i = 0; i < viagens.size(); i++) {
-		float horasViagem = viagens.at(i)->getDataPartida()->getTotalHours() + viagens.at(i)->getHorasPartida()->getTotalHours();
+		float horasViagem = viagens.at(i)->getDataPartida().getTotalHours() + viagens.at(i)->getHorasPartida().getTotalHours();
 		if (horasActual > horasViagem) {
 			if (!(viagens.at(i)->compraRegisto())) {
 				Paragem *temp = p->findParagem(viagens.at(i)->getDestino());
@@ -154,9 +150,9 @@ void Bilheteira::updateViagens(Paragens *p) {
 	//Selection Sort, organizado por viagens que saiam primeiro para viagens que saiam mais tarde
 
 	for (unsigned int i = 0; i < viagens.size(); i++) {
-		double horasi = viagens.at(i)->getDataPartida()->getTotalHours() + viagens.at(i)->getHorasPartida()->getTotalHours();
+		double horasi = viagens.at(i)->getDataPartida().getTotalHours() + viagens.at(i)->getHorasPartida().getTotalHours();
 		for (unsigned int j = i + 1; j < viagens.size(); j++) {
-			double horasj = viagens.at(j)->getDataPartida()->getTotalHours() + viagens.at(j)->getHorasPartida()->getTotalHours();
+			double horasj = viagens.at(j)->getDataPartida().getTotalHours() + viagens.at(j)->getHorasPartida().getTotalHours();
 
 			if (horasi > horasj) {
 				Viagem *temp = viagens.at(i);
@@ -192,10 +188,10 @@ void Bilheteira::loadViagens(Paragens *p) {
 
 		// DATA DA VIAGEM
 
-		Datas *dvgm;
+		Datas dvgm;
 		try {
 			getline(mfile, datavgm);
-			dvgm = new Datas(datavgm);
+			dvgm = Datas(datavgm);
 		}
 		catch (Datas::DataInvalida) {
 			cout << "Data Invalida - Dia(1-31), Mes (1-12)" << endl;
@@ -210,10 +206,10 @@ void Bilheteira::loadViagens(Paragens *p) {
 
 		// HORA DA VIAGEM
 
-		Horas *hvgm;
+		Horas hvgm;
 		try {
 			getline(mfile, horavgm);
-			hvgm = new Horas(horavgm);
+			hvgm = Horas(horavgm);
 		}
 		catch (Horas::HoraInvalida) {
 			cout << "Hora Invalida - Hora(0-23), Min (0-59)" << endl;
@@ -254,8 +250,8 @@ void Bilheteira::saveViagens(Paragens *p) {
 	for (unsigned int i = 0; i < viagens.size(); i++) {
 		mfile << "Viagem" << endl << viagens.at(i)->getOrigem() << endl
 			<< viagens.at(i)->getDestino() << endl << viagens.at(i)->getDistancia()
-			<< endl << viagens.at(i)->getComboio()->getId() << endl << *viagens.at(i)->getDataPartida()
-			<< endl << *viagens.at(i)->getHorasPartida() << endl << viagens.at(i)->getVagas()
+			<< endl << viagens.at(i)->getComboio()->getId() << endl << viagens.at(i)->getDataPartida()
+			<< endl << viagens.at(i)->getHorasPartida() << endl << viagens.at(i)->getVagas()
 			<< endl << viagens.at(i)->getComprasAnonimas() << endl;
 	}
 

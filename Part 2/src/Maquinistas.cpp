@@ -122,10 +122,10 @@ bool Maquinistas::loadMaquinistas(Frota *f, string nome) {
 			maqfile >> comprasAnonimas;
 			maqfile.ignore(1);
 			// DATA DA VIAGEM
-			Datas *dvgm;
+			Datas dvgm;
 			try {
 				getline(maqfile, datavgm);
-				dvgm = new Datas(datavgm);
+				dvgm = Datas (datavgm);
 			}
 			catch (Datas::DataInvalida) {
 				cout << "Em maquinistas exixte uma data Invalida - Dia(1-31), Mes (1-12)" << endl;
@@ -140,10 +140,10 @@ bool Maquinistas::loadMaquinistas(Frota *f, string nome) {
 
 			// HORA DA VIAGEM
 
-			Horas *hvgm;
+			Horas hvgm;
 			try {
 				getline(maqfile, horavgm);
-				hvgm = new Horas(horavgm);
+				hvgm = Horas (horavgm);
 			}
 			catch (Horas::HoraInvalida) {
 				cout << "Em maquinistas exixte uma hora Invalida - Hora(0-23), Min (0-59)" << endl;
@@ -184,7 +184,7 @@ void Maquinistas::saveMaquinistas() {
 		for(unsigned int i=0; i < viagens.size(); i++) {
 			maqfile << viagens.at(i)->getOrigem() << " " << viagens.at(i)->getDestino() << " " << viagens.at(i)->getDistancia()
 				<< " " << viagens.at(i)->getComboio()->getId() << " "<< viagens.at(i)->getVagas() << " " << viagens.at(i)->getComprasAnonimas()
-				<< " " << *viagens.at(i)->getDataPartida() << endl << *viagens.at(i)->getHorasPartida() << endl;
+				<< " " << viagens.at(i)->getDataPartida() << endl << viagens.at(i)->getHorasPartida() << endl;
 		}
 	}	
 	maqfile.close();
@@ -277,11 +277,11 @@ void Maquinistas::showMaquinistaseViagens() {
 		via = it.getViagens();
 		if (via.size()){
 			cout << endl;
-			cout << setw(10) << "ID" << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
+			cout << left << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
 				<< "Distancia(KM)" << setw(9) << "Comboio" << setw(13) << "Data"
 				<< setw(8) << "Hora" << setw(16) << "Preco base(€)" << setw(7) << "Vagas" << "\n";
 			for (unsigned int i = 0; i < via.size(); i++) {
-				cout << setw(10) << i << setw(10) << via.at(i)->getInfo();
+				cout << via.at(i)->getInfo();
 			}
 			cout << endl;
 		}

@@ -15,14 +15,14 @@ class Viagem{
 	std::string origem, destino;
 	double distancia;
 	Comboio *c1;
-	Datas *dPartida;
-	Horas *hPartida;
+	Datas dPartida;
+	Horas hPartida;
 	double precoBase;
 	unsigned int vagas;
 	unsigned int comprasAnonimas;
 public:
 	/**
-	 * Construtor de viagem para quando e o nova viagem
+	 * @brief Construtor de viagem para quando e o nova viagem
 	 * @param ori Origem
 	 * @param dest Destino
 	 * @param dist Distancia
@@ -30,7 +30,7 @@ public:
 	 * @param dp Apontador para data da viagem
 	 * @param hp Apontador para horas da viagem
 	 */
-	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp);
+	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas dp, Horas hp);
 	/**
 	 * Construtor de viagem para quando a viagem e carregada de um ficheiro
 	 * @param ori Origem
@@ -39,9 +39,9 @@ public:
 	 * @param hp Apontador para horas da viagem
 	 * @param precoBase Preco base da viagem
 	 */
-	Viagem(std::string ori, std::string dest, Datas *dp, Horas *hp,  double precoBase);
+	Viagem(std::string ori, std::string dest, Datas dp, Horas hp,  double precoBase);
 	/**
-	 * Construtor de viagem para quando e carregada de um ficheiro para um objecto de compra
+	 * @brief Construtor de viagem para quando e carregada de um ficheiro para um objecto de compra
 	 * @param ori Origem
 	 * @param dest Destino
 	 * @param dist Distancia
@@ -51,9 +51,9 @@ public:
 	 * @param vagas Numero de lugares disponiveis para essa viagem
 	 * @param comprasAnon Numero de lugares comprados anonimamente (por clientes sem cartao)
 	 */
-	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp, int vagas, int comprasAnon);
+	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas dp, Horas hp, int vagas, int comprasAnon);
 	/**
-	 * Destrutor \n
+	 * @brief Destrutor \n
 	 * Destroi os objectos Datas e Horas com o tempo da partida da viagem
 	 */
 	~Viagem();
@@ -61,11 +61,11 @@ public:
 	/**
 	 * @return Apontador para a data (ano-mes-dia) de partida da viagem
 	 */
-	Datas* getDataPartida() const;
+	Datas getDataPartida() const;
 	/**
 	 * @return Apontador para a hora (horas:minutos) de partida da viagem
 	 */
-	Horas* getHorasPartida() const;
+	Horas getHorasPartida() const;
 	/**
 	 * @return Preco base (sem desconto) da viagem
 	 */
@@ -119,7 +119,7 @@ public:
 	 */
 	double getPrecoFinal(Cartao *c);
 	/**
-	 * Redefinicao do operador comparacao
+	 * @brief Redefinicao do operador comparacao
 	 * @param v2 Referencia para a viagem com a qual se vai comparar
 	 * @return True se as duas viagens sao iguais
 	 */

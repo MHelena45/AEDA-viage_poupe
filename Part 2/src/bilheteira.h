@@ -18,18 +18,18 @@
 	Viagem *v1;
 	Cartao *c1;
 	double precoFinal;
-	Datas *dCompra;
-	Horas *hCompra;
+	Datas dCompra;
+	Horas hCompra;
 	public:
 		/**
-		 * Construtor da class Compra
+		 * @brief Construtor da class Compra
 		 * @param v Apontador para a viagem que se reservou
 		 * @param c Apontador para o cartao que o cliente usou na compra
 		 * @param pf Preco final
 		 * @param dc Apontador para data da compra
 		 * @param hc Apontador para horas da compra
 		 */
-		Compra(Viagem *v, Cartao *c, double pf, Datas *dc, Horas *hc);
+		Compra(Viagem *v, Cartao *c, double pf, Datas dc, Horas hc);
 		/**
 		 * Destrutor \n
 		 * Destroi os objectos da class Datas e Horas associados ao objeto compra. \n\n
@@ -53,18 +53,18 @@
 		/**
 		 * @return Apontador para data da compra
 		 */
-		Datas* getDataCompra() const;
+		Datas getDataCompra() const;
 		/**
 		 * @return Apontador para hora da compra
 		 */
-		Horas* getHoraCompra() const;
+		Horas getHoraCompra() const;
 		/**
 		 * @return Preco final (ja depois de qualquer desconto) da compra
 		 */
 		double getPrecoFinal() const;
 
 		/**
-		 * Redefinicao do operador de comparacao
+		 * @brief Redefinicao do operador de comparacao
 		 * @param c2 Referencia para a compra com a qual se vai comparar
 		 * @return Se as duas compras sao iguais ou nao
 		 */
@@ -84,7 +84,7 @@ class Bilheteira {
 
 public:
 	/**
-	 * Construtor de bilheteira
+	 * @brief Construtor de bilheteira
 	 * @param frt Apontador para frota de comboios
 	 * A frota de comboios e usada no carregamento de viagens de um ficheiro
 	 */
@@ -116,20 +116,21 @@ public:
 	std::string getInfo(Paragens *p);
 
 	/**
+	 * @brief Adiciona viagens ao vector viagem
 	 * @param v1 Apontador para viagem a adicionar
 	 */
 	void adicionaViagem(Viagem *v1);
 	/**
-	 * Atualiza as viagens e elimina as viagens que ja inciaram. \n
+	 * @brief Atualiza as viagens e elimina as viagens que ja inciaram. \n
 	 * Ordena o vector das viagens por ordem de partida
 	 */
 	void updateViagens(Paragens *p);
 	/**
-	 * Abre "viagens.txt" e adiciona as viagens a bilheteira
+	 * @brief Abre "viagens.txt" e adiciona as viagens a bilheteira
 	 */
 	void loadViagens(Paragens *p);
 	/**
-	 * Guarda as viagens da bilheteira em "viagens.txt"
+	 * @brief Guarda as viagens da bilheteira em "viagens.txt"
 	 */
 	void saveViagens(Paragens *p);
 };

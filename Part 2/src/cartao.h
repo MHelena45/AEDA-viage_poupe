@@ -15,7 +15,7 @@ class Cartao {
 
 public:
 	/**
-	 * Construtor de cartao
+	 * @brief Construtor de cartao
 	 * @param nome  Nome do cartao
 	 * @param prc  Preco mensal da subscricao do cartao
 	 * @param desc Valor a pagar depois do desconto, ex: 25% de desconto = 75
@@ -39,6 +39,21 @@ public:
 	 */
 	string getInformacao() const;
 	/**
+	 * @brief atribui nome ao cartao
+	 * @nome novo nome do cartao
+	 */
+	void setNome(string nome);
+	/**
+	 * @brief atribui preco ao cartao
+	 * @nome prc preco do cartao
+	 */
+	void setPreco(double prc);
+	/**
+	 * @brief atribui preco ao cartao
+	 * @nome prc preco do cartao
+	 */
+	void setDesconto (int dsc);
+	/**
 	 * Redefinicao do operador comparacao
 	 * @param ct1 Referencia para o cartao com o qual se vai comparar
 	 * @return se o cartao e igual ao outro ou nao
@@ -57,31 +72,31 @@ class Registo {
 	Cartao *c1;
 	string nome;
 	string profissao;
-	Datas *datanascimento;
+	Datas datanascimento;
 	bool ativo;
 	vector <Compra *> historico;
 public:
 	/**
-	 * Construtor do registo, esta ativo por predefinicao
+	 * @brief Construtor do registo, esta ativo por predefinicao
 	 * @param *c Apontador para objeto da class Cartao, tipo de subscricao
 	 * @param nome Nome do passageiro
 	 * @param profissao Profissao do passageiro
 	 * @param datanasc Apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
 	 */
-	Registo(Cartao *c, string nome, string profissao, Datas *datanasc);
+	Registo(Cartao *c, string nome, string profissao, Datas datanasc);
 
 	/**
-	 * Construtor do registo, pode estar ativo ou nao
+	 * @brief Construtor do registo, pode estar ativo ou nao
 	 * @param *c Apontador para objeto da class Cartao, tipo de subscricao
 	 * @param nome Nome do passageiro
 	 * @param profissao Profissao do passageiro
 	 * @param datanasc Apontador para struct (int dia, int mes, int ano), recebe a data de nascimento
 	 * @param ativo Bool indica se o registo esta ativo
 	 */
-	Registo(Cartao *c, string nome, string profissao, Datas *datanasc, bool ativo);
+	Registo(Cartao *c, string nome, string profissao, Datas datanasc, bool ativo);
 
 	/**
-	 * Destrutor \n
+	 * @brief Destrutor \n
 	 * Destroi todos os objectos de compra do vector historico.\n
 	 * Destroi tambem o objecto com a data de nascimento.
 	 */
@@ -121,22 +136,22 @@ public:
 	std::string getHistorico() const;
 
 	/**
-	 * Activa ou desactiva a subscricao
+	 * @brief Activa ou desactiva a subscricao
 	 * @param at escolhe ativar ou desativar cartao
 	 */
 	void alterarEstado(bool at);
 	/**
-	 * Altera o cartao do passageiro
+	 * @brief Altera o cartao do passageiro
 	 * @param c Apontador para cartao a alterar
 	 */
 	void alterarCartao(Cartao *c);
 	/**
-	 * Adiciona uma compra ao historico do passageiro
+	 * @brief Adiciona uma compra ao historico do passageiro
 	 * @param c1 Apontador para compra a adicionar
 	 */
 	void adicionaCompra(Compra *c1);
 	/**
-	 * Elimina uma compra do historico do passageiro
+	 * @brief Elimina uma compra do historico do passageiro
 	 * @param c1 Apontador para compra a remover
 	 */
 	void eliminaCompra(Compra *c1);
@@ -164,12 +179,12 @@ class BaseClientes {
 public:
 
 	/**
-	 * Construtor de baseclientes, inicializa id do registo no vetor que vai ser usado
+	 * @briefConstrutor de baseclientes, inicializa id do registo no vetor que vai ser usado
 	 * para aceder a dados do registo
 	 */
 	BaseClientes(){id = 0;};
 	/**
-	 * Destructor\n
+	 * @brief Destructor\n
 	 * Destroi todos os objectos de Registos e Cartoes guardados
 	 */
 	~BaseClientes();
@@ -214,27 +229,31 @@ public:
 	 */
 	void adicionaRegisto(Registo *r1);
 	/**
-	 * Remove registos do vector(regs) de clientes
+	 * @brief Remove registos do vector(regs) de clientes
 	 */
 	void removeRegisto ();
+	/**
+	 * @brief Remove Cartoes do vector(cratoes)
+	 */
+	void removeCartao (int id);
 	/**
 	 * @param id ID do cliente a aceder dados
 	 */
 	void setId(int id);
 	/**
-	 * Abre "cartoes.txt" e adiciona os cartoes contidos a base de clientes
+	 * @brief Abre "cartoes.txt" e adiciona os cartoes contidos a base de clientes
 	 */
 	void loadCartoes();
 	/**
-	 * Guarda os cartoes da base de clientes em "cartoes.txt"
+	 * @brief Guarda os cartoes da base de clientes em "cartoes.txt"
 	 */
 	void saveCartoes()const;
 	/**
-	 * Abre "registos.txt" e adiciona os registos contidos a base de clientes
+	 * @brief Abre "registos.txt" e adiciona os registos contidos a base de clientes
 	 */
 	void loadRegistos();
 	/**
-	 * Guarda os registos da base de clientes em "registos.txt"
+	 * @brief Guarda os registos da base de clientes em "registos.txt"
 	 */
 	void saveRegistos();
 };

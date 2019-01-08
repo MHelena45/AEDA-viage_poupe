@@ -96,13 +96,12 @@ void Paragens::printParagens() const{
 
 void Paragens::printParagensBST() const
 {
-    BSTItrIn<Paragem> it(paragensbst);
-	int x=0;
-	cout << endl << "Lista das paragens:"<<endl;
-    while (!it.isAtEnd())
-    {
+     BSTItrIn<Paragem> it(paragensbst);
+	 int x=0;
+     while (!it.isAtEnd())
+     {
 		x++;
-        cout << setw(2) << x << " - " <<it.retrieve().getNumClientes() << " - " << it.retrieve().getNome() << endl;
+        cout << x << " - " <<it.retrieve().getNumClientes() << " - " << it.retrieve().getNome() << endl;
     	it.advance();
      }
 }

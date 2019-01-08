@@ -23,7 +23,7 @@ protected:
 	double dataUltimaAvaria;
 public:
 	/**
-	 * Construtor de comboio
+	 * @brief Construtor de comboio
 	 * @param numPassageiros Numero de passageiros maximo do comboio
 	 * @param velocidade Velocidade do comboio
 	 * @param precoKM Preco por km do comboio
@@ -71,9 +71,25 @@ public:
 	 */
 	double getDataUltimaAvaria() const;
 	/**
-	 * Destrutor virtual \n
+	 * @brief Destrutor virtual \n
 	 */
 	virtual ~Comboio(){};
+	/**
+	 * @param nome Atribuir nome
+	 */
+	void setNome(string nome);
+	/**
+	 * @param lot Atribuir lotacao
+	 */
+	void setLotacao(int lot);
+	/**
+	 * @param vel Atribuir Velocidade
+	 */
+	void setVelocidade(int vel);
+	/**
+	 * @param prc Atribuir Preco por km
+	 */
+	void setPreco(double prc);
 	/**
 	 * @param id Atribuir id
 	 */
@@ -95,7 +111,7 @@ public:
 	 */
 	void setOficina(Oficina *o1);
 	/**
-	 * Faz overload ao operador de saida para dar output da informacao do comboio em
+	 * @brief Faz overload ao operador de saida para dar output da informacao do comboio em
 	 * forma de tabela
 	 * @param os Referencia para ofstream onde guardar a informacao
 	 * @param c1 Referencia para o comboio
@@ -114,7 +130,7 @@ public:
 class AlfaPendular: public Comboio {
 public:
 	/**
-	 * Construtor de alfapendular
+	 * @brief Construtor de alfapendular
 	 * @param numPassageiros Numero de passageiros maximo do comboio
 	 * @param velocidade Velocidade do comboio
 	 * @param precoKM Preco por km do comboio
@@ -140,7 +156,7 @@ public:
 class Intercidades: public Comboio {
 public:
 	/**
-	 * Construtor de intercidades
+	 * @brief Construtor de intercidades
 	 * @param numPassageiros Numero de passageiros maximo do comboio
 	 * @param velocidade Velocidade do comboio
 	 * @param precoKM Preco por km do comboio
@@ -167,7 +183,7 @@ class Frota{
 
 public:
 	/**
-	 * Destrutor \n
+	 * @brief Destrutor \n
 	 * Elimina todos os comboios da frota
 	 */
 	~Frota();
@@ -191,17 +207,21 @@ public:
 	 */
 	void adicionaComboio(Comboio *c1);
 	/**
-	 * Abre "comboios.txt" e adiciona os comboios a frota
+	 * @brief Abre "comboios.txt" e adiciona os comboios a frota
 	 */
 	void loadComboios();
 	/**
-	 * Guarda os comboios da frota em "comboios.txt"
+	 * @brief Guarda os comboios da frota em "comboios.txt"
 	 */
 	void saveComboios() const;
 	/**
 	 * @brief Verifica e atualiza comboios em manuntecao
 	 */
 	void updateManuntencao();
+	/**
+	 * @brief Remove um comboio do vector
+	 */
+	void removeComboio(unsigned int id);
 };
 
 

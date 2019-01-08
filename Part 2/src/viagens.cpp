@@ -12,7 +12,7 @@ using namespace std;
 //Construtores
 
 //Usado ao criar uma nova viagem
-Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp){
+Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas dp, Horas hp){
 	origem = ori;
 	destino = dest;
 	distancia = dist;
@@ -26,7 +26,7 @@ Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas
 
 //Usado a carregar uma viagem em progresso de um ficheiro
 Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c,
-		Datas *dp, Horas *hp, int vagas, int comprasAnon){
+		Datas dp, Horas hp, int vagas, int comprasAnon){
 	origem = ori;
 	destino = dest;
 	distancia = dist;
@@ -39,7 +39,7 @@ Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c,
 }
 
 //Usado para adicionar a uma compra no historico de um passageiro (comboio, vagas irrelevantes)
-Viagem::Viagem(std::string ori, std::string dest, Datas *dp, Horas *hp, double precoBase){
+Viagem::Viagem(std::string ori, std::string dest, Datas dp, Horas hp, double precoBase){
 	origem = ori;
 	destino = dest;
 	distancia = 0;
@@ -55,15 +55,15 @@ Viagem::Viagem(std::string ori, std::string dest, Datas *dp, Horas *hp, double p
 //Destructor
 
 Viagem::~Viagem(){
-	delete hPartida;
-	delete dPartida;
+	delete &hPartida;
+	delete &dPartida;
 }
 
 // Acessors
 
-Datas* Viagem::getDataPartida() const{ return dPartida;}
+Datas Viagem::getDataPartida() const{ return dPartida;}
 
-Horas* Viagem::getHorasPartida() const{return hPartida;}
+Horas Viagem::getHorasPartida() const{return hPartida;}
 
 double Viagem::getPrecoBase () const{return precoBase;}
 
@@ -82,7 +82,7 @@ unsigned int Viagem::getComprasAnonimas() const{return comprasAnonimas;}
 std::string Viagem::getInfo() const{
 	stringstream ss;
 	ss << left << setw(10) << origem << setw(10) << destino << setw(15) << distancia
-			<< *c1 << "    "  << *dPartida << "   "	<< *hPartida << "   " << left << setfill(' ')
+			<< *c1 << "    "  << dPartida << "   "	<< hPartida << "   " << left << setfill(' ')
 			<< setw(16) << precoBase  <<  setfill(' ') << setw(5) << vagas << " \n";
 	return ss.str();
 }
@@ -112,11 +112,9 @@ int Viagem::devolveBilhete(bool reg){
 
 double Viagem::getPrecoFinal(){
 
-	Horas *tempHora = getHoraActual();
-	Datas *tempData = getDataActual();
 
-	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
-	float horasViagem = getDataPartida()->getTotalHours() + getHorasPartida()->getTotalHours();
+	float horasActual =  getDataActual().getTotalHours() + getHoraActual().getTotalHours();
+	float horasViagem = getDataPartida().getTotalHours() + getHorasPartida().getTotalHours();
 
 	if ( ( horasViagem - horasActual ) <= 48 && ( horasViagem - horasActual ) > 0
 			&& vagas > (c1->getLotacao() / 2))
@@ -126,11 +124,9 @@ double Viagem::getPrecoFinal(){
 }
 
 double Viagem::getPrecoFinal(Cartao *c){
-	Horas *tempHora = getHoraActual();
-	Datas *tempData = getDataActual();
 
-	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
-	float horasViagem = getDataPartida()->getTotalHours() + getHorasPartida()->getTotalHours();
+	float horasActual = getHoraActual().getTotalHours() + getDataActual().getTotalHours();
+	float horasViagem = getDataPartida().getTotalHours() + getHorasPartida().getTotalHours();
 
 	if ( ( horasViagem - horasActual ) <= 48 && ( horasViagem - horasActual ) > 0
 			&& vagas > (c1->getLotacao() / 2))
@@ -141,8 +137,8 @@ double Viagem::getPrecoFinal(Cartao *c){
 }
 
 bool Viagem::operator == (const Viagem &v2){
-	float v1hf = this->dPartida->getTotalHours()+this->hPartida->getTotalHours();
-	float v2hf = v2.dPartida->getTotalHours() + v2.hPartida->getTotalHours();
+	float v1hf = this->dPartida.getTotalHours()+this->hPartida.getTotalHours();
+	float v2hf = v2.dPartida.getTotalHours() + v2.hPartida.getTotalHours();
 	if ( (v1hf == v2hf) && (this->destino == v2.destino) && (this->origem == v2.origem) && (this->distancia == v2.distancia)
 			&& this->precoBase == v2.precoBase)
 		return true;

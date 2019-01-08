@@ -27,6 +27,13 @@ string Cartao::getInformacao() const{
 	return this->nome + " - Preco: " + to_string(this->precoMensal).substr(0, 6) + "€/mes - Desconto: " + to_string(100 - this->desconto) + "% por Viagem";
 }
 
+
+void Cartao::setNome(string nome){this->nome = nome;}
+
+void Cartao::setPreco(double prc){this->precoMensal = prc;}
+
+void Cartao::setDesconto (int dsc){this->desconto = dsc;};
+
 //Outros
 
 bool Cartao::operator == (const Cartao &ct1){
@@ -44,7 +51,7 @@ bool Cartao::operator == (const Cartao &ct1){
 
 // Construtors
 
-Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc){
+Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas datanasc){
 	c1 = c;
 	this->nome = nome;
 	this->profissao = profissao;
@@ -52,7 +59,7 @@ Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas *data
 	this->ativo = true;
 }
 
-Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc, bool ativo){
+Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas datanasc, bool ativo){
 	c1 = c;
 	this->nome = nome;
 	this->profissao = profissao;
@@ -66,7 +73,7 @@ Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas *data
 Registo::~Registo(){
 	for (unsigned int i = 0; i < historico.size(); i++)
 		delete historico.at(i);
-	delete datanascimento;
+	delete &datanascimento;
 }
 
 // Acessors
@@ -79,7 +86,7 @@ string Registo::getProfissao() const{return profissao;}
 
 string Registo::getDatanascimento() const{
 	stringstream ss;
-	ss << *datanascimento;
+	ss << datanascimento;
 
 	return ss.str();
 }
@@ -128,14 +135,11 @@ void Registo::eliminaCompra(Compra *c1){
 vector <Compra *> Registo::getCompraAtiva(){
 	vector <Compra *> temp;
 
-	Horas *tempHora = getHoraActual();
-	Datas *tempData = getDataActual();
-	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
-
+	float horasActual =  getDataActual().getTotalHours() +  getHoraActual().getTotalHours();
 
 	for (unsigned int i = 0; i < historico.size(); i++){
 		Viagem *v =	historico.at(i)->getViagem();
-		float horasViagem = v->getDataPartida()->getTotalHours() + v->getHorasPartida()->getTotalHours();
+		float horasViagem = v->getDataPartida().getTotalHours() + v->getHorasPartida().getTotalHours();
 		if (horasViagem > horasActual)
 			temp.push_back(historico.at(i));
 	}
@@ -229,6 +233,11 @@ void BaseClientes::adicionaRegisto(Registo *r1){regs.push_back(r1);}
 
 void BaseClientes::removeRegisto (){regs.at(id)->alterarEstado(false);}
 
+void BaseClientes::removeCartao (int id){
+	delete cartoes.at(id);
+	cartoes.erase(cartoes.begin()+id);
+}
+
 void BaseClientes::setId(int id){this->id = id;}
 
 void BaseClientes::loadCartoes(){
@@ -303,10 +312,10 @@ void BaseClientes::loadRegistos(){
 			mfile >> profissao;
 			mfile.ignore(1);
 
-			Datas *nasc;
+			Datas nasc;
 			try {
 				getline(mfile, datanasc);
-				nasc = new Datas (datanasc);
+				nasc = Datas (datanasc);
 			}
 			catch (Datas::DataInvalida){
 				cout << "Em registos : " << endl;
@@ -347,10 +356,10 @@ void BaseClientes::loadRegistos(){
 
 				// DATA COMPRA
 
-				Datas *dcmp;
+				Datas dcmp;
 				try {
 					getline(mfile, datacomp);
-					dcmp = new Datas (datacomp);
+					dcmp = Datas (datacomp);
 				}
 				catch (Datas::DataInvalida){
 					cout << "Data Invalida - Dia(1-31), Mes (1-12), tente outra vez" << endl;
@@ -365,10 +374,10 @@ void BaseClientes::loadRegistos(){
 
 				// HORA COMPRA
 
-				Horas *hcomp;
+				Horas hcomp;
 				try {
 					getline (mfile, horacomp);
-					hcomp = new Horas (horacomp);
+					hcomp = Horas (horacomp);
 				}
 				catch (Horas::HoraInvalida){
 					cout << "Hora Invalida - Hora(0-23), Min (0-59), tente outra vez" << endl;
@@ -388,10 +397,10 @@ void BaseClientes::loadRegistos(){
 
 				// DATA DA VIAGEM
 
-				Datas *vgm;
+				Datas vgm;
 				try{
 					getline(mfile, datavgm);
-					vgm = new Datas (datavgm);
+					vgm = Datas (datavgm);
 				}
 				catch (Datas::DataInvalida){
 					cout << "Data Invalida - Dia(1-31), Mes (1-12)" << endl;
@@ -406,10 +415,10 @@ void BaseClientes::loadRegistos(){
 
 				// HORA DA VIAGEM
 
-				Horas *hvgm;
+				Horas hvgm;
 				try {
 				getline (mfile, horavgm);
-				hvgm = new Horas (horavgm);
+				hvgm = Horas (horavgm);
 				}
 				catch (Horas::HoraInvalida){
 					cout << "Hora Invalida - Hora(0-23), Min (0-59)" << endl;
@@ -462,10 +471,10 @@ void BaseClientes::saveRegistos(){
 			for (int j = 0; j < regs.at(i)->getNumCompras(); j++){
 				Viagem *temp = regs.at(i)->getCompra(j)->getViagem();
 				mfile << "Compra:" << endl <<getCartaoIndex(regs.at(i)->getCartao()) << endl
-						<< *regs.at(i)->getCompra(j)->getDataCompra() << endl
-						<< *regs.at(i)->getCompra(j)->getHoraCompra() << endl
+						<< regs.at(i)->getCompra(j)->getDataCompra() << endl
+						<< regs.at(i)->getCompra(j)->getHoraCompra() << endl
 						<<temp->getOrigem() << endl	<< temp->getDestino() << endl
-						<< *temp->getDataPartida() << endl <<*temp->getHorasPartida()
+						<< temp->getDataPartida() << endl <<temp->getHorasPartida()
 						<< endl << temp->getPrecoBase() << endl
 						<< regs.at(i)->getCompra(j)->getPrecoFinal() << endl;
 			}

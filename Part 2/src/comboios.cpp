@@ -46,6 +46,14 @@ double Comboio::getDataUltimaAvaria() const {return dataUltimaAvaria;}
 
 void Comboio::setId(int id){this->id = id;}
 
+void Comboio::setNome(string nome){this->nome = nome;}
+
+void Comboio::setLotacao(int lot){this->lotacao = lot;}
+
+void Comboio::setVelocidade(int vel){this->velocidade = vel;}
+
+void Comboio::setPreco(double prc){this->precoKM = prc;}
+
 void Comboio::setUltimaParagem(Paragem &p1){this->ultimaParagem = p1;}
 
 void Comboio::setAvaria(priority_queue<Oficina *> oficinas, double distmaxima){
@@ -55,17 +63,13 @@ void Comboio::setAvaria(priority_queue<Oficina *> oficinas, double distmaxima){
 
 	priority_queue <Oficina *> temp = oficinas;
 
-	Horas *tempHora = getHoraActual();
-	Datas *tempData = getDataActual();
-	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
+	float horasActual = getHoraActual().getTotalHours() + getDataActual().getTotalHours();
 
 	unsigned int i;
 	unsigned int size = temp.size();
 
 	for (i = 0; i < size; i++){
 		double dist = this->getUltimaParagem().distancia(temp.top()->getLatitude() ,temp.top()->getLongitude());
-		cout << "nome = " << temp.top()->getNome() << endl;
-		cout << "dist = " << dist << endl << endl;
 		if ( dist < distmaxima){
 			ofic = temp.top();
 			temp.top()->setDisponibilidade(temp.top()->getDisponibilidade() + 3);
@@ -219,9 +223,7 @@ void Frota::saveComboios() const{
 
 void Frota::updateManuntencao(){
 
-	Horas *tempHora = getHoraActual();
-	Datas *tempData = getDataActual();
-	float horasActual = tempData->getTotalHours() + tempHora->getTotalHours();
+	float horasActual = getHoraActual().getTotalHours() + getDataActual().getTotalHours();
 
 	for (unsigned int i = 0; i < comboios.size(); i++){
 		if (comboios.at(i)->getAvariado()){
@@ -232,6 +234,11 @@ void Frota::updateManuntencao(){
 			}
 		}
 	}
+}
+
+void Frota::removeComboio(unsigned int id){
+	delete comboios.at(id);
+	comboios.erase(comboios.begin()+id);
 }
 
 
