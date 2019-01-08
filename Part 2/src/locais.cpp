@@ -10,14 +10,27 @@ Paragem::Paragem(string nome, double latitude, double longitude){
 	this->nome = nome;
 	this->latitude = latitude;
 	this->longitude = longitude;
+	this->numeroclientes = 0;
 }
 
+Paragem::Paragem(string nome, double latitude, double longitude, int numclientes){
+	this->nome = nome;
+	this->latitude = latitude;
+	this->longitude = longitude;
+	this->numeroclientes = numclientes;
+}
 
 string Paragem::getNome() const { return this->nome; }
 
 double Paragem::getLatitude() const {return this->latitude;}
 
 double Paragem::getLongitude() const{ return this->longitude; }
+
+int Paragem::getNumClientes() const{return this->numeroclientes; }
+
+void Paragem::aumentaNumClientes(){this->numeroclientes++;}
+
+void Paragem::diminuiNumClientes(){this->numeroclientes--;}
 
 void Paragem::setNome(std::string nome) { this->nome = nome; }
 

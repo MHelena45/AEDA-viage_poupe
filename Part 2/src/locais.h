@@ -14,6 +14,7 @@ class Paragem {
 	std::string nome;
 	double latitude;
 	double longitude;
+	static int numeroclientes;
 public:
 	/**
 	 * Construtor de Paragem
@@ -27,6 +28,15 @@ public:
 	 * @param longitude Longitude da Paragem
 	 */
 	Paragem(std::string nome, double latitude, double longitude);
+	/**
+	 * Construtor de Paragem
+	 * @param nome Nome da paragem
+	 * @param latitude Latitude da Paragem
+	 * @param longitude Longitude da Paragem
+	 * @param numclientes Numero de clientes da Paragem
+	 */
+	Paragem(std::string nome, double latitude, double longitude, int numclientes);
+	
 	/**
 	 * Destrutor de Paragem
 	 */
@@ -43,6 +53,18 @@ public:
 	 * @return Longitude da paragem
 	 */
 	double getLongitude() const;
+	/**
+	 * @return Número de clientes que já saiu nessa paragem
+	 */
+	int Paragem::getNumClientes() const;
+	/**
+	 * @brief Aumenta o número de clientes por 1
+	 */
+	void Paragem::aumentaNumClientes();
+	/**
+	 * @brief Diminui o número de clientes por 1
+	 */
+	void Paragem::diminuiNumClientes();
 	/**
 	 * @brief Altera o nome da paragem
 	 *
