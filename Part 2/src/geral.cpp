@@ -378,7 +378,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 			cout << endl << b->getInfo(p);
 			while (viagemId >= b->getNumViagens() || viagemId < -1){
 
-				cout << endl << "Escolha o id da viagem a cancelar o bilhete (-1 para cancelar):";
+				cout << endl << "Escolha o id da viagem a reservar o bilhete (-1 para cancelar):";
 				viagemId = userIntInput();
 				cout << endl;
 
@@ -421,7 +421,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 			cout << endl << b->getInfo(p);
 			while (viagemId >= b->getNumViagens() || viagemId < -1){
 
-				cout << endl << "Escolha o id da viagem a reservar(-1 para cancelar):";
+				cout << endl << "Escolha o id da viagem a cancelar o bilhete(-1 para cancelar):";
 				viagemId = userIntInput();
 				cout << endl;
 				if (viagemId == -1)
