@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['viage_20e_20poupe',['Viage e Poupe',['../md__r_e_a_d_m_e.html',1,'']]],
-  ['viagem',['Viagem',['../class_viagem.html',1,'Viagem'],['../class_viagem.html#a1ff64a6647aea558c4f35e022080a2e4',1,'Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp)'],['../class_viagem.html#a7f81071e435a78f94bd26719b648fae3',1,'Viagem::Viagem(std::string ori, std::string dest, Datas *dp, Horas *hp, double precoBase)'],['../class_viagem.html#a10bff3c6c6eaaa1feb1220533ba911a8',1,'Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp, int vagas, int comprasAnon)']]]
+  ['registo',['Registo',['../class_registo.html',1,'Registo'],['../class_registo.html#a8577ef06b13e50ebece628ba10bb370f',1,'Registo::Registo(Cartao *c, string nome, string profissao, Datas datanasc)'],['../class_registo.html#abfdc09fb788df042bc947953c027a5ef',1,'Registo::Registo(Cartao *c, string nome, string profissao, Datas datanasc, bool ativo)']]],
+  ['removecartao',['removeCartao',['../class_base_clientes.html#a60570751e636b7780a201e501aca6b77',1,'BaseClientes']]],
+  ['removecomboio',['removeComboio',['../class_frota.html#a520f6754854dba761883a3cfca535036',1,'Frota']]],
+  ['removeregisto',['removeRegisto',['../class_base_clientes.html#a55c4add7bf033b55a03ff6c97b1d8f8c',1,'BaseClientes']]],
+  ['reservabilhete',['reservaBilhete',['../class_viagem.html#a2c535b4aecab97fdaa1e9abebd2c9cce',1,'Viagem']]]
 ];

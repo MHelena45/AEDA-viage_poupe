@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['registo',['Registo',['../class_registo.html',1,'Registo'],['../class_registo.html#a6320194920c2df0413cc3c8f5b3e4ad3',1,'Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc)'],['../class_registo.html#a2c52cdccc66c3a029d18bb0128121566',1,'Registo::Registo(Cartao *c, std::string nome, std::string profissao, Datas *datanasc, bool ativo)']]],
-  ['removeregisto',['removeRegisto',['../class_base_clientes.html#a55c4add7bf033b55a03ff6c97b1d8f8c',1,'BaseClientes']]],
-  ['reservabilhete',['reservaBilhete',['../class_viagem.html#a2c535b4aecab97fdaa1e9abebd2c9cce',1,'Viagem']]]
+  ['novoapelido',['novoApelido',['../class_maquinista.html#ab8c7ae713cb646c7cf4759231c8dfbf5',1,'Maquinista']]],
+  ['novoid',['novoId',['../class_maquinista.html#afa35812259518d3538668957ac9e9400',1,'Maquinista']]],
+  ['novonome',['novoNome',['../class_maquinista.html#a78162f8afed8e19a5c08c33aa0780db1',1,'Maquinista']]],
+  ['numerodemaquinistas',['numeroDeMaquinistas',['../class_maquinistas.html#a863feec55159aae35e8a3140167b690f',1,'Maquinistas']]]
 ];

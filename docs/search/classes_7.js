@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['registo',['Registo',['../class_registo.html',1,'']]]
+  ['intercidades',['Intercidades',['../class_intercidades.html',1,'']]]
 ];

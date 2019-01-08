@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['operator_3c',['operator&lt;',['../class_datas.html#ac3af3a73a100e106e17fcb4041284659',1,'Datas::operator&lt;()'],['../class_horas.html#a3aff1423f6c9ac68a4fd1de98a42ed72',1,'Horas::operator&lt;()']]],
-  ['operator_3d_3d',['operator==',['../class_compra.html#af58c17c22ee0be61e3a8a2e4c5c35132',1,'Compra::operator==()'],['../class_cartao.html#af778429b23faa6c7b78358fa4f39cdff',1,'Cartao::operator==()'],['../class_datas.html#ab0413fce24535d5f5b98c55988e25a0b',1,'Datas::operator==()'],['../class_horas.html#a8a30baba9a4576b16106d4c0aad41988',1,'Horas::operator==()'],['../class_viagem.html#a428d448d6ff62063be41d2ea0a4988b1',1,'Viagem::operator==()']]],
-  ['operator_3e',['operator&gt;',['../class_datas.html#a6919aaba5bd91c0c9de8b5f16bfd57b1',1,'Datas::operator&gt;()'],['../class_horas.html#a9296c1a4e240a44e31d922357d94bf67',1,'Horas::operator&gt;()']]]
+  ['listcompraactiva',['listCompraActiva',['../class_registo.html#aebc31e715deb03cad733c451208c55e8',1,'Registo']]],
+  ['loadcartoes',['loadCartoes',['../class_base_clientes.html#a2c50a6f2201c75bb810f008bd06b7bc4',1,'BaseClientes']]],
+  ['loadcomboios',['loadComboios',['../class_frota.html#aa0aafebc6383f724ba0906eed87c2958',1,'Frota']]],
+  ['loadoficinas',['loadOficinas',['../class_oficinas.html#a25ce7c4ca0f7e278d9e467b034e73562',1,'Oficinas']]],
+  ['loadparagens',['loadParagens',['../class_paragens.html#a6f45a4e25e093893dccb1d14075dab2b',1,'Paragens']]],
+  ['loadregistos',['loadRegistos',['../class_base_clientes.html#ac79d6d81b90ff1a19e39a01da001c64c',1,'BaseClientes']]],
+  ['loadviagens',['loadViagens',['../class_bilheteira.html#afc11222b743dabd6f0ed897fd7faf4eb',1,'Bilheteira']]]
 ];

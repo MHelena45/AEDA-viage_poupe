@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['horainvalida',['HoraInvalida',['../class_horas_1_1_hora_invalida.html',1,'Horas']]],
-  ['horas',['Horas',['../class_horas.html',1,'']]]
+  ['formatostringinvalido',['FormatoStringInvalido',['../class_datas_1_1_formato_string_invalido.html',1,'Datas::FormatoStringInvalido'],['../class_horas_1_1_formato_string_invalido.html',1,'Horas::FormatoStringInvalido']]],
+  ['frota',['Frota',['../class_frota.html',1,'']]]
 ];

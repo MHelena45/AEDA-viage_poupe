@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['viagem',['Viagem',['../class_viagem.html#a1ff64a6647aea558c4f35e022080a2e4',1,'Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp)'],['../class_viagem.html#a7f81071e435a78f94bd26719b648fae3',1,'Viagem::Viagem(std::string ori, std::string dest, Datas *dp, Horas *hp, double precoBase)'],['../class_viagem.html#a10bff3c6c6eaaa1feb1220533ba911a8',1,'Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas *dp, Horas *hp, int vagas, int comprasAnon)']]]
+  ['paragem',['Paragem',['../class_paragem.html#a18e43808d8849e6f7e384c473cc5e5bd',1,'Paragem::Paragem()'],['../class_paragem.html#a2b491ca27ff34793b195739572439c99',1,'Paragem::Paragem(std::string nome, double latitude, double longitude)'],['../class_paragem.html#a8442f1d1a4b89cc7cc1ad2111465d348',1,'Paragem::Paragem(std::string nome, double latitude, double longitude, int numclientes)']]],
+  ['printoficinas',['printOficinas',['../class_oficinas.html#a6b8f39af6e4aa12f2480f02b03f8368d',1,'Oficinas']]],
+  ['printparagens',['printParagens',['../class_paragens.html#a3fc0afb73f6f3f4f1c8bd2ac5332887d',1,'Paragens']]],
+  ['printparagensbst',['printParagensBST',['../class_paragens.html#a313663f1b87e7b4f656a78e8119e8100',1,'Paragens']]]
 ];
