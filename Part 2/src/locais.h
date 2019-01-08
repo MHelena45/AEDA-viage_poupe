@@ -131,11 +131,15 @@ public:
 	 */
 	Paragem* getParagem(int id);
 	/**
-	 * @brief Aumenta o número de clientes por 1
+	 * @param nome Nome (localidade) da paragem a alterar
+	 * 
+	 * @brief Aumenta o nï¿½mero de clientes da paragem por 1
 	 */
 	void aumentaNumClientes(string nome);
 	/**
-	 * @brief Diminui o número de clientes por 1
+	 * @param nome Nome (localidade) da paragem a alterar
+	 * 
+	 * @brief Diminui o nï¿½mero de clientes da paragem por 1
 	 */
 	void diminuiNumClientes(string nome);
 	/**
