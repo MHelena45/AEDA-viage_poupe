@@ -56,15 +56,15 @@ public:
 	/**
 	 * @return Número de clientes que já saiu nessa paragem
 	 */
-	int Paragem::getNumClientes() const;
+	int getNumClientes() const;
 	/**
 	 * @brief Aumenta o número de clientes por 1
 	 */
-	void Paragem::aumentaNumClientes();
+	void aumentaNumClientes();
 	/**
 	 * @brief Diminui o número de clientes por 1
 	 */
-	void Paragem::diminuiNumClientes();
+	void diminuiNumClientes();
 	/**
 	 * @brief Altera o nome da paragem
 	 *
