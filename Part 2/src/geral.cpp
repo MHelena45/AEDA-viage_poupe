@@ -397,8 +397,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 			}
 
 			double precoFinal = temp->getPrecoFinal();
-			Paragem *par = p->findParagem(temp->getDestino());
-			par->aumentaNumClientes();
+			p->aumentaNumClientes(temp->getDestino());
 
 			cout << "Compra efectuada" << endl << endl;
 			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
@@ -438,8 +437,7 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 				cout << "Erro: Nao existem bilhetes sem registo para esta viagem" << endl;
 				return;
 			}
-			Paragem *par = p->findParagem(temp->getDestino());
-			par->diminuiNumClientes();
+			p->diminuiNumClientes(temp->getDestino());
 			cout << endl << "Bilhete devolvido" << endl;
 
 			break;
@@ -619,8 +617,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 			Compra *tempC = new Compra( temp, r->getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
 			r->getRegisto()->adicionaCompra(tempC);
 
-			Paragem *par = p->findParagem(temp->getDestino());
-			par->aumentaNumClientes();
+			p->aumentaNumClientes(temp->getDestino());
 
 			cout << "Compra efectuada" << endl << endl;
 			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
@@ -665,8 +662,7 @@ void menuComCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 			cmps.at(compraId)->getViagem()->devolveBilhete(true);
 			r->getRegisto()->eliminaCompra(cmps.at(compraId));
 
-			Paragem *par = p->findParagem(cmps.at(compraId)->getViagem()->getDestino() );
-			par->diminuiNumClientes();
+			p->diminuiNumClientes(cmps.at(compraId)->getViagem()->getDestino());
 
 			cout << "Bilhete devolvido" << endl << endl;
 

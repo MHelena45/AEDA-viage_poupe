@@ -50,13 +50,13 @@ public:
 		std::string tempMes = "";
 		std::string tempAno = "";
 
-		//if (d.length() != 10)
-		//	throw FormatoStringInvalido();
+		if (d.length() != 10)
+			throw FormatoStringInvalido();
 
 		for (unsigned int i = 0; i < d.length(); i++){
 
-			//if (d.at(i) < '0' && d.at(i) > '9' && d.at(i) != '-')
-			//	throw FormatoStringInvalido();
+			if (d.at(i) < '0' && d.at(i) > '9' && d.at(i) != '-')
+				throw FormatoStringInvalido();
 
 			if (d.at(i) == '-'){
 				continue;
@@ -77,14 +77,14 @@ public:
 			else break;
 		}
 
-		//if (tempDia.length() < 2)
-		//	throw FormatoStringInvalido();
+		if (tempDia.length() < 2)
+			throw FormatoStringInvalido();
 
-		//if (tempMes.length() < 2)
-		//	throw FormatoStringInvalido();
+		if (tempMes.length() < 2)
+			throw FormatoStringInvalido();
 
-		//if (tempAno.length() < 4	)
-		//	throw FormatoStringInvalido();
+		if (tempAno.length() < 4	)
+			throw FormatoStringInvalido();
 
 
 		int tDia = std::stoi(tempDia);
@@ -255,15 +255,15 @@ public:
 	 * @param h String com hora no formato HH-MM
 	 */
 	Horas (std::string h){
-		//if (h.length() != 5)
-		//	throw FormatoStringInvalido();
+		if (h.length() != 5)
+			throw FormatoStringInvalido();
 
 		std::string tempHora = "";
 		std::string tempMin = "";
 
 		for (unsigned int i = 0; i < h.length(); i++){
-			//if (h.at(i) < '0' && h.at(i) > '9' && h.at(i) != ':')
-			//	throw FormatoStringInvalido();
+			if (h.at(i) < '0' && h.at(i) > '9' && h.at(i) != ':')
+				throw FormatoStringInvalido();
 
 			if (h.at(i) == ':'){
 				continue;
@@ -279,8 +279,8 @@ public:
 			}
 		}
 
-		//if (tempHora.length() < 2 || tempMin.length() < 2)
-		//	throw FormatoStringInvalido();
+		if (tempHora.length() < 2 || tempMin.length() < 2)
+			throw FormatoStringInvalido();
 
 		int tHora = std::stoi(tempHora);
 		int tMin = std::stoi(tempMin);

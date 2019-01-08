@@ -131,6 +131,14 @@ public:
 	 */
 	Paragem* getParagem(int id);
 	/**
+	 * @brief Aumenta o número de clientes por 1
+	 */
+	void aumentaNumClientes(string nome);
+	/**
+	 * @brief Diminui o número de clientes por 1
+	 */
+	void diminuiNumClientes(string nome);
+	/**
 	 * @brief Imprime no ecra todas as paragens
 	 */
 	void printParagens() const;

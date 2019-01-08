@@ -73,6 +73,20 @@ void Paragens::addParagem(Paragem &p1){
 
 Paragem* Paragens::getParagem(int id){return &paragens.at(id);}
 
+void Paragens::aumentaNumClientes(string nome){
+	Paragem *par = findParagem(nome);
+	paragensbst.remove(*par);
+	par->aumentaNumClientes();
+	paragensbst.insert(*par);
+}
+
+void Paragens::diminuiNumClientes(string nome){
+	Paragem *par = findParagem(nome);
+	paragensbst.remove(*par);
+	par->diminuiNumClientes();
+	paragensbst.insert(*par);
+}
+
 void Paragens::printParagens() const{
 	cout << left << setw(6) << "id" << setw(18) << "Localidade" << setw(12) <<  "Clientes" << endl;;
 
@@ -151,6 +165,7 @@ void Paragens::loadParagens() {
 			mfile >> clientes;
 			Paragem temp(nome, latitude, longitude, clientes);
 			paragens.push_back(temp);
+			paragensbst.insert(temp);
 			mfile.ignore(1);
 		}
 	mfile.close();
