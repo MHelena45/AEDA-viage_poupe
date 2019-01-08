@@ -163,11 +163,16 @@ public:
 	 * @return Devolve a paragem se encontrada, Paragem com nome "Nenhuma" senao encontrada
 	 */
 	Paragem* findParagem (std::string nome);
-
+	/**
+	 * @brief Guarda as paragens em "paragens.txt"
+	 */
 	void saveParagens();
-
+	/**
+	 * @brief Carrega as paragens em "paragens.txt"
+	 */
 	void loadParagens();
 };
+
 /**
  * CLASS Oficina
  * Esta Classe cria oficinas de comboios
@@ -191,6 +196,14 @@ public:
 	 * @param longitude Longitude da Paragem
 	 */
 	Oficina(std::string nome, double latitude, double longitude);
+	/**
+	 * Construtor de Paragem ao carregar ficheiros
+	 * @param nome Nome da paragem
+	 * @param latitude Latitude da Paragem
+	 * @param longitude Longitude da Paragem
+	 * @param disp Numero de dias ate estar disponivel
+	 */
+	Oficina(std::string nome, double latitude, double longitude, unsigned int disp);
 	/**
 	 * Destrutor de Paragem
 	 *
@@ -281,6 +294,14 @@ public:
 	 * @brief Apaga uma oficina
 	 */
 	void deleteOficina(int id);
+	/**
+	 * @brief Guarda as oficinas em "oficinas.txt"
+	 */
+	void saveOficinas();
+	/**
+	 * @brief Carrega as oficinas em "oficinas.txt"
+	 */
+	void loadOficinas();
 };
 
 

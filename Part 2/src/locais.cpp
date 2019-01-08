@@ -153,6 +153,7 @@ void Paragens::loadParagens() {
 			paragens.push_back(temp);
 			mfile.ignore(1);
 		}
+	mfile.close();
 
 }
 
@@ -161,6 +162,14 @@ Oficina::Oficina(string nome, double latitude, double longitude){
 	this->latitude = latitude;
 	this->longitude = longitude;
 	this->disponibilidade = 0;
+}
+
+Oficina::Oficina(std::string nome, double latitude, double longitude, unsigned int disp){
+	this->nome = nome;
+	this->latitude = latitude;
+	this->longitude = longitude;
+	this->disponibilidade = disp;
+
 }
 
 string Oficina::getNome() const { return nome; }
@@ -223,5 +232,49 @@ void Oficinas::deleteOficina(int id){
 
 	for (unsigned int i = 0; i < v1.size(); i++)
 		oficinas.push(v1.at(i));
+}
+
+void Oficinas::saveOficinas() {
+
+	ofstream mfile;
+
+	priority_queue<Oficina *> temp = oficinas;
+
+	mfile.open("oficinas.txt");
+
+	for (unsigned int i = temp.size(); i != 0; i--) {
+		mfile << temp.top()->getNome() << endl << temp.top()->getLatitude() << endl << temp.top()->getLongitude()
+				<< endl << temp.top()->getDisponibilidade() << endl;
+		temp.pop();
+	}
+
+	mfile.close();
+
+}
+
+void Oficinas::loadOficinas() {
+	ifstream mfile;
+
+	mfile.open("oficinas.txt");
+
+
+	while (!mfile.eof()) {
+			string nome;
+			double latitude, longitude;
+			int disp;
+
+			getline(mfile, nome);
+			if (nome.empty())
+				break;
+			mfile >> latitude;
+			mfile >> longitude;
+			mfile >> disp;
+			Oficina *temp = new Oficina(nome, latitude, longitude, disp);
+			oficinas.push(temp);
+			mfile.ignore(1);
+		}
+
+	mfile.close();
+
 }
 
