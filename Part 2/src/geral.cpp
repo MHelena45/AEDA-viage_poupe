@@ -404,8 +404,38 @@ void menuSemCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 				break;
 			}
 
-			double precoFinal = temp->getPrecoFinal();
-			p->aumentaNumClientes(temp->getDestino());
+
+			int origem, destino;
+
+			temp->printParagens();
+			cout << "Escolha o id paragem de origem:";
+			origem = userIntInput();
+			cout << endl;
+			cout << "Escolha o id paragem de destino:";
+			destino = userIntInput();
+			cout << endl;
+
+			if (origem >= destino){
+				cout << "Paragem invalida" << endl;
+				return;
+			}
+
+			list <Paragem> linha = temp->getParagens();
+			list <Paragem>::iterator ori;
+			list <Paragem>::iterator dest;
+			ori = linha.begin();
+			dest = linha.begin();
+			advance(ori, origem);
+			advance(dest, destino);
+
+			double distancia = ori->distancia(dest->getLatitude(), dest->getLongitude());
+
+			double precobase = distancia * temp->getComboio()->getPrecoKM();
+
+			Viagem compra (ori->getNome(), dest->getNome(), temp->getDataPartida(), temp->getHorasPartida(), precobase);
+
+			double precoFinal = compra.getPrecoFinal();
+			p->aumentaNumClientes(compra.getDestino());
 
 			cout << "Compra efectuada" << endl << endl;
 			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;
@@ -621,11 +651,44 @@ void menuComCartao(BaseClientes *r, Bilheteira *b, Paragens *p){
 				break;
 			}
 
-			double precoFinal = temp->getPrecoFinal(r->getRegisto()->getCartao());
-			Compra *tempC = new Compra( temp, r->getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
+			int origem, destino;
+
+			temp->printParagens();
+			cout << "Escolha o id paragem de origem:";
+			origem = userIntInput();
+			cout << endl;
+			cout << "Escolha o id paragem de destino:";
+			destino = userIntInput();
+			cout << endl;
+
+			if (origem >= destino){
+				cout << "Paragem invalida" << endl;
+				return;
+			}
+
+			list <Paragem> linha = temp->getParagens();
+			list <Paragem>::iterator ori;
+			list <Paragem>::iterator dest;
+			ori = linha.begin();
+			dest = linha.begin();
+			advance(ori, origem);
+			advance(dest, destino);
+
+			double distancia = ori->distancia(dest->getLatitude(), dest->getLongitude());
+
+			double precobase = distancia * temp->getComboio()->getPrecoKM();
+
+			Viagem compra (ori->getNome(), dest->getNome(), temp->getDataPartida(), temp->getHorasPartida(), precobase);
+
+
+
+			double precoFinal = compra.getPrecoFinal(r->getRegisto()->getCartao());
+
+
+			Compra *tempC = new Compra( compra, *r->getRegisto()->getCartao(), precoFinal, getDataActual(), getHoraActual() );
 			r->getRegisto()->adicionaCompra(tempC);
 
-			p->aumentaNumClientes(temp->getDestino());
+			p->aumentaNumClientes(compra.getDestino());
 
 			cout << "Compra efectuada" << endl << endl;
 			cout << "Preco Base = " << temp->getPrecoBase() << "€" << endl;

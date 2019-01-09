@@ -15,8 +15,8 @@
 
 
 	class Compra {
-	Viagem *v1;
-	Cartao *c1;
+	Viagem v1;
+	Cartao c1;
 	double precoFinal;
 	Datas dCompra;
 	Horas hCompra;
@@ -29,7 +29,7 @@
 		 * @param dc Apontador para data da compra
 		 * @param hc Apontador para horas da compra
 		 */
-		Compra(Viagem *v, Cartao *c, double pf, Datas dc, Horas hc);
+		Compra(Viagem v, Cartao c, double pf, Datas dc, Horas hc);
 		/**
 		 * Destrutor \n
 		 * Destroi os objectos da class Datas e Horas associados ao objeto compra. \n\n
@@ -45,11 +45,11 @@
 		/**
 		 * @return Apontador para viagem comprada
 		 */
-		Viagem* getViagem() const;
+		Viagem* getViagem();
 		/**
 		 * @return Apontador para cartao usado para a compra
 		 */
-		Cartao* getCartao() const;
+		Cartao* getCartao();
 		/**
 		 * @return Apontador para data da compra
 		 */

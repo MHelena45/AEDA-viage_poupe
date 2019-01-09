@@ -38,6 +38,19 @@ Viagem::Viagem(std::string ori, std::string dest, double dist, Comboio *c,
 	comprasAnonimas = comprasAnon;
 }
 
+Viagem::Viagem(std::list<Paragem> lin, Datas dp, Comboio *c, Horas hp, int vagas, int comprasAnon){
+	origem = lin.front().getNome();
+	destino = lin.back().getNome();
+	distancia = lin.front().distancia(lin.back().getLatitude() , lin.back().getLongitude());
+	c1 = c;
+	dPartida = dp;
+	hPartida = hp;
+	this->vagas = vagas;
+	this->precoBase = distancia * c->getPrecoKM();
+	comprasAnonimas = comprasAnon;
+	linha = lin;
+}
+
 //Usado para adicionar a uma compra no historico de um passageiro (comboio, vagas irrelevantes)
 Viagem::Viagem(std::string ori, std::string dest, Datas dp, Horas hp, double precoBase){
 	origem = ori;
@@ -98,6 +111,18 @@ std::string Viagem::getInfo() const{
 			<< *c1 << "    "  << dPartida << "   "	<< hPartida << "   " << left << setfill(' ')
 			<< setw(16) << precoBase  <<  setfill(' ') << setw(5) << vagas << " \n";
 	return ss.str();
+}
+
+void Viagem::printParagens() const{
+
+	list<Paragem>::const_iterator it;
+	int id = 0;
+	cout << "ID - Paragem" << endl << endl;
+
+	for (it = linha.begin(); it != linha.end(); it++){
+		cout << id << " - " << it->getNome() << endl;;
+		id++;
+	}
 }
 
 list<Paragem> Viagem::getParagens() const{ return linha;}

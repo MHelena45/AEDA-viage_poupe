@@ -4,7 +4,7 @@ var searchData=
   ['getapelido',['getApelido',['../class_maquinista.html#a4e08d64d82a4bb5d7383f1930af83a62',1,'Maquinista']]],
   ['getativo',['getAtivo',['../class_maquinista.html#af961439cb41b71a1f4753ea6b9faf437',1,'Maquinista']]],
   ['getavariado',['getAvariado',['../class_comboio.html#ad61984f858535b7612464bb7149fcbce',1,'Comboio']]],
-  ['getcartao',['getCartao',['../class_compra.html#a99b0b7654e976a18c66239b5dcd78c45',1,'Compra::getCartao()'],['../class_registo.html#a9891c677adecb2b24a2dc0e63c9405dd',1,'Registo::getCartao()'],['../class_base_clientes.html#af1074877b6d7591ace3b469f6142f274',1,'BaseClientes::getCartao()']]],
+  ['getcartao',['getCartao',['../class_compra.html#ae2418988d4eb479c05208c33bf18bfe3',1,'Compra::getCartao()'],['../class_registo.html#a9891c677adecb2b24a2dc0e63c9405dd',1,'Registo::getCartao()'],['../class_base_clientes.html#af1074877b6d7591ace3b469f6142f274',1,'BaseClientes::getCartao()']]],
   ['getcartaoindex',['getCartaoIndex',['../class_base_clientes.html#a755ec6460a63cb1cc78886fc793e9d65',1,'BaseClientes']]],
   ['getcomboio',['getComboio',['../class_frota.html#a1d205b5e181d9450a0f64b03e2caf72b',1,'Frota::getComboio()'],['../class_viagem.html#a4389e71c96dcbd75e3481f14533bd2ac',1,'Viagem::getComboio()']]],
   ['getcompra',['getCompra',['../class_registo.html#a132490f38fe8d2b20daf452135a690ea',1,'Registo']]],
@@ -56,6 +56,6 @@ var searchData=
   ['getultimaparagem',['getUltimaParagem',['../class_comboio.html#a7a71b13272226ad1dfcc6116892756d4',1,'Comboio']]],
   ['getvagas',['getVagas',['../class_viagem.html#a8fe41d9e4406b707db9aa4157542246d',1,'Viagem']]],
   ['getvelocidade',['getVelocidade',['../class_comboio.html#ae94610853b0f5eb6b4d4d597bda9569f',1,'Comboio']]],
-  ['getviagem',['getViagem',['../class_compra.html#a83b85a7dc3fa652ba2cea40b5f15ea4d',1,'Compra::getViagem()'],['../class_bilheteira.html#a38f843b7d2cc0225a986c54223f74f65',1,'Bilheteira::getViagem()']]],
+  ['getviagem',['getViagem',['../class_compra.html#a569a9f33d0b89f007b5c5f9f37d11f39',1,'Compra::getViagem()'],['../class_bilheteira.html#a38f843b7d2cc0225a986c54223f74f65',1,'Bilheteira::getViagem()']]],
   ['getviagens',['getViagens',['../class_bilheteira.html#a96a97d8c4345b1656d2d7e3ca1740caa',1,'Bilheteira::getViagens()'],['../class_maquinista.html#aa4e685a3cf73f1beae36f25d706be2af',1,'Maquinista::getViagens()']]]
 ];

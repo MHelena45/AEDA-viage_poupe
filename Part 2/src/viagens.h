@@ -26,6 +26,10 @@ class Viagem{
 public:
 	/**
 	 * @brief Construtor de viagem para quando e o nova viagem
+	 */
+	Viagem(){};
+	/**
+	 * @brief Construtor de viagem para quando e o nova viagem
 	 * @param ori Origem
 	 * @param dest Destino
 	 * @param dist Distancia
@@ -35,7 +39,16 @@ public:
 	 */
 	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas dp, Horas hp);
 	/**
-	 * Construtor de viagem para quando a viagem e carregada de um ficheiro
+	 * Construtor de viagem ao carregar de ficheiro
+	 * @param ori Origem
+	 * @param dest Destino
+	 * @param dp Apontador para data da viagem
+	 * @param hp Apontador para horas da viagem
+	 * @param precoBase Preco base da viagem
+	 */
+	Viagem(std::list<Paragem> lin, Datas dp, Comboio *c, Horas hp, int vagas, int comprasAnon);
+	/**
+	 * Construtor de viagem para o momento da compra
 	 * @param ori Origem
 	 * @param dest Destino
 	 * @param dp Apontador para data da viagem
@@ -56,11 +69,20 @@ public:
 	 */
 	Viagem(std::string ori, std::string dest, double dist, Comboio *c, Datas dp, Horas hp, int vagas, int comprasAnon);
 	/**
+	 * @brief Construtor de viagem para quando e o nova viagem
+	 * @param lin linha de paragem
+	 * @param dist Distancia
+	 * @param c Apontador para comboio que fara a viagem
+	 * @param dp Apontador para data da viagem
+	 * @param hp Apontador para horas da viagem
+	 * @param vagas Numero de lugares disponiveis para essa viagem
+	 * @param comprasAnon Numero de lugares comprados anonimamente (por clientes sem cartao)
+	 */
+	Viagem(std::list <Paragem> lin, double dist , Comboio *c, Datas dp, Horas hp, int vagas, int comprasAnon);
+	/**
 	 * @brief Destrutor \n
 	 * Destroi os objectos Datas e Horas com o tempo da partida da viagem
 	 */
-
-	Viagem(std::list <Paragem> lin, double dist , Comboio *c, Datas dp, Horas hp, int vagas, int comprasAnon);
 	~Viagem();
 
 	/**
@@ -103,6 +125,10 @@ public:
 	 * @return Informacao sobre a viagem
 	 */
 	std::string getInfo() const;
+	/**
+	 * @brief imprime paragens da linha
+	 */
+	void printParagens() const;
 	/**
 	 * @return Paragens da linha
 	 */

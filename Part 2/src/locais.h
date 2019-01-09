@@ -245,13 +245,13 @@ public:
 	/**
 	 * @brief Altera a latitude da oficina
 	 *
-	 * @param nome Nome da oficina
+	 * @param latitude latitude da oficina
 	 */
 	void setLatitude(double latitude);
 	/**
 	 * @brief Altera a longitude da oficina
 	 *
-	 * @param nome Nome da oficina
+	 * @param longitude longitude da oficina
 	 */
 	void setLongitude(double longitude);
 	/**

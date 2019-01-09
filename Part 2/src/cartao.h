@@ -16,6 +16,10 @@ class Cartao {
 public:
 	/**
 	 * @brief Construtor de cartao
+	 */
+	Cartao() { };
+	/**
+	 * @brief Construtor de cartao
 	 * @param nome  Nome do cartao
 	 * @param prc  Preco mensal da subscricao do cartao
 	 * @param desc Valor a pagar depois do desconto, ex: 25% de desconto = 75

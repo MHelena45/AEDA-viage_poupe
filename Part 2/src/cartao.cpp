@@ -435,8 +435,8 @@ void BaseClientes::loadRegistos(){
 				mfile >> precoBase;
 				mfile >> precoFinal;
 				mfile.ignore(1);
-				Viagem *tv = new Viagem(origem, destino, vgm,hvgm, precoBase);
-				Compra *tmpCompra = new Compra(tv, tempH, precoFinal, dcmp, hcomp);
+				Viagem tv = Viagem(origem, destino, vgm,hvgm, precoBase);
+				Compra *tmpCompra = new Compra(tv, *tempH, precoFinal, dcmp, hcomp);
 				tReg->adicionaCompra(tmpCompra);
 
 				getline(mfile, statline);

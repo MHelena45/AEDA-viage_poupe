@@ -104,7 +104,7 @@ void Paragens::printParagensBST() const
 		int x=0;
      	while (!it.isAtEnd()){
 			x++;
-			cout << setw(2) << x << " - " <<it.retrieve().getNumClientes() << " - " << it.retrieve().getNome() << endl;
+			cout << setw(2) << x << " - " << setw(2) <<it.retrieve().getNumClientes() << " - " << it.retrieve().getNome() << endl;
 			it.advance();
 		}
 	}

@@ -9,5 +9,6 @@ var searchData=
   ['_7eintercidades',['~Intercidades',['../class_intercidades.html#a1eaccf5b9d9b3d984bcc81bdf49088c5',1,'Intercidades']]],
   ['_7eoficina',['~Oficina',['../class_oficina.html#a34125758ffc92b87f19e21d24cb92c60',1,'Oficina']]],
   ['_7eparagem',['~Paragem',['../class_paragem.html#a13bc88da42f3f6d1c6dda5c23661bd26',1,'Paragem']]],
-  ['_7eregisto',['~Registo',['../class_registo.html#a20a6c1ddbdd30219a4bf3c9252376bea',1,'Registo']]]
+  ['_7eregisto',['~Registo',['../class_registo.html#a20a6c1ddbdd30219a4bf3c9252376bea',1,'Registo']]],
+  ['_7eviagem',['~Viagem',['../class_viagem.html#a9d437624e3b1ed6c61e9ba875dec4c40',1,'Viagem']]]
 ];
