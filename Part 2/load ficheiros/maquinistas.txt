@@ -2,4 +2,5 @@
 1 Lisboa Porto 300 2 100 0 09-01-2019
 20:00
 0 66 Rui  Moreira
-0 
+0 1 Paulo Jorge
+0

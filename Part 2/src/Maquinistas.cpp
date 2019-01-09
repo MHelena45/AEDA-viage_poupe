@@ -253,7 +253,7 @@ unsigned int Maquinistas::numeroDeMaquinistas() {
 }
 
 void Maquinistas::showMaquinistas() {
-	cout << "ESTADO" << setw(10) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
+	cout << endl << "ESTADO" << setw(10) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
 	for (auto it : this->maquinistas) {
 		if (it.getAtivo()) {
 			cout << "Ativo" << setw(11) << it.getId() << setw(15) << it.getNome() << setw(15) << it.getApelido() << endl;
@@ -266,18 +266,18 @@ void Maquinistas::showMaquinistas() {
 
 void Maquinistas::showMaquinistaseViagens() {
 	vector <Viagem *> via;
-	cout << "ESTADO" << setw(10) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
+	cout << endl << "ESTADO" << setw(10) << "ID" << setw(15) << "Nome" << setw(15) << "Apelidos" << endl;
 	for (auto it : this->maquinistas  ) {
 		if (it.getAtivo()) {
 			cout << "Ativo" << setw(11) << it.getId() << setw(15) << it.getNome() << setw(15) << it.getApelido() << endl;
 		}
 		else {
-			cout << "Reformado" << setw(8)<<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl << endl;
+			cout << "Reformado" << setw(7)<<  it.getId() << setw(15) << it.getNome()<< setw(15) << it.getApelido() << endl << endl;
 		}
 		via = it.getViagens();
 		if (via.size()){
 			cout << endl;
-			cout << left << setw(10) << "Origem" << setw(10) << "Destino" << setw(15)
+			cout << "Origem" << setw(10) << "Destino" << setw(15)
 				<< "Distancia(KM)" << setw(9) << "Comboio" << setw(13) << "Data"
 				<< setw(8) << "Hora" << setw(16) << "Preco base(€)" << setw(7) << "Vagas" << "\n";
 			for (unsigned int i = 0; i < via.size(); i++) {
