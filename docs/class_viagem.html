@@ -81,11 +81,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9a7358ad0940caaaa482a6f99bb6ce3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#a9a7358ad0940caaaa482a6f99bb6ce3f">Viagem</a> (std::string ori, std::string dest, double dist, <a class="el" href="class_comboio.html">Comboio</a> *c, <a class="el" href="class_datas.html">Datas</a> dp, <a class="el" href="class_horas.html">Horas</a> hp, int vagas, int comprasAnon)</td></tr>
 <tr class="memdesc:a9a7358ad0940caaaa482a6f99bb6ce3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construtor de viagem para quando e carregada de um ficheiro para um objecto de compra.  <a href="#a9a7358ad0940caaaa482a6f99bb6ce3f">More...</a><br /></td></tr>
 <tr class="separator:a9a7358ad0940caaaa482a6f99bb6ce3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d437624e3b1ed6c61e9ba875dec4c40"><td class="memItemLeft" align="right" valign="top"><a id="a9d437624e3b1ed6c61e9ba875dec4c40"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#a9d437624e3b1ed6c61e9ba875dec4c40">~Viagem</a> ()</td></tr>
-<tr class="memdesc:a9d437624e3b1ed6c61e9ba875dec4c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destrutor <br />
+<tr class="memitem:a8365627538fccb29e47b7c99bd9f103b"><td class="memItemLeft" align="right" valign="top"><a id="a8365627538fccb29e47b7c99bd9f103b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#a8365627538fccb29e47b7c99bd9f103b">Viagem</a> (std::list&lt; <a class="el" href="class_paragem.html">Paragem</a> &gt; lin, double dist, <a class="el" href="class_comboio.html">Comboio</a> *c, <a class="el" href="class_datas.html">Datas</a> dp, <a class="el" href="class_horas.html">Horas</a> hp, int vagas, int comprasAnon)</td></tr>
+<tr class="memdesc:a8365627538fccb29e47b7c99bd9f103b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destrutor <br />
 Destroi os objectos <a class="el" href="class_datas.html">Datas</a> e <a class="el" href="class_horas.html">Horas</a> com o tempo da partida da viagem. <br /></td></tr>
-<tr class="separator:a9d437624e3b1ed6c61e9ba875dec4c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a8365627538fccb29e47b7c99bd9f103b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14a0ecbcd065ef44f5b096080b67565f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_datas.html">Datas</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#a14a0ecbcd065ef44f5b096080b67565f">getDataPartida</a> () const</td></tr>
 <tr class="separator:a14a0ecbcd065ef44f5b096080b67565f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ac000a4e511031beaaeab54f76afa77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_horas.html">Horas</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#a2ac000a4e511031beaaeab54f76afa77">getHorasPartida</a> () const</td></tr>
@@ -106,6 +106,8 @@ Destroi os objectos <a class="el" href="class_datas.html">Datas</a> e <a class="
 <tr class="separator:a14f93715833fc72861183efb1be6c7d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76d1a79303c2549d25d4d262fea788f3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#a76d1a79303c2549d25d4d262fea788f3">getInfo</a> () const</td></tr>
 <tr class="separator:a76d1a79303c2549d25d4d262fea788f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd3e248d8a2ceae8b01982055f8e292"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_paragem.html">Paragem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#a3cd3e248d8a2ceae8b01982055f8e292">getParagens</a> () const</td></tr>
+<tr class="separator:a3cd3e248d8a2ceae8b01982055f8e292"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c535b4aecab97fdaa1e9abebd2c9cce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#a2c535b4aecab97fdaa1e9abebd2c9cce">reservaBilhete</a> (bool reg)</td></tr>
 <tr class="separator:a2c535b4aecab97fdaa1e9abebd2c9cce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6495197449c0030f81d434c60f2cf7c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viagem.html#af6495197449c0030f81d434c60f2cf7c">devolveBilhete</a> (bool reg)</td></tr>
@@ -509,6 +511,24 @@ Esta Classe cria uma viagem e controla as vagas de essa viagem </p>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Origem da viagem </dd></dl>
+
+</div>
+</div>
+<a id="a3cd3e248d8a2ceae8b01982055f8e292"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cd3e248d8a2ceae8b01982055f8e292">&#9670;&nbsp;</a></span>getParagens()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list&lt; <a class="el" href="class_paragem.html">Paragem</a> &gt; Viagem::getParagens </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_paragens.html">Paragens</a> da linha </dd></dl>
 
 </div>
 </div>

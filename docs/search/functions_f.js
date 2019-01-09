@@ -10,6 +10,7 @@ var searchData=
   ['saveviagens',['saveViagens',['../class_bilheteira.html#a44ffd7c287ab62ec2fd33c630d600637',1,'Bilheteira']]],
   ['setavaria',['setAvaria',['../class_comboio.html#a2a24e68af325e74f4c16bac6ae510ee9',1,'Comboio']]],
   ['setavariado',['setAvariado',['../class_comboio.html#ae5732c36b9525222f026dd46621e653d',1,'Comboio']]],
+  ['setdataavaria',['setDataAvaria',['../class_comboio.html#a42df66674d4336165d9ba3fa5e84a202',1,'Comboio']]],
   ['setdesconto',['setDesconto',['../class_cartao.html#a1ae68728072cef7f56d78ca1cf970441',1,'Cartao']]],
   ['setdisponibilidade',['setDisponibilidade',['../class_oficina.html#a853322edad9321981638c070a8170298',1,'Oficina']]],
   ['setid',['setId',['../class_base_clientes.html#addf94bea5b7b66371ff58f34c0655fd7',1,'BaseClientes::setId()'],['../class_comboio.html#afd47c5ab68b63354aa9662d96af156b4',1,'Comboio::setId()']]],

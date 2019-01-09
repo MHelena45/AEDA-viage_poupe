@@ -1388,8 +1388,8 @@ void menuComboios(Frota *f) {
 				return;
 			}
 			string nome, tipo;
-			int lotacao, velocidade;
-			double precoKM;
+			int lotacao = -2, velocidade = -2;
+			double precoKM = -2;
 
 			cout << endl << "Lista de Comboios" << endl << endl;
 			cout << f->getInformacao();

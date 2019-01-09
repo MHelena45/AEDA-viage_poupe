@@ -44,6 +44,7 @@ var searchData=
   ['getoficinas',['getOficinas',['../class_oficinas.html#a35451acbfe85d55cfc770bb2665b6285',1,'Oficinas']]],
   ['getorigem',['getOrigem',['../class_viagem.html#a29e1e3d75c72efdd7015ab6b6acdd27d',1,'Viagem']]],
   ['getparagem',['getParagem',['../class_paragens.html#a48ac5af52dc62ca6add9f990776000f4',1,'Paragens']]],
+  ['getparagens',['getParagens',['../class_viagem.html#a3cd3e248d8a2ceae8b01982055f8e292',1,'Viagem']]],
   ['getpreco',['getPreco',['../class_cartao.html#a3b2aebc6843c561c862f2efe7ff02115',1,'Cartao']]],
   ['getprecobase',['getPrecoBase',['../class_viagem.html#a1c48a997c99f6f79b3cd1bd3b54201db',1,'Viagem']]],
   ['getprecofinal',['getPrecoFinal',['../class_compra.html#ab85386da013032f3ca58d10e1ee21c68',1,'Compra::getPrecoFinal()'],['../class_viagem.html#a56906ab716786991e083519dbb983852',1,'Viagem::getPrecoFinal()'],['../class_viagem.html#a20bb9428c01d01529a1c39ad5d6d21bb',1,'Viagem::getPrecoFinal(Cartao *c)']]],
