@@ -250,7 +250,7 @@ void Bilheteira::saveViagens(Paragens *p) {
 	for (unsigned int i = 0; i < viagens.size(); i++) {
 		mfile << "Viagem" << endl << viagens.at(i)->getOrigem() << endl
 			<< viagens.at(i)->getDestino() << endl << viagens.at(i)->getDistancia()
-			<< endl << viagens.at(i)->getComboio()->getId() << endl << viagens.at(i)->getDataPartida()
+			<< endl << viagens.at(i)->getComboio()->getId() - 1 << endl << viagens.at(i)->getDataPartida()
 			<< endl << viagens.at(i)->getHorasPartida() << endl << viagens.at(i)->getVagas()
 			<< endl << viagens.at(i)->getComprasAnonimas() << endl;
 	}

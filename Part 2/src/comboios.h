@@ -104,8 +104,13 @@ public:
 	void setUltimaParagem(Paragem &p1);
 	/**
 	 * @param oficinas oficinas disponiveis
+	 * @param distmaxima distancia maxima do comboio
 	 */
 	void setAvaria(std::priority_queue<Oficina *> oficinas, double distmaxima);
+	/**
+	 * @param dataav Data da avaria
+	 */
+	void setDataAvaria(double dataav);
 	/**
 	 * @param p1 Atribuir uma oficina
 	 */
@@ -209,7 +214,7 @@ public:
 	/**
 	 * @brief Abre "comboios.txt" e adiciona os comboios a frota
 	 */
-	void loadComboios();
+	void loadComboios(Oficinas *o);
 	/**
 	 * @brief Guarda os comboios da frota em "comboios.txt"
 	 */

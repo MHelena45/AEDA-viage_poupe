@@ -96,14 +96,18 @@ void Paragens::printParagens() const{
 
 void Paragens::printParagensBST() const
 {
-     BSTItrIn<Paragem> it(paragensbst);
-	 int x=0;
-     while (!it.isAtEnd())
-     {
-		x++;
-        cout << x << " - " <<it.retrieve().getNumClientes() << " - " << it.retrieve().getNome() << endl;
-    	it.advance();
-     }
+	if (emptyParagens())
+	 	cout << endl << "Nao ha paragens."<< endl;
+	else{
+		cout << endl << "Lista de paragens ordenadas pela BST:" << endl;
+		BSTItrIn<Paragem> it(paragensbst);
+		int x=0;
+     	while (!it.isAtEnd()){
+			x++;
+			cout << setw(2) << x << " - " <<it.retrieve().getNumClientes() << " - " << it.retrieve().getNome() << endl;
+			it.advance();
+		}
+	}
 }
 
 bool Paragens::emptyParagens() const{

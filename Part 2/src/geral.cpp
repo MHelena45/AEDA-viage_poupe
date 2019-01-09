@@ -118,30 +118,36 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f, Paragens *p) {
 	string origem, destino, datavgm, horavgm;
 	double distancia = -2;
 	int id_comboio = -2;
-	int par;
+	int numPar = 0;
 	cout << endl << "---Criacao de viagem---" << endl;
-	cout << endl << "Origem:";
 	p->printParagens();
-	cout << endl << "Escolha a paragem de origem:";
-	par = userIntInput();
-	origem = p->getParagem(par)->getNome();
-	cout << endl << endl << "Destino:";
-	p->printParagens();
-	cout << endl << "Escolha a paragem de destino:";
-	par = userIntInput();
-	destino = p->getParagem(par)->getNome();
+	cout << endl << "Escolha o numero de paragens:";
+	numPar = userIntInput();
 	cout << endl;
-	while (distancia < 0) {
-		cout << "Insira a distancia da viagem (-1 para cancelar): ";
-		distancia = userDoubleInput();
-		cout << endl;
-
-		if (distancia == -1)
-			return NULL;
-
-		if (distancia < -1 && distancia != -200)
-			cout << "Erro: Distancia invalida, apenas sao aceites numeros positivos" << endl;
+	if (numPar < 0 || numPar >= p->sizeParagens()){
+		cout << "Valor errado!" << endl;
+		return NULL;
 	}
+	list <Paragem> linha;
+
+	for (int i = 1; i <= numPar; i++){
+		int par;
+		cout << "Insira as paragens escolhidas, paragem (" << i << "):";
+		cin >> par;
+
+		if (par < 0 || par >= p->sizeParagens()){
+			cout << "Paragem nao existe!" << endl;
+			return NULL;
+		}
+
+		linha.push_back (*p->getParagem(par));
+
+	}
+
+	origem = linha.front().getNome();
+
+	destino = linha.back().getNome();
+	distancia = linha.front().distancia(linha.back().getLatitude(), linha.back().getLongitude());
 
 	// DATA DA VIAGEM
 
@@ -202,7 +208,7 @@ Viagem*  adicionaViagem(Bilheteira *b, Frota *f, Paragens *p) {
 
 	Comboio *c = f->getComboio(id_comboio);
 
-	Viagem *v = new Viagem(origem, destino, distancia, c, dvgm, hvgm);
+	Viagem *v = new Viagem(linha, distancia, c, dvgm, hvgm, c->getLotacao(), 0);
 	return v;
 }
 
@@ -737,7 +743,7 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				cout << " 1 - Carregar Dados" << endl;
 				cout << " 2 - Comboios" << endl;
 				cout << " 3 - Cartoes" << endl;
-				cout << " 4 - Viagens" << endl;
+				cout << " 4 - Adicionar Viagens" << endl;
 				cout << " 5 - Maquinistas" << endl;
 				cout << " 6 - Paragens" << endl;
 				cout << " 7 - Oficinas" << endl;
@@ -764,18 +770,19 @@ void menuAdministracao (BaseClientes *r, Frota *f, Bilheteira *b, Maquinistas *M
 				return;
 			}
 			case 1:{
-				p->loadParagens();
-				cout << "load paragens " << endl;
-				f->loadComboios();
+
+				o->loadOficinas();
+				cout << "load oficinas " << endl;
+				f->loadComboios(o);
 				cout << "load comboios " << endl;
 				r->loadCartoes();
 				cout << "load Cartoes " << endl;
+				p->loadParagens();
+				cout << "load paragens " << endl;
 				b->loadViagens(p);
 				cout << "load Viagens " << endl;		
 				r->loadRegistos();
 				cout << "load registos " << endl;
-				o->loadOficinas();
-				cout << "load oficinas " << endl;
 				
 				M->loadMaquinistas(f, "maquinistas.txt");
 				cout << "load maquinistas " << endl;

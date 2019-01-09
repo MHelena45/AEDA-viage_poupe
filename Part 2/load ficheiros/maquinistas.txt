@@ -1,10 +1,5 @@
+1 45 Teles Silva
+1 Lisboa Porto 300 2 100 0 09-01-2019
+20:00
 0 66 Rui  Moreira
-0 1 45 Teles  Silva
-0 0 77 Tiago  Souto
-0 1 33 Joao  Duarte
-2 Lisboa Porto 300 2 50 0 12-05-2020
-12:03
-Porto Coimbra 130 2 30 5 12-06-2020
-13:40
-1 1 Rui  Ferreira
 0 

@@ -86,6 +86,8 @@ void Comboio::setAvaria(priority_queue<Oficina *> oficinas, double distmaxima){
 
 }
 
+void Comboio::setDataAvaria(double dataav){this->dataUltimaAvaria = dataav;}
+
 void Comboio::setOficina(Oficina *o1) { ofic = o1; };
 
 void Comboio::setAvariado(bool avariado) { this->avariado = avariado; }
@@ -171,7 +173,7 @@ void Frota::adicionaComboio(Comboio *c1) {
 	c1->setId(comboios.size());
 }
 
-void Frota::loadComboios(){
+void Frota::loadComboios(Oficinas *o){
 
 
 	ifstream mfile;
@@ -185,6 +187,7 @@ void Frota::loadComboios(){
 		int velocidade;
 		double precoKM;
 		Comboio *c1;
+		bool avaria;
 
 		mfile >> nome;
 		if (nome == "")
@@ -197,10 +200,29 @@ void Frota::loadComboios(){
 		mfile >> velocidade;
 		mfile.ignore(1);
 		mfile >> precoKM;
+		mfile.ignore(1);
+		mfile >> avaria;
+
 
 		if (tipo == "IC" || tipo == "ic" || tipo == "Ic" || tipo == "iC")
 			c1 = new Intercidades (lotacao, velocidade, precoKM, nome);
 		else c1 = new AlfaPendular (lotacao, velocidade, precoKM, nome);
+
+		if (avaria){
+			string ofinome;
+			double dataavaria;
+			mfile.ignore(1);
+			mfile >> dataavaria;
+			mfile.ignore(1);
+			mfile >> ofinome;
+
+			c1->setAvariado(true);
+			Oficina *temp = o->findOficina(ofinome);
+			c1->setOficina(temp);
+			c1->setDataAvaria(dataavaria);
+		}
+
+
 
 		adicionaComboio(c1);
 	}
@@ -214,8 +236,13 @@ void Frota::saveComboios() const{
 
 	for (unsigned int i= 0; i < comboios.size(); i++){
 		mfile << comboios.at(i)->getNome() << " " << comboios.at(i)->getLotacao() <<" " << comboios.at(i)->getTipo();
-		mfile << " " << comboios.at(i)->getVelocidade() << " " << comboios.at(i)->getPrecoKM() << " " <<comboios.at(i)->getAvariado()
-			 << " "	<< comboios.at(i)->getOficina()->getNome() << endl;
+		mfile << " " << comboios.at(i)->getVelocidade() << " " << comboios.at(i)->getPrecoKM() << " " <<comboios.at(i)->getAvariado();
+		if (comboios.at(i)->getAvariado())
+			mfile << " " << comboios.at(i)->getDataUltimaAvaria() << " " << comboios.at(i)->getOficina()->getNome() << endl;
+		else mfile << endl;
+
+
+
 	}
 
 	mfile.close();

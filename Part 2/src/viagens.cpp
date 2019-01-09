@@ -52,6 +52,19 @@ Viagem::Viagem(std::string ori, std::string dest, Datas dp, Horas hp, double pre
 	c1 = temp;
 }
 
+Viagem::Viagem(std::list <Paragem> lin,double dist , Comboio *c, Datas dp, Horas hp, int vagas, int comprasAnon){
+	linha = lin;
+	c1 = c;
+	dPartida = dp;
+	hPartida = hp;
+	this->vagas = vagas;
+	comprasAnonimas = comprasAnon;
+	origem = lin.front().getNome();
+	destino = lin.back().getNome();
+	distancia = dist;
+	precoBase = c1->getPrecoKM() * distancia;
+}
+
 //Destructor
 
 Viagem::~Viagem(){
@@ -86,6 +99,8 @@ std::string Viagem::getInfo() const{
 			<< setw(16) << precoBase  <<  setfill(' ') << setw(5) << vagas << " \n";
 	return ss.str();
 }
+
+list<Paragem> Viagem::getParagens() const{ return linha;}
 
 //Outros
 

@@ -4,7 +4,8 @@
 #include "comboios.h"
 #include "cartao.h"
 #include "datashoras.h"
-
+#include <list>
+#include "locais.h"
 
 /**
  * CLASS Viagem\n
@@ -12,6 +13,8 @@
  *
  */
 class Viagem{
+
+	std::list <Paragem> linha;
 	std::string origem, destino;
 	double distancia;
 	Comboio *c1;
@@ -56,6 +59,8 @@ public:
 	 * @brief Destrutor \n
 	 * Destroi os objectos Datas e Horas com o tempo da partida da viagem
 	 */
+
+	Viagem(std::list <Paragem> lin, double dist , Comboio *c, Datas dp, Horas hp, int vagas, int comprasAnon);
 	~Viagem();
 
 	/**
@@ -98,7 +103,10 @@ public:
 	 * @return Informacao sobre a viagem
 	 */
 	std::string getInfo() const;
-
+	/**
+	 * @return Paragens da linha
+	 */
+	list<Paragem> getParagens() const;
 	/**
 	 * @param reg Indica se o cliente tem cartao ou nao
 	 * @return 1 Se ja nao da para reservar mais bilhetes
